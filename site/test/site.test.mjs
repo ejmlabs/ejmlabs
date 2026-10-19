@@ -5,14 +5,14 @@ import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// The rules live in the kit. This site's tests run the kit's own checkers on its page and on the kit.
+// Use Studio's check entry for retained-kit consistency and the kit's page checks.
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const kit = join(site, '..', 'design-kit');
 const dist = join(site, 'dist');
 const run = (script, args = []) => execFileSync('node', [join(kit, 'scripts', script), ...args], { stdio: 'pipe', encoding: 'utf8' });
 
 before(() => {
-  run('check-kit.mjs');
+  execFileSync('node', [join(site, '..', 'scripts', 'check.mjs')], { stdio: 'pipe', encoding: 'utf8' });
   execFileSync('node', [join(site, 'scripts', 'build.mjs')], { stdio: 'pipe' });
 });
 

@@ -17,7 +17,7 @@ Node.js 24 LTS and npm. Python 3 is useful for the local static preview. The des
 ```sh
 git clone https://github.com/ejmlabs/ejmlabs.git
 cd ejmlabs
-node design-kit/scripts/check-kit.mjs
+node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
 npm --prefix site run preview
@@ -34,12 +34,12 @@ Start with [the studio site guide](site/README.md). This checkout still builds t
 ```sh
 node design-kit/scripts/build-ui.mjs
 node design-kit/scripts/build-ui.mjs --check
-node design-kit/scripts/check-kit.mjs
+node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
 ```
 
-Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets and their source definitions consistent. Human admission controls CI and AI runs; see the contributor guide. A successful local build does not deploy the site.
+Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets and their source definitions consistent. The Studio-owned check entry temporarily calls the retained kit checker; see [local checks](CONTRIBUTING.md#local-checks) for its migration boundary. Human admission controls CI and AI runs; see the contributor guide. A successful local build does not deploy the site.
 
 ## Source ownership
 

@@ -2,6 +2,30 @@
 
 Start with the [README](README.md) and [development guide](site/README.md). Use small PRs, clear titles, and tests for changed behavior. Follow the existing formatting, architecture, and accessibility rules. If `openspec/` exists, plan and apply feature or bug fixes through OpenSpec, then sync and archive completed changes.
 
+## Local checks
+
+From the repository root, run:
+
+```sh
+node scripts/check.mjs
+npm --prefix site test
+npm --prefix site run build
+```
+
+[The Studio entry](scripts/check.mjs) temporarily imports the retained kit
+checker. It preserves that checker's output and failure status. The site tests
+use the same entry; the build keeps its existing generation and copy steps.
+
+The compatibility gap is pending public `ejm-ui` adoption and the shared
+governance command's direct use of the legacy checker path. `ejm-ui` owns shared
+tokens and site checks, `ejmlabs/.github` owns the shared governance command, and
+Studio owns this entry and its assembly checks. Keep `node scripts/check.mjs`
+when switching it to pinned public owner exports and Studio assembly checks.
+Remove its legacy import and the kit checker only after a clean checkout
+resolves those exports, owner and Studio checks pass, and no kit dependency
+remains. The [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md#studio-check-entry-precursor)
+records this boundary. This precursor changes no workflow or deployed site.
+
 ## Human admission and review
 
 Opening or updating a PR does not authorize CI or AI spending. A current human maintainer with GitHub **maintain** or **admin** permission posts `/ready FULL_HEAD_SHA` as a standalone PR comment after checking the scope and proposed workflow changes. Use the full current 40-character commit SHA. Draft PRs cannot be admitted. A new commit needs a new decision. Check limits and run time are bounded; repeated events do not authorize another review.

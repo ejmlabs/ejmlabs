@@ -67,6 +67,37 @@ sources, deploy, or claim browser or hosted acceptance.
 Revert this phase's commit and rebuild to restore its prior source output. A
 live rollback still requires the normal publication decision and verification.
 
+## Studio check entry precursor
+
+Studio owns the local `node scripts/check.mjs` entry. Until public owner
+adoption, it imports the retained `design-kit/scripts/check-kit.mjs` without
+copying or changing that implementation. Existing local commands and the site
+test hook use the entry. The build keeps its existing generation and copy steps.
+
+The compatibility gap is that shared governance still invokes the legacy kit
+path, while Studio has not adopted a pinned public `ejm-ui` check contract.
+`ejm-ui` owns shared tokens and site checks; `ejmlabs/.github` owns the shared
+governance command; Studio owns the consumer entry and its assembly checks.
+The shared command can adopt the Studio entry in a later reviewed change.
+Dependency direction stays from Studio to the public UI owner.
+
+Keep the entry when replacing its temporary import with public owner checks and
+Studio assembly checks. Remove the legacy fallback and checker only after
+pinned public exports resolve in a clean checkout and pass owner and consumer
+checks, with no remaining kit dependency. Verify the bridge against the existing
+site tests and exact before/after output bytes and modes. No source adoption,
+workflow change, hosted acceptance, or publication is part of this precursor.
+
+The local precursor passes all three existing site tests under Node 24.19.0.
+Direct and entry commands produce the same output and exit status for both a
+successful check and a temporary invalid-class probe, restored after the check.
+Before/after builds emit the same 238 paths and 9,535,524 bytes; every output
+file preserves its bytes and mode. All 236 retained kit source paths and 41
+workflow paths keep their Git blobs and modes. The affected guides and plan
+pass 30 local Markdown link checks, including three heading anchors, strict
+OpenSpec validation, whitespace checks, and the cumulative PR bounds. Browser,
+hosted reviews, and deployment remain unrun for this precursor.
+
 ## Earlier Verification
 
 The docs phase checked 17 distinct local link targets, strict OpenSpec, and
