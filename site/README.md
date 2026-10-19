@@ -12,7 +12,9 @@ npm run preview
 
 Open [the site](http://127.0.0.1:4827/). The brand kit is at `/design-kit/` and the application kit at `/design-kit/ui/`. Kit ZIP downloads, X kit pages, and the swag gallery are retired.
 
-There are no dependencies to install. `npm run build` needs Node.
+There are no site dependencies to install. `npm run build` needs Node. Shared
+CI also installs the separately pinned public UI workspace with lifecycle
+scripts disabled; these local commands still use the retained kit.
 
 ## Files
 
@@ -27,7 +29,7 @@ There are no dependencies to install. `npm run build` needs Node.
 
 `ejm-ui` owns active UI tokens, reusable components, and shared site infrastructure. Studio owns this page's content, discovery, brand guidance, and download assembly. Make shared changes in the owner and adopt its public `@ejm/*` exports here.
 
-The current build still reads `../design-kit/`, including its CSS, theme source, scripts, fonts, icons, motifs, and headers. Keep those live files until a pinned public owner assembly and Studio adoption replace them. Both X kit copies and the swag files are removed. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
+The current build still reads `../design-kit/`, including its CSS, theme source, scripts, fonts, icons, motifs, and headers. Keep those live files until verified public owner assembly and Studio adoption replace them. Both X kit copies and the swag files are removed. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
 
 ## Checks
 
@@ -43,7 +45,35 @@ The Studio-owned `node ../scripts/check.mjs` entry temporarily calls the retaine
 
 ## Shared workflow updates
 
-Keep reusable workflow callers pinned to full 40-character commit SHAs. Before changing a caller, retain that exact implementation commit in `ejmlabs/.github` under `workflow-pins/FULL_SHA`. Verify that the shared repository's rules block updates and deletion of that reference with no bypass actors. Follow the [shared rollout runbook](https://github.com/ejmlabs/.github/blob/ad29c94d9be09ddd4b18d037657f088eeafc26e8/docs/operations.md#bootstrap-and-rollout).
+The PR caller, draft-release caller, and release `standards-ref` pin shared
+`6717b433c462e01abaed86e2118e4843827598cb`. They rotate together from
+`aa4144fa978d711a5e009b384718b4cf27cf87bf`. The canonical old/new source pair
+and its blob/hash manifest are [static review data](../.github/review-context/manifest.json),
+not executable project inputs. Builds and checks must never import them.
+
+[The UI source manifest](../.github/ui-source.json) fixes repository
+`ejmlabs/ejm-ui` at public commit
+`7cf86428d0266297901ee52d0e137df100f8c23d`. Trusted preparation reads this pin
+from protected base, validates proposed metadata separately, and hands the
+exact UI archive and context to credential-free jobs. When that archive exists,
+Quality runs `npm --prefix ../ejm-ui ci --ignore-scripts` before the Studio
+entry, site tests, and site build. No private source token is needed.
+
+The installation PR runs the previous protected caller and cannot prove its
+proposed workflow or UI revision executed. After merge, require a fresh admitted
+PR to verify the installed caller, selected UI source/archive identity, both
+complete AI reviews, and all protected checks. Keep every runtime file and all
+six live font files through this installation. Later full-font adoption must
+use `@ejm/tokens/assets/fonts/*` from the pinned public owner source, retain the
+existing `/design-kit/fonts/*` URLs and notice bytes, and pass owner and Studio
+checks. The separate `@ejm/ui/fonts/*` exports are smaller subset fonts.
+
+For each caller update, retain the exact implementation in `ejmlabs/.github`
+under `workflow-pins/FULL_SHA`, verify update/deletion protection with no bypass
+actors, and replace the bounded canonical review pair in the same PR. Follow
+the [shared source contract](https://github.com/ejmlabs/.github/blob/6717b433c462e01abaed86e2118e4843827598cb/docs/operations.md#public-ui-source-assembly)
+and [rollout runbook](https://github.com/ejmlabs/.github/blob/6717b433c462e01abaed86e2118e4843827598cb/docs/operations.md#bootstrap-and-rollout).
+Local source checks establish no hosted execution or site publication.
 
 ## Cloudflare hosting
 

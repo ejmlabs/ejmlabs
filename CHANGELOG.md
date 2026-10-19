@@ -7,12 +7,14 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 ### Added
 
 - Shared repository standards, explicit human admission, protected merge gates, two-pass Codex review, and a draft source release pipeline.
+- Pinned public UI source metadata for trusted shared preparation, retaining all runtime assets and fonts until fresh installed-pipeline verification and owner adoption.
 
 ### Changed
 
 - Correct Studio source guidance and record shared `ejm-ui` ownership and the remaining live kit migration.
 - Check generated site output for working links, retained assets and notices, response headers, and absent retired resources.
 - Route local consistency commands and site tests through Studio-owned `scripts/check.mjs`, retaining the existing kit checker until public UI adoption.
+- Couple PR and draft-release callers to reviewed shared `6717b433c462e01abaed86e2118e4843827598cb`, with exact old/new static source context and current source-admission guidance.
 
 ### Removed
 
