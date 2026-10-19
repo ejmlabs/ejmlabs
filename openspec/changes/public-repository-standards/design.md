@@ -65,9 +65,10 @@ Its trusted default caller came from
 summaries reported incomplete reviews because the archive lacked the old and
 new shared workflow implementations. The old validator accepted those outputs,
 so their success statuses do not establish complete AI acceptance. The PR was
-converted to draft and remains unmerged. Existing human comments are preserved.
+converted to draft before the source-context repair below. Its original human
+comments were preserved and did not admit the changed head.
 
-Both normal callers in this unmerged repair select retained shared revision
+Both normal callers in the merged repair select retained shared revision
 `aa4144fa978d711a5e009b384718b4cf27cf87bf`. The shared schema requires
 a boolean `complete`; it permits `false` so a reviewer can report a limit. The
 trusted validator accepts only `complete: true` and rejects a missing, false, or
@@ -103,7 +104,38 @@ totaling 582,279 bytes. Canonical blob and manifest equality, inert file modes,
 normal template and community standards, alternate-route rejection, actionlint,
 strict OpenSpec, whitespace, and projected admission bounds passed. No native
 or full product gate was repeated for these workflow and review-data changes.
-The replacement guard has not executed through this product's default caller,
-and no new CI or model run was started. The changed head still needs fresh human
-readiness and approval and complete hosted reviews under task 3.2. Do not sync,
-archive, or declare public readiness yet.
+Preparation started no CI or model run. The later owner-admitted evidence below
+does not close task 3.2. Do not sync, archive, or declare public readiness yet.
+
+## Installed completion guard acceptance
+
+Preparation snapshot on 2026-10-19, before this follow-up was admitted.
+
+[Studio PR #3](https://github.com/ejmlabs/ejmlabs/pull/3) at repaired head
+`fdfbf0203d348e37750bc14eae12cd4d3d434b08` received fresh human
+[readiness](https://github.com/ejmlabs/ejmlabs/pull/3#issuecomment-6269402303)
+and separate [approval](https://github.com/ejmlabs/ejmlabs/pull/3#issuecomment-6269427080).
+[Run 39267660933](https://github.com/ejmlabs/ejmlabs/actions/runs/39267660933)
+passed all five required checks. Both actual `gpt-6.1-sol` medium passes
+explicitly completed the scoped review, including both supplied workflow
+implementations, with no findings. Their artifact digests were verified.
+
+The PR merged normally, without an exception, as
+`a1b3fa068b7147410d0f72217d522b47ecd36759`. The merged tree
+`acc81ea509770f973c083b27cc35b16d300c3079` equals the reviewed tree. Current
+human decisions and native approval were verified before merging, and full
+branch protection was unchanged afterward.
+
+That run still used the trusted base caller at shared revision
+`5fae851502c2e3c31d4df9a44f8d56c2cb49e098`. The merge installed
+`aa4144fa978d711a5e009b384718b4cf27cf87bf` on studio main; it did not execute
+that revision's completion guard. A new source head needs fresh human readiness
+and separate approval, two actual complete medium reviews whose results contain
+`complete: true`, and all five required checks through the installed caller.
+This documentation change prepares that acceptance run without changing the
+caller, static source context, or product behavior. It starts no CI or model run.
+
+These notes have no public site content or runtime API impact. No site publication
+is claimed. Keep provider spending caps and GitHub budgets, genuine outsider,
+bot and nonmaintainer tests, IDE limits, and the separately authorized first
+release and existing-tag refusal acceptance open. Task 3.2 remains unchecked.
