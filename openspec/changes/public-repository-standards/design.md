@@ -24,7 +24,7 @@ At the start of this audit, the projects were private and main had no branch pro
 
 - Shared workflow changes affect several products. Immutable caller pins and reviewed update PRs bound rollout.
 - Human readiness costs a small metadata action and can delay outside contributions. The expensive checks remain unavailable until deliberate admission.
-- CLI and IDE quality checks remain blocked until the harness is public. The owner chose not to provision a private cross-repository token. After the harness fixes merge, update both hosts to that reviewed commit and rerun their required gates.
+- CLI and IDE consume pinned sibling harness revisions. The 2026-10-18 plan recorded the owner's decision to wait for a public harness and use no private cross-repository token. IDE hosted checks remain blocked under that policy. CLI's current dependency access belongs to its separate credential task. This refresh changes no consumer harness pin or credential and grants no dependency access. Later pin updates need review and hosted acceptance through the owning task.
 - API review needs a scoped OPENAI_API_KEY and provider budget settings. Setup does not prove a successful paid review.
 - Local disk space is constrained. Coordinate Cargo checks, use focused existing caches, and report missing full platform evidence honestly.
 - Source and history scans reduce known risk; partial scan coverage and platform-specific tests remain explicit.
@@ -36,3 +36,19 @@ Create and test the shared repository first. Add pinned consumers and version me
 ## Studio adapter
 
 The studio quality profile runs the design kit freshness checks and site tests/build. Keep brand kit archives generated through the existing build, and do not relicense the studio's visual assets by adding a broad source license.
+
+## Shared workflow refresh
+
+Generate both normal product callers from the reviewed shared revision
+`965cd684713ae91a7804745eddd452cc392af11d`, retained under its protected
+`workflow-pins/965cd684713ae91a7804745eddd452cc392af11d` reference. This adopts
+the shared SemVer prerelease validation and explicit removal of `GITHUB_TOKEN`
+from the Codex reviewer environment. Preserve human admission, maintainer
+approval, all required checks, and two medium Codex passes. The missing-model-key
+test caller remains exclusive to the shared standards repository.
+
+This change updates workflow metadata and its verification record. It changes no
+studio product behavior or public site content. Check the exact pinned standards
+and community templates, caller syntax, strict OpenSpec validation, and
+whitespace. Product gates and live acceptance are separate evidence; this local
+refresh does not repeat or claim them.
