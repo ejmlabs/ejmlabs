@@ -27,7 +27,7 @@ There are no dependencies to install. `npm run build` needs Node.
 
 `ejm-ui` owns active UI tokens, reusable components, and shared site infrastructure. Studio owns this page's content, discovery, brand guidance, and download assembly. Make shared changes in the owner and adopt its public `@ejm/*` exports here.
 
-The current build still reads `../design-kit/`, including its CSS, theme source, scripts, fonts, icons, motifs, and headers. Keep those live files until a pinned public owner assembly and Studio adoption replace them. Remaining rendered X and swag files are inert source and stay outside the generated site until their separate bounded removals. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
+The current build still reads `../design-kit/`, including its CSS, theme source, scripts, fonts, icons, motifs, and headers. Keep those live files until a pinned public owner assembly and Studio adoption replace them. The root X kit and swag files are removed. The remaining copied X kit under `../design-kit/social/` is inert and stays outside the generated site until its separate bounded removal. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
 
 ## Checks
 
