@@ -1,6 +1,6 @@
 # ejmlabs.com
 
-The studio site. A single page built only from the design kit's site classes, with no CSS of its own. The page is `src/index.html`.
+The studio site. The current single page uses the retained design kit's site classes, with no CSS of its own. The page is `src/index.html`.
 
 ## Local preview
 
@@ -17,15 +17,17 @@ There are no dependencies to install. `npm run build` needs Node and the `zip` c
 ## Files
 
 - `src/index.html` is the page. Edit copy and structure here.
-- `src/_headers` sets Cloudflare response headers. Files revalidate because their names are not versioned.
+- `../design-kit/web/_headers` supplies the emitted Cloudflare response headers, replacing `src/_headers` during the build. Files revalidate because their names are not versioned.
 - `scripts/build.mjs` regenerates the kit's theme files, then assembles `dist/` from `src/`, the whole `../design-kit/` folder and a fresh ZIP.
 - `dist/` is generated. Never edit it.
 - `test/site.test.mjs` guards the rules in `../design-kit/SITES.md`.
 - `wrangler.jsonc` configures Cloudflare Workers static assets, the apex domain, and a separate preview environment.
 
-## Changing the look
+## Shared UI ownership
 
-The look lives in the kit, not here, so every ejmlabs site stays the same. To change a pattern, edit `../design-kit/web/site.css`. To change colors, edit `../design-kit/ui/theme.json`. Then rebuild.
+`ejm-ui` owns active UI tokens, reusable components, and shared site infrastructure. Studio owns this page's content, discovery, brand guidance, and download assembly. Make shared changes in the owner and adopt its public `@ejm/*` exports here.
+
+The current build still reads `../design-kit/`, including its CSS, theme source, headers, and archive inputs. Keep those live files until a pinned public owner assembly and Studio adoption replace them. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
 
 ## Checks
 
