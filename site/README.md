@@ -38,6 +38,10 @@ wrangler deploy --config wrangler.jsonc --env preview --dry-run
 
 The test checks that the generated theme files are current and keep their contrast, that every local link and anchor resolves, that headings are in order with one `h1`, that images have `alt`, that the page loads only the three kit style sheets, and that there are no em dashes. Dry runs check the Worker configuration without uploading files or changing DNS.
 
+## Shared workflow updates
+
+Keep reusable workflow callers pinned to full 40-character commit SHAs. Before changing a caller, retain that exact implementation commit in `ejmlabs/.github` under `workflow-pins/FULL_SHA`. Verify that the shared repository's rules block updates and deletion of that reference with no bypass actors. Follow the [shared rollout runbook](https://github.com/ejmlabs/.github/blob/ad29c94d9be09ddd4b18d037657f088eeafc26e8/docs/operations.md#bootstrap-and-rollout).
+
 ## Cloudflare hosting
 
 The canonical address is [ejmlabs.com](https://ejmlabs.com/). Cloudflare serves the whole site, the kit and the ZIP. The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the existing apex zone is active.
