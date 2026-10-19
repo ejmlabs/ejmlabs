@@ -65,6 +65,9 @@ the [CI guide](site/README.md#shared-workflow-updates) records both exact pins
 and the trusted-base preparation rule. This prerequisite retains every runtime
 file and font. A fresh admitted PR after installation must verify the new
 workflow and exact UI source handoff before owner API adoption or asset removal.
+The separate [UI install review context](review/dependency-sources/ejm-ui/README.md)
+contains exact pinned manifests, the full lockfile, and license for static
+assessment of the initial install. These copies are never build inputs.
 It does not publish a release or deploy the site.
 
 ## Source ownership

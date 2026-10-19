@@ -8,6 +8,7 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 - Shared repository standards, explicit human admission, protected merge gates, two-pass Codex review, and a draft source release pipeline.
 - Pinned public UI source metadata for trusted shared preparation, retaining all runtime assets and fonts until fresh installed-pipeline verification and owner adoption.
+- Exact static UI install manifests, full lockfile, and owner license for initial dependency review before the installed source pin can supply its archive.
 
 ### Changed
 

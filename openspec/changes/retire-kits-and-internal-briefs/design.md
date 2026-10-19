@@ -204,6 +204,55 @@ fresh installed-pin PR remain required. No UI dependency install, owner runtime
 suite, browser review, release, package publication, or deployment
 ran during this local preparation. Keep tasks 3.3 and 4.1 through 4.3 open.
 
+### UI dependency review context repair
+
+Both admitted PR #9 reviews at
+`9766ef87b7ea1d37d29562fa8b49616d6d1a001a` returned `complete:false`, with no
+findings. The old trusted-base packet contained the proposed UI pin but no UI
+archive, manifests, or lockfile. The new mandatory dependency install could not
+be fully assessed. Quality, repository standards, readiness, and maintainer
+approval passed. An incomplete review does not satisfy the AI gate.
+
+Add separate static data under `review/dependency-sources/ejm-ui/`: the exact
+UI root manifest and full lockfile, all ten root workspace manifests, and the
+root license from `7cf86428d0266297901ee52d0e137df100f8c23d`, tree
+`204df7290b5e87c10de65049413474d85c28f8d3`. These 13 owner blobs total 189,724
+bytes. Follow the existing source snapshot manifest contract: repository,
+commit, tree, path, Git mode, blob, size, SHA-256, fixture path, and fixture
+mode. Ordinary nonexecutable copies are review data, never imported, executed,
+or packaged as a shared implementation. Preserve the owner's license scope.
+
+The complete workspace metadata covers `packages/*`, `apps/*`, and `examples/*`.
+Record the verified absence of tracked npm configuration, shrinkwrap, and
+Node-version overrides; do not invent empty files. Record lifecycle hooks in
+the lockfile and the unchanged `npm ci --ignore-scripts` boundary. This is
+static install review context, not a runnable UI checkout or advisory audit.
+
+Keep the fixed shared canonical exporter and its 33-file, 680,257-byte context
+unchanged. Adding the owner metadata there would exceed its 750,000-byte cap.
+Use the existing Git reader and safe static writer for one-off preparation;
+add no permanent exporter, dependency, downloader, or workflow behavior.
+
+Verify all selected bytes, blobs, modes, hashes, workspace coverage, recorded
+configuration absences, retained shared context, callers, pins, and runtime
+inputs. Check affected docs links, strict OpenSpec, whitespace, and cumulative
+PR bounds. Reuse prior site build evidence only after proving every build input
+unchanged; do not claim a new build. Fresh exact-head human acceptance and both
+complete hosted reviews remain required. Task 3.3 and the live kit migration
+stay open. Removing this static context through a reviewed PR reverses the
+repair without changing the installation or site output.
+
+Local repair checks confirm all 13 copies against the exact UI Git blobs and
+retained archive, including source modes, sizes, and SHA-256. The snapshot has
+15 ordinary files and 197,272 bytes including its manifest and guide. Workspace
+coverage, recorded configuration absences, pinned standards, 34 local Markdown
+links with three anchors, strict OpenSpec, whitespace, and cumulative PR bounds
+pass. All 312 earlier source paths outside the seven edited guides and plan
+files retain their Git blobs and modes, including the 33-file shared review
+context, both callers, UI pin, build inputs, and live fonts. The earlier
+238-file build evidence is reused; no new build or UI install ran. A separate
+local review found no concrete gap. Hosted completeness remains unverified.
+
 ## Earlier Verification
 
 The docs phase checked 17 distinct local link targets, strict OpenSpec, and

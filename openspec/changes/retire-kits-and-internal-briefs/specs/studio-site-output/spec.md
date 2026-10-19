@@ -59,3 +59,14 @@ live asset removal.
 - **AND** the current runtime assets, fonts, notices, and output retain their bytes
 - **AND** the guides state that the installation run cannot prove its proposed
   trusted-base dependency and require fresh hosted verification after merge
+
+#### Scenario: The install dependency is absent from the trusted-base packet
+
+- **WHEN** the installation PR cannot supply its proposed UI archive through
+  trusted-base preparation
+- **THEN** it supplies exact static copies of the pinned UI root manifest,
+  full lockfile, all root workspace manifests, and owner license
+- **AND** a manifest binds each ordinary nonexecutable copy to its source
+  repository, commit, tree, Git blob, mode, size, and SHA-256
+- **AND** these copies are never imported, executed, or used as installed code
+- **AND** static review does not replace fresh installed-pin verification

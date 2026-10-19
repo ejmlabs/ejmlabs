@@ -18,6 +18,8 @@ confusion and upkeep while the shared UI owner migration remains open.
   separate bounded removals, outside the generated site.
 - Install reviewed shared workflow callers and a pinned public `ejm-ui` source
   manifest, with the exact old and new workflow sources for static review.
+  Supply the exact UI install manifests, full lockfile, and license as separate
+  static review data until trusted preparation can supply the installed pin.
   Keep all runtime files and fonts through this source admission prerequisite.
 - Leave hosted public source verification, Studio owner adoption, full legacy
   kit retirement, and browser verification open. A fresh admitted PR must verify

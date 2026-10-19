@@ -59,6 +59,14 @@ exact UI archive and context to credential-free jobs. When that archive exists,
 Quality runs `npm --prefix ../ejm-ui ci --ignore-scripts` before the Studio
 entry, site tests, and site build. No private source token is needed.
 
+The installation PR's old trusted-base packet has no UI archive. Separate
+[UI install review context](../review/dependency-sources/ejm-ui/README.md)
+therefore supplies the exact pinned root manifest, full lockfile, all ten
+workspace manifests, and owner license with Git identities and SHA-256 values.
+These ordinary nonexecutable snapshots let reviewers assess the dependency
+install boundary. They are never imported, executed, or packaged as shared
+code. They establish neither an actual install nor a dependency advisory audit.
+
 The installation PR runs the previous protected caller and cannot prove its
 proposed workflow or UI revision executed. After merge, require a fresh admitted
 PR to verify the installed caller, selected UI source/archive identity, both
