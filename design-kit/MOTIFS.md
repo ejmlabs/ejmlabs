@@ -48,7 +48,6 @@ Production SVGs have outlined text. SVGs in `templates/editable/` and `lockups/e
 
 - `ICONS.md` and `icons/`: a small interface icon family.
 - `COMPONENTS.md` and `components/`: opt-in web components and layout recipes.
-- `social/x-kit/`: X profile assets, templates, upload guidance, and draft copy.
 
 No social account has been created or changed. Templates do not make product, release, or customer claims.
 

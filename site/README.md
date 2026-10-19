@@ -10,15 +10,15 @@ npm run build
 npm run preview
 ```
 
-Open [the site](http://127.0.0.1:4827/). The brand kit is at `/design-kit/`, the application kit at `/design-kit/ui/`, and the ZIP at `/ejmlabs-design-kit.zip`.
+Open [the site](http://127.0.0.1:4827/). The brand kit is at `/design-kit/` and the application kit at `/design-kit/ui/`. Kit ZIP downloads, X kit pages, and the swag gallery are retired.
 
-There are no dependencies to install. `npm run build` needs Node and the `zip` command.
+There are no dependencies to install. `npm run build` needs Node.
 
 ## Files
 
 - `src/index.html` is the page. Edit copy and structure here.
 - `../design-kit/web/_headers` supplies the emitted Cloudflare response headers, replacing `src/_headers` during the build. Files revalidate because their names are not versioned.
-- `scripts/build.mjs` regenerates the kit's theme files, then assembles `dist/` from `src/`, the whole `../design-kit/` folder and a fresh ZIP.
+- `scripts/build.mjs` regenerates the kit's theme files, then assembles `dist/` from `src/` and the retained `../design-kit/` paths. It excludes ZIP files, the X kit subtree, and the swag subtree. It creates no archives.
 - `dist/` is generated. Never edit it.
 - `test/site.test.mjs` guards the rules in `../design-kit/SITES.md`.
 - `wrangler.jsonc` configures Cloudflare Workers static assets, the apex domain, and a separate preview environment.
@@ -27,7 +27,7 @@ There are no dependencies to install. `npm run build` needs Node and the `zip` c
 
 `ejm-ui` owns active UI tokens, reusable components, and shared site infrastructure. Studio owns this page's content, discovery, brand guidance, and download assembly. Make shared changes in the owner and adopt its public `@ejm/*` exports here.
 
-The current build still reads `../design-kit/`, including its CSS, theme source, headers, and archive inputs. Keep those live files until a pinned public owner assembly and Studio adoption replace them. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
+The current build still reads `../design-kit/`, including its CSS, theme source, scripts, fonts, icons, motifs, and headers. Keep those live files until a pinned public owner assembly and Studio adoption replace them. Remaining rendered X and swag files are inert source and stay outside the generated site until their separate bounded removals. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the kit directories.
 
 ## Checks
 
@@ -38,7 +38,7 @@ wrangler deploy --config wrangler.jsonc --env "" --dry-run
 wrangler deploy --config wrangler.jsonc --env preview --dry-run
 ```
 
-The test checks that the generated theme files are current and keep their contrast, that every local link and anchor resolves, that headings are in order with one `h1`, that images have `alt`, that the page loads only the three kit style sheets, and that there are no em dashes. Dry runs check the Worker configuration without uploading files or changing DNS.
+The tests first check that the generated theme files are current and keep their contrast. They build the output, check the home page and brand gallery links, anchors, headings, image descriptions, and kit styles, then verify retired paths are absent. They compare copied runtime assets, font notices, and response headers with their source bytes. These local checks do not verify browser rendering or the deployed site. Dry runs check the Worker configuration without uploading files or changing DNS.
 
 ## Shared workflow updates
 
@@ -46,7 +46,7 @@ Keep reusable workflow callers pinned to full 40-character commit SHAs. Before c
 
 ## Cloudflare hosting
 
-The canonical address is [ejmlabs.com](https://ejmlabs.com/). Cloudflare serves the whole site, the kit and the ZIP. The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the existing apex zone is active.
+The canonical address is [ejmlabs.com](https://ejmlabs.com/). The build prepares the site and retained live kit for Cloudflare. It no longer emits kit archives, X kit pages, or swag resources. This local cleanup does not establish their current deployed availability. The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the existing apex zone is active.
 
 Run publishing commands in an interactive terminal with a TTY. Wrangler checks custom-domain conflicts and asks before replacing existing DNS in a TTY. In noninteractive mode it can override those conflicts automatically.
 
@@ -66,4 +66,4 @@ npm run build
 wrangler deploy --config wrangler.jsonc --env ""
 ```
 
-After deployment, check the home page, `/design-kit/`, `/design-kit/ui/`, `/ejmlabs-design-kit.zip` and the response headers over HTTPS.
+After deployment, check the home page, `/design-kit/`, `/design-kit/ui/`, and the response headers over HTTPS. Confirm retired archive, X kit, and swag paths are unavailable. Record browser and publication results separately from local build checks.

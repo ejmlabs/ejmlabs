@@ -2,75 +2,99 @@
 
 ## Context
 
-See [the proposal](proposal.md) for the reason for this change.
-`CLAUDE_REDESIGN_BRIEF.md` names three absent Sun scene modules and says there
-is no OpenSpec directory. No tracked guide links to it. The current static
-site instead uses `site/src/index.html`; its build refreshes, copies, and
-archives `design-kit/`. Tests, response headers, fonts, and published links
-also depend on that retained source.
+See [the proposal](proposal.md) for the scope and reason. The current site is
+`site/src/index.html`. Its build runs the retained UI and web generators, copies
+the design kit, and creates a ZIP. The live home, theme, demos, headers, fonts,
+and other product sites still use that retained kit. The earlier docs phase
+removed an unlinked redesign brief whose named scene modules do not exist.
 
 ## Goals / Non-Goals
 
-**Goals:** Keep current contributor guidance in the root and site guides;
-remove the obsolete handoff; make the owner and migration dependencies clear.
+**Goals:** Retire obsolete downloads and social/swag handoffs now, with bounded
+diffs, current guides, and an unchanged active runtime asset tree.
 
-**Non-Goals:** Runtime, site layout, build inputs, public routes, license terms,
-workflow review snapshots, and deployment are outside this first phase.
+**Non-Goals:** This phase does not adopt React or `@ejm/*`, replace kit downloads,
+remove the remaining live kit, change license terms, change canonical workflow
+sources, deploy, or claim browser or hosted acceptance.
 
 ## Decisions
 
-- Delete the unlinked handoff rather than retain its private machine paths and
-  obsolete instructions. Current guides already describe the actual site.
-- Treat `design-kit/` as a temporary build dependency. `ejm-ui` owns shared
-  tokens, components, and site infrastructure; `ejmlabs` owns Studio content,
-  discovery, brand guidance, and public download assembly. Consumers must use
-  the owner's public exports. Renaming kit folders or copying their code would
-  keep the same duplicate authority and private source dependency.
-- Keep this phase documentation-only with `skip_specs: true`. The later
-  runtime phase must remove that marker and add behavior specs through the
-  update workflow before implementation. The pending tasks record that gate.
-- Use existing Git, OpenSpec, and local link checks. No dependency, background
-  work, runtime overhead, or new test suite is needed for a handoff deletion.
+- Remove archive generation and offers rather than assemble replacement ZIPs.
+  The user asked to retire these kits. Existing Git history preserves them.
+- Filter `social/x-kit/`, `swag/`, and ZIP files out of the copied site tree.
+  Remove their current gallery links and sections in the same change. Retain
+  other kit paths until the owning package can replace their live contracts.
+- Remove 38 obsolete paths: three committed ZIPs; `source/`, `README.md`,
+  `index.html`, and `profile-copy.md` in both X kit copies; and the five unused
+  helpers named in the tasks. Keep all retained font files with their notices.
+- Split remaining deletions. Either complete 53-file X kit copy would exceed
+  the 1 MB review diff limit by itself because of outlined SVG text. Root
+  rendered X assets plus swag can form one later bounded slice; copied rendered
+  X assets form another. Neither is a live site input after this phase.
+- Keep the existing Node build and checker interfaces. Add output checks to
+  the site's existing tests for the changed public contract, including retired
+  material, working local links, exact copied assets, and response headers.
+- `ejm-ui` remains the shared owner. A later clean source assembly must resolve
+  its public exports, then Studio can adopt them and remove the live kit. A
+  renamed folder or another copied shared implementation is not adoption.
 
 ## Risks / Trade-offs
 
-- Deleting a live kit would break the site, headers, and archives. Keep those
-  files until public owner source assembly and Studio adoption pass.
-- Public kit routes and downloads have existing links. Inventory their
-  replacement or relocation before retiring paths, then check downstream
-  product links and preserve the required notices and brand provenance.
-- Docs can overstate progress. Label adoption and publication checks as
-  pending until the corresponding source and hosted evidence exist.
+- Old kit ZIP and X/swag URLs stop being emitted. Current pages and docs must
+  remove those offers; this phase does not create redirects or replacement kits.
+- Broad deletion could break live styling or another consumer. Preserve hashes
+  and file modes of all retained kit files except the named gallery/docs edits.
+  Keep generators required by the existing build and consistency checks.
+- Historical provenance describes retired material. Keep that record and add
+  a dated scope note rather than rewrite its source observations.
+- A local pass is not publication. Leave hosted reviews, browser checks, and
+  deployment status explicit, and do not archive the unfinished migration.
 
 ## Migration Plan
 
-1. Remove the obsolete brief, correct current guides, and check docs links,
-   strict OpenSpec validation, and whitespace in a protected documentation PR.
-2. Verify the existing `ejm-ui` export map and a pinned public source or package
-   assembly that a clean public checkout can resolve. Keep dependencies from
-   Studio to that owner, with no owner dependency on Studio runtime.
-3. Update this plan and behavior specs, then adopt only the needed public
-   `@ejm/*` exports. Preserve Studio content, accessibility, metadata, response
-   headers, brand masters, provenance, and font licenses. Measure the emitted
-   asset and request costs before making performance claims.
-4. Remove `design-kit/`, `x-kit/`, their generators, duplicate shared code, and
-   stale kit guidance once their remaining dependencies have been replaced or
-   deliberately retired. A rename or another copied kit is not a migration.
-5. Run the owner contract checks, Studio site and docs build, local asset and
-   route checks, and desktop/mobile, theme, keyboard, overflow, console, and CSP
-   checks. Use normal human admission, both AI passes, and protected merges.
-   Publication remains a separate operation with its own verified result.
+1. Revise the docs-only plan, remove its spec skip, and define output behavior.
+2. Remove the bounded obsolete paths and archive work, filter retired material,
+   and update the current gallery, guides, changelog, and output tests together.
+3. Run the site build and tests, inspect local links and headers, verify retained
+   asset bytes and modes, strict OpenSpec validation, whitespace, and diff caps.
+4. Use normal exact-commit human admission, two AI passes, and protected checks.
+   No hosted run or public deployment is part of local preparation.
+5. Land the remaining bounded inert-file removals, establish trusted public UI
+   source, then adopt owner exports and retire the remaining live kit.
+6. Verify the migrated site in browser sizes and themes, then sync specs and
+   archive only after all tracked work and required reviews are complete.
 
-Revert this documentation commit to restore the handoff if needed. Runtime
-migration needs its own reviewed rollback before changing published output.
+Revert this phase's commit and rebuild to restore its prior source output. A
+live rollback still requires the normal publication decision and verification.
 
-## Phase 1 Verification
+## Earlier Verification
 
-The docs cleanup checked 17 distinct local link targets in the affected guides
-and this plan, with no missing files. Strict OpenSpec validation and whitespace
-checks passed. The deleted brief had no inbound public guide links; all three
-scene modules it named were absent.
+The docs phase checked 17 distinct local link targets, strict OpenSpec, and
+whitespace. Site and browser checks were not run for that earlier docs phase.
 
-Site build, browser, owner package, deployment, hosted CI, and AI review checks
-were not run for this docs-only phase. Runtime adoption, kit retirement, and
-their verification remain open tasks. No live-site publication is claimed.
+## Current Local Verification
+
+The bounded output phase passed local checks on 19 October 2026:
+
+- `npm --prefix site test` passed all three output tests under Node 24.19.0.
+  Its setup checks generated kit consistency and contrast before running the
+  real site build.
+- The emitted home page and gallery pass the existing local link, anchor,
+  structure, metadata, class, and asset checks. No ZIP, X kit subtree, swag
+  subtree, or retired gallery offer remains in the output.
+- Copied runtime directories and font notices match source bytes. Emitted
+  response headers match `design-kit/web/_headers` exactly.
+- Exactly 38 additional tracked paths were removed, totaling 8,897,945 source
+  bytes. All 393 retained paths outside the 11 named edited files preserve
+  their main-branch bytes and modes, including 10 notice/license paths and 41
+  workflow-related paths. The edited existing files retain their modes too.
+- The 21 Markdown references in the affected guides and plan resolve to 15
+  distinct local targets. Changed text has no em dashes.
+- Strict OpenSpec validation, whitespace, and whole-PR admission bounds pass.
+  The final diff measurements are recorded in the PR summary.
+
+The generated output contains 238 files and 9,535,593 bytes. This is a local
+output measurement, not a before/after speed or footprint claim. No owner
+package check, browser review, Cloudflare dry run, hosted CI, AI review, or
+publication ran for this local phase. Remaining source removals, trusted public
+UI assembly, Studio adoption, live kit retirement, and browser checks stay open.

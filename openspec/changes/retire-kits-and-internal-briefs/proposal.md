@@ -2,37 +2,41 @@
 
 ## Why
 
-Public contributors need current source guidance. An obsolete redesign handoff
-contradicts the repository's OpenSpec setup, and the docs still name the
-retained design kit as the shared implementation owner.
+Public contributors need current guidance and a site that offers only maintained
+material. Obsolete handoffs, duplicate social kits, and archive downloads add
+confusion and upkeep while the shared UI owner migration remains open.
 
 ## What Changes
 
-- Remove `CLAUDE_REDESIGN_BRIEF.md` after checking references and its obsolete
-  source paths. Keep public brand guides, notices, and workflow review sources.
-- Correct the root and site guides to describe current public source and the
-  split between Studio content and shared `ejm-ui` contracts.
-- Record the remaining owner-first site migration and kit retirement. Keep
-  `design-kit/`, `x-kit/`, live build inputs, and generated archives until their
-  dependencies have replacements and the affected contracts pass.
+- Remove the obsolete redesign brief and correct source ownership guidance.
+- **BREAKING:** Retire kit ZIP offers and generation, the X kit pages, and the
+  swag gallery. Do not publish their remaining files or offer replacement kits.
+- Remove three committed ZIPs, both copies of the X kit source and handoff
+  files, and five unused kit generation, preview, and verification helpers.
+- Keep active site CSS, JavaScript, fonts, icons, motifs, headers, notices, and
+  provenance unchanged. Retain the remaining rendered X and swag files for
+  separate bounded removals, outside the generated site.
+- Leave public `ejm-ui` source assembly, Studio owner adoption, full legacy kit
+  retirement, and browser verification open.
 
 ## Capabilities
 
 ### New Capabilities
 
-None in this documentation phase. This change declares `skip_specs: true`.
+- `studio-site-output`: Defines the static output boundary, retired downloads,
+  retained live assets, and local verification of the Studio site.
 
 ### Modified Capabilities
 
-None. Before runtime migration, revise this plan and add the relevant behavior
-specs instead of extending a documentation-only exception.
+None. This checkout has no existing main specs.
 
 ## Impact
 
-`ejmlabs` owns Studio content, discovery, brand guidance, and public download
-assembly. `ejm-ui` owns shared tokens, components, and site infrastructure.
-Later consumption must flow from Studio to pinned public owner exports,
-without private sibling imports or copied shared implementations. This phase
-changes docs and removes a handoff only. It adds no package, build work, runtime
-cost, or deployment. Check local docs links, OpenSpec, and whitespace; leave
-site migration and public source assembly tasks open.
+`ejmlabs` owns Studio content and public output assembly. `ejm-ui` owns shared
+tokens, components, and site infrastructure. Later adoption must consume pinned
+public owner exports without copied implementations or private imports.
+
+This phase changes the current static build, gallery, docs, and output tests.
+It adds no dependency or service. It removes archive work from each build and
+must stay below the existing 200-file, 12,000-line, and 1,000,000-byte PR bounds.
+Local checks do not establish hosted CI, deployment, or publication.
