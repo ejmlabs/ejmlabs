@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Components | ejmlabs design kit</title>
+  <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../tokens/brand.css">
+  <link rel="stylesheet" href="brand-components.css">
+  <style>
+    .specimen-body { margin: 0; }
+    .specimen-header { padding-block: 24px 0; }
+    .specimen-navigation { padding-block: 24px; }
+    .specimen-intro { padding-block-start: 32px; }
+    .specimen-form-grid { gap: 48px; }
+  </style>
+</head>
+<body class="specimen-body ejm-surface">
+  <header class="ejm-page specimen-header">
+    <a class="ejm-signature" href="../index.html" aria-label="ejmlabs design kit">
+      <img src="../logos/ejmlabs-primary.svg" alt="ejmlabs" width="280" height="48">
+    </a>
+    <nav class="ejm-cluster specimen-navigation" aria-label="Design kit">
+      <a class="ejm-link" href="../index.html">Brand reference</a>
+      <a class="ejm-link" href="../COMPONENTS.md">Usage and snippets</a>
+      <a class="ejm-link" href="brand-components.css" download>Download CSS</a>
+    </nav>
+  </header>
+  <main>
+    <div class="ejm-page">
+      <section class="ejm-section ejm-stack specimen-intro" aria-labelledby="components-title">
+        <h1 class="ejm-title" id="components-title">Small pieces.<br>Useful interfaces.</h1>
+        <p class="ejm-text">A compact component library for ejmlabs, built from the original palette, local fonts, and quiet spacing. These web components extend the supplied brand guide.</p>
+        <p class="ejm-caption">This is a specimen. Form values stay on this page, and disabled buttons demonstrate visual states.</p>
+      </section>
+      <hr class="ejm-rule">
+      <section class="ejm-section ejm-stack" aria-labelledby="actions-title">
+        <h2 class="ejm-heading" id="actions-title">Actions and states</h2>
+        <div class="ejm-cluster">
+          <a class="ejm-button" href="../index.html">Open brand reference</a>
+          <a class="ejm-button ejm-button--secondary" href="../COMPONENTS.md">Read usage guide</a>
+          <button class="ejm-button" type="button" disabled>Unavailable example</button>
+          <button class="ejm-button" type="button" aria-busy="true" disabled>Loading example</button>
+        </div>
+        <p class="ejm-text">Keep <a class="ejm-link" href="../REVIEW.md">text links underlined</a> so color is not their only cue.</p>
+        <div class="ejm-cluster" aria-label="Example status tags">
+          <span class="ejm-tag">In progress</span>
+          <span class="ejm-tag ejm-tag--quiet">Draft</span>
+          <span class="ejm-tag ejm-tag--solid">Reference</span>
+        </div>
+      </section>
+      <hr class="ejm-rule">
+      <section class="ejm-section ejm-stack" aria-labelledby="inputs-title">
+        <h2 class="ejm-heading" id="inputs-title">Text input</h2>
+        <div class="ejm-grid specimen-form-grid">
+          <div class="ejm-field">
+            <label class="ejm-field__label" for="example-name">Project name</label>
+            <input class="ejm-input" id="example-name" type="text" autocomplete="off" placeholder="A small experiment" aria-describedby="name-hint">
+            <p class="ejm-field__hint" id="name-hint">Choose a short, descriptive name.</p>
+          </div>
+          <div class="ejm-field">
+            <label class="ejm-field__label" for="example-error">Project name, error example</label>
+            <input class="ejm-input" id="example-error" type="text" autocomplete="off" value="" aria-invalid="true" aria-describedby="name-error">
+            <p class="ejm-field__error" id="name-error">Error: Enter a project name.</p>
+          </div>
+          <div class="ejm-field">
+            <label class="ejm-field__label" for="example-disabled">Project name, disabled example</label>
+            <input class="ejm-input" id="example-disabled" type="text" value="Example only" disabled aria-describedby="disabled-hint">
+            <p class="ejm-field__hint" id="disabled-hint">Editing is unavailable in this state.</p>
+          </div>
+        </div>
+      </section>
+      <hr class="ejm-rule">
+      <section class="ejm-section ejm-grid" aria-label="Project and prose components">
+        <article class="ejm-card">
+          <span class="ejm-tag ejm-tag--quiet">Brand reference</span>
+          <h2 class="ejm-card__title">ejmlabs design kit</h2>
+          <p class="ejm-text">The original logo artwork, local fonts, color tokens, and source guide in one place.</p>
+          <a class="ejm-link" href="../index.html">Explore the kit</a>
+        </article>
+        <div class="ejm-stack">
+          <div class="ejm-prose">
+            <h2>Room to read</h2>
+            <p>Use Manrope for reading and headings. Let the content set the rhythm, with clear headings and a comfortable line length.</p>
+            <p>Reserve IBM Plex Mono for code and technical values.</p>
+          </div>
+          <pre class="ejm-code" tabindex="0" aria-label="Example brand CSS"><code>.experiment {
+  color: var(--ejm-ink);
+  background: var(--ejm-paper);
+}</code></pre>
+        </div>
+      </section>
+    </div>
+    <section class="ejm-surface ejm-surface--forest" aria-labelledby="forest-title">
+      <div class="ejm-page ejm-section ejm-stack">
+        <h2 class="ejm-heading" id="forest-title">A quieter dark surface</h2>
+        <p class="ejm-text">Paper on Forest is an approved reading pair. Keep the same spacing and use the reversed artwork when the complete logo appears here.</p>
+        <div class="ejm-cluster">
+          <a class="ejm-button" href="../logos/ejmlabs-paper.svg" download>Download reversed logo</a>
+          <a class="ejm-button ejm-button--secondary" href="../README.md">Read brand rules</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="ejm-page ejm-section">
+    <p class="ejm-caption">Small experiments. Useful things.</p>
+  </footer>
+</body>
+</html>

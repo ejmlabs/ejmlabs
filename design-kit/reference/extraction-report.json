@@ -1,0 +1,119 @@
+{
+  "sourceSha256": "a0bf4fde56cf5bf0795a7ec8af976e917eebc6aae62035f309ab1e9d6bed7694",
+  "method": "Direct PDF page 2 path extraction. Cubic coordinates remain unchanged. Colors map to exact guide hex values. No tracing or font recreation of the logo.",
+  "sourcePage": 2,
+  "pathCount": 10,
+  "cubicSegmentCount": 537,
+  "subpathCount": 12,
+  "logoBounds": [
+    -5.062853648124532e-08,
+    -8.959469755751015e-07,
+    2373.014489051414,
+    405.46747382342966
+  ],
+  "symbolBounds": [
+    -5.062853648124532e-08,
+    12.164022348587146,
+    417.5479035991088,
+    393.3034738198345
+  ],
+  "logoAspectRatio": 5.8525396907468386,
+  "clearspaceFullLogoInNativeUnits": 190.56972573562368,
+  "clearspaceSymbolInNativeUnits": 104.38697591243434,
+  "contrasts": [
+    {
+      "foreground": "ink",
+      "background": "paper",
+      "ratio": 13.9969,
+      "normalTextAA": true
+    },
+    {
+      "foreground": "paper",
+      "background": "forest",
+      "ratio": 9.6891,
+      "normalTextAA": true
+    },
+    {
+      "foreground": "ink",
+      "background": "sage",
+      "ratio": 5.0881,
+      "normalTextAA": true
+    },
+    {
+      "foreground": "forest",
+      "background": "mist",
+      "ratio": 8.8969,
+      "normalTextAA": true
+    },
+    {
+      "foreground": "sage",
+      "background": "paper",
+      "ratio": 2.7509,
+      "normalTextAA": false
+    }
+  ],
+  "exportDimensions": {
+    "logos/symbol-sage.png": [
+      1024,
+      935
+    ],
+    "logos/ejmlabs-primary.png": [
+      2400,
+      411
+    ],
+    "logos/symbol-ink.png": [
+      1024,
+      935
+    ],
+    "logos/ejmlabs-paper.png": [
+      2400,
+      411
+    ],
+    "logos/ejmlabs-ink.png": [
+      2400,
+      411
+    ],
+    "logos/symbol-paper.png": [
+      1024,
+      935
+    ],
+    "favicon/favicon-48.png": [
+      48,
+      48
+    ],
+    "favicon/apple-touch-icon.png": [
+      180,
+      180
+    ],
+    "favicon/favicon-16.png": [
+      16,
+      16
+    ],
+    "favicon/android-chrome-192.png": [
+      192,
+      192
+    ],
+    "favicon/favicon-32.png": [
+      32,
+      32
+    ],
+    "favicon/android-chrome-512.png": [
+      512,
+      512
+    ],
+    "social/social-card.png": [
+      1200,
+      630
+    ],
+    "social/avatar.png": [
+      1024,
+      1024
+    ]
+  },
+  "fontSources": {
+    "Manrope-Variable.ttf": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf",
+    "Manrope-OFL.txt": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/OFL.txt",
+    "IBMPlexMono-Medium.ttf": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/IBMPlexMono-Medium.ttf",
+    "IBMPlexMono-OFL.txt": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/OFL.txt"
+  }
+}
