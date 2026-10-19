@@ -4,6 +4,10 @@ Reviewed all six pages visually and extracted the PDF text and vector content.
 
 Kit version 1.2.0 preserves the source identity and adds a broader set of applications, including site and application kits. The source guide remains version 1.0, October 2026.
 
+## Retirement note, 19 October 2026
+
+This document retains the original extraction and gallery observations below. The Studio build now excludes kit ZIPs, X kit pages, and swag output; their gallery offers and archive generation are retired. Source and handoff files were removed, while remaining rendered X and swag files await separate bounded deletions. References below describe the earlier material and checks, not current downloads or a new browser review. Active brand masters, licensed fonts and notices, and extraction records remain intact. This cleanup has not been deployed or verified on the public site.
+
 ## Confirmed source rules
 
 | Page | Confirmed material |

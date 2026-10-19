@@ -14,7 +14,6 @@ Build by choosing. Every part of an ejmlabs experience has a name and a place in
 | A terminal app | `ui/TUI.md`, `ui/rust/ejm_tui.rs` | `ui/rust/ejm_theme.rs` | `ui/tui.html` |
 | An editor or terminal theme | `ui/monaco/`, `ui/terminal/` | The file for your tool | `ui/index.html` |
 | A social post, slide or printed piece | `templates/`, `lockups/`, `social/` | The closest template | `index.html` |
-| Merchandise | `swag/` | `swag/PRODUCTION.md` | `swag/mockups/` |
 
 ## The parts
 
