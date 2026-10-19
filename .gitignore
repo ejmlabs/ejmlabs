@@ -1,0 +1,10 @@
+# Generated, rebuilt by cd site && npm run build
+site/dist/
+ejmlabs-design-kit.zip
+# Local and tool files
+node_modules/
+.wrangler/
+.DS_Store
+.claude/
+.openai/
+*.log
