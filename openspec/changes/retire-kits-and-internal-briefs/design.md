@@ -103,7 +103,7 @@ UI assembly, Studio adoption, live kit retirement, and browser checks stay open.
 
 The next bounded source slice removes 54 inert files totaling 8,209,750 bytes:
 the root X kit, its bundled font copies and notices, and the retired swag
-artwork, mockups, and handoff docs. The copied X kit remains for task 3.2.
+artwork, mockups, and handoff docs. That slice left the copied X kit for task 3.2.
 Active brand masters and live font notices keep their bytes and modes.
 
 All three existing site tests pass under Node 24.19.0. A real build before and
@@ -111,3 +111,20 @@ after deletion emits the same 238 paths. Only the two updated kit guides differ;
 all 236 other output files retain their bytes, including runtime assets and
 headers. Strict OpenSpec and whitespace checks pass. This local evidence does
 not establish hosted review, browser acceptance, or deployment of this slice.
+
+## Copied X removal verification
+
+Task 3.2 removes the remaining 38 inert files under `design-kit/social/x-kit/`,
+totaling 1,904,357 source bytes. The bundled font copies and their notices are
+removed together. The build already excludes this subtree; no active build
+input changes. All 310 retained paths outside the seven edited guides and plan
+files keep their Git blobs and modes, including active assets, font notices,
+and all workflow sources. The original provenance observations stay unchanged.
+
+All three existing site tests pass under Node 24.19.0. The before/after builds
+emit the same 238 paths. Only the two updated kit guides differ; all 236 other
+output files retain their bytes and modes, including runtime assets and headers.
+The 21 local Markdown references in affected guides and plan files resolve to
+15 distinct targets. Strict OpenSpec and whitespace checks pass. This slice
+adds no deletion tests and makes no browser, hosted review, or deployment claim.
+Public owner source assembly, Studio adoption, and live kit retirement stay open.

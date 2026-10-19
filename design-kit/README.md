@@ -10,7 +10,7 @@ Version 1.2.0 adds the rules that make every product look the same. The site kit
 
 ## Retirement status
 
-As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are retired. The Studio build excludes their paths and does not generate replacement archives. Root X kit and swag files are removed; the remaining copied X kit under `social/` awaits a separate bounded deletion. The active kit still supports this site until Studio adopts the public `ejm-ui` exports. `REVIEW.md` preserves the original provenance and historical checks. No deployment or new browser verification is claimed here.
+As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are retired. The Studio build excludes their paths and does not generate replacement archives. Both X kit copies and the swag files are removed. The active kit still supports this site until Studio adopts the public `ejm-ui` exports. `REVIEW.md` preserves the original provenance and historical checks. No deployment or new browser verification is claimed here.
 
 ## Start here
 

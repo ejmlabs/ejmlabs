@@ -45,7 +45,7 @@ Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets 
 
 `ejm-ui` owns active UI tokens, themes, reusable components, and shared site infrastructure. `ejmlabs` owns Studio pages and content, project discovery, brand guidance, and public download assembly. Make shared implementation changes in `ejm-ui` and consume its public `@ejm/*` exports here.
 
-This checkout still depends on the retained live kit files. Their retirement needs pinned public owner source assembly and Studio adoption first. The root X kit and swag files are removed. The remaining copied X kit under `design-kit/social/` is inert, excluded from the site, and awaits its own bounded deletion. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through that migration.
+This checkout still depends on the retained live kit files. Their retirement needs pinned public owner source assembly and Studio adoption first. Both X kit copies and the swag files are removed. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through that migration.
 
 ## Documentation
 
