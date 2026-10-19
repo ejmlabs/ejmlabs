@@ -6,7 +6,7 @@ Kit version 1.2.0 preserves the source identity and adds a broader set of applic
 
 ## Retirement note, 19 October 2026
 
-This document retains the original extraction and gallery observations below. The Studio build now excludes kit ZIPs, X kit pages, and swag output; their gallery offers and archive generation are retired. Source and handoff files, the root X kit, and swag files are removed. Only the copied X kit under `social/` awaits its separate bounded deletion. References below describe the earlier material and checks, not current downloads or a new browser review. Active brand masters, licensed fonts and notices, and extraction records remain intact. This cleanup has not been deployed or verified on the public site.
+This document retains the original extraction and gallery observations below. The Studio build now excludes kit ZIPs, X kit pages, and swag output; their gallery offers and archive generation are retired. Source and handoff files, both X kit copies, and swag files are removed. References below describe the earlier material and checks, not current downloads or a new browser review. Active brand masters, licensed fonts and notices, and extraction records remain intact. This cleanup has not been deployed or verified on the public site.
 
 ## Confirmed source rules
 
