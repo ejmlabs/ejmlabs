@@ -8,3 +8,16 @@ node_modules/
 .claude/
 .openai/
 *.log
+
+# Local credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+.secrets/
+.aws/
+.ssh/
