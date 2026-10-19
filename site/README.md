@@ -39,7 +39,7 @@ wrangler deploy --config wrangler.jsonc --env "" --dry-run
 wrangler deploy --config wrangler.jsonc --env preview --dry-run
 ```
 
-The Studio-owned `node ../scripts/check.mjs` entry temporarily calls the retained kit checker. The tests use it to check that the generated theme files are current and keep their contrast. They build the output, check the home page and brand gallery links, anchors, headings, image descriptions, and kit styles, then verify retired paths are absent. They compare copied runtime assets, font notices, and response headers with their source bytes. See [local checks](../CONTRIBUTING.md#local-checks) for the ownership boundary and when the temporary import can be removed. These local checks do not verify browser rendering or the deployed site. Dry runs check the Worker configuration without uploading files or changing DNS.
+The Studio-owned `node ../scripts/check.mjs` entry temporarily calls the retained kit checker. The tests use it to check that the generated theme files are current and keep their contrast. They build the output, check the home page and brand gallery links, anchors, headings, image descriptions, and kit styles, then verify retired paths are absent. They compare copied runtime assets, font notices, and response headers with their source bytes. See [local check entry](../README.md#local-check-entry) for the ownership boundary and when the temporary import can be removed. These local checks do not verify browser rendering or the deployed site. Dry runs check the Worker configuration without uploading files or changing DNS.
 
 ## Shared workflow updates
 

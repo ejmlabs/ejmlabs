@@ -95,8 +95,33 @@ Before/after builds emit the same 238 paths and 9,535,524 bytes; every output
 file preserves its bytes and mode. All 236 retained kit source paths and 41
 workflow paths keep their Git blobs and modes. The affected guides and plan
 pass 30 local Markdown link checks, including three heading anchors, strict
-OpenSpec validation, whitespace checks, and the cumulative PR bounds. Browser,
-hosted reviews, and deployment remain unrun for this precursor.
+OpenSpec validation, whitespace checks, and the cumulative PR bounds. That
+local preparation ran no browser, hosted checks, or deployment.
+
+### Hosted guidance repair
+
+Keep `CONTRIBUTING.md` byte-for-byte with the pinned shared community template.
+Studio's root and site guides own the local check commands, compatibility gap,
+upstream owners, and removal condition. Link those guides to each other and to
+this plan; do not add product-specific sections to the shared template.
+
+The first admitted [PR #8 run](https://github.com/ejmlabs/ejmlabs/actions/runs/39318957037)
+at `6890106a632da571fba295912634449f2c6c94ae` passed Quality and both complete
+Codex Sol 6.1 medium reviews, with zero findings. Repository standards rejected
+the added `CONTRIBUTING.md` section because it differed from the pinned template.
+Restore those exact template bytes and move the guidance into the owner guides.
+The repair changes only docs and this plan. Reuse the unchanged runtime tests
+and build evidence, verify runtime Git blobs and modes and retained output,
+and run focused docs-link, pinned-standard, strict OpenSpec, whitespace, and
+whole-PR bound checks. The revised head needs fresh human acceptance before
+another hosted admission. Browser review and deployment remain unrun.
+
+The docs repair passes the pinned standards validator, 29 local Markdown link
+checks with two heading anchors, strict OpenSpec, whitespace, and the PR bounds.
+All 313 untouched tracked paths preserve their Git blobs and modes. The same
+238 retained output files preserve their 9,535,524 bytes and modes. Runtime
+tests and builds were not repeated because the repair changes no runtime input.
+These checks do not admit or review the revised commit on GitHub.
 
 ## Earlier Verification
 
