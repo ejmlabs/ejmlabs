@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ejmlabs application kit</title>
+  <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../tokens/brand.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="app.css">
+  <style>
+    /* Specimen layout only. Nothing here is part of the kit. Open ground, no frames, one column on a phone. */
+    :root { --gutter: clamp(16px, 4vw, 40px); }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; overflow-x: clip; }
+    [id] { scroll-margin-top: 72px; }
+    .page-w { inline-size: min(100%, 1240px); margin-inline: auto; padding-inline: var(--gutter); }
+    @media (min-width: 2000px) { .page-w { inline-size: min(100%, 1560px); } }
+    .page { display: grid; gap: clamp(56px, 7vw, 96px); padding-block: clamp(24px, 4vw, 48px) 128px; }
+    .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px 12px; }
+    .bar img { display: block; block-size: 32px; inline-size: auto; max-inline-size: 60%; }
+    .toc { position: sticky; top: 0; z-index: 40; background: var(--ejm-ui-ground); }
+    .toc__in { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-block: 8px; }
+    .toc__in::-webkit-scrollbar { display: none; }
+    .toc a { display: inline-flex; flex: none; align-items: center; min-block-size: 32px; padding: 0 14px; border-radius: 999px; color: var(--ejm-ui-text-muted); font-size: 13px; text-decoration: none; white-space: nowrap; transition: background-color var(--ejm-ui-t), color var(--ejm-ui-t); }
+    .toc a:hover { color: var(--ejm-ui-text-strong); background: var(--ejm-ui-wash); }
+    .toc a:focus-visible { outline: 2px solid var(--ejm-ui-focus); outline-offset: -2px; }
+    .toc a[aria-current='true'] { color: var(--ejm-ui-text-strong); background: var(--ejm-ui-tint-3); }
+    .toc i { flex: none; inline-size: 1px; block-size: 16px; margin-inline: 8px; background: var(--ejm-ui-line-strong); }
+    .toc .doc { color: var(--ejm-ui-accent); }
+    @media (pointer: coarse) { .toc a { min-block-size: 44px; } }
+
+    .intro { display: grid; gap: 16px; padding-block: clamp(24px, 6vw, 72px) 0; }
+    .eyebrow { margin: 0; font-size: 13px; color: var(--ejm-ui-accent); }
+    h1 { margin: 0; max-inline-size: 18ch; font: var(--ejm-weight-heading) clamp(32px, 5.5vw, 64px) / 1.05 var(--ejm-font-sans); letter-spacing: -0.035em; color: var(--ejm-ui-text-strong); text-wrap: balance; }
+    .lede { max-inline-size: 62ch; margin: 0; color: var(--ejm-ui-text-muted); font-size: 15px; line-height: 24px; }
+    .lede b { color: var(--ejm-ui-text-strong); }
+    .lede code, .prim__use code, .ejm-ui-caption code { font: 500 12px / 16px var(--ejm-font-mono); color: var(--ejm-ui-text); }
+    section { display: grid; gap: 20px; align-content: start; min-inline-size: 0; }
+    section > h2.ejm-ui-title { margin: 0; font: var(--ejm-weight-heading) clamp(24px, 3vw, 32px) / 1.15 var(--ejm-font-sans); letter-spacing: -0.025em; color: var(--ejm-ui-text-strong); }
+    section > .idx { margin-block-start: 4px; }
+
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 136px), 1fr)); gap: 20px 16px; margin-block-start: 8px; }
+    .sw { display: grid; gap: 2px; min-inline-size: 0; }
+    .sw i { display: block; block-size: 56px; margin-block-end: 6px; border-radius: 12px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ejm-ui-text) 10%, transparent); }
+    .sw b { font-weight: 600; font-size: 13px; }
+    .sw code { font: 500 11px / 16px var(--ejm-font-mono); color: var(--ejm-ui-text-muted); }
+    .ramp { display: grid; grid-template-columns: repeat(16, 1fr); border-radius: 999px; overflow: hidden; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ejm-ui-text) 10%, transparent); }
+    .ramp i { block-size: 40px; }
+    .cols { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); align-items: start; }
+    .demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; align-content: start; }
+    .frame { border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px var(--ejm-ui-line); }
+    .frame .ejm-ui-shell { block-size: 580px; --ejm-ui-aside: 0px; }
+    @media (max-width: 760px) { .frame .ejm-ui-shell { block-size: auto; --ejm-ui-side: 0px; } .frame .ejm-ui-main { block-size: 34rem; } }
+    .dots { display: inline-flex; gap: 6px; } .dots i { inline-size: 10px; block-size: 10px; border-radius: 50%; background: var(--ejm-ui-line-strong); }
+    .stack { display: grid; gap: 4px; align-content: start; overflow: auto; flex: 1; padding-block: 12px; }
+    .composer { margin: 12px 16px 16px; display: flex; gap: 8px; align-items: center; }
+    .ansi { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; max-inline-size: 640px; }
+    .ansi i { block-size: 40px; border-radius: 8px; }
+
+    .ico { inline-size: 16px; block-size: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .idx { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; padding: 0; list-style: none; }
+    .idx a { color: var(--ejm-ui-text-muted); font-size: 13px; text-decoration: none; }
+    .idx a:hover { color: var(--ejm-ui-text-strong); text-decoration: underline; text-underline-offset: 0.2em; }
+    .prim { display: grid; grid-template-columns: minmax(200px, 280px) minmax(0, 1fr); gap: 16px clamp(24px, 5vw, 64px); padding-block-start: 40px; min-inline-size: 0; }
+    .prim__head { display: grid; gap: 8px; align-content: start; min-inline-size: 0; }
+    .prim__head h3 { margin: 0; }
+    .prim__use { margin: 0; color: var(--ejm-ui-text-muted); font-size: 13px; line-height: 20px; max-inline-size: 46ch; }
+    .prim__use b { color: var(--ejm-ui-text-strong); font-weight: 600; }
+    .prim__more { font-size: 12px; color: var(--ejm-ui-text-subtle); }
+    .prim__more summary { display: inline-block; cursor: pointer; border-radius: 6px; list-style: none; color: var(--ejm-ui-text-muted); }
+    .prim__more summary::-webkit-details-marker { display: none; }
+    .prim__more summary::after { content: ' +'; }
+    .prim__more[open] summary::after { content: ' -'; }
+    @media (pointer: coarse) { .prim__more summary { display: inline-flex; align-items: center; min-block-size: 44px; } }
+    .prim__more summary:hover { color: var(--ejm-ui-text-strong); }
+    .prim__more p { margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+    .prim__more code { font: 500 11px / 16px var(--ejm-font-mono); color: var(--ejm-ui-accent); overflow-wrap: anywhere; }
+    .prim__demo { display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center; align-content: start; min-inline-size: 0; }
+    .prim__demo > * { max-inline-size: 100%; }
+    .prim__demo.tall { min-block-size: 232px; align-items: flex-start; }
+    @media (max-width: 559px) { .prim__demo.tall > .ejm-ui-anchor { flex: 1 0 100%; } }
+    .grid2, .grid3, .grid4 { display: grid; gap: 24px 32px; align-items: start; inline-size: 100%; }
+    .grid2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+    .grid3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+    .grid4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; inline-size: 100%; }
+    .state { margin: 0 0 8px; font-size: 12px; line-height: 16px; color: var(--ejm-ui-text-muted); }
+    .state::first-letter { text-transform: uppercase; }
+    .state.w { flex: none; inline-size: 96px; margin: 0; }
+    @media (max-width: 559px) { .state.w { flex-basis: 100%; margin-block-end: 0; } }
+    .framed { inline-size: 100%; overflow: hidden; border-radius: 16px; background: var(--ejm-ui-block); padding-block: 4px; }
+    .framed .ejm-ui-list__head, .framed .ejm-ui-shortcuts { background: var(--ejm-ui-block); }
+    .framed > .ejm-ui-toolbar { border-radius: 0; background: transparent; }
+    .framed:has(> .ejm-ui-activity) { padding: 0; inline-size: 220px; background: var(--ejm-ui-panel); }
+    .framed.nopad { padding: 0; }
+    .ring { outline: 2px solid var(--ejm-ui-focus); outline-offset: 1px; }
+    .inl { display: inline-flex; align-items: center; gap: 8px; }
+    .prim__demo > .ejm-ui-tablewrap, .prim__demo > .ejm-ui-log { inline-size: 100%; }
+    .prim__demo > .ejm-ui-toolbar { inline-size: 100%; }
+    .prim__demo > .ejm-ui-banner { inline-size: min(100%, 720px); }
+    .prim__demo > .ejm-ui-timeline { inline-size: min(100%, 560px); }
+    .framed > .ejm-ui-accordion:last-child { border-block-end: 0; }
+    .skelrows { display: grid; gap: 8px; }
+    .skelrows li { display: flex; align-items: center; gap: 8px; }
+    .skelrows .ejm-ui-skel--text { margin: 0; flex: none; inline-size: var(--w, 100%); }
+    .tree-demo { max-inline-size: 340px; }
+    .framed.settings-demo { padding: 12px clamp(16px, 4vw, 40px); }
+    .pane-a { padding: 12px; background: var(--ejm-ui-editor); }
+    .pane-b { padding: 12px; background: var(--ejm-ui-panel); }
+    .dialogs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 580px), 1fr)); gap: 24px; align-items: stretch; }
+    .dlgframe { position: relative; display: grid; min-block-size: 340px; overflow: hidden; border-radius: 16px; background: var(--ejm-ui-block); }
+    .dlgframe .ejm-ui-dialog { animation: none; }
+    @media (max-width: 900px) { .prim { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block-start: 32px; } .prim__use { max-inline-size: 62ch; } }
+  </style>
+</head>
+<body class="ejm-ui">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></symbol><symbol id="i-x" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></symbol><symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol><symbol id="i-minus" viewBox="0 0 16 16"><path d="M3 8h10"/></symbol><symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></symbol><symbol id="i-file" viewBox="0 0 16 16"><path d="M4 2h5l3 3v9H4zM9 2v3h3"/></symbol><symbol id="i-folder" viewBox="0 0 16 16"><path d="M2 4.5h4l1.5 1.5H14V13H2z"/></symbol><symbol id="i-branch" viewBox="0 0 16 16"><circle cx="4.5" cy="3.5" r="1.5"/><circle cx="4.5" cy="12.5" r="1.5"/><circle cx="11.5" cy="6" r="1.5"/><path d="M4.5 5v6M11.5 7.5C11.5 9.5 8 10 5.5 11"/></symbol><symbol id="i-gear" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/></symbol><symbol id="i-chat" viewBox="0 0 16 16"><path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z"/></symbol><symbol id="i-key" viewBox="0 0 16 16"><circle cx="5.5" cy="10.5" r="2.5"/><path d="M7.3 8.7L13 3M11 5l1.5 1.5"/></symbol><symbol id="i-upload" viewBox="0 0 16 16"><path d="M8 11V3M5 6l3-3 3 3M3 13h10"/></symbol><symbol id="i-alert" viewBox="0 0 16 16"><path d="M8 2.5L14 13H2zM8 6.5v3M8 11.2v.1"/></symbol><symbol id="i-refresh" viewBox="0 0 16 16"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5v3h-3"/></symbol><symbol id="i-dots" viewBox="0 0 16 16"><circle cx="3.5" cy="8" r="1" fill="currentColor"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="12.5" cy="8" r="1" fill="currentColor"/></symbol><symbol id="i-play" viewBox="0 0 16 16"><path d="M5 3.5v9l7-4.5z"/></symbol><symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1"/><path d="M10.5 5.5v-2h-7v8h2"/></symbol><symbol id="i-eye" viewBox="0 0 16 16"><path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></symbol><symbol id="i-terminal" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M5 6.5l2 2-2 2M8.5 10.5h3"/></symbol><symbol id="i-plug" viewBox="0 0 16 16"><path d="M6 2v3M10 2v3M4.5 5h7v3a3.5 3.5 0 0 1-7 0zM8 11.5V14"/></symbol></defs></svg>
+  <header class="bar page-w">
+    <img id="logo" src="../logos/ejmlabs-paper.svg" alt="ejmlabs" width="187" height="32">
+    <div class="ejm-ui-btngroup" role="group" aria-label="Theme">
+      <button class="ejm-ui-btn ejm-ui-btn--sm ejm-ui-btn--toggle" type="button" data-set="dark" aria-pressed="true">Dark</button>
+      <button class="ejm-ui-btn ejm-ui-btn--sm ejm-ui-btn--toggle" type="button" data-set="light" aria-pressed="false">Light</button>
+    </div>
+  </header>
+  <nav class="toc" aria-label="On this page"><div class="toc__in page-w">
+    <a href="#palette">Roles</a><a href="#shell">Shell</a><a href="#tui">Terminal</a><a href="#controls">Controls</a><a href="#code">Syntax</a><i aria-hidden="true"></i><a href="#forms">Forms</a><a href="#actions">Actions</a><a href="#feedback">Feedback</a><a href="#data">Data</a><a href="#layout">Navigation and layout</a><i aria-hidden="true"></i><a class="doc" href="OPEN.md">Design rules</a><a class="doc" href="PRIMITIVES.md">Primitives</a>
+  </div></nav>
+  <div class="page page-w">
+
+    <section class="intro">
+      <p class="eyebrow">ejmlabs application kit 1.0.0</p>
+      <h1>One theme for every interface we ship.</h1>
+      <p class="lede">The desktop IDE, the terminal app, editors and terminals all read the same roles. Edit <code class="ejm-ui-mono">theme.json</code>, run <code class="ejm-ui-mono">node scripts/build-ui.mjs</code>, and every file below follows. Use the switch to see both themes.</p>
+    </section>
+
+    <section aria-labelledby="palette">
+      <h2 class="ejm-ui-title" id="palette">Roles</h2>
+      <p class="lede">Surfaces step up from ground to overlay. Text has four steps. Primary and accent come from Sage. Status, special and diff colors are kit additions, tuned for 4.5:1 on every surface.</p>
+      <div class="ramp" id="ramp" aria-label="Neutral ramp, deepest surface to strongest text"></div>
+      <div class="swatches" id="swatches"></div>
+    </section>
+
+    <section aria-labelledby="shell">
+      <h2 class="ejm-ui-title" id="shell">Application shell</h2>
+      <p class="lede">An IDE with an agent beside the editor. Regions are told apart by tone, selection is a tint with a small primary marker, and tool calls are soft cards with a visible state. Under 760 px the sidebar stacks above the editor.</p>
+      <div class="frame ejm-ui">
+        <div class="ejm-ui-shell">
+          <div class="ejm-ui-titlebar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ejm-ui-caption">harbor</span><span class="ejm-ui-badge" style="margin-inline-start:auto">main</span></div>
+          <nav class="ejm-ui-sidebar" aria-label="Chats and files">
+            <div class="ejm-ui-pane__head"><span class="ejm-ui-label">Chats</span><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon" type="button" aria-label="New chat">+</button></div>
+            <ul>
+              <li class="ejm-ui-row" aria-selected="true"><span>Fix flaky retry test</span><span class="ejm-ui-row__meta">now</span></li>
+              <li class="ejm-ui-row"><span>Explain the session journal</span><span class="ejm-ui-row__meta">2h</span></li>
+              <li class="ejm-ui-row"><span>Rename worker crate</span><span class="ejm-ui-row__meta">1d</span></li>
+            </ul>
+            <div class="ejm-ui-pane__head" style="margin-block-start:12px"><span class="ejm-ui-label">Files</span></div>
+            <ul>
+              <li class="ejm-ui-row"><span class="ejm-ui-mono">src/retry.rs</span><span class="ejm-ui-badge ejm-ui-badge--warning" style="margin-inline-start:auto">M</span></li>
+              <li class="ejm-ui-row"><span class="ejm-ui-mono">src/lib.rs</span></li>
+              <li class="ejm-ui-row"><span class="ejm-ui-mono">Cargo.toml</span></li>
+            </ul>
+          </nav>
+          <main class="ejm-ui-main">
+            <div class="ejm-ui-tabs" role="tablist">
+              <button class="ejm-ui-tab" role="tab" aria-selected="true">Fix flaky retry test</button>
+              <button class="ejm-ui-tab" role="tab" aria-selected="false"><span class="ejm-ui-mono">retry.rs</span></button>
+            </div>
+            <div class="stack">
+              <div class="ejm-ui-msg ejm-ui-msg--user"><span class="ejm-ui-msg__who">You</span><p>Why does <span class="ejm-ui-mono">retry_backoff</span> fail on CI but pass here?</p></div>
+              <div class="ejm-ui-msg ejm-ui-msg--assistant"><span class="ejm-ui-msg__who">ejm-ide</span><div class="ejm-ui-msg__body"><p>The test reads the wall clock, so slow CI machines cross the retry window. I will inject a clock.</p></div></div>
+              <div class="ejm-ui-tool" data-state="ok"><div class="ejm-ui-tool__head"><span class="ejm-ui-tool__state">ok</span><span>read_file</span><span class="ejm-ui-caption" style="margin-inline-start:auto">src/retry.rs</span></div></div>
+              <div class="ejm-ui-tool" data-state="running">
+                <div class="ejm-ui-tool__head"><span class="ejm-ui-tool__state">running</span><span>patch</span><span class="ejm-ui-caption" style="margin-inline-start:auto">src/retry.rs</span></div>
+                <pre class="ejm-ui-diff" aria-label="Proposed change"><span class="ejm-ui-diff__line ejm-ui-diff__line--hunk">@@ fn retry_backoff @@</span><span class="ejm-ui-diff__line ejm-ui-diff__line--del">-    let now = Instant::now();</span><span class="ejm-ui-diff__line ejm-ui-diff__line--add">+    let now = clock.now();</span><span class="ejm-ui-diff__line">     let wait = backoff(attempt);</span></pre>
+              </div>
+            </div>
+            <div class="composer"><input class="ejm-ui-input" placeholder="Ask about this repository" aria-label="Message"><button class="ejm-ui-btn ejm-ui-btn--primary" type="button">Send</button></div>
+          </main>
+          <div class="ejm-ui-statusbar"><span>3 files changed</span><span>model deepseek-chat</span><span style="margin-inline-start:auto"><span class="ejm-ui-kbd">Ctrl</span> <span class="ejm-ui-kbd">K</span> commands</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tui">
+      <h2 class="ejm-ui-title" id="tui">Terminal app</h2>
+      <p class="lede">The same screen as <span class="ejm-ui-mono">ejm-cli</span>: header, transcript, status line, composer, hints. A terminal app never paints a background. These colors are text roles on the reader's own terminal. <a class="ejm-ui-link" href="TUI.md">Read the terminal guide</a>.</p>
+      <div class="cols">
+        <pre class="ejm-term" aria-label="Terminal preview, running"><span class="ejm-term__line"> <span class="t-accent t-bold">ejm-cli </span>deepseek-chat<span class="t-dim">  ·  Fix the flaky retry test</span></span><span class="ejm-term__line"><span class="t-warn"> grants: write</span><span class="t-dim">  ·  ~/code/harbor  ·  s_4f2a91</span></span><span class="ejm-term__line"></span><span class="ejm-term__line"><span class="t-accent"> you</span></span><span class="ejm-term__line"> Why does retry_backoff fail on CI?</span><span class="ejm-term__line"></span><span class="ejm-term__line"><span class="t-bold"> ejm-cli</span></span><span class="ejm-term__line"> The test reads the wall clock. I will inject one.</span><span class="ejm-term__line"><span class="t-dim"> ▸ read_file src/retry.rs</span></span><span class="ejm-term__line"><span class="t-dim"> ```diff</span></span><span class="ejm-term__line"><span class="t-err"> -    let now = Instant::now();</span></span><span class="ejm-term__line"><span class="t-ok"> +    let now = clock.now();</span></span><span class="ejm-term__line"><span class="t-dim"> ```</span></span><span class="ejm-term__line"></span><span class="ejm-term__line"><span class="t-accent"> 1 agents · models 1+0q · tools 1+0q · ● Streaming…</span></span><span class="ejm-term__line"> ╭────────────────────────────────────────────╮</span><span class="ejm-term__line"> │ <span class="t-dim">› Ask about this repository</span><span class="ejm-term__caret"></span>               │</span><span class="ejm-term__line"> ╰────────────────────────────────────────────╯</span><span class="ejm-term__line"><span class="t-dim"> Enter send · Ctrl+K steer · Ctrl+C stop/quit</span></span></pre>
+        <pre class="ejm-term" aria-label="Terminal preview, empty and failing states"><span class="ejm-term__line"> <span class="t-accent t-bold">ejm-cli </span>deepseek-chat<span class="t-dim">  ·  New session</span></span><span class="ejm-term__line"><span class="t-dim"> grants: read  ·  ~/code/harbor  ·  s_91c0be</span></span><span class="ejm-term__line"></span><span class="ejm-term__line">  <span class="t-accent t-bold">What shall we build?</span></span><span class="ejm-term__line"></span><span class="ejm-term__line"><span class="t-dim"> Ask about this repository, investigate a bug, or</span></span><span class="ejm-term__line"><span class="t-dim"> describe a change.</span></span><span class="ejm-term__line"></span><span class="ejm-term__line"><span class="t-err"> Provider request failed: 401 Unauthorized</span></span><span class="ejm-term__line"><span class="t-err"> Check EJM_CLI_API_KEY, then press Enter to retry.</span></span><span class="ejm-term__line"></span><span class="ejm-term__line"><span class="t-warn"> ! shell access is on for this session</span></span><span class="ejm-term__line"><span class="t-dim"> 0 agents · models 0+0q · tools 0+0q · Ready</span></span><span class="ejm-term__line"> ╭────────────────────────────────────────────╮</span><span class="ejm-term__line"> │ <span class="t-dim">› </span>                                         │</span><span class="ejm-term__line"> ╰────────────────────────────────────────────╯</span><span class="ejm-term__line"><span class="t-dim"> Enter send · Ctrl+C stop/quit · /help</span></span></pre>
+      </div>
+    </section>
+
+    <section aria-labelledby="controls">
+      <h2 class="ejm-ui-title" id="controls">Controls and overlays</h2>
+      <div class="cols">
+        <div class="demo">
+          <button class="ejm-ui-btn ejm-ui-btn--primary" type="button">Primary</button>
+          <button class="ejm-ui-btn" type="button">Default</button>
+          <button class="ejm-ui-btn ejm-ui-btn--ghost" type="button">Ghost</button>
+          <button class="ejm-ui-btn ejm-ui-btn--danger" type="button">Delete chat</button>
+          <button class="ejm-ui-btn" type="button" disabled>Disabled</button>
+          <span class="ejm-ui-badge ejm-ui-badge--success">ok</span>
+          <span class="ejm-ui-badge ejm-ui-badge--warning">write enabled</span>
+          <span class="ejm-ui-badge ejm-ui-badge--error">failed</span>
+          <span class="ejm-ui-badge ejm-ui-badge--special">indexing</span>
+          <span class="ejm-ui-kbd">Ctrl</span><span class="ejm-ui-kbd">S</span>
+          <span class="ejm-ui-tooltip">Stage file</span>
+        </div>
+        <div class="ejm-ui-palette" role="dialog" aria-label="Command palette">
+          <input class="ejm-ui-input" placeholder="Run a command" aria-label="Command">
+          <ul>
+            <li class="ejm-ui-menu__item" aria-selected="true" style="padding-inline:16px">Open folder<span class="ejm-ui-kbd" style="margin-inline-start:auto">Ctrl O</span></li>
+            <li class="ejm-ui-menu__item" style="padding-inline:16px">Switch model</li>
+            <li class="ejm-ui-menu__item" style="padding-inline:16px">Show debug inspector</li>
+          </ul>
+        </div>
+        <div class="ejm-ui-toast" role="status"><span class="ejm-ui-badge ejm-ui-badge--success">ok</span><div><div class="ejm-ui-title" style="font-size:14px;line-height:20px">Committed 3 files</div><div class="ejm-ui-caption">main is 1 commit ahead.</div></div></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="code">
+      <h2 class="ejm-ui-title" id="code">Syntax</h2>
+      <p class="lede">One syntax palette for Monaco, terminal code blocks and documentation. Meaning stays fixed: types are violet, functions blue, strings green, keywords copper.</p>
+      <pre class="ejm-ui-code"><code><span class="ejm-syn-comment">// Run many sessions through one governor.</span>
+<span class="ejm-syn-keyword">let</span> harness = <span class="ejm-syn-type">Harness</span>::<span class="ejm-syn-function">new</span>(<span class="ejm-syn-type">HarnessConfig</span>::<span class="ejm-syn-function">default</span>(), <span class="ejm-syn-macro">provider</span>)<span class="ejm-syn-delimiter">?</span>;
+<span class="ejm-syn-keyword">let</span> session = harness.<span class="ejm-syn-function">open</span>(<span class="ejm-syn-type">SessionOptions</span> { title: <span class="ejm-syn-string">"Fix flaky test"</span>.<span class="ejm-syn-function">into</span>(), retries: <span class="ejm-syn-number">3</span>, ..<span class="ejm-syn-constant">DEFAULT</span> })<span class="ejm-syn-delimiter">?</span>;</code></pre>
+    </section>
+
+    <section aria-labelledby="terminals">
+      <h2 class="ejm-ui-title" id="terminals">Terminal color schemes</h2>
+      <p class="lede">Sixteen ANSI colors, mapped from the same roles. Install a file from <span class="ejm-ui-mono">terminal/</span> for iTerm, Warp, Alacritty, kitty, Ghostty or Windows Terminal.</p>
+      <div class="ansi" id="ansi" aria-label="ANSI colors"></div>
+    </section>
+
+    <section id="forms" aria-labelledby="forms-h">
+      <h2 class="ejm-ui-title" id="forms-h">Forms</h2>
+      <p class="lede"><b>Use when</b> the user types, picks or uploads something. Wrap every control in a field so label, hint and error stay together. Hover, active and focus appear when you point at, press or tab to a control; the rest are shown below.</p>
+      <ul class="idx" aria-label="Forms primitives">
+        <li><a href="#p-field">Field</a></li><li><a href="#p-input">Input and textarea</a></li><li><a href="#p-select">Select</a></li><li><a href="#p-check">Checkbox</a></li><li><a href="#p-radio">Radio</a></li><li><a href="#p-switch">Switch</a></li><li><a href="#p-seg">Segmented control</a></li><li><a href="#p-slider">Slider</a></li><li><a href="#p-number">Number stepper</a></li><li><a href="#p-search">Search</a></li><li><a href="#p-inputgroup">Input group</a></li><li><a href="#p-drop">File drop zone</a></li><li><a href="#p-form">Form layout</a></li>
+      </ul>
+
+      <article class="prim" id="p-field">
+        <header class="prim__head"><h3 class="ejm-ui-title">Field</h3><p class="prim__use"><b>Use when</b> any control needs a label. The error says what is wrong in words and starts with a glyph, so color is never the only signal.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-field</code></p></details></header>
+        <div class="prim__demo grid4">
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="f1">Session name</label><input class="ejm-ui-input" id="f1" value="Fix flaky retry test" aria-describedby="f1h"><span class="ejm-ui-field__hint" id="f1h">Shown in the chat list.</span></div>
+          <div class="ejm-ui-field"><div class="ejm-ui-field__head"><label class="ejm-ui-field__label" for="f2" data-required>Base URL</label><span class="ejm-ui-field__count">0 / 200</span></div><input class="ejm-ui-input ejm-ui-input--mono" id="f2" placeholder="https://api.example.com/v1" aria-describedby="f2h" required><span class="ejm-ui-field__hint" id="f2h">Must start with https.</span></div>
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="f3">Working directory</label><input class="ejm-ui-input ejm-ui-input--mono" id="f3" value="~/code/harbor/" aria-invalid="true" aria-describedby="f3e"><span class="ejm-ui-field__error" id="f3e">That folder does not exist.</span></div>
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="f4">Workspace id</label><input class="ejm-ui-input ejm-ui-input--mono" id="f4" value="ws_4f2a91" disabled aria-describedby="f4h"><span class="ejm-ui-field__hint" id="f4h">Set by your organization.</span></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-input">
+        <header class="prim__head"><h3 class="ejm-ui-title">Input and textarea</h3><p class="prim__use"><b>Use when</b> the answer is free text. Use the mono modifier for keys, paths and ids. Use a textarea for more than one line.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-input</code> <code>ejm-ui-textarea</code></p></details></header>
+        <div class="prim__demo grid4">
+          <div><p class="state">default</p><input class="ejm-ui-input" placeholder="Name this chat" aria-label="Default input"></div>
+          <div><p class="state">invalid</p><input class="ejm-ui-input" value="deepseek chat" aria-invalid="true" aria-label="Invalid input"></div>
+          <div><p class="state">disabled</p><input class="ejm-ui-input" value="deepseek-chat" disabled aria-label="Disabled input"></div>
+          <div><p class="state">read only</p><input class="ejm-ui-input ejm-ui-input--mono" value="s_4f2a91" readonly aria-label="Read only input"></div>
+          <div><p class="state">textarea</p><textarea class="ejm-ui-textarea" aria-label="System prompt">Answer in short plain sentences. Show the diff before you write it.</textarea></div>
+          <div><p class="state">textarea, invalid</p><textarea class="ejm-ui-textarea" aria-label="Invalid textarea" aria-invalid="true"></textarea></div>
+          <div><p class="state">textarea, disabled</p><textarea class="ejm-ui-textarea" aria-label="Disabled textarea" disabled>Managed by policy.</textarea></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-select">
+        <header class="prim__head"><h3 class="ejm-ui-title">Select</h3><p class="prim__use"><b>Use when</b> choosing one of 4 to 15 known options. Fewer than 4, use radios or a segmented control. More than 15, use search.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-select</code></p></details></header>
+        <div class="prim__demo grid4">
+          <div><p class="state">default</p><span class="ejm-ui-select"><select aria-label="Model"><option>deepseek-chat</option><option>deepseek-reasoner</option><option>local-qwen</option></select></span></div>
+          <div><p class="state">invalid</p><span class="ejm-ui-select"><select aria-label="Provider" aria-invalid="true"><option>Choose a provider</option></select></span></div>
+          <div><p class="state">disabled</p><span class="ejm-ui-select"><select aria-label="Region" disabled><option>eu-west</option></select></span></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-check">
+        <header class="prim__head"><h3 class="ejm-ui-title">Checkbox</h3><p class="prim__use"><b>Use when</b> several options can be on at once, or one option needs a clear yes. Use a switch when the change applies the moment it is flipped.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-check</code></p></details></header>
+        <div class="prim__demo grid4">
+          <label class="ejm-ui-check"><input type="checkbox"><span class="ejm-ui-check__box"></span>Allow file writes</label>
+          <label class="ejm-ui-check"><input type="checkbox" checked><span class="ejm-ui-check__box"></span>Allow shell access</label>
+          <label class="ejm-ui-check"><input type="checkbox" id="indet"><span class="ejm-ui-check__box"></span>Select all files</label>
+          <label class="ejm-ui-check"><input type="checkbox" aria-invalid="true"><span class="ejm-ui-check__box"></span>I accept the terms</label>
+          <label class="ejm-ui-check"><input type="checkbox" disabled><span class="ejm-ui-check__box"></span>Disabled</label>
+          <label class="ejm-ui-check"><input type="checkbox" checked disabled><span class="ejm-ui-check__box"></span>Disabled, on</label>
+          <label class="ejm-ui-check"><input type="checkbox" checked><span class="ejm-ui-check__box"></span><span class="ejm-ui-check__text">Keep a session journal<span class="ejm-ui-check__hint">Stored on this machine only.</span></span></label>
+        </div>
+      </article>
+
+      <article class="prim" id="p-radio">
+        <header class="prim__head"><h3 class="ejm-ui-title">Radio</h3><p class="prim__use"><b>Use when</b> exactly one of 2 to 5 options applies and every option should stay visible.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-radio</code></p></details></header>
+        <div class="prim__demo">
+          <fieldset class="ejm-ui-fieldset"><legend class="ejm-ui-fieldset__legend">Provider</legend>
+            <label class="ejm-ui-radio"><input type="radio" name="prov" checked><span class="ejm-ui-radio__dot"></span>DeepSeek</label>
+            <label class="ejm-ui-radio"><input type="radio" name="prov"><span class="ejm-ui-radio__dot"></span>Anthropic</label>
+            <label class="ejm-ui-radio"><input type="radio" name="prov"><span class="ejm-ui-radio__dot"></span>OpenAI-compatible endpoint</label>
+            <label class="ejm-ui-radio"><input type="radio" name="prov" disabled><span class="ejm-ui-radio__dot"></span>Local model (not installed)</label>
+          </fieldset>
+        </div>
+      </article>
+
+      <article class="prim" id="p-switch">
+        <header class="prim__head"><h3 class="ejm-ui-title">Switch</h3><p class="prim__use"><b>Use when</b> a setting turns on or off immediately, with no Save step. It carries <code>role="switch"</code>.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-switch</code></p></details></header>
+        <div class="prim__demo grid4">
+          <label class="ejm-ui-switch"><input type="checkbox" role="switch"><span class="ejm-ui-switch__track"></span>Auto-commit</label>
+          <label class="ejm-ui-switch"><input type="checkbox" role="switch" checked><span class="ejm-ui-switch__track"></span>Stream responses</label>
+          <label class="ejm-ui-switch"><input type="checkbox" role="switch" disabled><span class="ejm-ui-switch__track"></span>Telemetry (locked)</label>
+          <label class="ejm-ui-switch"><input type="checkbox" role="switch" checked disabled><span class="ejm-ui-switch__track"></span>Sandbox (locked)</label>
+          <label class="ejm-ui-switch" aria-busy="true"><input type="checkbox" role="switch" checked><span class="ejm-ui-switch__track"></span>Syncing<span class="ejm-ui-spinner ejm-ui-spinner--sm" aria-hidden="true"></span></label>
+        </div>
+      </article>
+
+      <article class="prim" id="p-seg">
+        <header class="prim__head"><h3 class="ejm-ui-title">Segmented control</h3><p class="prim__use"><b>Use when</b> choosing one of 2 to 4 short views or modes that change the display now. It is a radio group with arrow-key behavior.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-seg</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-seg" role="radiogroup" aria-label="Theme">
+            <label class="ejm-ui-seg__opt"><input type="radio" name="seg1" checked><span>Dark</span></label>
+            <label class="ejm-ui-seg__opt"><input type="radio" name="seg1"><span>Light</span></label>
+            <label class="ejm-ui-seg__opt"><input type="radio" name="seg1"><span>System</span></label>
+          </div>
+          <div class="ejm-ui-seg" role="radiogroup" aria-label="Diff view">
+            <label class="ejm-ui-seg__opt"><input type="radio" name="seg2"><span>Inline</span></label>
+            <label class="ejm-ui-seg__opt"><input type="radio" name="seg2" checked><span>Split</span></label>
+            <label class="ejm-ui-seg__opt"><input type="radio" name="seg2" disabled><span>Three-way</span></label>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-slider">
+        <header class="prim__head"><h3 class="ejm-ui-title">Slider</h3><p class="prim__use"><b>Use when</b> the value is approximate and the range is bounded, such as temperature. For an exact value, use the number stepper.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-slider</code></p></details></header>
+        <div class="prim__demo grid2">
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="temp">Temperature</label><div class="ejm-ui-slider-row"><input class="ejm-ui-slider" id="temp" type="range" min="0" max="2" step="0.1" value="0.4" style="--p:20%"><output for="temp">0.4</output></div></div>
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="temp2">Top p (locked by model)</label><div class="ejm-ui-slider-row"><input class="ejm-ui-slider" id="temp2" type="range" min="0" max="1" step="0.05" value="0.9" style="--p:90%" disabled><output for="temp2">0.9</output></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-number">
+        <header class="prim__head"><h3 class="ejm-ui-title">Number stepper</h3><p class="prim__use"><b>Use when</b> the user needs an exact small integer, such as retries or max tokens.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-number</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-field"><span class="ejm-ui-field__label" id="n1l">Retries</span><div class="ejm-ui-number" role="group" aria-labelledby="n1l"><button class="ejm-ui-btn" type="button" aria-label="Decrease retries"><svg class="ico" aria-hidden="true"><use href="#i-minus"/></svg></button><input class="ejm-ui-input" inputmode="numeric" role="spinbutton" aria-valuenow="3" aria-valuemin="0" aria-valuemax="10" value="3" aria-labelledby="n1l"><button class="ejm-ui-btn" type="button" aria-label="Increase retries"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button></div></div>
+          <div class="ejm-ui-field"><span class="ejm-ui-field__label" id="n2l">Max tokens (at limit)</span><div class="ejm-ui-number" role="group" aria-labelledby="n2l"><button class="ejm-ui-btn" type="button" aria-label="Decrease max tokens"><svg class="ico" aria-hidden="true"><use href="#i-minus"/></svg></button><input class="ejm-ui-input" inputmode="numeric" role="spinbutton" aria-valuenow="8192" aria-valuemax="8192" value="8192" aria-labelledby="n2l" style="inline-size:80px"><button class="ejm-ui-btn" type="button" aria-label="Increase max tokens" disabled><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button></div></div>
+          <div class="ejm-ui-field"><span class="ejm-ui-field__label" id="n3l">Workers (locked)</span><div class="ejm-ui-number" role="group" aria-labelledby="n3l"><button class="ejm-ui-btn" type="button" aria-label="Decrease workers" disabled><svg class="ico" aria-hidden="true"><use href="#i-minus"/></svg></button><input class="ejm-ui-input" value="4" disabled aria-labelledby="n3l"><button class="ejm-ui-btn" type="button" aria-label="Increase workers" disabled><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-search">
+        <header class="prim__head"><h3 class="ejm-ui-title">Search</h3><p class="prim__use"><b>Use when</b> filtering a list or finding a file or command. The icon slot is the start; the end slot holds a shortcut hint, a clear button or a spinner.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-search</code></p></details></header>
+        <div class="prim__demo grid3">
+          <div><p class="state">default, with shortcut</p><div class="ejm-ui-search"><span class="ejm-ui-search__icon"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><input class="ejm-ui-input" type="search" placeholder="Search files" aria-label="Search files"><span class="ejm-ui-search__end"><span class="ejm-ui-kbd">Ctrl P</span></span></div></div>
+          <div><p class="state">with query and clear</p><div class="ejm-ui-search"><span class="ejm-ui-search__icon"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><input class="ejm-ui-input" type="search" value="retry" aria-label="Search files"><span class="ejm-ui-search__end"><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Clear search"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></span></div></div>
+          <div><p class="state">loading</p><div class="ejm-ui-search"><span class="ejm-ui-search__icon"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><input class="ejm-ui-input" type="search" value="retry_backoff" aria-label="Search symbols" aria-busy="true"><span class="ejm-ui-search__end"><span class="ejm-ui-spinner ejm-ui-spinner--sm" role="status"><span class="ejm-ui-sr">Searching</span></span></span></div></div>
+          <div><p class="state">disabled</p><div class="ejm-ui-search"><span class="ejm-ui-search__icon"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><input class="ejm-ui-input" type="search" placeholder="Index is building" aria-label="Search symbols" disabled></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-inputgroup">
+        <header class="prim__head"><h3 class="ejm-ui-title">Input group</h3><p class="prim__use"><b>Use when</b> one action belongs to one input: reveal a key, copy a path, browse for a folder.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-inputgroup</code></p></details></header>
+        <div class="prim__demo grid2">
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="key1">API key</label><div class="ejm-ui-inputgroup"><input class="ejm-ui-input ejm-ui-input--mono" id="key1" type="password" value="sk-sample-not-a-key" aria-describedby="key1h"><button class="ejm-ui-btn" type="button" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>Show</button></div><span class="ejm-ui-field__hint" id="key1h">Stored in the system keychain, never in settings.</span></div>
+          <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="dir1">Project folder</label><div class="ejm-ui-inputgroup"><input class="ejm-ui-input ejm-ui-input--mono" id="dir1" value="~/code/harbor"><button class="ejm-ui-btn" type="button"><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg>Browse</button></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-drop">
+        <header class="prim__head"><h3 class="ejm-ui-title">File drop zone</h3><p class="prim__use"><b>Use when</b> the user can bring in files by drag or by click. A real file input sits inside, so keyboard works without script. Set <code>data-state="over"</code> while a file is dragged above it.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-drop</code></p></details></header>
+        <div class="prim__demo grid4">
+          <div><p class="state">default</p><label class="ejm-ui-drop"><input class="ejm-ui-drop__input" type="file" multiple><span class="ejm-ui-drop__icon"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg></span><span class="ejm-ui-drop__title">Drop files or click to choose</span><span class="ejm-ui-drop__hint">.md .rs .toml up to 2 MB</span></label></div>
+          <div><p class="state">file over</p><label class="ejm-ui-drop" data-state="over"><input class="ejm-ui-drop__input" type="file"><span class="ejm-ui-drop__icon"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg></span><span class="ejm-ui-drop__title">Release to add 2 files</span><span class="ejm-ui-drop__hint">retry.rs, lib.rs</span></label></div>
+          <div><p class="state">invalid</p><label class="ejm-ui-drop" aria-invalid="true"><input class="ejm-ui-drop__input" type="file" aria-describedby="dropE"><span class="ejm-ui-drop__icon"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg></span><span class="ejm-ui-drop__title">Choose a smaller file</span><span class="ejm-ui-drop__hint" id="dropE">dump.bin is 14 MB, the limit is 2 MB</span></label></div>
+          <div><p class="state">disabled</p><label class="ejm-ui-drop" aria-disabled="true"><input class="ejm-ui-drop__input" type="file" disabled><span class="ejm-ui-drop__icon"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg></span><span class="ejm-ui-drop__title">Uploads are off</span><span class="ejm-ui-drop__hint">Ask an admin to enable them</span></label></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-form">
+        <header class="prim__head"><h3 class="ejm-ui-title">Form layout</h3><p class="prim__use"><b>Use when</b> collecting more than one value. One column of fields, short fields share a row, actions end the form, primary last.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-form</code> <code>ejm-ui-form__row</code> <code>ejm-ui-form__actions</code> <code>ejm-ui-fieldset</code></p></details></header>
+        <div class="prim__demo">
+          <form class="ejm-ui-form" onsubmit="return false">
+            <div class="ejm-ui-form__row">
+              <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="pf1" data-required>Provider name</label><input class="ejm-ui-input" id="pf1" value="Work endpoint"></div>
+              <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="pf2">Model</label><span class="ejm-ui-select"><select id="pf2"><option>deepseek-chat</option><option>deepseek-reasoner</option></select></span></div>
+            </div>
+            <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="pf3" data-required>Base URL</label><input class="ejm-ui-input ejm-ui-input--mono" id="pf3" value="http://api.internal/v1" aria-invalid="true" aria-describedby="pf3e"><span class="ejm-ui-field__error" id="pf3e">Use https. Plain http sends your key unencrypted.</span></div>
+            <fieldset class="ejm-ui-fieldset"><legend class="ejm-ui-fieldset__legend">Permissions</legend>
+              <label class="ejm-ui-check"><input type="checkbox" checked><span class="ejm-ui-check__box"></span>Read files</label>
+              <label class="ejm-ui-check"><input type="checkbox"><span class="ejm-ui-check__box"></span>Write files</label>
+            </fieldset>
+            <div class="ejm-ui-form__actions"><button class="ejm-ui-btn ejm-ui-btn--ghost" type="button">Cancel</button><button class="ejm-ui-btn ejm-ui-btn--primary" type="submit">Save provider</button></div>
+          </form>
+        </div>
+      </article>
+    </section>
+
+    <section id="actions" aria-labelledby="actions-h">
+      <h2 class="ejm-ui-title" id="actions-h">Actions</h2>
+      <p class="lede"><b>Use when</b> the user does something: run, save, open, filter, switch a mode. One primary button per view. Anything that only moves to another place is a link, not a button.</p>
+      <ul class="idx" aria-label="Actions primitives">
+        <li><a href="#p-btn">Button</a></li><li><a href="#p-iconbtn">Icon button and tooltip</a></li><li><a href="#p-btngroup">Button group</a></li><li><a href="#p-splitbtn">Split button</a></li><li><a href="#p-toggle">Toggle button</a></li><li><a href="#p-toolbar">Toolbar</a></li><li><a href="#p-menubtn">Menu button</a></li><li><a href="#p-link">Link</a></li><li><a href="#p-chip">Chip and tag</a></li>
+      </ul>
+
+      <article class="prim" id="p-btn">
+        <header class="prim__head"><h3 class="ejm-ui-title">Button</h3><p class="prim__use"><b>Use when</b> the user commits an action. Sizes: sm 28, default 32, lg 40 (onboarding). On touch screens all are 44. Loading keeps the label and adds a spinner, so the width does not jump.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-btn</code></p></details></header>
+        <div class="prim__demo">
+          <div class="row"><span class="state w">variants</span><button class="ejm-ui-btn ejm-ui-btn--primary" type="button">Primary</button><button class="ejm-ui-btn" type="button">Default</button><button class="ejm-ui-btn ejm-ui-btn--ghost" type="button">Ghost</button><button class="ejm-ui-btn ejm-ui-btn--danger" type="button">Danger</button><button class="ejm-ui-btn ejm-ui-btn--destructive" type="button">Delete chat</button></div>
+          <div class="row"><span class="state w">sizes</span><button class="ejm-ui-btn ejm-ui-btn--sm" type="button">Small</button><button class="ejm-ui-btn" type="button">Default</button><button class="ejm-ui-btn ejm-ui-btn--lg" type="button">Large</button><button class="ejm-ui-btn ejm-ui-btn--primary ejm-ui-btn--lg" type="button">Get started</button></div>
+          <div class="row"><span class="state w">disabled</span><button class="ejm-ui-btn ejm-ui-btn--primary" type="button" disabled>Primary</button><button class="ejm-ui-btn" type="button" disabled>Default</button><button class="ejm-ui-btn ejm-ui-btn--ghost" type="button" disabled>Ghost</button><button class="ejm-ui-btn" type="button" aria-disabled="true">aria-disabled</button></div>
+          <div class="row"><span class="state w">loading</span><button class="ejm-ui-btn ejm-ui-btn--primary" type="button" aria-busy="true"><span class="ejm-ui-spinner" aria-hidden="true"></span>Saving</button><button class="ejm-ui-btn" type="button" aria-busy="true"><span class="ejm-ui-spinner" aria-hidden="true"></span>Testing connection</button></div>
+          <div class="row"><span class="state w">focus ring</span><button class="ejm-ui-btn ejm-ui-btn--primary ring" type="button">Primary, focused</button><button class="ejm-ui-btn ring" type="button">Default, focused</button><span class="ejm-ui-caption">2px primary ring, 1px offset, on everything interactive.</span></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-iconbtn">
+        <header class="prim__head"><h3 class="ejm-ui-title">Icon button and tooltip</h3><p class="prim__use"><b>Use when</b> the icon is a well-known one and space is tight. Always give it an <code>aria-label</code>. The tooltip shows on hover and keyboard focus.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-btn--icon</code> <code>ejm-ui-tip</code></p></details></header>
+        <div class="prim__demo">
+          <div class="row" style="padding-block-end:32px"><span class="state w">sizes</span>
+            <span class="ejm-ui-tip" data-open><button class="ejm-ui-btn ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Stage file" aria-describedby="tt1"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button><span class="ejm-ui-tooltip" role="tooltip" id="tt1">Stage file</span></span>
+            <span class="ejm-ui-tip"><button class="ejm-ui-btn ejm-ui-btn--icon" type="button" aria-label="Refresh"><svg class="ico" aria-hidden="true"><use href="#i-refresh"/></svg></button><span class="ejm-ui-tooltip" role="tooltip">Refresh</span></span>
+            <span class="ejm-ui-tip"><button class="ejm-ui-btn ejm-ui-btn--icon ejm-ui-btn--lg" type="button" aria-label="Copy path"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg></button><span class="ejm-ui-tooltip" role="tooltip">Copy path</span></span>
+            <button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon" type="button" aria-label="More"><svg class="ico" aria-hidden="true"><use href="#i-dots"/></svg></button>
+            <button class="ejm-ui-btn ejm-ui-btn--icon" type="button" aria-label="Run" disabled><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg></button>
+            <button class="ejm-ui-btn ejm-ui-btn--icon" type="button" aria-label="Running" aria-busy="true"><span class="ejm-ui-spinner" aria-hidden="true"></span></button>
+          </div>
+          <p class="ejm-ui-caption">The first tooltip is held open for the specimen. Placement: below by default, <code>ejm-ui-tip--above</code>, <code>ejm-ui-tip--right</code>.</p>
+        </div>
+      </article>
+
+      <article class="prim" id="p-btngroup">
+        <header class="prim__head"><h3 class="ejm-ui-title">Button group</h3><p class="prim__use"><b>Use when</b> 2 to 4 actions are one set, such as undo and redo. For one choice among modes, use the segmented control.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-btngroup</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-btngroup" role="group" aria-label="History"><button class="ejm-ui-btn" type="button">Undo</button><button class="ejm-ui-btn" type="button">Redo</button><button class="ejm-ui-btn" type="button" disabled>Revert all</button></div>
+          <div class="ejm-ui-btngroup" role="group" aria-label="Text size"><button class="ejm-ui-btn ejm-ui-btn--icon" type="button" aria-label="Smaller"><svg class="ico" aria-hidden="true"><use href="#i-minus"/></svg></button><button class="ejm-ui-btn ejm-ui-btn--icon" type="button" aria-label="Larger"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-splitbtn">
+        <header class="prim__head"><h3 class="ejm-ui-title">Split button</h3><p class="prim__use"><b>Use when</b> one action is the usual choice and the rest are variants, such as Commit and Commit and push. The caret opens a menu.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-splitbtn</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-anchor"><div class="ejm-ui-splitbtn"><button class="ejm-ui-btn ejm-ui-btn--primary" type="button">Commit</button><button class="ejm-ui-btn ejm-ui-btn--primary ejm-ui-splitbtn__toggle" type="button" aria-label="More commit options" aria-haspopup="menu" aria-expanded="false"><span class="ejm-ui-btn__caret"></span></button></div></div>
+          <div class="ejm-ui-splitbtn"><button class="ejm-ui-btn" type="button">Run tests</button><button class="ejm-ui-btn ejm-ui-splitbtn__toggle" type="button" aria-label="More test options" aria-haspopup="menu" aria-expanded="false"><span class="ejm-ui-btn__caret"></span></button></div>
+          <div class="ejm-ui-splitbtn"><button class="ejm-ui-btn" type="button" disabled>Push</button><button class="ejm-ui-btn ejm-ui-splitbtn__toggle" type="button" aria-label="More push options" disabled><span class="ejm-ui-btn__caret"></span></button></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-toggle">
+        <header class="prim__head"><h3 class="ejm-ui-title">Toggle button</h3><p class="prim__use"><b>Use when</b> a tool stays on or off, such as word wrap or the terminal panel. State lives in <code>aria-pressed</code>. Click these to try.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-btn--toggle</code></p></details></header>
+        <div class="prim__demo">
+          <button class="ejm-ui-btn ejm-ui-btn--toggle" type="button" aria-pressed="false">Word wrap</button>
+          <button class="ejm-ui-btn ejm-ui-btn--toggle" type="button" aria-pressed="true">Minimap</button>
+          <button class="ejm-ui-btn ejm-ui-btn--toggle" type="button" aria-pressed="true" disabled>Locked on</button>
+          <button class="ejm-ui-btn ejm-ui-btn--toggle ejm-ui-btn--icon" type="button" aria-pressed="true" aria-label="Terminal panel"><svg class="ico" aria-hidden="true"><use href="#i-terminal"/></svg></button>
+          <button class="ejm-ui-btn ejm-ui-btn--toggle ejm-ui-btn--icon" type="button" aria-pressed="false" aria-label="Chat panel"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></button>
+        </div>
+      </article>
+
+      <article class="prim" id="p-toolbar">
+        <header class="prim__head"><h3 class="ejm-ui-title">Toolbar</h3><p class="prim__use"><b>Use when</b> a pane has 4 or more actions for its content. It is one tab stop; arrow keys move between items.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-toolbar</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-toolbar" role="toolbar" aria-label="Git changes" aria-orientation="horizontal">
+            <button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon" type="button" aria-label="Refresh"><svg class="ico" aria-hidden="true"><use href="#i-refresh"/></svg></button>
+            <button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon" type="button" aria-label="Stage all"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button>
+            <span class="ejm-ui-toolbar__sep" role="separator" aria-orientation="vertical"></span>
+            <button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--sm" type="button"><svg class="ico" aria-hidden="true"><use href="#i-branch"/></svg>main</button>
+            <button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--sm ejm-ui-btn--toggle" type="button" aria-pressed="true">Staged</button>
+            <span class="ejm-ui-toolbar__spacer"></span>
+            <button class="ejm-ui-btn ejm-ui-btn--primary ejm-ui-btn--sm" type="button">Commit 3 files</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-menubtn">
+        <header class="prim__head"><h3 class="ejm-ui-title">Menu button</h3><p class="prim__use"><b>Use when</b> 3 or more related commands share one button. Closed and open (<code>aria-expanded="true"</code>) are shown. The menu itself is in Navigation and layout.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-btn</code> <code>ejm-ui-btn__caret</code> <code>ejm-ui-anchor</code></p></details></header>
+        <div class="prim__demo tall">
+          <button class="ejm-ui-btn" type="button" aria-haspopup="menu" aria-expanded="false">Model<span class="ejm-ui-btn__caret"></span></button>
+          <div class="ejm-ui-anchor"><button class="ejm-ui-btn" type="button" aria-haspopup="menu" aria-expanded="true">deepseek-chat<span class="ejm-ui-btn__caret"></span></button>
+            <div class="ejm-ui-menu" role="menu" aria-label="Model">
+              <div class="ejm-ui-menu__item" role="menuitemradio" aria-checked="true" tabindex="0"><span class="ejm-ui-menu__check"></span>deepseek-chat</div>
+              <div class="ejm-ui-menu__item" role="menuitemradio" aria-checked="false" tabindex="-1"><span class="ejm-ui-menu__check"></span>deepseek-reasoner</div>
+              <div class="ejm-ui-menu__item" role="menuitemradio" aria-checked="false" tabindex="-1"><span class="ejm-ui-menu__check"></span>local-qwen</div>
+            </div></div>
+          <button class="ejm-ui-btn" type="button" aria-haspopup="menu" disabled>Branch<span class="ejm-ui-btn__caret"></span></button>
+        </div>
+      </article>
+
+      <article class="prim" id="p-link">
+        <header class="prim__head"><h3 class="ejm-ui-title">Link</h3><p class="prim__use"><b>Use when</b> text leads to another page or a document. Underlined always. Use the quiet modifier inside dense metadata.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-link</code></p></details></header>
+        <div class="prim__demo">
+          <p>Read the <a class="ejm-ui-link" href="#p-link">provider guide</a> before adding a key, or <a class="ejm-ui-link ejm-ui-link--quiet" href="#p-link">skip for now</a>. <a class="ejm-ui-link" aria-disabled="true">Billing (unavailable)</a>.</p>
+        </div>
+      </article>
+
+      <article class="prim" id="p-chip">
+        <header class="prim__head"><h3 class="ejm-ui-title">Chip and tag</h3><p class="prim__use"><b>Use when</b> a chip is a filter the user switches or a value they entered and can remove. A tag only labels; it is never clickable. Chips are 28 high, tags 20.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-chip</code> <code>ejm-ui-chip--removable</code> <code>ejm-ui-tag</code></p></details></header>
+        <div class="prim__demo">
+          <div class="row"><span class="state w">filter chips</span><button class="ejm-ui-chip" type="button" aria-pressed="false">All</button><button class="ejm-ui-chip" type="button" aria-pressed="true">Modified</button><button class="ejm-ui-chip" type="button" aria-pressed="false">Staged</button><button class="ejm-ui-chip" type="button" disabled>Conflicts</button></div>
+          <div class="row"><span class="state w">removable</span><span class="ejm-ui-chip ejm-ui-chip--removable">src/retry.rs<button class="ejm-ui-chip__remove" type="button" aria-label="Remove src/retry.rs"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></span><span class="ejm-ui-chip ejm-ui-chip--removable">tests/<button class="ejm-ui-chip__remove" type="button" aria-label="Remove tests/"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></span><span class="ejm-ui-chip ejm-ui-chip--removable" aria-invalid="true">not-a-path<button class="ejm-ui-chip__remove" type="button" aria-label="Remove not-a-path, invalid"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
+          <div class="row"><span class="state w">tags</span><span class="ejm-ui-tag">rust</span><span class="ejm-ui-tag" data-hue="1">tool call</span><span class="ejm-ui-tag" data-hue="2">agent</span><span class="ejm-ui-tag" data-hue="3">mcp</span><span class="ejm-ui-tag" data-hue="4">draft</span><span class="ejm-ui-tag" data-hue="5">review</span><span class="ejm-ui-tag" data-hue="6">local</span></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="feedback" aria-labelledby="feedback-h">
+      <h2 class="ejm-ui-title" id="feedback-h">Feedback</h2>
+      <p class="lede"><b>Use when</b> the system tells the user something: a result, a wait, a problem, nothing to show. Every state names what happened in words. Color only backs the words up.</p>
+      <ul class="idx" aria-label="Feedback primitives">
+        <li><a href="#p-banner">Banner</a></li><li><a href="#p-status">Inline status</a></li><li><a href="#p-progress">Progress</a></li><li><a href="#p-spinner">Spinner</a></li><li><a href="#p-skel">Skeleton</a></li><li><a href="#p-empty">Empty state</a></li><li><a href="#p-errorstate">Error state</a></li><li><a href="#p-toasts">Toast stack</a></li><li><a href="#p-count">Badge count</a></li>
+      </ul>
+
+      <article class="prim" id="p-banner">
+        <header class="prim__head"><h3 class="ejm-ui-title">Banner</h3><p class="prim__use"><b>Use when</b> a message belongs to the page or a section and should stay until handled. Use <code>role="alert"</code> only for errors that appear without user action; otherwise <code>role="status"</code>.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-banner</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-banner" role="status"><span class="ejm-ui-banner__icon" aria-hidden="true">i</span><div class="ejm-ui-banner__body"><span class="ejm-ui-banner__title">Indexing harbor</span><span>Search results may be incomplete until this finishes, about 2 minutes.</span></div><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Dismiss"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+          <div class="ejm-ui-banner ejm-ui-banner--success" role="status"><span class="ejm-ui-banner__icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><div class="ejm-ui-banner__body"><span class="ejm-ui-banner__title">Provider saved</span><span>DeepSeek is ready. Your key is in the system keychain.</span></div><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Dismiss"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+          <div class="ejm-ui-banner ejm-ui-banner--warning" role="status"><span class="ejm-ui-banner__icon" aria-hidden="true">!</span><div class="ejm-ui-banner__body"><span class="ejm-ui-banner__title">Shell access is on for this session</span><span>The agent can run commands in <span class="ejm-ui-mono">~/code/harbor</span> without asking.</span><div class="ejm-ui-banner__actions"><button class="ejm-ui-btn ejm-ui-btn--sm" type="button">Turn off</button><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--sm" type="button">Keep on</button></div></div></div>
+          <div class="ejm-ui-banner ejm-ui-banner--error" role="alert"><span class="ejm-ui-banner__icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></span><div class="ejm-ui-banner__body"><span class="ejm-ui-banner__title">Provider request failed: 401 Unauthorized</span><span>Check the API key for DeepSeek. Your chat is kept.</span><div class="ejm-ui-banner__actions"><button class="ejm-ui-btn ejm-ui-btn--sm" type="button">Open provider settings</button><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--sm" type="button">Retry</button></div></div><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Dismiss"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-status">
+        <header class="prim__head"><h3 class="ejm-ui-title">Inline status</h3><p class="prim__use"><b>Use when</b> one object has a state, in a row or a header. Use a badge when the state needs a tinted label; use status when a dot and a word are enough.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-status</code></p></details></header>
+        <div class="prim__demo">
+          <span class="ejm-ui-status" data-state="idle">Idle</span>
+          <span class="ejm-ui-status" data-state="running">Running tests</span>
+          <span class="ejm-ui-status" data-state="ok">Connected</span>
+          <span class="ejm-ui-status" data-state="warn">Rate limited</span>
+          <span class="ejm-ui-status" data-state="error">Disconnected</span>
+        </div>
+      </article>
+
+      <article class="prim" id="p-progress">
+        <header class="prim__head"><h3 class="ejm-ui-title">Progress bar</h3><p class="prim__use"><b>Use when</b> a task has a known length (determinate) or runs for more than 2 seconds with no known end (indeterminate). Under 2 seconds, use a spinner.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-progress</code></p></details></header>
+        <div class="prim__demo grid2">
+          <div class="ejm-ui-progress" style="--value:42"><div class="ejm-ui-progress__meta"><span id="pg1">Indexing files</span><b>2,140 / 5,100</b></div><div class="ejm-ui-progress__track" role="progressbar" aria-labelledby="pg1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42"><span class="ejm-ui-progress__bar"></span></div></div>
+          <div class="ejm-ui-progress ejm-ui-progress--success" style="--value:100"><div class="ejm-ui-progress__meta"><span id="pg2">Download model</span><b>Done</b></div><div class="ejm-ui-progress__track" role="progressbar" aria-labelledby="pg2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><span class="ejm-ui-progress__bar"></span></div></div>
+          <div class="ejm-ui-progress ejm-ui-progress--warning" style="--value:88"><div class="ejm-ui-progress__meta"><span id="pg3">Context window</span><b>88% full</b></div><div class="ejm-ui-progress__track" role="progressbar" aria-labelledby="pg3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="88"><span class="ejm-ui-progress__bar"></span></div></div>
+          <div class="ejm-ui-progress ejm-ui-progress--error" style="--value:63"><div class="ejm-ui-progress__meta"><span id="pg4">Upload failed</span><b>63%</b></div><div class="ejm-ui-progress__track" role="progressbar" aria-labelledby="pg4" aria-valuemin="0" aria-valuemax="100" aria-valuenow="63"><span class="ejm-ui-progress__bar"></span></div></div>
+          <div class="ejm-ui-progress ejm-ui-progress--indeterminate"><div class="ejm-ui-progress__meta"><span id="pg5">Waiting for the provider</span></div><div class="ejm-ui-progress__track" role="progressbar" aria-labelledby="pg5"><span class="ejm-ui-progress__bar"></span></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-spinner">
+        <header class="prim__head"><h3 class="ejm-ui-title">Spinner</h3><p class="prim__use"><b>Use when</b> a short wait has no length to show, inside a button, a field or a small region. Always pair with a text label, visible or <code>ejm-ui-sr</code>.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-spinner</code></p></details></header>
+        <div class="prim__demo">
+          <span class="ejm-ui-spinner ejm-ui-spinner--sm" role="status"><span class="ejm-ui-sr">Loading</span></span>
+          <span class="ejm-ui-spinner" role="status"><span class="ejm-ui-sr">Loading</span></span>
+          <span class="ejm-ui-spinner ejm-ui-spinner--lg" role="status"><span class="ejm-ui-sr">Loading</span></span>
+          <span class="inl ejm-ui-caption"><span class="ejm-ui-spinner ejm-ui-spinner--sm" aria-hidden="true"></span>Connecting to the provider</span>
+        </div>
+      </article>
+
+      <article class="prim" id="p-skel">
+        <header class="prim__head"><h3 class="ejm-ui-title">Skeleton</h3><p class="prim__use"><b>Use when</b> a region is loading and its final shape is known. Match the real layout, set <code>aria-busy="true"</code> on the container, and hide the bones from assistive tech. Skeletons do not shimmer.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-skel</code></p></details></header>
+        <div class="prim__demo grid3">
+          <div><p class="state">text</p><div aria-busy="true"><span class="ejm-ui-skel ejm-ui-skel--text"></span><span class="ejm-ui-skel ejm-ui-skel--text"></span><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:60%"></span></div></div>
+          <div><p class="state">rows</p><ul aria-busy="true" class="skelrows"><li><span class="ejm-ui-skel ejm-ui-skel--avatar"></span><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:70%"></span></li><li><span class="ejm-ui-skel ejm-ui-skel--avatar"></span><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:50%"></span></li><li><span class="ejm-ui-skel ejm-ui-skel--avatar"></span><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:62%"></span></li></ul></div>
+          <div><p class="state">block</p><span class="ejm-ui-skel ejm-ui-skel--block" aria-busy="true"></span></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-empty">
+        <header class="prim__head"><h3 class="ejm-ui-title">Empty state</h3><p class="prim__use"><b>Use when</b> a list or pane has nothing to show yet. Say "No X yet", give one sentence, offer one action. Never show a zero chart instead.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-empty</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-empty framed"><div class="ejm-ui-empty__icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></div><h4 class="ejm-ui-empty__title">No chats yet</h4><p class="ejm-ui-empty__text">Ask about this repository, investigate a bug or describe a change. Your chats are listed here.</p><div class="ejm-ui-empty__action"><button class="ejm-ui-btn ejm-ui-btn--primary" type="button">New chat</button></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-errorstate">
+        <header class="prim__head"><h3 class="ejm-ui-title">Error state</h3><p class="prim__use"><b>Use when</b> a whole pane could not load. Say what failed, keep the user's work, and offer retry. Show the technical detail in mono, small.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-empty--error</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-empty ejm-ui-empty--error framed" role="alert"><div class="ejm-ui-empty__icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg></div><h4 class="ejm-ui-empty__title">Could not load git changes</h4><p class="ejm-ui-empty__text">The repository is locked by another process. Your edits are safe.</p><p class="ejm-ui-empty__detail">fatal: Unable to create '.git/index.lock': File exists</p><div class="ejm-ui-empty__action"><button class="ejm-ui-btn ejm-ui-btn--primary" type="button">Try again</button><button class="ejm-ui-btn" type="button">Open log</button></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-toasts">
+        <header class="prim__head"><h3 class="ejm-ui-title">Toast stack</h3><p class="prim__use"><b>Use when</b> an action finished and needs no decision, such as Committed 3 files. Stack at most 3, newest on top, auto-dismiss after 6 seconds unless it has an action. Errors that need action use a banner.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-toasts</code> <code>ejm-ui-toast</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-toasts ejm-ui-toasts--inline">
+            <div class="ejm-ui-toast" role="status"><span class="ejm-ui-badge ejm-ui-badge--success">ok</span><div class="ejm-ui-toast__body"><span class="ejm-ui-toast__title">Committed 3 files</span><span class="ejm-ui-caption">main is 1 commit ahead.</span><div class="ejm-ui-toast__actions"><button class="ejm-ui-btn ejm-ui-btn--sm" type="button">Push</button><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--sm" type="button">Undo</button></div></div><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Dismiss"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+            <div class="ejm-ui-toast" role="status"><span class="ejm-ui-badge ejm-ui-badge--warning">limit</span><div class="ejm-ui-toast__body"><span class="ejm-ui-toast__title">Context is 88% full</span><span class="ejm-ui-caption">Older messages will be summarized.</span></div><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Dismiss"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-count">
+        <header class="prim__head"><h3 class="ejm-ui-title">Badge count</h3><p class="prim__use"><b>Use when</b> a number sits beside a label or icon: unread, changes, problems. Cap at 99+. Use the badge for words, the count for numbers.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-count</code></p></details></header>
+        <div class="prim__demo">
+          <span class="row">Changes <span class="ejm-ui-count">3</span></span>
+          <span class="row">Messages <span class="ejm-ui-count ejm-ui-count--primary">12</span></span>
+          <span class="row">Problems <span class="ejm-ui-count ejm-ui-count--error">99+</span></span>
+          <span class="row">Queued <span class="ejm-ui-count">0</span></span>
+        </div>
+      </article>
+    </section>
+
+    <section id="data" aria-labelledby="data-h">
+      <h2 class="ejm-ui-title" id="data-h">Data</h2>
+      <p class="lede"><b>Use when</b> showing records, numbers or history. Numbers are mono, right aligned and tabular. A value that does not exist yet is a dash, never zero. Figures below are sample data for the specimen, not real usage.</p>
+      <ul class="idx" aria-label="Data primitives">
+        <li><a href="#p-table">Table</a></li><li><a href="#p-kv">Key-value list</a></li><li><a href="#p-stat">Stat tile</a></li><li><a href="#p-tree">Tree</a></li><li><a href="#p-list">List with sections</a></li><li><a href="#p-timeline">Timeline</a></li><li><a href="#p-avatar">Avatar</a></li><li><a href="#p-chart">Charts</a></li><li><a href="#p-log">Log viewer</a></li>
+      </ul>
+
+      <article class="prim" id="p-table">
+        <header class="prim__head"><h3 class="ejm-ui-title">Table</h3><p class="prim__use"><b>Use when</b> comparing records across several attributes. For two attributes, use a list. The header sticks inside a scroll box with a set height. <span class="ejm-ui-badge">sample data</span></p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-table</code></p></details></header>
+        <div class="prim__demo">
+          <p class="state">sortable, one selected row, sticky header (scroll the box)</p>
+          <div class="ejm-ui-tablewrap" style="max-block-size:176px">
+            <table class="ejm-ui-table" role="grid" aria-label="Usage by model, sample data">
+              <thead><tr>
+                <th scope="col" class="ejm-ui-table__check"><label class="ejm-ui-check"><input type="checkbox" aria-label="Select all models"><span class="ejm-ui-check__box"></span></label></th>
+                <th scope="col" aria-sort="ascending"><button class="ejm-ui-table__sort" type="button">Model</button></th>
+                <th scope="col" aria-sort="none"><button class="ejm-ui-table__sort" type="button">Provider</button></th>
+                <th scope="col" class="ejm-ui-table__num" aria-sort="none"><button class="ejm-ui-table__sort" type="button">Sessions</button></th>
+                <th scope="col" class="ejm-ui-table__num" aria-sort="descending"><button class="ejm-ui-table__sort" type="button">Input tokens</button></th>
+                <th scope="col" class="ejm-ui-table__num" aria-sort="none"><button class="ejm-ui-table__sort" type="button">Cost</button></th>
+                <th scope="col">State</th>
+              </tr></thead>
+              <tbody>
+                <tr><td class="ejm-ui-table__check"><label class="ejm-ui-check"><input type="checkbox" aria-label="Select deepseek-chat"><span class="ejm-ui-check__box"></span></label></td><td class="ejm-ui-mono">deepseek-chat</td><td>DeepSeek</td><td class="ejm-ui-table__num">128</td><td class="ejm-ui-table__num">1,204,500</td><td class="ejm-ui-table__num">$4.20</td><td><span class="ejm-ui-badge ejm-ui-badge--success">active</span></td></tr>
+                <tr aria-selected="true"><td class="ejm-ui-table__check"><label class="ejm-ui-check"><input type="checkbox" checked aria-label="Select deepseek-reasoner"><span class="ejm-ui-check__box"></span></label></td><td class="ejm-ui-mono">deepseek-reasoner</td><td>DeepSeek</td><td class="ejm-ui-table__num">41</td><td class="ejm-ui-table__num">866,200</td><td class="ejm-ui-table__num">$6.85</td><td><span class="ejm-ui-badge ejm-ui-badge--success">active</span></td></tr>
+                <tr><td class="ejm-ui-table__check"><label class="ejm-ui-check"><input type="checkbox" aria-label="Select local-qwen"><span class="ejm-ui-check__box"></span></label></td><td class="ejm-ui-mono">local-qwen</td><td>Ollama</td><td class="ejm-ui-table__num">19</td><td class="ejm-ui-table__num">212,000</td><td class="ejm-ui-table__num">-</td><td><span class="ejm-ui-badge ejm-ui-badge--warning">slow</span></td></tr>
+                <tr><td class="ejm-ui-table__check"><label class="ejm-ui-check"><input type="checkbox" aria-label="Select provider-b-large"><span class="ejm-ui-check__box"></span></label></td><td class="ejm-ui-mono">provider-b-large</td><td>OpenAI-compatible</td><td class="ejm-ui-table__num">6</td><td class="ejm-ui-table__num">48,900</td><td class="ejm-ui-table__num">$0.92</td><td><span class="ejm-ui-badge ejm-ui-badge--error">key rejected</span></td></tr>
+                <tr><td class="ejm-ui-table__check"><label class="ejm-ui-check"><input type="checkbox" aria-label="Select old-model" disabled><span class="ejm-ui-check__box"></span></label></td><td class="ejm-ui-mono">old-model-v1</td><td>DeepSeek</td><td class="ejm-ui-table__num">0</td><td class="ejm-ui-table__num">0</td><td class="ejm-ui-table__num">$0.00</td><td><span class="ejm-ui-badge">retired</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid2">
+            <div><p class="state">dense</p>
+              <div class="ejm-ui-tablewrap"><table class="ejm-ui-table ejm-ui-table--dense" aria-label="Changed files">
+                <thead><tr><th scope="col">File</th><th scope="col" class="ejm-ui-table__num">Added</th><th scope="col" class="ejm-ui-table__num">Removed</th></tr></thead>
+                <tbody><tr><td class="ejm-ui-mono">src/retry.rs</td><td class="ejm-ui-table__num" style="color:var(--ejm-ui-success)">+12</td><td class="ejm-ui-table__num" style="color:var(--ejm-ui-error)">-3</td></tr><tr><td class="ejm-ui-mono">tests/retry_test.rs</td><td class="ejm-ui-table__num" style="color:var(--ejm-ui-success)">+41</td><td class="ejm-ui-table__num" style="color:var(--ejm-ui-error)">0</td></tr></tbody>
+              </table></div></div>
+            <div><p class="state">loading</p>
+              <div class="ejm-ui-tablewrap" aria-busy="true"><table class="ejm-ui-table" aria-label="Loading sessions">
+                <thead><tr><th scope="col">Session</th><th scope="col" class="ejm-ui-table__num">Messages</th></tr></thead>
+                <tbody><tr><td><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:70%"></span></td><td><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:30%;margin-inline-start:auto"></span></td></tr><tr><td><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:55%"></span></td><td><span class="ejm-ui-skel ejm-ui-skel--text" style="--w:30%;margin-inline-start:auto"></span></td></tr></tbody>
+              </table></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-kv">
+        <header class="prim__head"><h3 class="ejm-ui-title">Key-value list</h3><p class="prim__use"><b>Use when</b> describing one object: a session, a provider, a file. Keys left in muted text, values right. Add <code>ejm-ui-kv--mono</code> when the values are ids and paths.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-kv</code></p></details></header>
+        <div class="prim__demo grid2">
+          <dl class="ejm-ui-kv ejm-ui-kv--mono">
+            <div class="ejm-ui-kv__row"><dt>Session</dt><dd>s_4f2a91</dd></div>
+            <div class="ejm-ui-kv__row"><dt>Model</dt><dd>deepseek-chat</dd></div>
+            <div class="ejm-ui-kv__row"><dt>Directory</dt><dd>~/code/harbor</dd></div>
+            <div class="ejm-ui-kv__row"><dt>Grants</dt><dd>read, write</dd></div>
+            <div class="ejm-ui-kv__row"><dt>Started</dt><dd>-</dd></div>
+          </dl>
+          <dl class="ejm-ui-kv">
+            <div class="ejm-ui-kv__row"><dt>Provider</dt><dd>DeepSeek</dd></div>
+            <div class="ejm-ui-kv__row"><dt>Status</dt><dd><span class="ejm-ui-status" data-state="ok">Connected</span></dd></div>
+            <div class="ejm-ui-kv__row"><dt>Key</dt><dd><span class="ejm-ui-mono">EJM_CLI_API_KEY</span> <span class="ejm-ui-tag">keychain</span></dd></div>
+            <div class="ejm-ui-kv__row"><dt>Last checked</dt><dd>2 minutes ago</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="prim" id="p-stat">
+        <header class="prim__head"><h3 class="ejm-ui-title">Stat tile</h3><p class="prim__use"><b>Use when</b> one number summarizes a period on a dashboard. Label, value, change with a sign in the text, optional sparkline. Missing value: a dash. <span class="ejm-ui-badge">sample data</span></p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-stat</code></p></details></header>
+        <div class="prim__demo grid4">
+          <div class="ejm-ui-stat"><span class="ejm-ui-label">Sessions this week</span><span class="ejm-ui-stat__value">128</span><span class="ejm-ui-stat__delta" data-tone="good">+12 vs last week</span></div>
+          <div class="ejm-ui-stat"><span class="ejm-ui-label">Tokens</span><span class="ejm-ui-stat__value">2.3M</span><span class="ejm-ui-stat__delta" data-tone="bad">+41% vs last week</span><span class="ejm-ui-spark" data-hue="1"><svg viewBox="0 0 96 24" preserveAspectRatio="none" aria-hidden="true"><path class="ejm-ui-spark__area" d="M0 20 L16 17 L32 18 L48 11 L64 13 L80 6 L96 4 L96 24 L0 24 Z"/><path class="ejm-ui-spark__line" d="M0 20 L16 17 L32 18 L48 11 L64 13 L80 6 L96 4"/></svg></span></div>
+          <div class="ejm-ui-stat"><span class="ejm-ui-label">Cost</span><span class="ejm-ui-stat__value">$11.97</span><span class="ejm-ui-stat__delta">no change</span><span class="ejm-ui-stat__note">estimated, not billed</span></div>
+          <div class="ejm-ui-stat"><span class="ejm-ui-label">Failed tool calls</span><span class="ejm-ui-stat__value" data-empty>-</span><span class="ejm-ui-stat__note">No data yet</span></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-tree">
+        <header class="prim__head"><h3 class="ejm-ui-title">Tree</h3><p class="prim__use"><b>Use when</b> content nests: files, symbols, settings groups. Set <code>--lvl</code> on each row for its indent. One tab stop; arrows move, right expands, left collapses.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-tree</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed tree-demo"><ul class="ejm-ui-tree" role="tree" aria-label="Files">
+            <li class="ejm-ui-tree__item" role="treeitem" aria-expanded="true" aria-level="1"><div class="ejm-ui-tree__row" style="--lvl:0" tabindex="0"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">src</span></div>
+              <ul role="group">
+                <li class="ejm-ui-tree__item" role="treeitem" aria-selected="true" aria-level="2"><div class="ejm-ui-tree__row" style="--lvl:1" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">retry.rs</span><span class="ejm-ui-tree__meta">M</span></div></li>
+                <li class="ejm-ui-tree__item" role="treeitem" aria-level="2"><div class="ejm-ui-tree__row" style="--lvl:1" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">lib.rs</span></div></li>
+                <li class="ejm-ui-tree__item" role="treeitem" aria-expanded="false" aria-level="2"><div class="ejm-ui-tree__row" style="--lvl:1" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">session</span></div></li>
+              </ul></li>
+            <li class="ejm-ui-tree__item" role="treeitem" aria-expanded="true" aria-level="1"><div class="ejm-ui-tree__row" style="--lvl:0" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">tests</span></div>
+              <ul role="group"><li class="ejm-ui-tree__item" role="treeitem" aria-level="2"><div class="ejm-ui-tree__row" style="--lvl:1" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">retry_test.rs</span><span class="ejm-ui-tree__meta">A</span></div></li></ul></li>
+            <li class="ejm-ui-tree__item" role="treeitem" aria-level="1" aria-disabled="true"><div class="ejm-ui-tree__row" style="--lvl:0" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">target (ignored)</span></div></li>
+            <li class="ejm-ui-tree__item" role="treeitem" aria-level="1"><div class="ejm-ui-tree__row" style="--lvl:0" tabindex="-1"><span class="ejm-ui-tree__marker"></span><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-tree__label ejm-ui-mono">Cargo.toml</span></div></li>
+          </ul></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-list">
+        <header class="prim__head"><h3 class="ejm-ui-title">List with section headers</h3><p class="prim__use"><b>Use when</b> a flat set of objects is grouped by date, status or type: chats, changes, results. Rows are 32 high, 52 when they carry a second line.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-list</code> <code>ejm-ui-row</code></p></details></header>
+        <div class="prim__demo grid2">
+          <div class="framed"><ul class="ejm-ui-list" role="listbox" aria-label="Chats">
+            <li class="ejm-ui-list__head" role="presentation"><span>Today</span><span class="ejm-ui-count">2</span></li>
+            <li class="ejm-ui-row ejm-ui-row--two" role="option" aria-selected="true" tabindex="0"><span class="ejm-ui-avatar ejm-ui-avatar--model" data-hue="1" aria-hidden="true">DS</span><span class="ejm-ui-row__main"><span class="ejm-ui-row__title">Fix flaky retry test</span><span class="ejm-ui-row__sub">Injecting a clock into retry_backoff</span></span><span class="ejm-ui-row__meta">now</span></li>
+            <li class="ejm-ui-row ejm-ui-row--two" role="option" tabindex="-1"><span class="ejm-ui-avatar ejm-ui-avatar--model" data-hue="1" aria-hidden="true">DS</span><span class="ejm-ui-row__main"><span class="ejm-ui-row__title">Explain the session journal</span><span class="ejm-ui-row__sub">Journal format and replay</span></span><span class="ejm-ui-row__meta">2h</span></li>
+            <li class="ejm-ui-list__head" role="presentation"><span>Earlier</span></li>
+            <li class="ejm-ui-row" role="option" tabindex="-1"><span>Rename worker crate</span><span class="ejm-ui-row__meta">1d</span></li>
+            <li class="ejm-ui-row" role="option" aria-disabled="true" tabindex="-1"><span>Archived: spike on streaming</span><span class="ejm-ui-row__meta">3w</span></li>
+          </ul></div>
+          <div class="framed"><ul class="ejm-ui-list" aria-label="Git changes">
+            <li class="ejm-ui-list__head" role="presentation"><span>Staged</span><span class="ejm-ui-count">1</span></li>
+            <li class="ejm-ui-row" tabindex="0"><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-mono">tests/retry_test.rs</span><span class="ejm-ui-badge ejm-ui-badge--success" style="margin-inline-start:auto">A</span></li>
+            <li class="ejm-ui-list__head" role="presentation"><span>Changes</span><span class="ejm-ui-count">2</span></li>
+            <li class="ejm-ui-row" tabindex="-1"><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-mono">src/retry.rs</span><span class="ejm-ui-badge ejm-ui-badge--warning" style="margin-inline-start:auto">M</span></li>
+            <li class="ejm-ui-row" tabindex="-1"><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><span class="ejm-ui-mono">src/old_clock.rs</span><span class="ejm-ui-badge ejm-ui-badge--error" style="margin-inline-start:auto">D</span></li>
+          </ul></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-timeline">
+        <header class="prim__head"><h3 class="ejm-ui-title">Timeline and activity feed</h3><p class="prim__use"><b>Use when</b> events happen in order and the order matters: a run's steps, a session's history. Newest at the bottom for a run, at the top for a feed.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-timeline</code></p></details></header>
+        <div class="prim__demo">
+          <ol class="ejm-ui-timeline" aria-label="Run steps">
+            <li class="ejm-ui-timeline__item" data-state="ok"><span class="ejm-ui-timeline__marker" aria-hidden="true"></span><div><div class="ejm-ui-timeline__head"><span class="ejm-ui-timeline__title"><span class="ejm-ui-mono">read_file</span> src/retry.rs <span class="ejm-ui-sr">ok</span></span><time class="ejm-ui-timeline__time">14:02:11</time></div><div class="ejm-ui-timeline__body">Read 212 lines.</div></div></li>
+            <li class="ejm-ui-timeline__item" data-state="error"><span class="ejm-ui-timeline__marker" aria-hidden="true"></span><div><div class="ejm-ui-timeline__head"><span class="ejm-ui-timeline__title"><span class="ejm-ui-mono">run_tests</span> retry_backoff <span class="ejm-ui-badge ejm-ui-badge--error">failed</span></span><time class="ejm-ui-timeline__time">14:02:19</time></div><div class="ejm-ui-timeline__body">1 failed, 14 passed. assertion failed: wait &lt;= window</div></div></li>
+            <li class="ejm-ui-timeline__item" data-state="running"><span class="ejm-ui-timeline__marker" aria-hidden="true"></span><div><div class="ejm-ui-timeline__head"><span class="ejm-ui-timeline__title"><span class="ejm-ui-mono">patch</span> src/retry.rs <span class="ejm-ui-badge ejm-ui-badge--special">running</span></span><time class="ejm-ui-timeline__time">14:02:31</time></div></div></li>
+            <li class="ejm-ui-timeline__item"><span class="ejm-ui-timeline__marker" aria-hidden="true"></span><div><div class="ejm-ui-timeline__head"><span class="ejm-ui-timeline__title">Commit changes <span class="ejm-ui-badge">waiting</span></span><time class="ejm-ui-timeline__time">-</time></div></div></li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="prim" id="p-avatar">
+        <header class="prim__head"><h3 class="ejm-ui-title">Avatar and avatar stack</h3><p class="prim__use"><b>Use when</b> showing who or what did something. Circles are people, rounded squares are models and agents. Initials always, so color is never the identity.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-avatar</code> <code>ejm-ui-avatar-stack</code></p></details></header>
+        <div class="prim__demo">
+          <span class="ejm-ui-avatar ejm-ui-avatar--sm" data-hue="2">em</span>
+          <span class="ejm-ui-avatar" data-hue="3">jo</span>
+          <span class="ejm-ui-avatar ejm-ui-avatar--lg" data-hue="5">ak</span>
+          <span class="ejm-ui-avatar ejm-ui-avatar--model" data-hue="1">ds</span>
+          <span class="ejm-ui-avatar ejm-ui-avatar--model ejm-ui-avatar--lg" data-hue="4">qw</span>
+          <span class="ejm-ui-avatar-stack" role="group" aria-label="Collaborators: em, jo, ak and 2 more"><span class="ejm-ui-avatar" data-hue="2">em</span><span class="ejm-ui-avatar" data-hue="3">jo</span><span class="ejm-ui-avatar" data-hue="5">ak</span><span class="ejm-ui-avatar ejm-ui-avatar--more">+2</span></span>
+        </div>
+      </article>
+
+      <article class="prim" id="p-chart">
+        <header class="prim__head"><h3 class="ejm-ui-title">Chart primitives</h3><p class="prim__use"><b>Use when</b> a trend or share is clearer as a shape than as a number. Colors are the hue-1 to hue-6 roles, set with <code>data-hue</code>. Always label the series in text; hues are fills, not text. <span class="ejm-ui-badge">sample data</span></p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-bars</code> <code>ejm-ui-hbar</code> <code>ejm-ui-stackbar</code> <code>ejm-ui-legend</code> <code>ejm-ui-spark</code></p></details></header>
+        <div class="prim__demo grid2">
+          <div class="ejm-ui-chart"><span class="ejm-ui-label">Tokens per day, thousands</span>
+            <div class="ejm-ui-bars" role="img" aria-label="Tokens per day: Mon 120, Tue 180, Wed 90, Thu 260, Fri 210, Sat 40, Sun 30">
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:46" data-hue="1"></span></div><span class="ejm-ui-bars__label">Mon</span></div>
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:69" data-hue="1"></span></div><span class="ejm-ui-bars__label">Tue</span></div>
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:35" data-hue="1"></span></div><span class="ejm-ui-bars__label">Wed</span></div>
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:100" data-hue="1"></span></div><span class="ejm-ui-bars__label">Thu</span></div>
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:81" data-hue="1"></span></div><span class="ejm-ui-bars__label">Fri</span></div>
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:15" data-hue="1"></span></div><span class="ejm-ui-bars__label">Sat</span></div>
+              <div class="ejm-ui-bars__col"><div class="ejm-ui-bars__plot"><span class="ejm-ui-bars__bar" style="--v:12" data-hue="1"></span></div><span class="ejm-ui-bars__label">Sun</span></div>
+            </div>
+          </div>
+          <div class="ejm-ui-chart"><span class="ejm-ui-label">Sessions by model</span>
+            <div class="ejm-ui-hbar"><span class="ejm-ui-hbar__label ejm-ui-mono">deepseek-chat</span><span class="ejm-ui-hbar__track"><span class="ejm-ui-hbar__fill" style="--v:100" data-hue="1"></span></span><span class="ejm-ui-hbar__value">128</span></div>
+            <div class="ejm-ui-hbar"><span class="ejm-ui-hbar__label ejm-ui-mono">deepseek-reasoner</span><span class="ejm-ui-hbar__track"><span class="ejm-ui-hbar__fill" style="--v:32" data-hue="2"></span></span><span class="ejm-ui-hbar__value">41</span></div>
+            <div class="ejm-ui-hbar"><span class="ejm-ui-hbar__label ejm-ui-mono">local-qwen</span><span class="ejm-ui-hbar__track"><span class="ejm-ui-hbar__fill" style="--v:15" data-hue="3"></span></span><span class="ejm-ui-hbar__value">19</span></div>
+            <div class="ejm-ui-hbar"><span class="ejm-ui-hbar__label ejm-ui-mono">provider-b-large</span><span class="ejm-ui-hbar__track"><span class="ejm-ui-hbar__fill" style="--v:5" data-hue="4"></span></span><span class="ejm-ui-hbar__value">6</span></div>
+          </div>
+          <div class="ejm-ui-chart"><span class="ejm-ui-label">Where tokens go</span>
+            <div class="ejm-ui-stackbar" role="img" aria-label="Input 54%, output 22%, cached 18%, tools 6%"><span class="ejm-ui-stackbar__seg" style="--v:54" data-hue="1"></span><span class="ejm-ui-stackbar__seg" style="--v:22" data-hue="2"></span><span class="ejm-ui-stackbar__seg" style="--v:18" data-hue="3"></span><span class="ejm-ui-stackbar__seg" style="--v:6" data-hue="4"></span></div>
+            <ul class="ejm-ui-legend">
+              <li data-hue="1">Input <span class="ejm-ui-legend__value">54%</span></li><li data-hue="2">Output <span class="ejm-ui-legend__value">22%</span></li><li data-hue="3">Cached <span class="ejm-ui-legend__value">18%</span></li><li data-hue="4">Tools <span class="ejm-ui-legend__value">6%</span></li>
+            </ul>
+          </div>
+          <div class="ejm-ui-chart"><span class="ejm-ui-label">Latency, 7 days</span>
+            <span class="ejm-ui-spark ejm-ui-spark--wide" data-hue="5"><svg viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden="true"><path class="ejm-ui-spark__area" d="M0 38 L33 30 L66 34 L100 18 L133 26 L166 12 L200 16 L200 48 L0 48 Z"/><path class="ejm-ui-spark__line" style="color:var(--ejm-ui-hue-6)" d="M0 30 L33 26 L66 28 L100 22 L133 24 L166 18 L200 20"/><path class="ejm-ui-spark__line" d="M0 38 L33 30 L66 34 L100 18 L133 26 L166 12 L200 16"/></svg></span>
+            <ul class="ejm-ui-legend ejm-ui-legend--line"><li data-hue="5">p50 <span class="ejm-ui-legend__value">1.2 s</span></li><li data-hue="6">p95 <span class="ejm-ui-legend__value">3.8 s</span></li></ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-log">
+        <header class="prim__head"><h3 class="ejm-ui-title">Log viewer</h3><p class="prim__use"><b>Use when</b> showing a stream of machine output: agent logs, build output, provider traffic. Time, level in words, message. Selected line carries <code>aria-selected</code>.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-log</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-log" role="log" aria-label="Agent log" tabindex="0" style="max-block-size:176px">
+            <div class="ejm-ui-log__line" data-level="debug"><span class="ejm-ui-log__time">14:02:09</span><span class="ejm-ui-log__level">DEBUG</span><span>harness: opened session s_4f2a91</span></div>
+            <div class="ejm-ui-log__line" data-level="info"><span class="ejm-ui-log__time">14:02:11</span><span class="ejm-ui-log__level">INFO</span><span>tool read_file ok in 4 ms (src/retry.rs)</span></div>
+            <div class="ejm-ui-log__line" data-level="info" aria-selected="true"><span class="ejm-ui-log__time">14:02:19</span><span class="ejm-ui-log__level">INFO</span><span>tool run_tests started: <mark>retry_backoff</mark></span></div>
+            <div class="ejm-ui-log__line" data-level="warn"><span class="ejm-ui-log__time">14:02:20</span><span class="ejm-ui-log__level">WARN</span><span>provider rate limit at 80%, backing off 500 ms</span></div>
+            <div class="ejm-ui-log__line" data-level="error"><span class="ejm-ui-log__time">14:02:23</span><span class="ejm-ui-log__level">ERROR</span><span>tool run_tests failed: assertion failed: wait &lt;= window</span></div>
+            <div class="ejm-ui-log__line" data-level="info"><span class="ejm-ui-log__time">14:02:31</span><span class="ejm-ui-log__level">INFO</span><span>tool patch started: src/retry.rs</span></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="layout" aria-labelledby="layout-h">
+      <h2 class="ejm-ui-title" id="layout-h">Navigation and layout</h2>
+      <p class="lede"><b>Use when</b> moving around the product, dividing the window, or interrupting the user. Pick from here before drawing a new frame. Overlays (menu, popover, dialog) are the only things that cast a shadow.</p>
+      <ul class="idx" aria-label="Navigation and layout primitives">
+        <li><a href="#p-crumbs">Breadcrumb</a></li><li><a href="#p-pager">Pagination</a></li><li><a href="#p-vtabs">Vertical tabs</a></li><li><a href="#p-accordion">Accordion</a></li><li><a href="#p-stepper">Stepper</a></li><li><a href="#p-shortcuts">Shortcut list</a></li><li><a href="#p-activity">Activity bar</a></li><li><a href="#p-panel">Panel</a></li><li><a href="#p-split">Split pane</a></li><li><a href="#p-resizable">Resizable sidebar</a></li><li><a href="#p-settings">Settings layout</a></li><li><a href="#p-menu">Dropdown menu</a></li><li><a href="#p-popover">Popover</a></li><li><a href="#p-dialog">Dialog</a></li>
+      </ul>
+
+      <article class="prim" id="p-crumbs">
+        <header class="prim__head"><h3 class="ejm-ui-title">Breadcrumb</h3><p class="prim__use"><b>Use when</b> the user is 3 or more levels deep. The last item is the current page and is not a link.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-crumbs</code></p></details></header>
+        <div class="prim__demo">
+          <nav class="ejm-ui-crumbs" aria-label="Breadcrumb"><ol><li><a href="#p-crumbs">Settings</a></li><li><a href="#p-crumbs">Providers</a></li><li><span aria-current="page">DeepSeek</span></li></ol></nav>
+          <nav class="ejm-ui-crumbs" aria-label="File path"><ol><li><a href="#p-crumbs" class="ejm-ui-mono">harbor</a></li><li><button type="button" aria-label="Show 2 hidden folders">...</button></li><li><a href="#p-crumbs" class="ejm-ui-mono">session</a></li><li><span class="ejm-ui-mono" aria-current="page">journal.rs</span></li></ol></nav>
+        </div>
+      </article>
+
+      <article class="prim" id="p-pager">
+        <header class="prim__head"><h3 class="ejm-ui-title">Pagination</h3><p class="prim__use"><b>Use when</b> a result set is fixed and the user needs to jump to a page. For a growing feed, use a Load more button.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-pager</code></p></details></header>
+        <div class="prim__demo">
+          <nav class="ejm-ui-pager" aria-label="Sessions pages"><span class="ejm-ui-pager__summary">21 to 40 of 128</span>
+            <ul>
+              <li><button class="ejm-ui-pager__item" type="button" aria-label="Previous page">&lsaquo;</button></li>
+              <li><button class="ejm-ui-pager__item" type="button">1</button></li><li><span class="ejm-ui-pager__gap">...</span></li>
+              <li><button class="ejm-ui-pager__item" type="button">2</button></li><li><button class="ejm-ui-pager__item" type="button" aria-current="page">3</button></li><li><button class="ejm-ui-pager__item" type="button">4</button></li>
+              <li><span class="ejm-ui-pager__gap">...</span></li><li><button class="ejm-ui-pager__item" type="button">7</button></li>
+              <li><button class="ejm-ui-pager__item" type="button" aria-label="Next page">&rsaquo;</button></li>
+            </ul></nav>
+          <nav class="ejm-ui-pager" aria-label="First page"><ul><li><button class="ejm-ui-pager__item" type="button" aria-label="Previous page" disabled>&lsaquo;</button></li><li><button class="ejm-ui-pager__item" type="button" aria-current="page">1</button></li><li><button class="ejm-ui-pager__item" type="button">2</button></li><li><button class="ejm-ui-pager__item" type="button" aria-label="Next page">&rsaquo;</button></li></ul></nav>
+        </div>
+      </article>
+
+      <article class="prim" id="p-vtabs">
+        <header class="prim__head"><h3 class="ejm-ui-title">Vertical tabs</h3><p class="prim__use"><b>Use when</b> 4 to 10 sections sit beside their content, such as settings categories. For 2 to 5 views above content, use tabs.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-vtabs</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed" style="inline-size:220px"><div class="ejm-ui-vtabs" role="tablist" aria-orientation="vertical" aria-label="Settings sections">
+            <button class="ejm-ui-vtab" role="tab" aria-selected="true" type="button"><svg class="ico" aria-hidden="true"><use href="#i-gear"/></svg>General</button>
+            <button class="ejm-ui-vtab" role="tab" aria-selected="false" tabindex="-1" type="button"><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg>Providers<span class="ejm-ui-count" style="margin-inline-start:auto">2</span></button>
+            <button class="ejm-ui-vtab" role="tab" aria-selected="false" tabindex="-1" type="button"><svg class="ico" aria-hidden="true"><use href="#i-terminal"/></svg>Terminal</button>
+            <button class="ejm-ui-vtab" role="tab" aria-selected="false" tabindex="-1" type="button" disabled><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Teams (soon)</button>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-accordion">
+        <header class="prim__head"><h3 class="ejm-ui-title">Accordion</h3><p class="prim__use"><b>Use when</b> sections are optional reading or advanced settings. A native <code>details</code> element, so Enter and Space already work.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-accordion</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed">
+            <details class="ejm-ui-accordion" open><summary>Request settings</summary><div class="ejm-ui-accordion__body">Timeout 60 s, 3 retries with exponential backoff.</div></details>
+            <details class="ejm-ui-accordion"><summary>Headers</summary><div class="ejm-ui-accordion__body">None set.</div></details>
+            <details class="ejm-ui-accordion" aria-disabled="true"><summary>Organization policy</summary></details>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-stepper">
+        <header class="prim__head"><h3 class="ejm-ui-title">Stepper</h3><p class="prim__use"><b>Use when</b> a task has 3 to 6 ordered steps, such as first-run setup. Current step carries <code>aria-current="step"</code>. Keep the steps in an ordered list.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-stepper</code></p></details></header>
+        <div class="prim__demo">
+          <ol class="ejm-ui-stepper" aria-label="Setup">
+            <li class="ejm-ui-stepper__step" data-state="done"><span class="ejm-ui-stepper__marker" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><span class="ejm-ui-stepper__label">Choose provider <span class="ejm-ui-sr">(done)</span></span></li>
+            <li class="ejm-ui-stepper__step" data-state="current" aria-current="step"><span class="ejm-ui-stepper__marker" aria-hidden="true">2</span><span class="ejm-ui-stepper__label">Add key</span></li>
+            <li class="ejm-ui-stepper__step" data-state="todo"><span class="ejm-ui-stepper__marker" aria-hidden="true">3</span><span class="ejm-ui-stepper__label">Open a folder</span></li>
+            <li class="ejm-ui-stepper__step" data-state="todo"><span class="ejm-ui-stepper__marker" aria-hidden="true">4</span><span class="ejm-ui-stepper__label">Start a chat</span></li>
+          </ol>
+          <div class="grid2">
+            <ol class="ejm-ui-stepper ejm-ui-stepper--vertical" aria-label="Setup, vertical">
+              <li class="ejm-ui-stepper__step" data-state="done"><span class="ejm-ui-stepper__marker" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><span class="ejm-ui-stepper__text"><span>Choose provider</span><span class="ejm-ui-stepper__sub">DeepSeek</span></span></li>
+              <li class="ejm-ui-stepper__step" data-state="error"><span class="ejm-ui-stepper__marker" aria-hidden="true">!</span><span class="ejm-ui-stepper__text"><span>Add key</span><span class="ejm-ui-stepper__sub">Key rejected. Check it and try again.</span></span></li>
+              <li class="ejm-ui-stepper__step" data-state="todo"><span class="ejm-ui-stepper__marker" aria-hidden="true">3</span><span class="ejm-ui-stepper__text"><span>Open a folder</span><span class="ejm-ui-stepper__sub">Not started</span></span></li>
+            </ol>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-shortcuts">
+        <header class="prim__head"><h3 class="ejm-ui-title">Keyboard shortcut list</h3><p class="prim__use"><b>Use when</b> listing commands and their keys: a help dialog, a settings page. One key cap per key, never a string like Ctrl+K in one cap.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-shortcuts</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed" style="max-inline-size:420px"><div class="ejm-ui-shortcuts">
+            <div class="ejm-ui-shortcuts__group">Editor</div>
+            <div class="ejm-ui-shortcuts__row"><span>Command palette</span><span class="ejm-ui-shortcuts__keys"><kbd class="ejm-ui-kbd">Ctrl</kbd><kbd class="ejm-ui-kbd">K</kbd></span></div>
+            <div class="ejm-ui-shortcuts__row"><span>Go to file</span><span class="ejm-ui-shortcuts__keys"><kbd class="ejm-ui-kbd">Ctrl</kbd><kbd class="ejm-ui-kbd">P</kbd></span></div>
+            <div class="ejm-ui-shortcuts__group">Agent</div>
+            <div class="ejm-ui-shortcuts__row"><span>Send message</span><span class="ejm-ui-shortcuts__keys"><kbd class="ejm-ui-kbd">Enter</kbd></span></div>
+            <div class="ejm-ui-shortcuts__row"><span>Stop the agent</span><span class="ejm-ui-shortcuts__keys"><kbd class="ejm-ui-kbd">Ctrl</kbd><kbd class="ejm-ui-kbd">C</kbd></span></div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-activity">
+        <header class="prim__head"><h3 class="ejm-ui-title">Activity bar</h3><p class="prim__use"><b>Use when</b> an app has 3 to 7 top-level areas and a sidebar that switches between them. Icons need <code>aria-label</code> and a tooltip. Settings sits at the bottom.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-activity</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed" style="min-block-size:260px;display:flex"><nav class="ejm-ui-activity" aria-label="Areas">
+            <span class="ejm-ui-tip ejm-ui-tip--right" data-open><button class="ejm-ui-activity__item" type="button" aria-label="Chats" aria-pressed="true"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></button><span class="ejm-ui-tooltip" role="tooltip">Chats</span></span>
+            <span class="ejm-ui-tip ejm-ui-tip--right"><button class="ejm-ui-activity__item" type="button" aria-label="Files" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg></button><span class="ejm-ui-tooltip" role="tooltip">Files</span></span>
+            <span class="ejm-ui-tip ejm-ui-tip--right"><button class="ejm-ui-activity__item" type="button" aria-label="Source control, 3 changes" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-branch"/></svg><span class="ejm-ui-count ejm-ui-count--primary" aria-hidden="true">3</span></button><span class="ejm-ui-tooltip" role="tooltip">Source control</span></span>
+            <button class="ejm-ui-activity__item" type="button" aria-label="Extensions (unavailable)" disabled><svg class="ico" aria-hidden="true"><use href="#i-plug"/></svg></button>
+            <span class="ejm-ui-activity__spacer"></span>
+            <span class="ejm-ui-tip ejm-ui-tip--right"><button class="ejm-ui-activity__item" type="button" aria-label="Settings"><svg class="ico" aria-hidden="true"><use href="#i-gear"/></svg></button><span class="ejm-ui-tooltip" role="tooltip">Settings</span></span>
+          </nav></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-panel">
+        <header class="prim__head"><h3 class="ejm-ui-title">Panel</h3><p class="prim__use"><b>Use when</b> a region of the window has a name and its own actions, such as Problems or Terminal. Docked panels share an edge with the window and drop the box.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-panel</code></p></details></header>
+        <div class="prim__demo grid2">
+          <section class="ejm-ui-panel" aria-labelledby="pn1" style="block-size:200px"><header class="ejm-ui-panel__head"><h4 class="ejm-ui-panel__title" id="pn1">Problems</h4><span class="ejm-ui-panel__actions"><span class="ejm-ui-count ejm-ui-count--error">2</span><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Clear"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></span></header>
+            <div class="ejm-ui-panel__body ejm-ui-panel__body--flush"><ul><li class="ejm-ui-row" tabindex="0"><span class="ejm-ui-badge ejm-ui-badge--error">error</span><span>unused variable: <span class="ejm-ui-mono">attempt</span></span><span class="ejm-ui-row__meta">retry.rs:42</span></li><li class="ejm-ui-row" tabindex="-1"><span class="ejm-ui-badge ejm-ui-badge--warning">warning</span><span>function is never used</span><span class="ejm-ui-row__meta">lib.rs:9</span></li></ul></div>
+            <footer class="ejm-ui-panel__foot">Updated just now</footer></section>
+          <section class="ejm-ui-panel ejm-ui-panel--docked" aria-labelledby="pn2" style="block-size:200px"><header class="ejm-ui-panel__head"><h4 class="ejm-ui-panel__title" id="pn2">Terminal</h4><span class="ejm-ui-panel__actions"><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="New terminal"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Close panel"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></span></header>
+            <div class="ejm-ui-panel__body"><pre class="ejm-ui-mono" style="margin:0;font-size:12px;line-height:18px">$ cargo test retry
+   Compiling harbor v0.4.0
+    Finished test in 2.1s
+test retry_backoff ... ok</pre></div></section>
+        </div>
+      </article>
+
+      <article class="prim" id="p-split">
+        <header class="prim__head"><h3 class="ejm-ui-title">Split pane and handle</h3><p class="prim__use"><b>Use when</b> two regions share a window and the user decides the ratio, such as editor and chat or editor and terminal. CSS places the panes; the app drags <code>--a</code> and answers Arrow keys on the handle.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-split</code> <code>ejm-ui-handle</code></p></details></header>
+        <div class="prim__demo">
+          <div class="grid2">
+            <div><p class="state">horizontal (side by side), handle</p>
+              <div class="framed nopad" style="block-size:160px"><div class="ejm-ui-split ejm-ui-split--horizontal" style="--a:40%;block-size:100%"><div class="ejm-ui-split__pane pane-a"><span class="ejm-ui-caption">editor</span></div><div class="ejm-ui-handle" role="separator" aria-orientation="vertical" aria-label="Resize editor" aria-valuenow="40" aria-valuemin="20" aria-valuemax="80" tabindex="0"></div><div class="ejm-ui-split__pane pane-b"><span class="ejm-ui-caption">chat</span></div></div></div></div>
+            <div><p class="state">vertical (stacked), handle being dragged</p>
+              <div class="framed nopad" style="block-size:160px"><div class="ejm-ui-split ejm-ui-split--vertical" style="--a:60%;block-size:100%"><div class="ejm-ui-split__pane pane-a"><span class="ejm-ui-caption">editor</span></div><div class="ejm-ui-handle" role="separator" aria-orientation="horizontal" aria-label="Resize terminal" aria-valuenow="60" aria-valuemin="20" aria-valuemax="80" tabindex="0" data-dragging></div><div class="ejm-ui-split__pane pane-b"><span class="ejm-ui-caption">terminal</span></div></div></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-resizable">
+        <header class="prim__head"><h3 class="ejm-ui-title">Resizable sidebar handle</h3><p class="prim__use"><b>Use when</b> the sidebar width is the user's choice. The handle sits on the sidebar edge without taking layout space. The app sets <code>--w</code>; keep it between 180 and 480 px.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-resizable</code> <code>ejm-ui-handle--edge</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed nopad" style="block-size:150px"><div class="ejm-ui-resizable" style="--w:200px;block-size:100%"><nav class="ejm-ui-sidebar" aria-label="Files"><div class="ejm-ui-pane__head"><span class="ejm-ui-label">Files</span></div><ul><li class="ejm-ui-row"><span class="ejm-ui-mono">src/retry.rs</span></li><li class="ejm-ui-row"><span class="ejm-ui-mono">src/lib.rs</span></li></ul></nav><div class="ejm-ui-handle ejm-ui-handle--edge" role="separator" aria-orientation="vertical" aria-label="Resize sidebar" aria-valuenow="200" aria-valuemin="180" aria-valuemax="480" tabindex="0"></div><div class="ejm-ui-main" style="flex:1;padding:12px"><span class="ejm-ui-caption">Hover the edge of the sidebar.</span></div></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-settings">
+        <header class="prim__head"><h3 class="ejm-ui-title">Settings page layout</h3><p class="prim__use"><b>Use when</b> a page holds many preferences. Each section has a label column (title and one sentence) and a control column. Collapses to one column when its container is under 640 px. Settings apply on change; use a form only for a record, like a provider.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-settings</code></p></details></header>
+        <div class="prim__demo">
+          <div class="framed nopad settings-demo"><div class="ejm-ui-settings">
+            <section class="ejm-ui-settings__section" aria-labelledby="st1"><div class="ejm-ui-settings__label"><h4 class="ejm-ui-settings__title" id="st1">Appearance</h4><p class="ejm-ui-settings__desc">How ejm-ide looks on this machine.</p></div>
+              <div class="ejm-ui-settings__controls">
+                <div class="ejm-ui-settings__row"><div><span class="ejm-ui-field__label" id="st1a">Theme</span><span class="ejm-ui-field__hint">System follows your operating system.</span></div><div class="ejm-ui-seg" role="radiogroup" aria-labelledby="st1a"><label class="ejm-ui-seg__opt"><input type="radio" name="th" checked><span>Dark</span></label><label class="ejm-ui-seg__opt"><input type="radio" name="th"><span>Light</span></label><label class="ejm-ui-seg__opt"><input type="radio" name="th"><span>System</span></label></div></div>
+                <div class="ejm-ui-settings__row"><div><span class="ejm-ui-field__label" id="st1b">Editor font size</span><span class="ejm-ui-field__hint">In pixels.</span></div><div class="ejm-ui-number" role="group" aria-labelledby="st1b"><button class="ejm-ui-btn" type="button" aria-label="Smaller"><svg class="ico" aria-hidden="true"><use href="#i-minus"/></svg></button><input class="ejm-ui-input" value="13" inputmode="numeric" role="spinbutton" aria-valuenow="13" aria-labelledby="st1b"><button class="ejm-ui-btn" type="button" aria-label="Larger"><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button></div></div>
+              </div></section>
+            <section class="ejm-ui-settings__section" aria-labelledby="st2"><div class="ejm-ui-settings__label"><h4 class="ejm-ui-settings__title" id="st2">Provider</h4><p class="ejm-ui-settings__desc">Where model requests go. Keys are stored in the system keychain.</p></div>
+              <div class="ejm-ui-settings__controls">
+                <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="st2a">Default model</label><span class="ejm-ui-select"><select id="st2a"><option>deepseek-chat</option><option>deepseek-reasoner</option></select></span></div>
+                <div class="ejm-ui-field"><label class="ejm-ui-field__label" for="st2b">API key</label><div class="ejm-ui-inputgroup"><input class="ejm-ui-input ejm-ui-input--mono" id="st2b" type="password" value="sk-sample-not-a-key"><button class="ejm-ui-btn" type="button">Test</button></div><span class="ejm-ui-field__hint">Last tested 2 minutes ago.</span></div>
+                <div class="ejm-ui-settings__row"><div><span class="ejm-ui-field__label" id="st2c">Stream responses</span><span class="ejm-ui-field__hint">Show the answer as it is written.</span></div><label class="ejm-ui-switch"><input type="checkbox" role="switch" checked aria-labelledby="st2c"><span class="ejm-ui-switch__track"></span></label></div>
+              </div></section>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-menu">
+        <header class="prim__head"><h3 class="ejm-ui-title">Dropdown menu</h3><p class="prim__use"><b>Use when</b> a button or right-click offers commands. Sections have a label and a separator. Items can be checkable (<code>menuitemcheckbox</code>, <code>menuitemradio</code>), disabled or destructive. Items past 10, use the command palette.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-menu</code></p></details></header>
+        <div class="prim__demo">
+          <div class="ejm-ui-menu" role="menu" aria-label="Chat actions" style="inline-size:260px">
+            <div class="ejm-ui-menu__label" role="presentation">View</div>
+            <div class="ejm-ui-menu__item" role="menuitemcheckbox" aria-checked="true" tabindex="0"><span class="ejm-ui-menu__check"></span>Show tool calls</div>
+            <div class="ejm-ui-menu__item" role="menuitemcheckbox" aria-checked="false" tabindex="-1"><span class="ejm-ui-menu__check"></span>Show timestamps</div>
+            <div class="ejm-ui-menu__item" role="menuitem" data-active tabindex="-1"><span class="ejm-ui-menu__check"></span>Find in chat<span class="ejm-ui-menu__hint"><span class="ejm-ui-kbd">Ctrl</span><span class="ejm-ui-kbd">F</span></span></div>
+            <div class="ejm-ui-menu__sep" role="separator"></div>
+            <div class="ejm-ui-menu__label" role="presentation">Chat</div>
+            <div class="ejm-ui-menu__item" role="menuitem" tabindex="-1"><span class="ejm-ui-menu__check"></span>Rename</div>
+            <div class="ejm-ui-menu__item" role="menuitem" aria-disabled="true" tabindex="-1"><span class="ejm-ui-menu__check"></span>Export (nothing to export)</div>
+            <div class="ejm-ui-menu__sep" role="separator"></div>
+            <div class="ejm-ui-menu__item ejm-ui-menu__item--danger" role="menuitem" tabindex="-1"><span class="ejm-ui-menu__check"></span>Delete chat</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-popover">
+        <header class="prim__head"><h3 class="ejm-ui-title">Popover</h3><p class="prim__use"><b>Use when</b> a small piece of content or a single input hangs off a control and does not need the whole window. Anything with two or more decisions is a dialog. Escape closes it and returns focus.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-popover</code></p></details></header>
+        <div class="prim__demo tall">
+          <div class="ejm-ui-anchor"><button class="ejm-ui-btn" type="button" aria-haspopup="dialog" aria-expanded="true"><svg class="ico" aria-hidden="true"><use href="#i-branch"/></svg>main</button>
+            <div class="ejm-ui-popover" role="dialog" aria-label="Switch branch"><span class="ejm-ui-popover__title">Switch branch</span><div class="ejm-ui-search"><span class="ejm-ui-search__icon"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><input class="ejm-ui-input" placeholder="Find a branch" aria-label="Find a branch"></div><ul role="listbox" aria-label="Branches"><li class="ejm-ui-row" role="option" aria-selected="true">main<span class="ejm-ui-row__meta">current</span></li><li class="ejm-ui-row" role="option">fix/retry-clock</li><li class="ejm-ui-row" role="option">spike/streaming</li></ul><div class="ejm-ui-popover__foot"><button class="ejm-ui-btn ejm-ui-btn--sm" type="button">New branch</button></div></div></div>
+        </div>
+      </article>
+
+      <article class="prim" id="p-dialog">
+        <header class="prim__head"><h3 class="ejm-ui-title">Dialog</h3><p class="prim__use"><b>Use when</b> the user must decide before going on: confirm, fill a short form, or approve something destructive. Focus moves in, is trapped, and returns on close. Escape cancels. Confirm names the action ("Save provider"), never "OK". The destructive variant keeps focus on Cancel.</p><details class="prim__more"><summary>Classes</summary><p><code>ejm-ui-backdrop</code> <code>ejm-ui-dialog</code></p></details></header>
+        <div class="prim__demo dialogs">
+          <div class="dlgframe"><div class="ejm-ui-backdrop ejm-ui-backdrop--contained"><div class="ejm-ui-dialog" role="dialog" aria-modal="true" aria-labelledby="dg1t" aria-describedby="dg1d">
+            <div class="ejm-ui-dialog__head"><h4 class="ejm-ui-title" id="dg1t">Turn on shell access?</h4></div>
+            <div class="ejm-ui-dialog__body"><p id="dg1d">The agent will be able to run commands in <span class="ejm-ui-mono">~/code/harbor</span> without asking each time. You can turn this off at any time.</p></div>
+            <div class="ejm-ui-dialog__foot"><button class="ejm-ui-btn" type="button">Cancel</button><button class="ejm-ui-btn ejm-ui-btn--primary" type="button">Turn on shell access</button></div></div></div></div>
+          <div class="dlgframe"><div class="ejm-ui-backdrop ejm-ui-backdrop--contained"><div class="ejm-ui-dialog" role="dialog" aria-modal="true" aria-labelledby="dg2t">
+            <div class="ejm-ui-dialog__head"><h4 class="ejm-ui-title" id="dg2t">Rename chat</h4><button class="ejm-ui-btn ejm-ui-btn--ghost ejm-ui-btn--icon ejm-ui-btn--sm" type="button" aria-label="Close"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+            <div class="ejm-ui-dialog__body"><div class="ejm-ui-field"><label class="ejm-ui-field__label" for="dg2f">Name</label><input class="ejm-ui-input" id="dg2f" value="Fix flaky retry test" aria-invalid="true" aria-describedby="dg2e"><span class="ejm-ui-field__error" id="dg2e">A chat with that name already exists.</span></div></div>
+            <div class="ejm-ui-dialog__foot"><button class="ejm-ui-btn" type="button">Cancel</button><button class="ejm-ui-btn ejm-ui-btn--primary" type="button" disabled>Rename</button></div></div></div></div>
+          <div class="dlgframe"><div class="ejm-ui-backdrop ejm-ui-backdrop--contained"><div class="ejm-ui-dialog ejm-ui-dialog--danger" role="alertdialog" aria-modal="true" aria-labelledby="dg3t" aria-describedby="dg3d">
+            <div class="ejm-ui-dialog__head"><span class="ejm-ui-dialog__icon" aria-hidden="true">!</span><h4 class="ejm-ui-title" id="dg3t">Delete this chat?</h4></div>
+            <div class="ejm-ui-dialog__body"><p id="dg3d">"Fix flaky retry test" and its 14 tool calls will be removed from this machine. This cannot be undone. Files the agent changed stay as they are.</p></div>
+            <div class="ejm-ui-dialog__foot"><button class="ejm-ui-btn" type="button" data-initial-focus>Cancel</button><button class="ejm-ui-btn ejm-ui-btn--destructive" type="button">Delete chat</button></div></div></div></div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const names = ['ground','panel','editor','raised','overlay','hover','line','line-strong','text','text-strong','text-muted','text-subtle','primary','accent','accent-strong','error','warning','success','special','diff-add-bg','diff-del-bg'];
+    function paint() {
+      const css = getComputedStyle(root);
+      const v = n => css.getPropertyValue('--ejm-ui-' + n).trim();
+      document.getElementById('ramp').replaceChildren(...Array.from({ length: 16 }, (_, i) => Object.assign(document.createElement('i'), { title: 'n' + i, style: 'background:' + v('n' + i) })));
+      document.getElementById('swatches').replaceChildren(...names.map(n => { const d = document.createElement('div'); d.className = 'sw'; d.innerHTML = '<i style="background:' + v(n) + '"></i><b>' + n + '</b><code>' + v(n) + '</code>'; return d; }));
+      const light = root.dataset.theme === 'light';
+      document.getElementById('logo').src = light ? '../logos/ejmlabs-primary.svg' : '../logos/ejmlabs-paper.svg';
+      const ansi = light ? ['202721','a63a3a','2f6b3a','8a5a12','2563a8','6a4bb0','2c6f80','cfd5ce'] : ['262c27','eea0a0','93ba8b','d7b87c','8cb5eb','b7a6e8','8dbdc8','c9cec0'];
+      document.getElementById('ansi').replaceChildren(...ansi.map(c => Object.assign(document.createElement('i'), { style: 'background:#' + c, title: '#' + c })));
+    }
+    document.querySelectorAll('[data-set]').forEach(b => b.addEventListener('click', () => {
+      root.dataset.theme = b.dataset.set;
+      document.querySelectorAll('[data-set]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      paint();
+    }));
+    document.getElementById('indet').indeterminate = true;
+    document.querySelectorAll('.ejm-ui-slider').forEach(s => {
+      const set = () => { s.style.setProperty('--p', ((s.value - s.min) / (s.max - s.min) * 100) + '%'); const o = s.parentElement.querySelector('output'); if (o) o.value = s.value; };
+      s.addEventListener('input', set);
+    });
+    document.querySelectorAll('[aria-pressed]:not([data-set]):not(.ejm-ui-activity__item)').forEach(b => b.addEventListener('click', () => {
+      const on = b.getAttribute('aria-pressed') !== 'true';
+      b.setAttribute('aria-pressed', String(on));
+      const g = b.closest('.ejm-ui-inputgroup'); if (g) g.querySelector('input').type = on ? 'text' : 'password';
+    }));
+    const links = [...document.querySelectorAll('.toc a[href^="#"]')];
+    const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.setAttribute('aria-current', String(a.hash === '#' + e.target.id))); }), { rootMargin: '-10% 0px -80% 0px' });
+    links.forEach(a => { const t = document.querySelector(a.hash); if (t) spy.observe(t); });
+    if (location.hash === '#light') document.querySelector('[data-set=light]').click(); else paint();
+  </script>
+</body>
+</html>
