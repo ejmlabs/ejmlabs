@@ -1,0 +1,1491 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Site patterns, ejmlabs</title>
+  <meta name="description" content="Every named part of the ejmlabs site kit, shown live with a line on when to use it and its exact markup.">
+  <meta name="theme-color" content="#F6F5EF">
+  <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
+  <script src="/design-kit/web/theme.js"></script>
+  <script src="/design-kit/web/motion.js"></script>
+  <script src="/design-kit/web/analytics.js" defer></script>
+  <link rel="canonical" href="https://ejmlabs.com/design-kit/web/patterns.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Site patterns">
+  <meta property="og:description" content="Every named part of the ejmlabs site kit, shown live with a line on when to use it and its exact markup.">
+  <meta property="og:url" content="https://ejmlabs.com/design-kit/web/patterns.html">
+  <meta property="og:image" content="https://ejmlabs.com/design-kit/social/social-card.png">
+  <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/design-kit/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/design-kit/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/design-kit/favicon/site.webmanifest">
+  <link rel="preload" href="/design-kit/fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/design-kit/tokens/brand.css">
+  <link rel="stylesheet" href="/design-kit/components/brand-components.css">
+  <link rel="stylesheet" href="/design-kit/web/site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <header class="ejm-header ejm-header--sticky ejm-header--paper">
+    <a class="ejm-header__logo" href="../index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+    <div class="ejm-header__tools">
+      <details class="ejm-menu">
+        <summary><span class="ejm-menu__label">Menu</span></summary>
+        <nav class="ejm-nav" aria-label="Main">
+          <a href="../index.html">Design kit</a>
+          <a href="starter.html">Starter</a>
+          <a href="patterns.html" aria-current="page">Patterns</a>
+          <a href="demos.html">Demos</a>
+          <a href="../ui/index.html">Application kit</a>
+        </nav>
+      </details>
+      <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+    </div>
+    <nav class="ejm-subnav" aria-label="Pattern groups"><a href="#layout">Layout</a><a href="#header">Header and navigation</a><a href="#heroes">Heroes</a><a href="#sections">Sections</a><a href="#content">Content</a><a href="#docs">Docs and articles</a><a href="#motifs">Motif backgrounds</a></nav>
+  </header>
+
+  <div class="ejm-hero ejm-hero--compact">
+    <div class="ejm-hero__body ejm-page ejm-enter">
+      <nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Design kit</a></li><li><a href="starter.html">Site starter</a></li><li aria-current="page">Patterns</li></ol></nav>
+      <p class="ejm-eyebrow">site kit</p>
+      <h1 class="ejm-display">Choose the part. <span class="ejm-display__quiet">Build the page.</span></h1>
+      <p class="ejm-lead">Every ejmlabs site is put together from the named parts on this page. Pick a pattern, copy its markup, write the content. There is no page CSS.</p>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band" id="index" aria-labelledby="index-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">index</p>
+            <h2 class="ejm-h2" id="index-title">Every pattern, by job.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>Each pattern has a live example, a line on when to use it, and its exact markup behind Show markup.</p>
+            <p>Heading levels inside the examples are shifted down, so this page keeps one h1.</p>
+          </div>
+        </div>
+        <div class="ejm-gallery-index">
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Layout</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Layout patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-split"><span class="ejm-mono">ejm-split</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-cols"><span class="ejm-mono">ejm-cols</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-measure"><span class="ejm-mono">ejm-measure</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-center"><span class="ejm-mono">ejm-center</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-sidebar-layout"><span class="ejm-mono">ejm-sidebar-layout</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-sidenav"><span class="ejm-mono">ejm-sidenav, ejm-toc</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-bleed"><span class="ejm-mono">ejm-bleed</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Header and navigation</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Header and navigation patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-announce"><span class="ejm-mono">ejm-announce</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-header-sticky"><span class="ejm-mono">ejm-header--sticky</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-subnav"><span class="ejm-mono">ejm-subnav</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-breadcrumb"><span class="ejm-mono">ejm-breadcrumb</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-pagination"><span class="ejm-mono">ejm-pagination</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Heroes</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Heroes patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-hero"><span class="ejm-mono">ejm-hero</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-hero-forest"><span class="ejm-mono">ejm-hero--forest</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-hero-paper"><span class="ejm-mono">ejm-hero--paper</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-hero-split"><span class="ejm-mono">ejm-hero--split</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-hero-compact"><span class="ejm-mono">ejm-hero--compact</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-terminal"><span class="ejm-mono">ejm-terminal</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Sections</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Sections patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-features"><span class="ejm-mono">ejm-features</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-stats"><span class="ejm-mono">ejm-stats</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-steps"><span class="ejm-mono">ejm-steps</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-timeline"><span class="ejm-mono">ejm-timeline</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-quote"><span class="ejm-mono">ejm-quote</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-cards"><span class="ejm-mono">ejm-cards</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-links"><span class="ejm-mono">ejm-links</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-faq"><span class="ejm-mono">ejm-faq</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-cta"><span class="ejm-mono">ejm-cta</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-existing-head"><span class="ejm-mono">ejm-head, ejm-projects, ejm-principles, ejm-status</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Content</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Content patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-callout"><span class="ejm-mono">ejm-callout</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-table"><span class="ejm-mono">ejm-table</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-showcase"><span class="ejm-mono">ejm-showcase</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-figure"><span class="ejm-mono">ejm-figure</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-tags"><span class="ejm-mono">ejm-tags</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-logo-row"><span class="ejm-mono">ejm-logo-row</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Docs and articles</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Docs and articles patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-docs"><span class="ejm-mono">ejm-docs</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-article"><span class="ejm-mono">ejm-article</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Motif backgrounds</h3>
+            <ul class="ejm-tags ejm-gallery-chips" aria-label="Motif backgrounds patterns">
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-grid"><span class="ejm-mono">ejm-motif-grid</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-dots"><span class="ejm-mono">ejm-motif-dots</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-contour"><span class="ejm-mono">ejm-motif-contour</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-ripple"><span class="ejm-mono">ejm-motif-ripple</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-stripe"><span class="ejm-mono">ejm-motif-stripe</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-echo"><span class="ejm-mono">ejm-motif-echo</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-flow"><span class="ejm-mono">ejm-motif-flow</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-orbit"><span class="ejm-mono">ejm-motif-orbit</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-signature"><span class="ejm-mono">ejm-motif-signature</span></a></li>
+              <li><a class="ejm-tag ejm-tag--quiet" href="#p-motif-hero"><span class="ejm-mono">ejm-hero + ejm-motif-*</span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-gallery-index__group">
+            <h3 class="ejm-gallery-index__title">Product demos</h3>
+            <div class="ejm-stack ejm-stack--compact">
+              <p class="ejm-measure">Every product site carries a simulated, interactive demo that runs on the page.</p>
+              <ul class="ejm-tags ejm-gallery-chips" aria-label="Product demos">
+                <li><a class="ejm-tag ejm-tag--quiet" href="demos.html"><span class="ejm-mono">ejm-demo</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="layout" aria-labelledby="layout-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">layout</p>
+            <h2 class="ejm-h2" id="layout-title">Place things on the page.</h2>
+          </div>
+          <p class="ejm-head__text">Primitives that arrange content. They carry no color of their own, so they work on any band.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-split" aria-labelledby="p-split-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-split-name">ejm-split</h3><p class="ejm-pattern__mods">--2-1  --1-2  --reverse  --center</p></div>
+            <p class="ejm-pattern__use">Two things that belong together, such as text beside a figure. It stacks on mobile with the first child on top.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-stack">
+  <div class="ejm-split ejm-split--center">
+    <div class="ejm-stack ejm-stack--compact"><p class="ejm-eyebrow">1:1</p><h4 class="ejm-heading">An independent studio.</h4><p>We make small experiments, useful software and open source tools.</p></div>
+    <dl class="ejm-status"><div><dt>project</dt><dd>ejmlabs</dd></div><div><dt>status</dt><dd>exploring</dd></div></dl>
+  </div>
+  <div class="ejm-split ejm-split--2-1"><div class="ejm-placeholder">2 : 1, wide column first</div><div class="ejm-placeholder">1</div></div>
+  <div class="ejm-split ejm-split--1-2"><div class="ejm-placeholder">1</div><div class="ejm-placeholder">1 : 2, wide column second</div></div>
+  <div class="ejm-split ejm-split--2-1 ejm-split--reverse"><div class="ejm-placeholder">2 : 1 reversed. First in the source, shown on the right</div><div class="ejm-placeholder">Second in the source, shown on the left</div></div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-split"><code>&lt;div class="ejm-stack"&gt;
+  &lt;div class="ejm-split ejm-split--center"&gt;
+    &lt;div class="ejm-stack ejm-stack--compact"&gt;&lt;p class="ejm-eyebrow"&gt;1:1&lt;/p&gt;&lt;h4 class="ejm-heading"&gt;An independent studio.&lt;/h4&gt;&lt;p&gt;We make small experiments, useful software and open source tools.&lt;/p&gt;&lt;/div&gt;
+    &lt;dl class="ejm-status"&gt;&lt;div&gt;&lt;dt&gt;project&lt;/dt&gt;&lt;dd&gt;ejmlabs&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;status&lt;/dt&gt;&lt;dd&gt;exploring&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;
+  &lt;/div&gt;
+  &lt;div class="ejm-split ejm-split--2-1"&gt;&lt;div class="ejm-placeholder"&gt;2 : 1, wide column first&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;1&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="ejm-split ejm-split--1-2"&gt;&lt;div class="ejm-placeholder"&gt;1&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;1 : 2, wide column second&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="ejm-split ejm-split--2-1 ejm-split--reverse"&gt;&lt;div class="ejm-placeholder"&gt;2 : 1 reversed. First in the source, shown on the right&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;Second in the source, shown on the left&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-cols" aria-labelledby="p-cols-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-cols-name">ejm-cols</h3><p class="ejm-pattern__mods">--2  --3  --4</p></div>
+            <p class="ejm-pattern__use">Three or four like items with no frame. The plain class fits as many 240 px columns as the width allows.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-stack">
+  <div class="ejm-cols ejm-cols--3">
+    <div class="ejm-stack ejm-stack--compact"><h4 class="ejm-card__title">ejm-harness</h4><p>A reusable Rust engine for coding agents.</p></div>
+    <div class="ejm-stack ejm-stack--compact"><h4 class="ejm-card__title">ejm-cli</h4><p>A coding agent for your terminal.</p></div>
+    <div class="ejm-stack ejm-stack--compact"><h4 class="ejm-card__title">ejm-ide</h4><p>A desktop IDE with an agent beside the editor.</p></div>
+  </div>
+  <div class="ejm-cols ejm-cols--4"><div class="ejm-placeholder">--4</div><div class="ejm-placeholder">--4</div><div class="ejm-placeholder">--4</div><div class="ejm-placeholder">--4</div></div>
+  <div class="ejm-cols ejm-cols--2"><div class="ejm-placeholder">--2</div><div class="ejm-placeholder">--2</div></div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-cols"><code>&lt;div class="ejm-stack"&gt;
+  &lt;div class="ejm-cols ejm-cols--3"&gt;
+    &lt;div class="ejm-stack ejm-stack--compact"&gt;&lt;h4 class="ejm-card__title"&gt;ejm-harness&lt;/h4&gt;&lt;p&gt;A reusable Rust engine for coding agents.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class="ejm-stack ejm-stack--compact"&gt;&lt;h4 class="ejm-card__title"&gt;ejm-cli&lt;/h4&gt;&lt;p&gt;A coding agent for your terminal.&lt;/p&gt;&lt;/div&gt;
+    &lt;div class="ejm-stack ejm-stack--compact"&gt;&lt;h4 class="ejm-card__title"&gt;ejm-ide&lt;/h4&gt;&lt;p&gt;A desktop IDE with an agent beside the editor.&lt;/p&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="ejm-cols ejm-cols--4"&gt;&lt;div class="ejm-placeholder"&gt;--4&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;--4&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;--4&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;--4&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="ejm-cols ejm-cols--2"&gt;&lt;div class="ejm-placeholder"&gt;--2&lt;/div&gt;&lt;div class="ejm-placeholder"&gt;--2&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-measure" aria-labelledby="p-measure-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-measure-name">ejm-measure</h3><p class="ejm-pattern__mods">--narrow</p></div>
+            <p class="ejm-pattern__use">Running text capped at 68 characters a line, or 52 with the narrow modifier.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<p class="ejm-measure">ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it. All three are open source under the MIT license. This paragraph stops at 68 characters a line, so it stays comfortable to read on a wide screen.</p>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-measure"><code>&lt;p class="ejm-measure"&gt;ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it. All three are open source under the MIT license. This paragraph stops at 68 characters a line, so it stays comfortable to read on a wide screen.&lt;/p&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-center" aria-labelledby="p-center-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-center-name">ejm-center</h3></div>
+            <p class="ejm-pattern__use">One centered statement, such as a closing line, a call to action or an empty state.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-center ejm-stack ejm-measure">
+  <h4 class="ejm-h2">Small experiments. Useful things.</h4>
+  <p>An independent studio for small experiments, useful software, and open source tools.</p>
+  <div class="ejm-cluster"><a class="ejm-button" href="#p-cta">See the call to action</a></div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-center"><code>&lt;div class="ejm-center ejm-stack ejm-measure"&gt;
+  &lt;h4 class="ejm-h2"&gt;Small experiments. Useful things.&lt;/h4&gt;
+  &lt;p&gt;An independent studio for small experiments, useful software, and open source tools.&lt;/p&gt;
+  &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-cta"&gt;See the call to action&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-sidebar-layout" aria-labelledby="p-sidebar-layout-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-sidebar-layout-name">ejm-sidebar-layout</h3><p class="ejm-pattern__mods">--end  --sticky</p></div>
+            <p class="ejm-pattern__use">A nav or aside beside one main column. The sticky modifier keeps the side in view.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-sidebar-layout">
+  <nav class="ejm-sidebar-layout__side ejm-sidenav" aria-label="Project sections">
+    <div><p class="ejm-sidenav__title">ejm-cli</p>
+    <ul><li><a href="#p-sidebar-layout" aria-current="page">Overview</a></li><li><a href="#p-sidebar-layout">Sessions</a></li><li><a href="#p-sidebar-layout">Permissions</a></li></ul></div>
+  </nav>
+  <div class="ejm-sidebar-layout__main ejm-prose">
+    <h4>Overview</h4>
+    <p>ejm-cli is a coding agent for your terminal. It streams the conversation, saves sessions, and lets you steer a running turn.</p>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-sidebar-layout"><code>&lt;div class="ejm-sidebar-layout"&gt;
+  &lt;nav class="ejm-sidebar-layout__side ejm-sidenav" aria-label="Project sections"&gt;
+    &lt;div&gt;&lt;p class="ejm-sidenav__title"&gt;ejm-cli&lt;/p&gt;
+    &lt;ul&gt;&lt;li&gt;&lt;a href="#p-sidebar-layout" aria-current="page"&gt;Overview&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-sidebar-layout"&gt;Sessions&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-sidebar-layout"&gt;Permissions&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+  &lt;/nav&gt;
+  &lt;div class="ejm-sidebar-layout__main ejm-prose"&gt;
+    &lt;h4&gt;Overview&lt;/h4&gt;
+    &lt;p&gt;ejm-cli is a coding agent for your terminal. It streams the conversation, saves sessions, and lets you steer a running turn.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-sidenav" aria-labelledby="p-sidenav-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-sidenav-name">ejm-sidenav, ejm-toc</h3><p class="ejm-pattern__mods">__title</p></div>
+            <p class="ejm-pattern__use">Links to the pages of a section, or to the headings on this page, with one current item.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-cols ejm-cols--2">
+  <nav class="ejm-sidenav" aria-label="Documentation">
+    <div><p class="ejm-sidenav__title">projects</p><ul><li><a href="#p-sidenav" aria-current="page">ejm-harness</a></li><li><a href="#p-sidenav">ejm-cli</a></li><li><a href="#p-sidenav">ejm-ide</a></li></ul></div>
+  </nav>
+  <nav class="ejm-toc" aria-label="On this page">
+    <div><p class="ejm-toc__title">on this page</p><ul><li><a href="#p-sidenav" aria-current="true">Sessions</a></li><li><a href="#p-sidenav">Execution</a></li><li><a href="#p-sidenav">Coding tools</a></li></ul></div>
+  </nav>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-sidenav, ejm-toc"><code>&lt;div class="ejm-cols ejm-cols--2"&gt;
+  &lt;nav class="ejm-sidenav" aria-label="Documentation"&gt;
+    &lt;div&gt;&lt;p class="ejm-sidenav__title"&gt;projects&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#p-sidenav" aria-current="page"&gt;ejm-harness&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-sidenav"&gt;ejm-cli&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-sidenav"&gt;ejm-ide&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+  &lt;/nav&gt;
+  &lt;nav class="ejm-toc" aria-label="On this page"&gt;
+    &lt;div&gt;&lt;p class="ejm-toc__title"&gt;on this page&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#p-sidenav" aria-current="true"&gt;Sessions&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-sidenav"&gt;Execution&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-sidenav"&gt;Coding tools&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-bleed" aria-labelledby="p-bleed-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-bleed-name">ejm-bleed</h3></div>
+            <p class="ejm-pattern__use">A wide figure that runs past the gutters to the edge of the page column.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-page ejm-section ejm-stack">
+  <p class="ejm-measure">Text sits inside the gutters.</p>
+  <figure class="ejm-figure ejm-bleed"><div class="ejm-figure__frame"><img src="../templates/project-sage.png" alt="A project cover: a Sage field with the ejmlabs logo and a cropped symbol" width="1600" height="900"></div></figure>
+  <p class="ejm-measure">The figure above reaches the column edge.</p>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-bleed"><code>&lt;div class="ejm-page ejm-section ejm-stack"&gt;
+  &lt;p class="ejm-measure"&gt;Text sits inside the gutters.&lt;/p&gt;
+  &lt;figure class="ejm-figure ejm-bleed"&gt;&lt;div class="ejm-figure__frame"&gt;&lt;img src="../templates/project-sage.png" alt="A project cover: a Sage field with the ejmlabs logo and a cropped symbol" width="1600" height="900"&gt;&lt;/div&gt;&lt;/figure&gt;
+  &lt;p class="ejm-measure"&gt;The figure above reaches the column edge.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="header" aria-labelledby="header-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">header and navigation</p>
+            <h2 class="ejm-h2" id="header-title">Help people find their way.</h2>
+          </div>
+          <p class="ejm-head__text">The bar above the page, the links inside it, and the small parts that show where you are.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-announce" aria-labelledby="p-announce-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-announce-name">ejm-announce</h3><p class="ejm-pattern__mods">--forest  --ink</p></div>
+            <p class="ejm-pattern__use">One short, true message above the header, with one link.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-announce"><div class="ejm-announce__inner ejm-page"><p>ejm-ide starts on macOS with Apple Silicon.</p><a href="#p-announce">Read the details</a></div></div>
+<div class="ejm-announce ejm-announce--forest"><div class="ejm-announce__inner ejm-page"><p>The three projects are open source under the MIT license.</p><a href="#p-announce">See the projects</a></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-announce"><code>&lt;div class="ejm-announce"&gt;&lt;div class="ejm-announce__inner ejm-page"&gt;&lt;p&gt;ejm-ide starts on macOS with Apple Silicon.&lt;/p&gt;&lt;a href="#p-announce"&gt;Read the details&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ejm-announce ejm-announce--forest"&gt;&lt;div class="ejm-announce__inner ejm-page"&gt;&lt;p&gt;The three projects are open source under the MIT license.&lt;/p&gt;&lt;a href="#p-announce"&gt;See the projects&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-header-sticky" aria-labelledby="p-header-sticky-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-header-sticky-name">ejm-header--sticky + ejm-menu</h3><p class="ejm-pattern__mods">--paper  --forest</p></div>
+            <p class="ejm-pattern__use">The bar that stays on top. Under 640 px the links fold into the Menu button, with no script.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<header class="ejm-header ejm-header--sticky ejm-header--paper">
+  <a class="ejm-header__logo" href="#p-header-sticky" aria-label="ejmlabs home"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+  <div class="ejm-header__tools">
+    <details class="ejm-menu">
+      <summary><span class="ejm-menu__label">Menu</span></summary>
+      <nav class="ejm-nav" aria-label="Main">
+        <a href="#p-header-sticky" aria-current="page">Projects</a>
+        <a href="#p-header-sticky">How we work</a>
+        <a href="#p-header-sticky">Brand kit</a>
+      </nav>
+    </details>
+    <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+  </div>
+</header>
+<header class="ejm-header ejm-header--sticky ejm-header--forest">
+  <a class="ejm-header__logo" href="#p-header-sticky" aria-label="ejmlabs home"><img src="../logos/ejmlabs-paper.svg" alt="ejmlabs" width="234" height="40"></a>
+  <div class="ejm-header__tools">
+    <details class="ejm-menu">
+      <summary><span class="ejm-menu__label">Menu</span></summary>
+      <nav class="ejm-nav" aria-label="Main">
+        <a href="#p-header-sticky" aria-current="page">Projects</a>
+        <a href="#p-header-sticky">How we work</a>
+        <a href="#p-header-sticky">Brand kit</a>
+      </nav>
+    </details>
+    <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+  </div>
+</header>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-header--sticky + ejm-menu"><code>&lt;header class="ejm-header ejm-header--sticky ejm-header--paper"&gt;
+  &lt;a class="ejm-header__logo" href="#p-header-sticky" aria-label="ejmlabs home"&gt;&lt;span class="ejm-logo" role="img" aria-label="ejmlabs"&gt;&lt;/span&gt;&lt;/a&gt;
+  &lt;div class="ejm-header__tools"&gt;
+    &lt;details class="ejm-menu"&gt;
+      &lt;summary&gt;&lt;span class="ejm-menu__label"&gt;Menu&lt;/span&gt;&lt;/summary&gt;
+      &lt;nav class="ejm-nav" aria-label="Main"&gt;
+        &lt;a href="#p-header-sticky" aria-current="page"&gt;Projects&lt;/a&gt;
+        &lt;a href="#p-header-sticky"&gt;How we work&lt;/a&gt;
+        &lt;a href="#p-header-sticky"&gt;Brand kit&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/details&gt;
+    &lt;button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"&gt;&lt;span class="ejm-icon ejm-icon--moon" aria-hidden="true"&gt;&lt;/span&gt;&lt;span class="ejm-sr"&gt;Dark mode&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+&lt;header class="ejm-header ejm-header--sticky ejm-header--forest"&gt;
+  &lt;a class="ejm-header__logo" href="#p-header-sticky" aria-label="ejmlabs home"&gt;&lt;img src="../logos/ejmlabs-paper.svg" alt="ejmlabs" width="234" height="40"&gt;&lt;/a&gt;
+  &lt;div class="ejm-header__tools"&gt;
+    &lt;details class="ejm-menu"&gt;
+      &lt;summary&gt;&lt;span class="ejm-menu__label"&gt;Menu&lt;/span&gt;&lt;/summary&gt;
+      &lt;nav class="ejm-nav" aria-label="Main"&gt;
+        &lt;a href="#p-header-sticky" aria-current="page"&gt;Projects&lt;/a&gt;
+        &lt;a href="#p-header-sticky"&gt;How we work&lt;/a&gt;
+        &lt;a href="#p-header-sticky"&gt;Brand kit&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/details&gt;
+    &lt;button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"&gt;&lt;span class="ejm-icon ejm-icon--moon" aria-hidden="true"&gt;&lt;/span&gt;&lt;span class="ejm-sr"&gt;Dark mode&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-subnav" aria-labelledby="p-subnav-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-subnav-name">ejm-subnav</h3></div>
+            <p class="ejm-pattern__use">A row of links to the sections of one page. It scrolls sideways when it runs out of room.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-page"><nav class="ejm-subnav" aria-label="ejm-cli sections"><a href="#p-subnav" aria-current="page">Overview</a><a href="#p-subnav">Sessions</a><a href="#p-subnav">Permissions</a><a href="#p-subnav">Source</a></nav></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-subnav"><code>&lt;div class="ejm-page"&gt;&lt;nav class="ejm-subnav" aria-label="ejm-cli sections"&gt;&lt;a href="#p-subnav" aria-current="page"&gt;Overview&lt;/a&gt;&lt;a href="#p-subnav"&gt;Sessions&lt;/a&gt;&lt;a href="#p-subnav"&gt;Permissions&lt;/a&gt;&lt;a href="#p-subnav"&gt;Source&lt;/a&gt;&lt;/nav&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-breadcrumb" aria-labelledby="p-breadcrumb-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-breadcrumb-name">ejm-breadcrumb</h3></div>
+            <p class="ejm-pattern__use">Where this page sits, for pages two or more levels deep.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#p-breadcrumb">ejmlabs</a></li><li><a href="#p-breadcrumb">Projects</a></li><li aria-current="page">ejm-cli</li></ol></nav>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-breadcrumb"><code>&lt;nav class="ejm-breadcrumb" aria-label="Breadcrumb"&gt;&lt;ol&gt;&lt;li&gt;&lt;a href="#p-breadcrumb"&gt;ejmlabs&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-breadcrumb"&gt;Projects&lt;/a&gt;&lt;/li&gt;&lt;li aria-current="page"&gt;ejm-cli&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-pagination" aria-labelledby="p-pagination-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-pagination-name">ejm-pagination</h3><p class="ejm-pattern__mods">__gap</p></div>
+            <p class="ejm-pattern__use">Previous, next and a few numbers for a long ordered list.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<nav class="ejm-pagination" aria-label="Pagination"><ul>
+  <li><span aria-disabled="true" role="link">Previous</span></li>
+  <li><a href="#p-pagination" aria-current="page"><span class="ejm-sr">Page </span>1</a></li>
+  <li><a href="#p-pagination"><span class="ejm-sr">Page </span>2</a></li>
+  <li><a href="#p-pagination"><span class="ejm-sr">Page </span>3</a></li>
+  <li><span class="ejm-pagination__gap" aria-hidden="true">...</span></li>
+  <li><a href="#p-pagination"><span class="ejm-sr">Page </span>8</a></li>
+  <li><a href="#p-pagination" rel="next">Next</a></li>
+</ul></nav>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-pagination"><code>&lt;nav class="ejm-pagination" aria-label="Pagination"&gt;&lt;ul&gt;
+  &lt;li&gt;&lt;span aria-disabled="true" role="link"&gt;Previous&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#p-pagination" aria-current="page"&gt;&lt;span class="ejm-sr"&gt;Page &lt;/span&gt;1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#p-pagination"&gt;&lt;span class="ejm-sr"&gt;Page &lt;/span&gt;2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#p-pagination"&gt;&lt;span class="ejm-sr"&gt;Page &lt;/span&gt;3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span class="ejm-pagination__gap" aria-hidden="true"&gt;...&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#p-pagination"&gt;&lt;span class="ejm-sr"&gt;Page &lt;/span&gt;8&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#p-pagination" rel="next"&gt;Next&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/nav&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="heroes" aria-labelledby="heroes-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">heroes</p>
+            <h2 class="ejm-h2" id="heroes-title">Open the page.</h2>
+          </div>
+          <p class="ejm-head__text">Five ways to start a page. Pick one per page. The Sage panel is the default for the home page.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-hero" aria-labelledby="p-hero-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-hero-name">ejm-hero</h3><p class="ejm-pattern__mods">__body  __index  ejm-display  ejm-lead</p></div>
+            <p class="ejm-pattern__use">The opening of the home page: a Sage panel with one h1, one lead, at most two buttons and an index of links.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-hero">
+  <div class="ejm-hero__body ejm-page">
+    <p class="ejm-eyebrow">independent studio</p>
+    <h4 class="ejm-display">Small experiments. <span class="ejm-display__quiet">Useful things.</span></h4>
+    <p class="ejm-lead">ejmlabs is an independent studio for small experiments, useful software, and open source tools.</p>
+    <div class="ejm-cluster"><a class="ejm-button" href="#p-hero">See the projects</a><a class="ejm-button ejm-button--secondary" href="#p-hero">How we work</a></div>
+    <nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects"><span>open source</span><a href="#p-hero">ejm-harness</a><a href="#p-hero">ejm-cli</a><a href="#p-hero">ejm-ide</a></nav>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-hero"><code>&lt;div class="ejm-hero"&gt;
+  &lt;div class="ejm-hero__body ejm-page"&gt;
+    &lt;p class="ejm-eyebrow"&gt;independent studio&lt;/p&gt;
+    &lt;h4 class="ejm-display"&gt;Small experiments. &lt;span class="ejm-display__quiet"&gt;Useful things.&lt;/span&gt;&lt;/h4&gt;
+    &lt;p class="ejm-lead"&gt;ejmlabs is an independent studio for small experiments, useful software, and open source tools.&lt;/p&gt;
+    &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-hero"&gt;See the projects&lt;/a&gt;&lt;a class="ejm-button ejm-button--secondary" href="#p-hero"&gt;How we work&lt;/a&gt;&lt;/div&gt;
+    &lt;nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects"&gt;&lt;span&gt;open source&lt;/span&gt;&lt;a href="#p-hero"&gt;ejm-harness&lt;/a&gt;&lt;a href="#p-hero"&gt;ejm-cli&lt;/a&gt;&lt;a href="#p-hero"&gt;ejm-ide&lt;/a&gt;&lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-hero-forest" aria-labelledby="p-hero-forest-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-hero-forest-name">ejm-hero--forest</h3></div>
+            <p class="ejm-pattern__use">The one reversed moment a site wants, with the Orbit lines drifting behind the type.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-hero ejm-hero--forest">
+  <div class="ejm-hero__body ejm-page">
+    <p class="ejm-eyebrow">independent studio</p>
+    <h4 class="ejm-display">Small experiments. <span class="ejm-display__quiet">Useful things.</span></h4>
+    <p class="ejm-lead">ejmlabs is an independent studio for small experiments, useful software, and open source tools.</p>
+    <div class="ejm-cluster"><a class="ejm-button" href="#p-hero">See the projects</a><a class="ejm-button ejm-button--secondary" href="#p-hero">How we work</a></div>
+    <nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects"><span>open source</span><a href="#p-hero">ejm-harness</a><a href="#p-hero">ejm-cli</a><a href="#p-hero">ejm-ide</a></nav>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-hero--forest"><code>&lt;div class="ejm-hero ejm-hero--forest"&gt;
+  &lt;div class="ejm-hero__body ejm-page"&gt;
+    &lt;p class="ejm-eyebrow"&gt;independent studio&lt;/p&gt;
+    &lt;h4 class="ejm-display"&gt;Small experiments. &lt;span class="ejm-display__quiet"&gt;Useful things.&lt;/span&gt;&lt;/h4&gt;
+    &lt;p class="ejm-lead"&gt;ejmlabs is an independent studio for small experiments, useful software, and open source tools.&lt;/p&gt;
+    &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-hero"&gt;See the projects&lt;/a&gt;&lt;a class="ejm-button ejm-button--secondary" href="#p-hero"&gt;How we work&lt;/a&gt;&lt;/div&gt;
+    &lt;nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects"&gt;&lt;span&gt;open source&lt;/span&gt;&lt;a href="#p-hero"&gt;ejm-harness&lt;/a&gt;&lt;a href="#p-hero"&gt;ejm-cli&lt;/a&gt;&lt;a href="#p-hero"&gt;ejm-ide&lt;/a&gt;&lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-hero-paper" aria-labelledby="p-hero-paper-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-hero-paper-name">ejm-hero--paper</h3></div>
+            <p class="ejm-pattern__use">A calmer opening for documentation or a project page.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-hero ejm-hero--paper">
+  <div class="ejm-hero__body ejm-page">
+    <p class="ejm-eyebrow">open source, MIT</p>
+    <h4 class="ejm-display">One engine. <span class="ejm-display__quiet">Two apps.</span></h4>
+    <p class="ejm-lead">ejm-harness is a reusable Rust engine for coding agents. ejm-cli and ejm-ide are built on it.</p>
+    <div class="ejm-cluster"><a class="ejm-button" href="#p-hero-paper">Read the overview</a><a class="ejm-button ejm-button--secondary" href="#p-hero-paper">See the apps</a></div>
+    <nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects"><span>open source</span><a href="#p-hero">ejm-harness</a><a href="#p-hero">ejm-cli</a><a href="#p-hero">ejm-ide</a></nav>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-hero--paper"><code>&lt;div class="ejm-hero ejm-hero--paper"&gt;
+  &lt;div class="ejm-hero__body ejm-page"&gt;
+    &lt;p class="ejm-eyebrow"&gt;open source, MIT&lt;/p&gt;
+    &lt;h4 class="ejm-display"&gt;One engine. &lt;span class="ejm-display__quiet"&gt;Two apps.&lt;/span&gt;&lt;/h4&gt;
+    &lt;p class="ejm-lead"&gt;ejm-harness is a reusable Rust engine for coding agents. ejm-cli and ejm-ide are built on it.&lt;/p&gt;
+    &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-hero-paper"&gt;Read the overview&lt;/a&gt;&lt;a class="ejm-button ejm-button--secondary" href="#p-hero-paper"&gt;See the apps&lt;/a&gt;&lt;/div&gt;
+    &lt;nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects"&gt;&lt;span&gt;open source&lt;/span&gt;&lt;a href="#p-hero"&gt;ejm-harness&lt;/a&gt;&lt;a href="#p-hero"&gt;ejm-cli&lt;/a&gt;&lt;a href="#p-hero"&gt;ejm-ide&lt;/a&gt;&lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-hero-split" aria-labelledby="p-hero-split-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-hero-split-name">ejm-hero--split</h3><p class="ejm-pattern__mods">__copy  __visual</p></div>
+            <p class="ejm-pattern__use">For pages where the product is the picture: a terminal, a code sample or a screenshot beside the pitch.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-hero ejm-hero--split">
+  <div class="ejm-hero__body ejm-page">
+    <div class="ejm-hero__copy">
+      <p class="ejm-eyebrow">terminal</p>
+      <h4 class="ejm-display">ejm-cli <span class="ejm-display__quiet">in your terminal.</span></h4>
+      <p class="ejm-lead">A coding agent for your terminal. It streams the conversation, saves sessions, and lets you steer a running turn.</p>
+      <div class="ejm-cluster"><a class="ejm-button" href="#p-hero-split">Read more</a></div>
+    </div>
+    <div class="ejm-hero__visual">
+      <figure class="ejm-terminal">
+        <figcaption class="ejm-terminal__bar"><span>design-kit</span><span>sample output</span></figcaption>
+        <pre class="ejm-terminal__body" tabindex="0" aria-label="Sample terminal output"><code><span class="ejm-terminal__prompt">$ </span>ls design-kit
+components  favicon  fonts  icons
+lockups  logos  motifs  reference
+scripts  social  swag  templates
+tokens  ui  web</code></pre>
+      </figure>
+    </div>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-hero--split"><code>&lt;div class="ejm-hero ejm-hero--split"&gt;
+  &lt;div class="ejm-hero__body ejm-page"&gt;
+    &lt;div class="ejm-hero__copy"&gt;
+      &lt;p class="ejm-eyebrow"&gt;terminal&lt;/p&gt;
+      &lt;h4 class="ejm-display"&gt;ejm-cli &lt;span class="ejm-display__quiet"&gt;in your terminal.&lt;/span&gt;&lt;/h4&gt;
+      &lt;p class="ejm-lead"&gt;A coding agent for your terminal. It streams the conversation, saves sessions, and lets you steer a running turn.&lt;/p&gt;
+      &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-hero-split"&gt;Read more&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ejm-hero__visual"&gt;
+      &lt;figure class="ejm-terminal"&gt;
+        &lt;figcaption class="ejm-terminal__bar"&gt;&lt;span&gt;design-kit&lt;/span&gt;&lt;span&gt;sample output&lt;/span&gt;&lt;/figcaption&gt;
+        &lt;pre class="ejm-terminal__body" tabindex="0" aria-label="Sample terminal output"&gt;&lt;code&gt;&lt;span class="ejm-terminal__prompt"&gt;$ &lt;/span&gt;ls design-kit
+components  favicon  fonts  icons
+lockups  logos  motifs  reference
+scripts  social  swag  templates
+tokens  ui  web&lt;/code&gt;&lt;/pre&gt;
+      &lt;/figure&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-hero-compact" aria-labelledby="p-hero-compact-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-hero-compact-name">ejm-hero--compact</h3></div>
+            <p class="ejm-pattern__use">The top of every inner page: a breadcrumb, one h1 and a one-line lead.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-hero ejm-hero--compact">
+  <div class="ejm-hero__body ejm-page">
+    <nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#p-hero-compact">ejmlabs</a></li><li><a href="#p-hero-compact">Projects</a></li><li aria-current="page">ejm-ide</li></ol></nav>
+    <p class="ejm-eyebrow">desktop</p>
+    <h4 class="ejm-display">ejm-ide</h4>
+    <p class="ejm-lead">A desktop IDE with an agent beside the editor. It starts on macOS with Apple Silicon.</p>
+  </div>
+</div>
+<div class="ejm-hero ejm-hero--compact ejm-hero--paper">
+  <div class="ejm-hero__body ejm-page">
+    <nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#p-hero-compact">ejmlabs</a></li><li><a href="#p-hero-compact">Projects</a></li><li aria-current="page">ejm-cli</li></ol></nav>
+    <h4 class="ejm-display">ejm-cli</h4>
+    <p class="ejm-lead">A coding agent for your terminal.</p>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-hero--compact"><code>&lt;div class="ejm-hero ejm-hero--compact"&gt;
+  &lt;div class="ejm-hero__body ejm-page"&gt;
+    &lt;nav class="ejm-breadcrumb" aria-label="Breadcrumb"&gt;&lt;ol&gt;&lt;li&gt;&lt;a href="#p-hero-compact"&gt;ejmlabs&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-hero-compact"&gt;Projects&lt;/a&gt;&lt;/li&gt;&lt;li aria-current="page"&gt;ejm-ide&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt;
+    &lt;p class="ejm-eyebrow"&gt;desktop&lt;/p&gt;
+    &lt;h4 class="ejm-display"&gt;ejm-ide&lt;/h4&gt;
+    &lt;p class="ejm-lead"&gt;A desktop IDE with an agent beside the editor. It starts on macOS with Apple Silicon.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="ejm-hero ejm-hero--compact ejm-hero--paper"&gt;
+  &lt;div class="ejm-hero__body ejm-page"&gt;
+    &lt;nav class="ejm-breadcrumb" aria-label="Breadcrumb"&gt;&lt;ol&gt;&lt;li&gt;&lt;a href="#p-hero-compact"&gt;ejmlabs&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-hero-compact"&gt;Projects&lt;/a&gt;&lt;/li&gt;&lt;li aria-current="page"&gt;ejm-cli&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt;
+    &lt;h4 class="ejm-display"&gt;ejm-cli&lt;/h4&gt;
+    &lt;p class="ejm-lead"&gt;A coding agent for your terminal.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-terminal" aria-labelledby="p-terminal-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-terminal-name">ejm-terminal</h3><p class="ejm-pattern__mods">__bar  __body  __prompt</p></div>
+            <p class="ejm-pattern__use">Real command output in a dark window that works on any ground.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<figure class="ejm-terminal">
+  <figcaption class="ejm-terminal__bar"><span>design-kit</span><span>sample output</span></figcaption>
+  <pre class="ejm-terminal__body" tabindex="0" aria-label="Sample terminal output"><code><span class="ejm-terminal__prompt">$ </span>ls design-kit/web
+PATTERNS.md  patterns.html  site.css  starter.html</code></pre>
+</figure>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-terminal"><code>&lt;figure class="ejm-terminal"&gt;
+  &lt;figcaption class="ejm-terminal__bar"&gt;&lt;span&gt;design-kit&lt;/span&gt;&lt;span&gt;sample output&lt;/span&gt;&lt;/figcaption&gt;
+  &lt;pre class="ejm-terminal__body" tabindex="0" aria-label="Sample terminal output"&gt;&lt;code&gt;&lt;span class="ejm-terminal__prompt"&gt;$ &lt;/span&gt;ls design-kit/web
+PATTERNS.md  patterns.html  site.css  starter.html&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="sections" aria-labelledby="sections-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">sections</p>
+            <h2 class="ejm-h2" id="sections-title">Say one thing per band.</h2>
+          </div>
+          <p class="ejm-head__text">The content blocks that fill a band. Each holds one kind of content, under the same ejm-head.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-features" aria-labelledby="p-features-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-features-name">ejm-features</h3><p class="ejm-pattern__mods">ejm-feature  __icon  __title  __text</p></div>
+            <p class="ejm-pattern__use">Three to six short points about one thing, each with an icon, a few words and one sentence.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-features">
+  <div class="ejm-feature"><span class="ejm-feature__icon"><span class="ejm-icon ejm-icon--code" aria-hidden="true"></span></span><h4 class="ejm-feature__title">Extend from your language</h4><p class="ejm-feature__text">Typed TypeScript and Python APIs with tool callbacks sit beside the Rust core.</p></div>
+  <div class="ejm-feature"><span class="ejm-feature__icon"><span class="ejm-icon ejm-icon--check" aria-hidden="true"></span></span><h4 class="ejm-feature__title">Read only until you say so</h4><p class="ejm-feature__text">ejm-cli keeps file tools read only until you grant write or shell access, and the grants stay visible.</p></div>
+  <div class="ejm-feature"><span class="ejm-feature__icon"><span class="ejm-icon ejm-icon--search" aria-hidden="true"></span></span><h4 class="ejm-feature__title">Understand the code</h4><p class="ejm-feature__text">ejm-ide offers navigation, call graphs and Git history next to the agent chat.</p></div>
+  <div class="ejm-feature"><span class="ejm-feature__icon"><img src="../icons/download.svg" alt="" width="24" height="24"></span><h4 class="ejm-feature__title">Open source, MIT</h4><p class="ejm-feature__text">All three projects are released under the MIT license, so others can build on them.</p></div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-features"><code>&lt;div class="ejm-features"&gt;
+  &lt;div class="ejm-feature"&gt;&lt;span class="ejm-feature__icon"&gt;&lt;span class="ejm-icon ejm-icon--code" aria-hidden="true"&gt;&lt;/span&gt;&lt;/span&gt;&lt;h4 class="ejm-feature__title"&gt;Extend from your language&lt;/h4&gt;&lt;p class="ejm-feature__text"&gt;Typed TypeScript and Python APIs with tool callbacks sit beside the Rust core.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="ejm-feature"&gt;&lt;span class="ejm-feature__icon"&gt;&lt;span class="ejm-icon ejm-icon--check" aria-hidden="true"&gt;&lt;/span&gt;&lt;/span&gt;&lt;h4 class="ejm-feature__title"&gt;Read only until you say so&lt;/h4&gt;&lt;p class="ejm-feature__text"&gt;ejm-cli keeps file tools read only until you grant write or shell access, and the grants stay visible.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="ejm-feature"&gt;&lt;span class="ejm-feature__icon"&gt;&lt;span class="ejm-icon ejm-icon--search" aria-hidden="true"&gt;&lt;/span&gt;&lt;/span&gt;&lt;h4 class="ejm-feature__title"&gt;Understand the code&lt;/h4&gt;&lt;p class="ejm-feature__text"&gt;ejm-ide offers navigation, call graphs and Git history next to the agent chat.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="ejm-feature"&gt;&lt;span class="ejm-feature__icon"&gt;&lt;img src="../icons/download.svg" alt="" width="24" height="24"&gt;&lt;/span&gt;&lt;h4 class="ejm-feature__title"&gt;Open source, MIT&lt;/h4&gt;&lt;p class="ejm-feature__text"&gt;All three projects are released under the MIT license, so others can build on them.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-stats" aria-labelledby="p-stats-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-stats-name">ejm-stats</h3><p class="ejm-pattern__mods">ejm-stat  __value  __label</p></div>
+            <p class="ejm-pattern__use">Two to four plain facts that are true today, and nothing you would have to round up.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<dl class="ejm-stats">
+  <div class="ejm-stat"><dt class="ejm-stat__label">open source projects</dt><dd class="ejm-stat__value">3</dd></div>
+  <div class="ejm-stat"><dt class="ejm-stat__label">license for all three</dt><dd class="ejm-stat__value">MIT</dd></div>
+  <div class="ejm-stat"><dt class="ejm-stat__label">apps built on one engine</dt><dd class="ejm-stat__value">2</dd></div>
+</dl>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-stats"><code>&lt;dl class="ejm-stats"&gt;
+  &lt;div class="ejm-stat"&gt;&lt;dt class="ejm-stat__label"&gt;open source projects&lt;/dt&gt;&lt;dd class="ejm-stat__value"&gt;3&lt;/dd&gt;&lt;/div&gt;
+  &lt;div class="ejm-stat"&gt;&lt;dt class="ejm-stat__label"&gt;license for all three&lt;/dt&gt;&lt;dd class="ejm-stat__value"&gt;MIT&lt;/dd&gt;&lt;/div&gt;
+  &lt;div class="ejm-stat"&gt;&lt;dt class="ejm-stat__label"&gt;apps built on one engine&lt;/dt&gt;&lt;dd class="ejm-stat__value"&gt;2&lt;/dd&gt;&lt;/div&gt;
+&lt;/dl&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-steps" aria-labelledby="p-steps-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-steps-name">ejm-steps</h3><p class="ejm-pattern__mods">ejm-step  __title  __text</p></div>
+            <p class="ejm-pattern__use">A process in order, in three to five steps.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<ol class="ejm-steps">
+  <li class="ejm-step"><h4 class="ejm-step__title">Ask one question</h4><p class="ejm-step__text">Each experiment answers one question.</p></li>
+  <li class="ejm-step"><h4 class="ejm-step__title">Build it small</h4><p class="ejm-step__text">Small enough to be built and tried quickly.</p></li>
+  <li class="ejm-step"><h4 class="ejm-step__title">Make it useful</h4><p class="ejm-step__text">Finished means someone can use it.</p></li>
+  <li class="ejm-step"><h4 class="ejm-step__title">Share the tool</h4><p class="ejm-step__text">Release it as open source.</p></li>
+</ol>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-steps"><code>&lt;ol class="ejm-steps"&gt;
+  &lt;li class="ejm-step"&gt;&lt;h4 class="ejm-step__title"&gt;Ask one question&lt;/h4&gt;&lt;p class="ejm-step__text"&gt;Each experiment answers one question.&lt;/p&gt;&lt;/li&gt;
+  &lt;li class="ejm-step"&gt;&lt;h4 class="ejm-step__title"&gt;Build it small&lt;/h4&gt;&lt;p class="ejm-step__text"&gt;Small enough to be built and tried quickly.&lt;/p&gt;&lt;/li&gt;
+  &lt;li class="ejm-step"&gt;&lt;h4 class="ejm-step__title"&gt;Make it useful&lt;/h4&gt;&lt;p class="ejm-step__text"&gt;Finished means someone can use it.&lt;/p&gt;&lt;/li&gt;
+  &lt;li class="ejm-step"&gt;&lt;h4 class="ejm-step__title"&gt;Share the tool&lt;/h4&gt;&lt;p class="ejm-step__text"&gt;Release it as open source.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-timeline" aria-labelledby="p-timeline-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-timeline-name">ejm-timeline</h3><p class="ejm-pattern__mods">ejm-timeline__item  __date  __title  __text</p></div>
+            <p class="ejm-pattern__use">A real history or changelog, with dates or version numbers.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<ol class="ejm-timeline">
+  <li class="ejm-timeline__item"><time class="ejm-timeline__date" datetime="2026-10">October 2026</time><h4 class="ejm-timeline__title">Brand guide 1.0.0</h4><p class="ejm-timeline__text">The logo, six colors and two type families are set.</p></li>
+  <li class="ejm-timeline__item"><span class="ejm-timeline__date">1.1.0</span><h4 class="ejm-timeline__title">Motifs, lockups and templates</h4><p class="ejm-timeline__text">Four motif families, signature lockups and post templates join the kit.</p></li>
+  <li class="ejm-timeline__item"><span class="ejm-timeline__date">Now</span><h4 class="ejm-timeline__title">Site and application kits</h4><p class="ejm-timeline__text">Named patterns for websites, and components for apps.</p></li>
+</ol>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-timeline"><code>&lt;ol class="ejm-timeline"&gt;
+  &lt;li class="ejm-timeline__item"&gt;&lt;time class="ejm-timeline__date" datetime="2026-10"&gt;October 2026&lt;/time&gt;&lt;h4 class="ejm-timeline__title"&gt;Brand guide 1.0.0&lt;/h4&gt;&lt;p class="ejm-timeline__text"&gt;The logo, six colors and two type families are set.&lt;/p&gt;&lt;/li&gt;
+  &lt;li class="ejm-timeline__item"&gt;&lt;span class="ejm-timeline__date"&gt;1.1.0&lt;/span&gt;&lt;h4 class="ejm-timeline__title"&gt;Motifs, lockups and templates&lt;/h4&gt;&lt;p class="ejm-timeline__text"&gt;Four motif families, signature lockups and post templates join the kit.&lt;/p&gt;&lt;/li&gt;
+  &lt;li class="ejm-timeline__item"&gt;&lt;span class="ejm-timeline__date"&gt;Now&lt;/span&gt;&lt;h4 class="ejm-timeline__title"&gt;Site and application kits&lt;/h4&gt;&lt;p class="ejm-timeline__text"&gt;Named patterns for websites, and components for apps.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-quote" aria-labelledby="p-quote-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-quote-name">ejm-quote</h3><p class="ejm-pattern__mods">--center</p></div>
+            <p class="ejm-pattern__use">One sentence worth pulling out, always with its source.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<figure class="ejm-quote">
+  <blockquote><p>A project is finished when someone can use it, not when it is clever.</p></blockquote>
+  <figcaption>ejmlabs, how we work</figcaption>
+</figure>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-quote"><code>&lt;figure class="ejm-quote"&gt;
+  &lt;blockquote&gt;&lt;p&gt;A project is finished when someone can use it, not when it is clever.&lt;/p&gt;&lt;/blockquote&gt;
+  &lt;figcaption&gt;ejmlabs, how we work&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-cards" aria-labelledby="p-cards-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-cards-name">ejm-cards</h3><p class="ejm-pattern__mods">ejm-card  ejm-card__title</p></div>
+            <p class="ejm-pattern__use">A set of objects that each have a name, a tag, a sentence and a link.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-cards">
+  <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">Engine</span><h4 class="ejm-card__title">ejm-harness</h4><p>A reusable Rust engine for coding agents.</p><a class="ejm-link" href="#p-cards">About ejm-harness</a></article>
+  <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">Terminal</span><h4 class="ejm-card__title">ejm-cli</h4><p>A coding agent for your terminal, built on ejm-harness.</p><a class="ejm-link" href="#p-cards">About ejm-cli</a></article>
+  <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">Desktop</span><h4 class="ejm-card__title">ejm-ide</h4><p>A desktop IDE with an agent beside the editor.</p><a class="ejm-link" href="#p-cards">About ejm-ide</a></article>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-cards"><code>&lt;div class="ejm-cards"&gt;
+  &lt;article class="ejm-card"&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Engine&lt;/span&gt;&lt;h4 class="ejm-card__title"&gt;ejm-harness&lt;/h4&gt;&lt;p&gt;A reusable Rust engine for coding agents.&lt;/p&gt;&lt;a class="ejm-link" href="#p-cards"&gt;About ejm-harness&lt;/a&gt;&lt;/article&gt;
+  &lt;article class="ejm-card"&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Terminal&lt;/span&gt;&lt;h4 class="ejm-card__title"&gt;ejm-cli&lt;/h4&gt;&lt;p&gt;A coding agent for your terminal, built on ejm-harness.&lt;/p&gt;&lt;a class="ejm-link" href="#p-cards"&gt;About ejm-cli&lt;/a&gt;&lt;/article&gt;
+  &lt;article class="ejm-card"&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Desktop&lt;/span&gt;&lt;h4 class="ejm-card__title"&gt;ejm-ide&lt;/h4&gt;&lt;p&gt;A desktop IDE with an agent beside the editor.&lt;/p&gt;&lt;a class="ejm-link" href="#p-cards"&gt;About ejm-ide&lt;/a&gt;&lt;/article&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-links" aria-labelledby="p-links-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-links-name">ejm-links</h3><p class="ejm-pattern__mods">rel="external"  __text  __title  __meta</p></div>
+            <p class="ejm-pattern__use">Rows of resources or pages, each with an arrow.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<ul class="ejm-links">
+  <li><a href="../index.html"><span class="ejm-links__text"><span class="ejm-links__title">Brand kit</span><span class="ejm-links__meta">Logos, color, type, motifs and templates</span></span></a></li>
+  <li><a href="../ui/index.html"><span class="ejm-links__text"><span class="ejm-links__title">Application kit</span><span class="ejm-links__meta">Components for desktop and web apps</span></span></a></li>
+  <li><a href="starter.html"><span class="ejm-links__text"><span class="ejm-links__title">Site starter</span><span class="ejm-links__meta">The page to copy</span></span></a></li>
+  <li><a href="https://ejmlabs.com/" rel="external"><span class="ejm-links__text"><span class="ejm-links__title">ejmlabs.com</span><span class="ejm-links__meta">The first site built from this kit</span></span></a></li>
+</ul>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-links"><code>&lt;ul class="ejm-links"&gt;
+  &lt;li&gt;&lt;a href="../index.html"&gt;&lt;span class="ejm-links__text"&gt;&lt;span class="ejm-links__title"&gt;Brand kit&lt;/span&gt;&lt;span class="ejm-links__meta"&gt;Logos, color, type, motifs and templates&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="../ui/index.html"&gt;&lt;span class="ejm-links__text"&gt;&lt;span class="ejm-links__title"&gt;Application kit&lt;/span&gt;&lt;span class="ejm-links__meta"&gt;Components for desktop and web apps&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="starter.html"&gt;&lt;span class="ejm-links__text"&gt;&lt;span class="ejm-links__title"&gt;Site starter&lt;/span&gt;&lt;span class="ejm-links__meta"&gt;The page to copy&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://ejmlabs.com/" rel="external"&gt;&lt;span class="ejm-links__text"&gt;&lt;span class="ejm-links__title"&gt;ejmlabs.com&lt;/span&gt;&lt;span class="ejm-links__meta"&gt;The first site built from this kit&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-faq" aria-labelledby="p-faq-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-faq-name">ejm-faq</h3><p class="ejm-pattern__mods">__item  __answer</p></div>
+            <p class="ejm-pattern__use">Real questions with short answers. It works without script and by keyboard.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-faq">
+  <details class="ejm-faq__item"><summary>Is it open source?</summary><div class="ejm-faq__answer"><p>Yes. ejm-harness, ejm-cli and ejm-ide are released under the MIT license.</p></div></details>
+  <details class="ejm-faq__item"><summary>How are the three projects related?</summary><div class="ejm-faq__answer"><p>ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it.</p></div></details>
+  <details class="ejm-faq__item"><summary>Which platforms does ejm-ide support?</summary><div class="ejm-faq__answer"><p>It starts on macOS with Apple Silicon.</p></div></details>
+  <details class="ejm-faq__item"><summary>Can ejm-cli change my files?</summary><div class="ejm-faq__answer"><p>File tools are read only until you grant write or shell access, and the grants stay visible on screen.</p></div></details>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-faq"><code>&lt;div class="ejm-faq"&gt;
+  &lt;details class="ejm-faq__item"&gt;&lt;summary&gt;Is it open source?&lt;/summary&gt;&lt;div class="ejm-faq__answer"&gt;&lt;p&gt;Yes. ejm-harness, ejm-cli and ejm-ide are released under the MIT license.&lt;/p&gt;&lt;/div&gt;&lt;/details&gt;
+  &lt;details class="ejm-faq__item"&gt;&lt;summary&gt;How are the three projects related?&lt;/summary&gt;&lt;div class="ejm-faq__answer"&gt;&lt;p&gt;ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it.&lt;/p&gt;&lt;/div&gt;&lt;/details&gt;
+  &lt;details class="ejm-faq__item"&gt;&lt;summary&gt;Which platforms does ejm-ide support?&lt;/summary&gt;&lt;div class="ejm-faq__answer"&gt;&lt;p&gt;It starts on macOS with Apple Silicon.&lt;/p&gt;&lt;/div&gt;&lt;/details&gt;
+  &lt;details class="ejm-faq__item"&gt;&lt;summary&gt;Can ejm-cli change my files?&lt;/summary&gt;&lt;div class="ejm-faq__answer"&gt;&lt;p&gt;File tools are read only until you grant write or shell access, and the grants stay visible on screen.&lt;/p&gt;&lt;/div&gt;&lt;/details&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-cta" aria-labelledby="p-cta-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-cta-name">ejm-cta</h3><p class="ejm-pattern__mods">--center  --split  __body  __text</p></div>
+            <p class="ejm-pattern__use">The last band before the footer, asking for one thing.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<section class="ejm-band ejm-band--sage ejm-cta ejm-cta--center"><div class="ejm-page"><div class="ejm-cta__body">
+  <h4 class="ejm-h2">Try the tools.</h4>
+  <p class="ejm-lead">ejm-harness, ejm-cli and ejm-ide are open source under the MIT license.</p>
+  <div class="ejm-cluster"><a class="ejm-button" href="#p-cta">See the projects</a><a class="ejm-button ejm-button--secondary" href="#p-cta">How we work</a></div>
+</div></div></section>
+<section class="ejm-band ejm-band--ink ejm-cta ejm-cta--split"><div class="ejm-page"><div class="ejm-cta__body">
+  <div class="ejm-cta__text"><h4 class="ejm-h2">Build on the engine.</h4><p class="ejm-lead">ejm-harness runs many sessions through one resource governor and keeps a durable event journal.</p></div>
+  <div class="ejm-cluster"><a class="ejm-button" href="#p-cta">Read about ejm-harness</a></div>
+</div></div></section>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-cta"><code>&lt;section class="ejm-band ejm-band--sage ejm-cta ejm-cta--center"&gt;&lt;div class="ejm-page"&gt;&lt;div class="ejm-cta__body"&gt;
+  &lt;h4 class="ejm-h2"&gt;Try the tools.&lt;/h4&gt;
+  &lt;p class="ejm-lead"&gt;ejm-harness, ejm-cli and ejm-ide are open source under the MIT license.&lt;/p&gt;
+  &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-cta"&gt;See the projects&lt;/a&gt;&lt;a class="ejm-button ejm-button--secondary" href="#p-cta"&gt;How we work&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class="ejm-band ejm-band--ink ejm-cta ejm-cta--split"&gt;&lt;div class="ejm-page"&gt;&lt;div class="ejm-cta__body"&gt;
+  &lt;div class="ejm-cta__text"&gt;&lt;h4 class="ejm-h2"&gt;Build on the engine.&lt;/h4&gt;&lt;p class="ejm-lead"&gt;ejm-harness runs many sessions through one resource governor and keeps a durable event journal.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="ejm-cluster"&gt;&lt;a class="ejm-button" href="#p-cta"&gt;Read about ejm-harness&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-existing-head" aria-labelledby="p-existing-head-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-existing-head-name">ejm-head, ejm-projects, ejm-principles, ejm-status</h3><p class="ejm-pattern__mods">already in the kit</p></div>
+            <p class="ejm-pattern__use">The original home page parts: the band head, project cards, numbered principles and the status note.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<section class="ejm-band ejm-band--mist"><div class="ejm-page">
+  <div class="ejm-head">
+    <div class="ejm-head__title"><p class="ejm-eyebrow">projects</p><h4 class="ejm-h2">A coding agent engine, and two ways to use it.</h4></div>
+    <p class="ejm-head__text">ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it. All three are open source under the MIT license.</p>
+  </div>
+  <div class="ejm-projects">
+    <article class="ejm-project"><div class="ejm-project__meta"><span class="ejm-tag ejm-tag--quiet">Terminal</span><span class="ejm-tag ejm-tag--quiet">Rust</span><span class="ejm-tag ejm-tag--quiet">MIT</span></div><h4 class="ejm-project__name">ejm-cli</h4><p class="ejm-project__summary">A coding agent for your terminal.</p><p class="ejm-project__relation ejm-eyebrow">built on ejm-harness</p></article>
+    <article class="ejm-project ejm-project--base"><div class="ejm-project__meta"><span class="ejm-tag ejm-tag--quiet">Engine</span><span class="ejm-tag ejm-tag--quiet">MIT</span></div><h4 class="ejm-project__name">ejm-harness</h4><p class="ejm-project__summary">A reusable Rust engine for coding agents.</p><p class="ejm-project__relation ejm-eyebrow">powers ejm-cli and ejm-ide</p></article>
+  </div>
+</div></section>
+<section class="ejm-band ejm-band--forest"><div class="ejm-page">
+  <ol class="ejm-principles">
+    <li class="ejm-principle"><h4>Start small.</h4><p>Each experiment answers one question.</p></li>
+    <li class="ejm-principle"><h4>Make it useful.</h4><p>A project is finished when someone can use it.</p></li>
+    <li class="ejm-principle"><h4>Share the tools.</h4><p>What we build for ourselves, we release as open source.</p></li>
+  </ol>
+</div></section>
+<section class="ejm-band"><div class="ejm-page"><dl class="ejm-status"><div><dt>project</dt><dd>ejmlabs</dd></div><div><dt>status</dt><dd>exploring</dd></div></dl></div></section>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-head, ejm-projects, ejm-principles, ejm-status"><code>&lt;section class="ejm-band ejm-band--mist"&gt;&lt;div class="ejm-page"&gt;
+  &lt;div class="ejm-head"&gt;
+    &lt;div class="ejm-head__title"&gt;&lt;p class="ejm-eyebrow"&gt;projects&lt;/p&gt;&lt;h4 class="ejm-h2"&gt;A coding agent engine, and two ways to use it.&lt;/h4&gt;&lt;/div&gt;
+    &lt;p class="ejm-head__text"&gt;ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it. All three are open source under the MIT license.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="ejm-projects"&gt;
+    &lt;article class="ejm-project"&gt;&lt;div class="ejm-project__meta"&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Terminal&lt;/span&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Rust&lt;/span&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;MIT&lt;/span&gt;&lt;/div&gt;&lt;h4 class="ejm-project__name"&gt;ejm-cli&lt;/h4&gt;&lt;p class="ejm-project__summary"&gt;A coding agent for your terminal.&lt;/p&gt;&lt;p class="ejm-project__relation ejm-eyebrow"&gt;built on ejm-harness&lt;/p&gt;&lt;/article&gt;
+    &lt;article class="ejm-project ejm-project--base"&gt;&lt;div class="ejm-project__meta"&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Engine&lt;/span&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;MIT&lt;/span&gt;&lt;/div&gt;&lt;h4 class="ejm-project__name"&gt;ejm-harness&lt;/h4&gt;&lt;p class="ejm-project__summary"&gt;A reusable Rust engine for coding agents.&lt;/p&gt;&lt;p class="ejm-project__relation ejm-eyebrow"&gt;powers ejm-cli and ejm-ide&lt;/p&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/section&gt;
+&lt;section class="ejm-band ejm-band--forest"&gt;&lt;div class="ejm-page"&gt;
+  &lt;ol class="ejm-principles"&gt;
+    &lt;li class="ejm-principle"&gt;&lt;h4&gt;Start small.&lt;/h4&gt;&lt;p&gt;Each experiment answers one question.&lt;/p&gt;&lt;/li&gt;
+    &lt;li class="ejm-principle"&gt;&lt;h4&gt;Make it useful.&lt;/h4&gt;&lt;p&gt;A project is finished when someone can use it.&lt;/p&gt;&lt;/li&gt;
+    &lt;li class="ejm-principle"&gt;&lt;h4&gt;Share the tools.&lt;/h4&gt;&lt;p&gt;What we build for ourselves, we release as open source.&lt;/p&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;&lt;/section&gt;
+&lt;section class="ejm-band"&gt;&lt;div class="ejm-page"&gt;&lt;dl class="ejm-status"&gt;&lt;div&gt;&lt;dt&gt;project&lt;/dt&gt;&lt;dd&gt;ejmlabs&lt;/dd&gt;&lt;/div&gt;&lt;div&gt;&lt;dt&gt;status&lt;/dt&gt;&lt;dd&gt;exploring&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;&lt;/div&gt;&lt;/section&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="content" aria-labelledby="content-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">content</p>
+            <h2 class="ejm-h2" id="content-title">Show the details.</h2>
+          </div>
+          <p class="ejm-head__text">Parts for asides, data, code, images and labels inside a band.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-callout" aria-labelledby="p-callout-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-callout-name">ejm-callout</h3><p class="ejm-pattern__mods">--tip  --warning  __label</p></div>
+            <p class="ejm-pattern__use">A short aside the reader should not miss, with its label written out.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-stack">
+  <aside class="ejm-callout"><p class="ejm-callout__label">note</p><p>ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it.</p></aside>
+  <aside class="ejm-callout ejm-callout--tip"><p class="ejm-callout__label">tip</p><p>Start from web/starter.html and keep its section order.</p></aside>
+  <aside class="ejm-callout ejm-callout--warning"><p class="ejm-callout__label">warning</p><p>File tools are read only until you grant write or shell access. Check the grants shown on screen before you run a task.</p></aside>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-callout"><code>&lt;div class="ejm-stack"&gt;
+  &lt;aside class="ejm-callout"&gt;&lt;p class="ejm-callout__label"&gt;note&lt;/p&gt;&lt;p&gt;ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it.&lt;/p&gt;&lt;/aside&gt;
+  &lt;aside class="ejm-callout ejm-callout--tip"&gt;&lt;p class="ejm-callout__label"&gt;tip&lt;/p&gt;&lt;p&gt;Start from web/starter.html and keep its section order.&lt;/p&gt;&lt;/aside&gt;
+  &lt;aside class="ejm-callout ejm-callout--warning"&gt;&lt;p class="ejm-callout__label"&gt;warning&lt;/p&gt;&lt;p&gt;File tools are read only until you grant write or shell access. Check the grants shown on screen before you run a task.&lt;/p&gt;&lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-table" aria-labelledby="p-table-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-table-name">ejm-table</h3><p class="ejm-pattern__mods">--sticky  __num  __hash</p></div>
+            <p class="ejm-pattern__use">Data with more than one dimension. The wrapper scrolls sideways on narrow screens.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-table" role="region" aria-label="The three projects" tabindex="0">
+  <table>
+    <caption>ejm-harness, ejm-cli and ejm-ide compared</caption>
+    <thead><tr><th scope="col">Project</th><th scope="col">Kind</th><th scope="col">Built with</th><th scope="col">Built on</th><th scope="col">License</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">ejm-harness</th><td>Engine</td><td>Rust, with TypeScript and Python SDKs</td><td>none</td><td>MIT</td></tr>
+      <tr><th scope="row">ejm-cli</th><td>Terminal agent</td><td>Rust</td><td>ejm-harness</td><td>MIT</td></tr>
+      <tr><th scope="row">ejm-ide</th><td>Desktop IDE</td><td>Tauri, React, Rust</td><td>ejm-harness</td><td>MIT</td></tr>
+    </tbody>
+  </table>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-table"><code>&lt;div class="ejm-table" role="region" aria-label="The three projects" tabindex="0"&gt;
+  &lt;table&gt;
+    &lt;caption&gt;ejm-harness, ejm-cli and ejm-ide compared&lt;/caption&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Project&lt;/th&gt;&lt;th scope="col"&gt;Kind&lt;/th&gt;&lt;th scope="col"&gt;Built with&lt;/th&gt;&lt;th scope="col"&gt;Built on&lt;/th&gt;&lt;th scope="col"&gt;License&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th scope="row"&gt;ejm-harness&lt;/th&gt;&lt;td&gt;Engine&lt;/td&gt;&lt;td&gt;Rust, with TypeScript and Python SDKs&lt;/td&gt;&lt;td&gt;none&lt;/td&gt;&lt;td&gt;MIT&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th scope="row"&gt;ejm-cli&lt;/th&gt;&lt;td&gt;Terminal agent&lt;/td&gt;&lt;td&gt;Rust&lt;/td&gt;&lt;td&gt;ejm-harness&lt;/td&gt;&lt;td&gt;MIT&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th scope="row"&gt;ejm-ide&lt;/th&gt;&lt;td&gt;Desktop IDE&lt;/td&gt;&lt;td&gt;Tauri, React, Rust&lt;/td&gt;&lt;td&gt;ejm-harness&lt;/td&gt;&lt;td&gt;MIT&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-showcase" aria-labelledby="p-showcase-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-showcase-name">ejm-showcase</h3><p class="ejm-pattern__mods">--reverse  __text  __demo</p></div>
+            <p class="ejm-pattern__use">A code or terminal block beside the paragraph that explains it.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-showcase">
+  <div class="ejm-showcase__text">
+    <h4 class="ejm-heading">Three style sheets, no page CSS.</h4>
+    <p>A site loads the tokens, the components and the site kit, in that order. Everything else is a named pattern.</p>
+  </div>
+  <div class="ejm-showcase__demo"><pre class="ejm-code" tabindex="0" aria-label="The three style sheets"><code>&lt;link rel="stylesheet" href="/design-kit/tokens/brand.css"&gt;
+&lt;link rel="stylesheet" href="/design-kit/components/brand-components.css"&gt;
+&lt;link rel="stylesheet" href="/design-kit/web/site.css"&gt;</code></pre></div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-showcase"><code>&lt;div class="ejm-showcase"&gt;
+  &lt;div class="ejm-showcase__text"&gt;
+    &lt;h4 class="ejm-heading"&gt;Three style sheets, no page CSS.&lt;/h4&gt;
+    &lt;p&gt;A site loads the tokens, the components and the site kit, in that order. Everything else is a named pattern.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="ejm-showcase__demo"&gt;&lt;pre class="ejm-code" tabindex="0" aria-label="The three style sheets"&gt;&lt;code&gt;&amp;lt;link rel="stylesheet" href="/design-kit/tokens/brand.css"&amp;gt;
+&amp;lt;link rel="stylesheet" href="/design-kit/components/brand-components.css"&amp;gt;
+&amp;lt;link rel="stylesheet" href="/design-kit/web/site.css"&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-figure" aria-labelledby="p-figure-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-figure-name">ejm-figure</h3></div>
+            <p class="ejm-pattern__use">A screenshot or picture of the work, with real alt text and a caption that says what it shows.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<figure class="ejm-figure ejm-measure">
+  <div class="ejm-figure__frame"><img src="../social/social-card.png" alt="The ejmlabs social card: the logo on Sage with the signature Small experiments. Useful things." width="1200" height="630"></div>
+  <figcaption>The ejmlabs social card, from social/social-card.png.</figcaption>
+</figure>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-figure"><code>&lt;figure class="ejm-figure ejm-measure"&gt;
+  &lt;div class="ejm-figure__frame"&gt;&lt;img src="../social/social-card.png" alt="The ejmlabs social card: the logo on Sage with the signature Small experiments. Useful things." width="1200" height="630"&gt;&lt;/div&gt;
+  &lt;figcaption&gt;The ejmlabs social card, from social/social-card.png.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-tags" aria-labelledby="p-tags-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-tags-name">ejm-tags</h3><p class="ejm-pattern__mods">a.ejm-tag</p></div>
+            <p class="ejm-pattern__use">A short list of labels. Make them links only when they lead to a filtered list.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-stack">
+  <ul class="ejm-tags" aria-label="Languages"><li><span class="ejm-tag ejm-tag--quiet">Rust</span></li><li><span class="ejm-tag ejm-tag--quiet">TypeScript</span></li><li><span class="ejm-tag ejm-tag--quiet">Python</span></li><li><span class="ejm-tag">MIT</span></li></ul>
+  <ul class="ejm-tags" aria-label="Topics"><li><a class="ejm-tag ejm-tag--quiet" href="#p-tags">Engine</a></li><li><a class="ejm-tag ejm-tag--quiet" href="#p-tags">Terminal</a></li><li><a class="ejm-tag ejm-tag--quiet" href="#p-tags">Desktop</a></li></ul>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-tags"><code>&lt;div class="ejm-stack"&gt;
+  &lt;ul class="ejm-tags" aria-label="Languages"&gt;&lt;li&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Rust&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;TypeScript&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span class="ejm-tag ejm-tag--quiet"&gt;Python&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span class="ejm-tag"&gt;MIT&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;ul class="ejm-tags" aria-label="Topics"&gt;&lt;li&gt;&lt;a class="ejm-tag ejm-tag--quiet" href="#p-tags"&gt;Engine&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class="ejm-tag ejm-tag--quiet" href="#p-tags"&gt;Terminal&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class="ejm-tag ejm-tag--quiet" href="#p-tags"&gt;Desktop&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-logo-row" aria-labelledby="p-logo-row-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-logo-row-name">ejm-logo-row</h3></div>
+            <p class="ejm-pattern__use">A built with list in mono names, or small logos you have the right to show.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-stack ejm-stack--compact"><p class="ejm-eyebrow">built with</p><ul class="ejm-logo-row"><li>Rust</li><li>TypeScript</li><li>Python</li><li>Tauri</li><li>React</li></ul></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-logo-row"><code>&lt;div class="ejm-stack ejm-stack--compact"&gt;&lt;p class="ejm-eyebrow"&gt;built with&lt;/p&gt;&lt;ul class="ejm-logo-row"&gt;&lt;li&gt;Rust&lt;/li&gt;&lt;li&gt;TypeScript&lt;/li&gt;&lt;li&gt;Python&lt;/li&gt;&lt;li&gt;Tauri&lt;/li&gt;&lt;li&gt;React&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="docs" aria-labelledby="docs-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">docs and articles</p>
+            <h2 class="ejm-h2" id="docs-title">Write at length.</h2>
+          </div>
+          <p class="ejm-head__text">Two layouts for reading. Both use ejm-prose for the text.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-docs" aria-labelledby="p-docs-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-docs-name">ejm-docs</h3><p class="ejm-pattern__mods">__nav  __main  __toc  ejm-collapse</p></div>
+            <p class="ejm-pattern__use">Documentation of any length: a side nav, one prose column and the page headings beside it.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<div class="ejm-docs">
+  <details class="ejm-collapse ejm-docs__nav">
+    <summary>Documentation</summary>
+    <nav class="ejm-sidenav" aria-label="Documentation">
+      <div><p class="ejm-sidenav__title">projects</p><ul><li><a href="#p-docs" aria-current="page">ejm-harness</a></li><li><a href="#p-docs">ejm-cli</a></li><li><a href="#p-docs">ejm-ide</a></li></ul></div>
+      <div><p class="ejm-sidenav__title">studio</p><ul><li><a href="#p-docs">How we work</a></li><li><a href="#p-docs">License</a></li></ul></div>
+    </nav>
+  </details>
+  <details class="ejm-collapse ejm-docs__toc">
+    <summary>On this page</summary>
+    <nav class="ejm-toc" aria-label="On this page"><ul><li><a href="#p-docs" aria-current="true">Sessions</a></li><li><a href="#p-docs">Execution</a></li><li><a href="#p-docs">Coding tools</a></li><li><a href="#p-docs">SDKs</a></li></ul></nav>
+  </details>
+  <div class="ejm-docs__main ejm-prose">
+    <p class="ejm-eyebrow">projects</p>
+    <h2 class="ejm-title">ejm-harness</h2>
+    <p>ejm-harness is a reusable Rust engine for coding agents. It runs many sessions through one resource governor, keeps a durable event journal, and can be extended from Rust, TypeScript or Python.</p>
+    <h3>Sessions</h3>
+    <p>The agent loop, providers, context, events and recovery.</p>
+    <h3>Execution</h3>
+    <p>Shared resource admission and command supervision.</p>
+    <h3>Coding tools</h3>
+    <p>Read, list, search, write and patch, with optional shell access.</p>
+    <h3>SDKs</h3>
+    <p>Typed TypeScript and Python APIs with tool callbacks.</p>
+  </div>
+</div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-docs"><code>&lt;div class="ejm-docs"&gt;
+  &lt;details class="ejm-collapse ejm-docs__nav"&gt;
+    &lt;summary&gt;Documentation&lt;/summary&gt;
+    &lt;nav class="ejm-sidenav" aria-label="Documentation"&gt;
+      &lt;div&gt;&lt;p class="ejm-sidenav__title"&gt;projects&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#p-docs" aria-current="page"&gt;ejm-harness&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;ejm-cli&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;ejm-ide&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;p class="ejm-sidenav__title"&gt;studio&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;How we work&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;License&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+    &lt;/nav&gt;
+  &lt;/details&gt;
+  &lt;details class="ejm-collapse ejm-docs__toc"&gt;
+    &lt;summary&gt;On this page&lt;/summary&gt;
+    &lt;nav class="ejm-toc" aria-label="On this page"&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#p-docs" aria-current="true"&gt;Sessions&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;Execution&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;Coding tools&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#p-docs"&gt;SDKs&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;
+  &lt;/details&gt;
+  &lt;div class="ejm-docs__main ejm-prose"&gt;
+    &lt;p class="ejm-eyebrow"&gt;projects&lt;/p&gt;
+    &lt;h2 class="ejm-title"&gt;ejm-harness&lt;/h2&gt;
+    &lt;p&gt;ejm-harness is a reusable Rust engine for coding agents. It runs many sessions through one resource governor, keeps a durable event journal, and can be extended from Rust, TypeScript or Python.&lt;/p&gt;
+    &lt;h3&gt;Sessions&lt;/h3&gt;
+    &lt;p&gt;The agent loop, providers, context, events and recovery.&lt;/p&gt;
+    &lt;h3&gt;Execution&lt;/h3&gt;
+    &lt;p&gt;Shared resource admission and command supervision.&lt;/p&gt;
+    &lt;h3&gt;Coding tools&lt;/h3&gt;
+    &lt;p&gt;Read, list, search, write and patch, with optional shell access.&lt;/p&gt;
+    &lt;h3&gt;SDKs&lt;/h3&gt;
+    &lt;p&gt;Typed TypeScript and Python APIs with tool callbacks.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-article" aria-labelledby="p-article-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-article-name">ejm-article</h3><p class="ejm-pattern__mods">__header  __title  __lead  __meta  ejm-prose</p></div>
+            <p class="ejm-pattern__use">Long-form writing in one column at 68 characters and 18 px type.</p>
+          </div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad">
+<article class="ejm-article">
+  <header class="ejm-article__header">
+    <p class="ejm-eyebrow">notes</p>
+    <h2 class="ejm-article__title">What ejm-harness does</h2>
+    <p class="ejm-article__lead">One engine under two apps, so a fix in one place reaches both.</p>
+    <p class="ejm-article__meta ejm-eyebrow">ejmlabs, open source, MIT</p>
+  </header>
+  <div class="ejm-prose">
+    <p>ejm-harness is a reusable Rust engine for coding agents. It runs many sessions through one resource governor, keeps a durable event journal, and can be extended from Rust, TypeScript or Python.</p>
+    <h3>The four parts</h3>
+    <ul>
+      <li><strong>Sessions.</strong> The agent loop, providers, context, events and recovery.</li>
+      <li><strong>Execution.</strong> Shared resource admission and command supervision.</li>
+      <li><strong>Coding tools.</strong> Read, list, search, write and patch, with optional shell access.</li>
+      <li><strong>SDKs.</strong> Typed TypeScript and Python APIs with tool callbacks.</li>
+    </ul>
+    <blockquote><p>ejm-cli and ejm-ide are separate apps built on the same engine.</p></blockquote>
+    <p>Inline code such as <code>ejm-harness</code> sits in the line. Blocks use the code style:</p>
+    <pre class="ejm-code" tabindex="0" aria-label="Example"><code>ejm-harness, ejm-cli, ejm-ide</code></pre>
+    <p>Read more on the <a href="#p-article">project page</a>.</p>
+  </div>
+</article>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-article"><code>&lt;article class="ejm-article"&gt;
+  &lt;header class="ejm-article__header"&gt;
+    &lt;p class="ejm-eyebrow"&gt;notes&lt;/p&gt;
+    &lt;h2 class="ejm-article__title"&gt;What ejm-harness does&lt;/h2&gt;
+    &lt;p class="ejm-article__lead"&gt;One engine under two apps, so a fix in one place reaches both.&lt;/p&gt;
+    &lt;p class="ejm-article__meta ejm-eyebrow"&gt;ejmlabs, open source, MIT&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;div class="ejm-prose"&gt;
+    &lt;p&gt;ejm-harness is a reusable Rust engine for coding agents. It runs many sessions through one resource governor, keeps a durable event journal, and can be extended from Rust, TypeScript or Python.&lt;/p&gt;
+    &lt;h3&gt;The four parts&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Sessions.&lt;/strong&gt; The agent loop, providers, context, events and recovery.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Execution.&lt;/strong&gt; Shared resource admission and command supervision.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Coding tools.&lt;/strong&gt; Read, list, search, write and patch, with optional shell access.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;SDKs.&lt;/strong&gt; Typed TypeScript and Python APIs with tool callbacks.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;blockquote&gt;&lt;p&gt;ejm-cli and ejm-ide are separate apps built on the same engine.&lt;/p&gt;&lt;/blockquote&gt;
+    &lt;p&gt;Inline code such as &lt;code&gt;ejm-harness&lt;/code&gt; sits in the line. Blocks use the code style:&lt;/p&gt;
+    &lt;pre class="ejm-code" tabindex="0" aria-label="Example"&gt;&lt;code&gt;ejm-harness, ejm-cli, ejm-ide&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;Read more on the &lt;a href="#p-article"&gt;project page&lt;/a&gt;.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="motifs" aria-labelledby="motifs-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">motif backgrounds</p>
+            <h2 class="ejm-h2" id="motifs-title">Give a band some texture.</h2>
+          </div>
+          <p class="ejm-head__text">One utility class sets a background from motifs/. Each cell shows the same class on Paper, Mist, Forest and Ink. Choose one family per page and leave room for text.</p>
+        </div>
+        <div class="ejm-gallery-specimens">
+        <section class="ejm-pattern" id="p-motif-grid" aria-labelledby="p-motif-grid-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-grid-name">ejm-motif-grid</h3><p class="ejm-pattern__mods">--tile</p></div>
+            <p class="ejm-pattern__use">Fine squared lines for technical and reference pages. Add <code>ejm-motif--tile</code> to repeat the small tile.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-grid"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-grid"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-grid"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-grid"><p class="ejm-eyebrow">ink</p></div></div>
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-grid ejm-motif--tile"><p class="ejm-eyebrow">paper, tiled</p></div><div class="ejm-band ejm-band--mist ejm-motif-grid ejm-motif--tile"><p class="ejm-eyebrow">mist, tiled</p></div><div class="ejm-band ejm-band--forest ejm-motif-grid ejm-motif--tile"><p class="ejm-eyebrow">forest, tiled</p></div><div class="ejm-band ejm-band--ink ejm-motif-grid ejm-motif--tile"><p class="ejm-eyebrow">ink, tiled</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-grid"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-grid"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-grid"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-grid"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-grid"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-grid ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;paper, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-grid ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;mist, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-grid ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;forest, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-grid ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;ink, tiled&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-dots" aria-labelledby="p-motif-dots-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-dots-name">ejm-motif-dots</h3><p class="ejm-pattern__mods">--tile</p></div>
+            <p class="ejm-pattern__use">A quiet dot field for notes and light bands. Add <code>ejm-motif--tile</code> to repeat the small tile.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-dots"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-dots"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-dots"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-dots"><p class="ejm-eyebrow">ink</p></div></div>
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-dots ejm-motif--tile"><p class="ejm-eyebrow">paper, tiled</p></div><div class="ejm-band ejm-band--mist ejm-motif-dots ejm-motif--tile"><p class="ejm-eyebrow">mist, tiled</p></div><div class="ejm-band ejm-band--forest ejm-motif-dots ejm-motif--tile"><p class="ejm-eyebrow">forest, tiled</p></div><div class="ejm-band ejm-band--ink ejm-motif-dots ejm-motif--tile"><p class="ejm-eyebrow">ink, tiled</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-dots"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-dots"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-dots"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-dots"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-dots"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-dots ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;paper, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-dots ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;mist, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-dots ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;forest, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-dots ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;ink, tiled&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-contour" aria-labelledby="p-motif-contour-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-contour-name">ejm-motif-contour</h3></div>
+            <p class="ejm-pattern__use">Flowing contour lines for research and long-form bands.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-contour"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-contour"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-contour"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-contour"><p class="ejm-eyebrow">ink</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-contour"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-contour"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-contour"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-contour"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-contour"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-ripple" aria-labelledby="p-motif-ripple-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-ripple-name">ejm-motif-ripple</h3></div>
+            <p class="ejm-pattern__use">Concentric ripples for a focal band or a closing section.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-ripple"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-ripple"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-ripple"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-ripple"><p class="ejm-eyebrow">ink</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-ripple"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-ripple"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-ripple"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-ripple"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-ripple"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-stripe" aria-labelledby="p-motif-stripe-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-stripe-name">ejm-motif-stripe</h3><p class="ejm-pattern__mods">--tile</p></div>
+            <p class="ejm-pattern__use">Parallel stripes for process and changelog bands. Add <code>ejm-motif--tile</code> to repeat the small tile.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-stripe"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-stripe"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-stripe"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-stripe"><p class="ejm-eyebrow">ink</p></div></div>
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-stripe ejm-motif--tile"><p class="ejm-eyebrow">paper, tiled</p></div><div class="ejm-band ejm-band--mist ejm-motif-stripe ejm-motif--tile"><p class="ejm-eyebrow">mist, tiled</p></div><div class="ejm-band ejm-band--forest ejm-motif-stripe ejm-motif--tile"><p class="ejm-eyebrow">forest, tiled</p></div><div class="ejm-band ejm-band--ink ejm-motif-stripe ejm-motif--tile"><p class="ejm-eyebrow">ink, tiled</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-stripe"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-stripe"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-stripe"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-stripe"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-stripe"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-stripe ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;paper, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-stripe ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;mist, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-stripe ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;forest, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-stripe ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;ink, tiled&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-echo" aria-labelledby="p-motif-echo-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-echo-name">ejm-motif-echo</h3><p class="ejm-pattern__mods">--tile</p></div>
+            <p class="ejm-pattern__use">The symbol repeated, for end cards and calm backgrounds. Add <code>ejm-motif--tile</code> to repeat the small tile.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-echo"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-echo"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-echo"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-echo"><p class="ejm-eyebrow">ink</p></div></div>
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-echo ejm-motif--tile"><p class="ejm-eyebrow">paper, tiled</p></div><div class="ejm-band ejm-band--mist ejm-motif-echo ejm-motif--tile"><p class="ejm-eyebrow">mist, tiled</p></div><div class="ejm-band ejm-band--forest ejm-motif-echo ejm-motif--tile"><p class="ejm-eyebrow">forest, tiled</p></div><div class="ejm-band ejm-band--ink ejm-motif-echo ejm-motif--tile"><p class="ejm-eyebrow">ink, tiled</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-echo"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-echo"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-echo"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-echo"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-echo"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-echo ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;paper, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-echo ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;mist, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-echo ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;forest, tiled&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-echo ejm-motif--tile"&gt;&lt;p class="ejm-eyebrow"&gt;ink, tiled&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-flow" aria-labelledby="p-motif-flow-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-flow-name">ejm-motif-flow</h3></div>
+            <p class="ejm-pattern__use">Continuous paths for experiments and process notes.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-flow"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-flow"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-flow"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-flow"><p class="ejm-eyebrow">ink</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-flow"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-flow"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-flow"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-flow"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-flow"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-orbit" aria-labelledby="p-motif-orbit-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-orbit-name">ejm-motif-orbit</h3></div>
+            <p class="ejm-pattern__use">Nested ellipses for research and technical covers.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-orbit"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-orbit"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-orbit"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-orbit"><p class="ejm-eyebrow">ink</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-orbit"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-orbit"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-orbit"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-orbit"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-orbit"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-signature" aria-labelledby="p-motif-signature-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-signature-name">ejm-motif-signature</h3></div>
+            <p class="ejm-pattern__use">The symbol, enlarged and cropped, for profile and project covers.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-pattern__cells"><div class="ejm-band ejm-motif-signature"><p class="ejm-eyebrow">paper</p></div><div class="ejm-band ejm-band--mist ejm-motif-signature"><p class="ejm-eyebrow">mist</p></div><div class="ejm-band ejm-band--forest ejm-motif-signature"><p class="ejm-eyebrow">forest</p></div><div class="ejm-band ejm-band--ink ejm-motif-signature"><p class="ejm-eyebrow">ink</p></div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-motif-signature"><code>&lt;div class="ejm-pattern__cells"&gt;&lt;div class="ejm-band ejm-motif-signature"&gt;&lt;p class="ejm-eyebrow"&gt;paper&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--mist ejm-motif-signature"&gt;&lt;p class="ejm-eyebrow"&gt;mist&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--forest ejm-motif-signature"&gt;&lt;p class="ejm-eyebrow"&gt;forest&lt;/p&gt;&lt;/div&gt;&lt;div class="ejm-band ejm-band--ink ejm-motif-signature"&gt;&lt;p class="ejm-eyebrow"&gt;ink&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+
+        <section class="ejm-pattern" id="p-motif-hero" aria-labelledby="p-motif-hero-name">
+          <div class="ejm-pattern__head">
+            <div class="ejm-stack ejm-stack--compact"><h3 class="ejm-pattern__name" id="p-motif-hero-name">ejm-hero + ejm-motif-*</h3></div>
+            <p class="ejm-pattern__use">A motif on a hero replaces the drifting Orbit lines, so the page keeps one ambient motion at most.</p>
+          </div>
+          <div class="ejm-pattern__demo">
+<div class="ejm-hero ejm-surface ejm-surface--forest ejm-motif-contour"><div class="ejm-hero__body ejm-page">
+  <p class="ejm-eyebrow">experiments</p>
+  <h4 class="ejm-display">Small experiments. <span class="ejm-display__quiet">Useful things.</span></h4>
+  <p class="ejm-lead">A hero with the Contour motif instead of Orbit.</p>
+</div></div>
+          </div>
+          <details class="ejm-collapse ejm-pattern__markup">
+            <summary>Show markup</summary>
+            <pre class="ejm-code" tabindex="0" aria-label="Markup for ejm-hero + ejm-motif-*"><code>&lt;div class="ejm-hero ejm-surface ejm-surface--forest ejm-motif-contour"&gt;&lt;div class="ejm-hero__body ejm-page"&gt;
+  &lt;p class="ejm-eyebrow"&gt;experiments&lt;/p&gt;
+  &lt;h4 class="ejm-display"&gt;Small experiments. &lt;span class="ejm-display__quiet"&gt;Useful things.&lt;/span&gt;&lt;/h4&gt;
+  &lt;p class="ejm-lead"&gt;A hero with the Contour motif instead of Orbit.&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</code></pre>
+          </details>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--sage ejm-cta ejm-cta--split" aria-labelledby="close-title">
+      <div class="ejm-page">
+        <div class="ejm-cta__body">
+          <div class="ejm-cta__text">
+            <h2 class="ejm-h2" id="close-title">Start from the starter.</h2>
+            <p class="ejm-lead">It is a whole page built from these parts, with the head, header and footer in place.</p>
+          </div>
+          <div class="ejm-cluster">
+            <a class="ejm-button" href="starter.html">Open the starter</a>
+            <a class="ejm-button ejm-button--secondary" href="PATTERNS.md">Read the catalog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>patterns</h2><ul><li><a href="#layout">Layout</a></li><li><a href="#header">Header and navigation</a></li><li><a href="#heroes">Heroes</a></li><li><a href="#sections">Sections</a></li><li><a href="#content">Content</a></li><li><a href="#docs">Docs and articles</a></li><li><a href="#motifs">Motif backgrounds</a></li></ul></div>
+          <div><h2>kit</h2><ul><li><a href="../index.html">Design kit</a></li><li><a href="starter.html">Site starter</a></li><li><a href="demos.html">Demos</a></li><li><a href="../ui/index.html">Application kit</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs. The ejm-harness, ejm-cli and ejm-ide projects are released under the MIT license.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Motion system. One set of tokens, a short list of named parts. See web/MOTION.md.
+   Rules: calm and short. Things that move or appear animate transform and opacity only.
+   Color-like state feedback (color, underline, border) may transition. Nothing loops except the
+   ambient Orbit drift and a caret that blinks a few times and then rests.
+   Every part has a no-script fallback that leaves all content visible, and every movement lives
+   inside prefers-reduced-motion: no-preference, so reduced motion shows the plain, finished page.
+   Colors come from the band roles (--ejm-ground, --ejm-fg, --ejm-muted, --ejm-hairline).
+   ========================================================================== */
+
+/* ---------- Tokens (additive to tokens/brand.css, which owns ambient and interface) ---------- */
+:root {
+  --ejm-duration-instant: 90ms;   /* press feedback */
+  --ejm-duration-fast: 150ms;     /* hover, color, focus, exits */
+  --ejm-duration-base: 240ms;     /* menus, disclosures, small moves */
+  --ejm-duration-slow: 420ms;     /* reveals and entrances */
+  --ejm-duration-slower: 720ms;   /* count-up and large moves */
+  --ejm-ease-standard: var(--ejm-ease-interface);   /* state changes: starts fast, settles gently */
+  --ejm-ease-enter: cubic-bezier(0, 0, 0.2, 1);     /* things arriving: decelerate */
+  --ejm-ease-exit: cubic-bezier(0.4, 0, 1, 1);      /* things leaving: accelerate */
+  --ejm-ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1); /* the one hero entrance: long, soft landing */
+  --ejm-ease-linear: linear;                        /* ambient motion and scroll-linked progress */
+  --ejm-distance-small: 8px;
+  --ejm-distance-medium: 16px;
+  --ejm-distance-large: 32px;
+  --ejm-stagger-step: 60ms;
+}
+
+/* ---------- Shared keyframes ---------- */
+@keyframes ejm-fade { from { opacity: 0; } }
+@keyframes ejm-reveal { from { opacity: 0; transform: translate3d(var(--ejm-reveal-x, 0px), var(--ejm-reveal-y, 0px), 0) scale(var(--ejm-reveal-scale, 1)); } }
+@keyframes ejm-enter { from { opacity: 0; transform: translate3d(0, var(--ejm-enter-rise, 16px), 0); } }
+@keyframes ejm-focus { from { outline-color: transparent; outline-offset: 0; } }
+@keyframes ejm-progress { to { transform: scaleX(1); } }
+@keyframes ejm-hairline { to { opacity: 1; } }
+@keyframes ejm-shrink { to { transform: scale(0.9); } }
+@keyframes ejm-type { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes ejm-caret { 50% { opacity: 0; } }
+
+/* Child order for the staggered parts. Items past the twelfth share the twelfth delay. */
+:is(.ejm-stagger, .ejm-enter) > :nth-child(n+12) { --ejm-i: 11; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(2) { --ejm-i: 1; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(3) { --ejm-i: 2; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(4) { --ejm-i: 3; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(5) { --ejm-i: 4; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(6) { --ejm-i: 5; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(7) { --ejm-i: 6; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(8) { --ejm-i: 7; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(9) { --ejm-i: 8; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(10) { --ejm-i: 9; }
+:is(.ejm-stagger, .ejm-enter) > :nth-child(11) { --ejm-i: 10; }
+
+/* ---------- Reveal and stagger: on scroll into view, once. Needs html.ejm-js from motion.js. ---------- */
+.ejm-reveal { --ejm-reveal-y: var(--ejm-distance-medium); }
+.ejm-stagger > * { --ejm-reveal-y: var(--ejm-distance-small); }
+.ejm-reveal--up { --ejm-reveal-y: var(--ejm-distance-medium); }
+.ejm-reveal--fade { --ejm-reveal-y: 0px; }
+.ejm-reveal--scale { --ejm-reveal-y: 0px; --ejm-reveal-scale: 0.96; }
+.ejm-reveal--left { --ejm-reveal-y: 0px; --ejm-reveal-x: calc(var(--ejm-distance-medium) * -1); }
+.ejm-reveal--left:dir(rtl) { --ejm-reveal-x: var(--ejm-distance-medium); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html.ejm-js .ejm-reveal:not(.is-visible),
+  html.ejm-js .ejm-stagger:not(.is-visible) > * { opacity: 0; }
+  html.ejm-js .ejm-reveal.is-visible {
+    animation: ejm-reveal var(--ejm-duration-slow) var(--ejm-ease-enter) var(--ejm-delay, 0ms) backwards;
+  }
+  html.ejm-js .ejm-stagger.is-visible > * {
+    animation: ejm-reveal var(--ejm-duration-slow) var(--ejm-ease-enter) calc(min(var(--ejm-i, 0), 11) * var(--ejm-stagger-step)) backwards;
+  }
+}
+@media print {
+  html.ejm-js .ejm-reveal, html.ejm-js .ejm-stagger > * { opacity: 1 !important; animation: none !important; }
+}
+
+/* ---------- Enter: page-load choreography for a hero. Pure CSS, no script. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* A hero panel fades and rises 8 px once; its contents follow. Only translate, so the rounded corners stay put. */
+  .ejm-hero__body.ejm-enter { --ejm-enter-rise: var(--ejm-distance-small); animation: ejm-enter var(--ejm-duration-slow) var(--ejm-ease-enter) backwards; }
+  .ejm-enter > * {
+    --ejm-enter-rise: var(--ejm-distance-medium);
+    animation: ejm-enter var(--ejm-duration-slow) var(--ejm-ease-emphasis) calc(var(--ejm-enter-delay, 80ms) + min(var(--ejm-i, 0), 11) * var(--ejm-stagger-step)) backwards;
+  }
+  .ejm-enter > .ejm-display { --ejm-enter-rise: var(--ejm-distance-large); }
+  .ejm-enter--fade > * { animation-name: ejm-fade; }
+}
+
+/* ---------- Count: the number is in the text. motion.js counts up from 0 once, when visible. ---------- */
+.ejm-count { font-variant-numeric: tabular-nums; }
+
+/* ---------- Typewriter and cursor: terminal text. Stepped reveal by sliding a ground-colored cover away. ---------- */
+.ejm-typewriter { position: relative; display: inline-block; white-space: pre; }
+.ejm-typewriter::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: var(--ejm-ground); transform: scaleX(0); transform-origin: 100% 50%;
+}
+.ejm-cursor::after {
+  content: ''; position: relative; z-index: 2; display: inline-block; inline-size: 0.6ch; block-size: 1.1em;
+  margin-inline-start: 0.2ch; vertical-align: text-bottom; background: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ejm-typewriter::before {
+    animation: ejm-type calc(var(--ejm-chars, 24) * var(--ejm-type-step, 40ms)) steps(var(--ejm-chars, 24), end) var(--ejm-delay, 300ms) both;
+  }
+  html.ejm-js .ejm-typewriter:not(.is-visible)::before { animation: none; transform: scaleX(1); }
+  .ejm-cursor::after { animation: ejm-caret 1.2s steps(1, end) 8; } /* 0.8 blinks a second, eight times, then solid */
+}
+
+/* ---------- State feedback: color and underline. Paint only, no movement, safe under reduced motion. ---------- */
+.ejm-nav a { transition: background-size var(--ejm-duration-base) var(--ejm-ease-standard), color var(--ejm-duration-fast) var(--ejm-ease-standard); }
+.ejm-subnav a { transition: border-color var(--ejm-duration-fast) var(--ejm-ease-standard); }
+.ejm-sidenav a, .ejm-toc a { transition: background-color var(--ejm-duration-fast) var(--ejm-ease-standard), border-color var(--ejm-duration-fast) var(--ejm-ease-standard); }
+.ejm-button {
+  transition: background-color var(--ejm-duration-fast) var(--ejm-ease-standard), color var(--ejm-duration-fast) var(--ejm-ease-standard),
+    border-color var(--ejm-duration-fast) var(--ejm-ease-standard), transform var(--ejm-duration-instant) var(--ejm-ease-standard);
+}
+/* Links that already have a resting underline: it thickens. */
+.ejm-link, .ejm-prose a, .ejm-announce a, .ejm-breadcrumb a {
+  transition: text-decoration-thickness var(--ejm-duration-fast) var(--ejm-ease-standard), color var(--ejm-duration-fast) var(--ejm-ease-standard);
+}
+.ejm-link, .ejm-announce a, .ejm-breadcrumb a { text-decoration-thickness: 1px; }
+/* Links with no resting underline: it fades in under the text. */
+.ejm-hero__index a, .ejm-footer li a, .ejm-project__name a, .ejm-links__title {
+  text-decoration-line: underline; text-decoration-color: transparent; text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--ejm-duration-fast) var(--ejm-ease-standard), color var(--ejm-duration-fast) var(--ejm-ease-standard);
+}
+.ejm-project__name a { text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
+.ejm-links a:hover .ejm-links__title { text-decoration-color: currentColor; }
+.ejm-links a::after { transition-duration: var(--ejm-duration-base); }
+.ejm-hero__index a:hover, .ejm-footer li a:hover, .ejm-project__name a:hover { text-decoration-color: currentColor; }
+.ejm-card, .ejm-project { transition: border-color var(--ejm-duration-base) var(--ejm-ease-standard), transform var(--ejm-duration-base) var(--ejm-ease-standard); }
+.ejm-card:has(a:focus-visible), .ejm-project:not(.ejm-project--base):has(a:focus-visible) { border-color: var(--ejm-fg); }
+
+/* ---------- Movement: only for people who have not asked for less. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Press. */
+  .ejm-button:active:not(:disabled) { transform: scale(0.98); }
+
+  /* Focus ring draws out from the element. Zero specificity beyond the page class, so kit focus rules still win. */
+  .ejm-site :where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+    animation: ejm-focus var(--ejm-duration-fast) var(--ejm-ease-enter);
+  }
+}
+
+/* Cards that contain a link lift 2 px and darken their border, on devices with a real hover. */
+@media (hover: hover) {
+  .ejm-card:has(a[href]):hover, .ejm-project:not(.ejm-project--base):has(a[href]):hover { border-color: var(--ejm-fg); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ejm-card:has(a[href]):hover, .ejm-project:has(a[href]):hover { transform: translateY(-2px); }
+}
+
+/* ---------- Disclosures: FAQ and collapse open and close with a height transition where the browser can do it. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (interpolate-size: allow-keywords) and selector(::details-content) {
+    .ejm-faq__item, .ejm-collapse { interpolate-size: allow-keywords; }
+    .ejm-faq__item::details-content, .ejm-collapse:not(.ejm-docs__nav, .ejm-docs__toc)::details-content {
+      block-size: 0; overflow: clip; opacity: 0;
+      transition: block-size var(--ejm-duration-base) var(--ejm-ease-standard), opacity var(--ejm-duration-base) var(--ejm-ease-standard),
+        content-visibility var(--ejm-duration-base) allow-discrete;
+    }
+    .ejm-faq__item[open]::details-content, .ejm-collapse[open]:not(.ejm-docs__nav, .ejm-docs__toc)::details-content { block-size: auto; opacity: 1; }
+    .ejm-collapse:not(.ejm-docs__nav, .ejm-docs__toc) > summary { transition: margin-block-end var(--ejm-duration-base) var(--ejm-ease-standard); }
+    /* In ejm-docs the content is plain on wide screens, so it only animates where the summary is a toggle. */
+    @media (max-width: 899px) {
+      .ejm-docs__nav::details-content { block-size: 0; overflow: clip; opacity: 0; transition: block-size var(--ejm-duration-base) var(--ejm-ease-standard), opacity var(--ejm-duration-base) var(--ejm-ease-standard), content-visibility var(--ejm-duration-base) allow-discrete; }
+      .ejm-docs__nav[open]::details-content { block-size: auto; opacity: 1; }
+      .ejm-docs__nav > summary { transition: margin-block-end var(--ejm-duration-base) var(--ejm-ease-standard); }
+    }
+    @media (max-width: 1239px) {
+      .ejm-docs__toc::details-content { block-size: 0; overflow: clip; opacity: 0; transition: block-size var(--ejm-duration-base) var(--ejm-ease-standard), opacity var(--ejm-duration-base) var(--ejm-ease-standard), content-visibility var(--ejm-duration-base) allow-discrete; }
+      .ejm-docs__toc[open]::details-content { block-size: auto; opacity: 1; }
+      .ejm-docs__toc > summary { transition: margin-block-end var(--ejm-duration-base) var(--ejm-ease-standard); }
+    }
+  }
+
+  /* Menu: under 640 px the links fade in with an 8 px rise, and leave a little faster. */
+  @media (max-width: 639px) {
+    @supports selector(::details-content) {
+      .ejm-menu::details-content { transition: content-visibility var(--ejm-duration-fast) allow-discrete; }
+      .ejm-menu .ejm-nav {
+        opacity: 0; transform: translateY(calc(var(--ejm-distance-small) * -1));
+        transition: opacity var(--ejm-duration-fast) var(--ejm-ease-exit), transform var(--ejm-duration-fast) var(--ejm-ease-exit);
+      }
+      .ejm-menu[open] .ejm-nav {
+        opacity: 1; transform: none;
+        transition: opacity var(--ejm-duration-base) var(--ejm-ease-enter), transform var(--ejm-duration-base) var(--ejm-ease-enter);
+      }
+      @starting-style { .ejm-menu[open] .ejm-nav { opacity: 0; transform: translateY(calc(var(--ejm-distance-small) * -1)); } }
+    }
+  }
+}
+
+/* ---------- Scroll progress and sticky shrink: scroll-driven, CSS only, where the browser supports it. ---------- */
+.ejm-scroll-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ejm-scroll-progress {
+      display: block; position: fixed; inset: 0 0 auto; z-index: 40; block-size: 3px; pointer-events: none;
+      background: var(--ejm-sage); transform: scaleX(0); transform-origin: 0 50%;
+      animation: ejm-progress var(--ejm-ease-linear) both; animation-timeline: scroll(root block);
+    }
+    .ejm-scroll-progress:dir(rtl) { transform-origin: 100% 50%; }
+    .ejm-header--sticky.ejm-sticky-shrink { border-block-end-color: transparent; }
+    .ejm-sticky-shrink::after {
+      content: ''; position: absolute; inset-inline: 0; inset-block-end: -1px; block-size: 1px; pointer-events: none;
+      background: var(--ejm-hairline); opacity: 0;
+      animation: ejm-hairline var(--ejm-ease-linear) both; animation-timeline: scroll(root block); animation-range: 0px 96px;
+    }
+    .ejm-sticky-shrink .ejm-header__logo {
+      transform-origin: 0 50%;
+      animation: ejm-shrink var(--ejm-ease-linear) both; animation-timeline: scroll(root block); animation-range: 0px 96px;
+    }
+  }
+}
+
+/* ---------- Page transitions: multi-page sites cross-fade between pages and keep the logo and nav in place. ---------- */
+@supports (view-transition-name: none) {
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
+  }
+  /* Only the page's own header gets names; names must be unique, so demo headers inside examples are left alone. */
+  .ejm-site > .ejm-header .ejm-header__logo, .ejm-site > .ejm-hero > .ejm-header .ejm-header__logo { view-transition-name: ejm-logo; }
+  .ejm-site > .ejm-header > :is(.ejm-nav, .ejm-menu, .ejm-header__tools), .ejm-site > .ejm-hero > .ejm-header > :is(.ejm-nav, .ejm-menu, .ejm-header__tools) { view-transition-name: ejm-nav; }
+  /* The root cross-fade also serves document.startViewTransition() for the theme switch. */
+  ::view-transition-group(root) { animation-duration: var(--ejm-duration-interface); animation-timing-function: var(--ejm-ease-standard); }
+  ::view-transition-group(ejm-logo), ::view-transition-group(ejm-nav) { animation-duration: var(--ejm-duration-base); animation-timing-function: var(--ejm-ease-standard); }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none; }
+  }
+}

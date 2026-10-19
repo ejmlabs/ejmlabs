@@ -1,0 +1,255 @@
+/* Responsive rules: the smallest phones up to a 5120 px super ultrawide. Mobile first.
+   This part only overrides the parts in 10-base.css; it adds no classes. See web/RESPONSIVE.md.
+   Breakpoints: 320 (max 359), 375 (max 419), 480 (max 479), 640, 760, 900, 1240, 1600, 1920, 2200, 2560, 3200, 4400.
+   Large screens are scaled by --ejm-scale (1 up to 1919 px, so the brand scale never changes on normal screens).
+   Pages must carry <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+   for the safe-area rules to have any effect. */
+
+/* ---------- Everywhere ---------- */
+html:has(.ejm-site) {
+  --ejm-scale: 1;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  font-size: calc(100% * var(--ejm-scale)); /* rem follows the scale; the kit itself uses tokens and px */
+}
+.ejm-site { overflow-wrap: break-word; hyphens: manual; }
+/* Words never split inside headings, buttons and prose. Only code and long identifiers may break anywhere. */
+.ejm-site :where(.ejm-display, .ejm-h2, .ejm-title, .ejm-heading, .ejm-article__title, .ejm-card__title, .ejm-button, .ejm-prose, .ejm-sidenav a, .ejm-toc a, .ejm-pattern__name) { overflow-wrap: break-word; }
+.ejm-site :where(code, kbd, samp, .ejm-mono, .ejm-project__link, .ejm-link, .ejm-prose a, .ejm-eyebrow, .ejm-status) { overflow-wrap: anywhere; }
+:where(.ejm-hero__body, .ejm-head, .ejm-head__title, .ejm-head__text, .ejm-project, .ejm-card, .ejm-projects, .ejm-principles, .ejm-principle, .ejm-footer__grid, .ejm-footer__brand) { grid-template-columns: minmax(0, 1fr); } /* zero specificity: any pattern's own columns win */
+.ejm-site :where(.ejm-hero__body, .ejm-head, .ejm-head__title, .ejm-head__text, .ejm-project, .ejm-card, .ejm-projects, .ejm-principles, .ejm-principle, .ejm-footer__grid, .ejm-footer__brand, .ejm-cluster) > * { min-inline-size: 0; }
+.ejm-site :where(pre) { max-inline-size: 100%; overflow: auto; }
+.ejm-site :where(video, canvas, iframe) { max-inline-size: 100%; }
+.ejm-table tbody tr[aria-current='true'] > * { background: color-mix(in srgb, var(--ejm-sage) 30%, transparent); }
+.ejm-table--sticky { max-block-size: min(70vh, 480px); }
+@supports (height: 1svh) { .ejm-table--sticky { max-block-size: min(70svh, 480px); } }
+
+/* Safe areas: notches and home bars. Needs viewport-fit=cover; without it every env() is 0.
+   --ejm-gutter-step is the gutter of the current breakpoint. The page gutter never drops under a side inset,
+   and one value serves both sides so the hero panel stays centered. */
+.ejm-site {
+  --ejm-gutter: var(--ejm-gutter-step);
+  --ejm-page-gutter: max(var(--ejm-gutter-step), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+}
+.ejm-site .ejm-header--sticky {
+  inset-block-start: env(safe-area-inset-top, 0px);
+  padding-inline:
+    max(var(--ejm-gutter), calc((100% - var(--ejm-content-width)) / 2 + var(--ejm-gutter)), env(safe-area-inset-left, 0px))
+    max(var(--ejm-gutter), calc((100% - var(--ejm-content-width)) / 2 + var(--ejm-gutter)), env(safe-area-inset-right, 0px));
+}
+/* The strip above a stuck header takes the header color, so scrolled content never shows behind the status bar. */
+.ejm-header--sticky::before { content: ''; position: fixed; z-index: -1; inset: 0 0 auto 0; block-size: env(safe-area-inset-top, 0px); background: inherit; pointer-events: none; }
+.ejm-announce { position: relative; z-index: 21; }
+.ejm-skip + .ejm-announce, .ejm-skip + .ejm-hero { padding-block-start: env(safe-area-inset-top, 0px); }
+.ejm-skip + .ejm-header--sticky { margin-block-start: env(safe-area-inset-top, 0px); }
+.ejm-footer { padding-block-end: calc(var(--ejm-space-8) + env(safe-area-inset-bottom, 0px)); }
+
+/* The logo never outgrows the column (its ratio is 2373:405.5) and shrinks on phones so the menu stays on its row. */
+.ejm-site .ejm-logo { block-size: min(var(--ejm-logo-height), calc((100vw - 2 * var(--ejm-page-gutter)) / 5.85)); }
+.ejm-header .ejm-logo { --ejm-logo-height: 32px; }
+@media (max-width: 359px) { .ejm-header .ejm-logo { --ejm-logo-height: 28px; } }
+@media (min-width: 420px) { .ejm-header .ejm-logo { --ejm-logo-height: 40px; } }
+@media (min-width: 1920px) { .ejm-header .ejm-logo { --ejm-logo-height: calc(40px * var(--ejm-scale)); } .ejm-header--sticky .ejm-logo { --ejm-logo-height: calc(36px * var(--ejm-scale)); } .ejm-logo--large { --ejm-logo-height: calc(48px * var(--ejm-scale)); } }
+
+/* ---------- 320 and 375: narrow phones ---------- */
+.ejm-site { --ejm-gutter-step: var(--ejm-space-4); }
+.ejm-site .ejm-cluster > .ejm-button { flex: 1 1 100%; } /* buttons stack and fill the width */
+.ejm-display { font-size: clamp(32px, 10vw, 48px); }
+.ejm-hero--split .ejm-display, .ejm-hero--compact .ejm-display { font-size: clamp(32px, 9.5vw, 44px); }
+.ejm-h2 { font-size: clamp(26px, 8vw, 32px); }
+.ejm-project__name { font-size: clamp(26px, 7.5vw, 32px); }
+.ejm-article__title { font-size: clamp(30px, 9vw, 36px); }
+.ejm-stat__value { font-size: clamp(32px, 11vw, 40px); }
+.ejm-lead { font-size: 18px; }
+.ejm-project, .ejm-card { padding: var(--ejm-space-6) var(--ejm-space-4); }
+.ejm-footer__groups { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); }
+.ejm-terminal__body { padding-inline: var(--ejm-space-4); font-size: 13px; }
+.ejm-header { gap: var(--ejm-space-2) var(--ejm-space-4); padding-block: var(--ejm-space-4); }
+/* The hero is a rounded panel. On phones it keeps the 16 px gutter and a 16 px radius. */
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { padding: var(--ejm-space-8) var(--ejm-space-6); border-radius: 16px; }
+@media (max-width: 359px) {
+  .ejm-header__logo img { block-size: 32px; }
+  .ejm-header--sticky .ejm-header__logo img { block-size: 28px; }
+  .ejm-nav { column-gap: var(--ejm-space-4); }
+  .ejm-announce__inner { text-align: start; justify-content: flex-start; }
+}
+@media (min-width: 420px) {
+  .ejm-site { --ejm-gutter-step: var(--ejm-space-6); }
+  .ejm-site .ejm-cluster > .ejm-button { flex: 0 1 auto; }
+  .ejm-project, .ejm-card { padding: var(--ejm-space-6); }
+  .ejm-header { gap: var(--ejm-space-4) var(--ejm-space-8); padding-block: var(--ejm-space-6); }
+  .ejm-terminal__body { font-size: 14px; }
+  .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { padding: clamp(40px, 7vw, 96px) clamp(24px, 5vw, 80px); }
+}
+@media (min-width: 480px) {
+  .ejm-display { font-size: clamp(48px, 9.5vw, 96px); }
+  .ejm-hero--split .ejm-display, .ejm-hero--compact .ejm-display { font-size: clamp(44px, 7vw, 72px); }
+  .ejm-h2 { font-size: clamp(32px, 4.6vw, 52px); }
+  .ejm-project__name { font-size: clamp(28px, 3.4vw, 40px); }
+  .ejm-article__title { font-size: clamp(36px, 5.2vw, 56px); }
+  .ejm-stat__value { font-size: clamp(40px, 6vw, 64px); }
+  .ejm-lead { font-size: clamp(18px, 2vw, 22px); }
+}
+@media (min-width: 760px) {
+  .ejm-site { --ejm-gutter-step: var(--ejm-space-12); }
+  .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { border-radius: var(--ejm-radius-large); }
+  .ejm-hero--split .ejm-display { font-size: clamp(40px, 6vw, 72px); }
+  .ejm-hero--compact .ejm-display { font-size: clamp(36px, 5.5vw, 64px); }
+}
+
+/* ---------- Touch: 44 px targets for every control a finger can reach ---------- */
+@media (pointer: coarse), (max-width: 759px) {
+  .ejm-header__logo { display: flex; align-items: center; min-block-size: 44px; min-inline-size: 44px; }
+  .ejm-hero__index a { display: inline-flex; align-items: center; min-block-size: 44px; }
+  .ejm-footer li a, .ejm-subnav a { min-block-size: 44px; min-inline-size: 44px; }
+  .ejm-subnav a { justify-content: center; }
+  .ejm-toc a, .ejm-sidenav a { min-block-size: 44px; }
+  .ejm-hero__index { gap: 0 var(--ejm-space-6); }
+  :where(.ejm-card, .ejm-project, .ejm-stack, .ejm-feature) > a.ejm-link { display: inline-flex; align-items: center; justify-self: start; min-block-size: 44px; }
+}
+@media (hover: none) {
+  .ejm-nav a:not([aria-current]):hover { background-size: 0 1px; }
+  .ejm-links a:hover::after, .ejm-links a[rel~='external']:hover::after { transform: none; }
+  .ejm-links a:hover .ejm-links__title, .ejm-faq__item > summary:hover, .ejm-project__name a:hover, .ejm-hero__index a:hover { text-decoration: none; }
+  .ejm-sidenav a:hover, .ejm-toc a:hover, .ejm-pagination a:hover { background: none; }
+  .ejm-pagination a[aria-current]:hover { background: var(--ejm-fg); }
+}
+
+/* ---------- Short screens: landscape phones, split-screen, small windows ---------- */
+@media (max-height: 500px) {
+  html:has(.ejm-site), html:has(.ejm-header--sticky), html:has(.ejm-subnav) { scroll-padding-block-start: var(--ejm-space-4); }
+  .ejm-header { padding-block: var(--ejm-space-1); gap: 0 var(--ejm-space-6); }
+  .ejm-header--sticky { position: static; }
+  .ejm-header--sticky::before { display: none; }
+  .ejm-hero__body { gap: var(--ejm-space-4); padding-block: var(--ejm-space-6) var(--ejm-space-8); }
+  .ejm-hero--compact .ejm-hero__body { padding-block: var(--ejm-space-3) var(--ejm-space-6); }
+  .ejm-hero__index { padding-block-start: var(--ejm-space-1); }
+  .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { gap: var(--ejm-space-2); min-block-size: 0; padding: var(--ejm-space-4) var(--ejm-space-8); }
+  .ejm-hero__index { flex-wrap: nowrap; align-items: center; overflow-x: auto; white-space: nowrap; }
+  .ejm-display, .ejm-hero--split .ejm-display, .ejm-hero--compact .ejm-display { font-size: clamp(30px, 11vh, 48px); }
+  .ejm-lead { font-size: 16px; line-height: 1.5; }
+  .ejm-band { padding-block: var(--ejm-space-8); }
+  .ejm-head { margin-block-end: var(--ejm-space-6); }
+  .ejm-footer { padding-block-start: var(--ejm-space-8); }
+  .ejm-footer__legal { margin-block-start: var(--ejm-space-6); }
+  .ejm-sidebar-layout--sticky > .ejm-sidebar-layout__side, .ejm-docs__nav, .ejm-docs__toc { position: static; max-block-size: none; }
+}
+
+/* ---------- 1600: the page column starts to grow ---------- */
+@media (min-width: 1600px) {
+  .ejm-site { --ejm-content-width: 1360px; --ejm-gutter-step: var(--ejm-space-16); }
+  .ejm-docs { grid-template-columns: 260px minmax(0, 1fr) 260px; column-gap: var(--ejm-space-16); }
+  .ejm-cards { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .ejm-features { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+  .ejm-cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .ejm-links, .ejm-callout, .ejm-status { max-inline-size: 840px; }
+  .ejm-figure { max-inline-size: 1200px; }
+  .ejm-figure__frame img { max-block-size: 80svh; object-fit: contain; }
+  .ejm-hero__body { min-block-size: min(64svh, 760px); align-content: center; }
+  .ejm-hero--compact .ejm-hero__body { min-block-size: 0; }
+}
+
+/* ---------- 1920: the scale starts. Type, spacing and radii grow together ---------- */
+@media (min-width: 1920px) {
+  html:has(.ejm-site) { --ejm-scale: 1.125; }
+  .ejm-site {
+    --ejm-content-width: 1520px;
+    --ejm-body-size: calc(16px * var(--ejm-scale)); --ejm-body-leading: calc(26px * var(--ejm-scale));
+    --ejm-caption-size: calc(14px * var(--ejm-scale)); --ejm-caption-leading: calc(20px * var(--ejm-scale));
+    --ejm-technical-size: calc(12px * var(--ejm-scale)); --ejm-technical-leading: calc(18px * var(--ejm-scale));
+    --ejm-heading-size: calc(32px * var(--ejm-scale)); --ejm-heading-leading: calc(40px * var(--ejm-scale));
+    --ejm-display-size: calc(48px * var(--ejm-scale)); --ejm-display-leading: calc(54px * var(--ejm-scale));
+    --ejm-space-1: calc(4px * var(--ejm-scale)); --ejm-space-2: calc(8px * var(--ejm-scale)); --ejm-space-3: calc(12px * var(--ejm-scale));
+    --ejm-space-4: calc(16px * var(--ejm-scale)); --ejm-space-6: calc(24px * var(--ejm-scale)); --ejm-space-8: calc(32px * var(--ejm-scale));
+    --ejm-space-12: calc(48px * var(--ejm-scale)); --ejm-space-16: calc(64px * var(--ejm-scale)); --ejm-space-24: calc(96px * var(--ejm-scale));
+    --ejm-space-32: calc(128px * var(--ejm-scale));
+    --ejm-radius-small: calc(4px * var(--ejm-scale)); --ejm-radius-medium: calc(12px * var(--ejm-scale)); --ejm-radius-large: calc(24px * var(--ejm-scale));
+  }
+  /* Fixed px sizes in the base part, scaled. */
+  .ejm-header__logo img { block-size: calc(40px * var(--ejm-scale)); }
+  .ejm-header--sticky .ejm-header__logo img { block-size: calc(36px * var(--ejm-scale)); }
+  .ejm-footer__brand img { block-size: calc(48px * var(--ejm-scale)); }
+  .ejm-display { font-size: clamp(48px, 8vw, calc(96px * var(--ejm-scale))); }
+  .ejm-hero--split .ejm-display { font-size: clamp(40px, 6vw, calc(72px * var(--ejm-scale))); }
+  .ejm-hero--compact .ejm-display { font-size: clamp(36px, 5.5vw, calc(64px * var(--ejm-scale))); }
+  .ejm-hero--compact .ejm-lead, .ejm-head__text, .ejm-footer__signature, .ejm-faq__item > summary, .ejm-article { font-size: calc(18px * var(--ejm-scale)); }
+  .ejm-lead { font-size: clamp(18px, 2vw, calc(22px * var(--ejm-scale))); }
+  .ejm-h2 { font-size: clamp(32px, 4.6vw, calc(52px * var(--ejm-scale))); }
+  .ejm-project__name { font-size: clamp(28px, 3.4vw, calc(40px * var(--ejm-scale))); }
+  .ejm-project__summary { font-size: calc(20px * var(--ejm-scale)); }
+  .ejm-principle h3 { font-size: calc(24px * var(--ejm-scale)); }
+  .ejm-feature__title, .ejm-step__title, .ejm-timeline__title { font-size: calc(20px * var(--ejm-scale)); }
+  .ejm-stat__value { font-size: clamp(40px, 6vw, calc(64px * var(--ejm-scale))); }
+  .ejm-quote blockquote { font-size: clamp(24px, 3.4vw, calc(40px * var(--ejm-scale))); }
+  .ejm-article__title { font-size: clamp(36px, 5.2vw, calc(56px * var(--ejm-scale))); }
+  .ejm-article__lead { font-size: clamp(19px, 2.2vw, calc(22px * var(--ejm-scale))); }
+  .ejm-article .ejm-prose h2 { font-size: clamp(26px, 3.4vw, calc(32px * var(--ejm-scale))); }
+  .ejm-article .ejm-prose h3 { font-size: calc(22px * var(--ejm-scale)); }
+  .ejm-terminal__body { font-size: calc(14px * var(--ejm-scale)); }
+  .ejm-pattern__name { font-size: calc(18px * var(--ejm-scale)); }
+  .ejm-feature__icon { inline-size: calc(48px * var(--ejm-scale)); block-size: calc(48px * var(--ejm-scale)); }
+  .ejm-feature__icon img, .ejm-icon { inline-size: calc(24px * var(--ejm-scale)); block-size: calc(24px * var(--ejm-scale)); }
+  .ejm-logo-row img { block-size: calc(28px * var(--ejm-scale)); }
+  /* Paddings that were px clamps. */
+  .ejm-band { padding-block: calc(clamp(64px, 10vw, 128px) * var(--ejm-scale)); }
+  .ejm-hero__body { padding-block: calc(clamp(64px, 12vw, 144px) * var(--ejm-scale)) calc(clamp(64px, 10vw, 112px) * var(--ejm-scale)); }
+  .ejm-hero--compact .ejm-hero__body { padding-block: calc(48px * var(--ejm-scale)) calc(64px * var(--ejm-scale)); }
+  .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { padding: calc(clamp(40px, 7vw, 96px) * var(--ejm-scale)) calc(clamp(24px, 5vw, 80px) * var(--ejm-scale)); }
+  .ejm-head { margin-block-end: calc(clamp(40px, 6vw, 80px) * var(--ejm-scale)); }
+  .ejm-project { padding: calc(clamp(24px, 3vw, 40px) * var(--ejm-scale)); }
+  .ejm-footer { padding-block-start: calc(clamp(48px, 7vw, 88px) * var(--ejm-scale)); }
+  .ejm-footer__legal { margin-block-start: calc(clamp(40px, 6vw, 72px) * var(--ejm-scale)); }
+  .ejm-footer__groups { grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(150px * var(--ejm-scale))), 1fr)); }
+  /* Columns of cards grow with the type, so the count rises slowly instead of cards stretching. */
+  .ejm-cards { grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(320px * var(--ejm-scale))), 1fr)); }
+  .ejm-features { grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(260px * var(--ejm-scale))), 1fr)); }
+  .ejm-cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(280px * var(--ejm-scale))), 1fr)); }
+  .ejm-stats { grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(200px * var(--ejm-scale))), 1fr)); }
+  .ejm-docs { grid-template-columns: calc(260px * var(--ejm-scale)) minmax(0, 1fr) calc(260px * var(--ejm-scale)); }
+  .ejm-sidebar-layout { grid-template-columns: minmax(calc(200px * var(--ejm-scale)), calc(260px * var(--ejm-scale))) minmax(0, 1fr); }
+  .ejm-sidebar-layout--end { grid-template-columns: minmax(0, 1fr) minmax(calc(200px * var(--ejm-scale)), calc(260px * var(--ejm-scale))); }
+  .ejm-links, .ejm-callout, .ejm-status { max-inline-size: calc(840px * var(--ejm-scale)); }
+  .ejm-figure { max-inline-size: calc(1200px * var(--ejm-scale)); }
+  .ejm-hero__body { min-block-size: min(64svh, calc(760px * var(--ejm-scale))); }
+  .ejm-hero--compact .ejm-hero__body { min-block-size: 0; }
+  /* Motif tiles keep their look as the type grows. */
+  .ejm-motif--tile { background-size: calc(240px * var(--ejm-scale)) auto; }
+  .ejm-motif-echo.ejm-motif--tile { background-size: calc(480px * var(--ejm-scale)) auto; }
+}
+
+/* ---------- 2200: ultrawide. Two-column compositions, narrow reading text ---------- */
+@media (min-width: 2200px) {
+  .ejm-display { max-inline-size: 16ch; }
+  .ejm-projects { grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(520px * var(--ejm-scale))), 1fr)); }
+  .ejm-project--base { grid-column: 1 / -1; }
+  .ejm-faq { max-inline-size: none; column-width: calc(560px * var(--ejm-scale)); column-gap: var(--ejm-space-16); }
+  .ejm-faq__item { break-inside: avoid; }
+  .ejm-links { max-inline-size: none; column-width: calc(420px * var(--ejm-scale)); column-gap: var(--ejm-space-16); }
+  .ejm-links li { break-inside: avoid; }
+  .ejm-hero--split .ejm-hero__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .ejm-showcase { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+  .ejm-head { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .ejm-principles { column-gap: var(--ejm-space-16); }
+}
+
+/* ---------- 2560: QHD and wider. The column keeps growing ---------- */
+@media (min-width: 2560px) {
+  html:has(.ejm-site) { --ejm-scale: 1.25; }
+  .ejm-site { --ejm-content-width: 1760px; }
+}
+
+/* ---------- 3200: 45 inch ultrawide, 4K ---------- */
+@media (min-width: 3200px) {
+  html:has(.ejm-site) { --ejm-scale: 1.375; }
+  .ejm-site { --ejm-content-width: 2000px; }
+}
+
+/* ---------- 4400: 32:9 super ultrawide ---------- */
+@media (min-width: 4400px) {
+  html:has(.ejm-site) { --ejm-scale: 1.5; }
+  .ejm-site { --ejm-content-width: 2360px; }
+}
+
+@media print {
+  .ejm-header--sticky { position: static; }
+  .ejm-header--sticky::before { display: none; }
+}

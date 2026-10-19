@@ -1,0 +1,20 @@
+/* External links: a link marked rel="external" gets a small up-right arrow after its text, so people can tell
+   it leaves this site. Buttons, cards, the logo and ejm-links rows draw their own arrows or none. */
+.ejm-site a[rel~='external']:not(.ejm-button, .ejm-links a, .ejm-header__logo, .ejm-card, .ejm-logo-row a)::after {
+  content: '';
+  display: inline-block;
+  inline-size: 0.7em;
+  block-size: 0.7em;
+  margin-inline-start: 0.28em;
+  background-color: currentColor;
+  -webkit-mask: url('../icons/arrow-up-right.svg') center / contain no-repeat;
+  mask: url('../icons/arrow-up-right.svg') center / contain no-repeat;
+  opacity: 0.8;
+  transition: transform var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-site a[rel~='external']:not(.ejm-button, .ejm-links a, .ejm-header__logo, .ejm-card, .ejm-logo-row a):hover::after {
+  transform: translate(1px, -1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ejm-site a[rel~='external']::after { transition: none; }
+}

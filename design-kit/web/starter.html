@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Page name, ejmlabs</title>
+  <meta name="description" content="One sentence that says what this page is for.">
+  <meta name="theme-color" content="#F6F5EF">
+  <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
+  <script src="/design-kit/web/theme.js"></script>
+  <!-- Motion and analytics: motion.js is synchronous so content never flashes; analytics.js is deferred. -->
+  <script src="/design-kit/web/motion.js"></script>
+  <script src="/design-kit/web/analytics.js" defer></script>
+  <link rel="canonical" href="https://YOUR-DOMAIN/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Page name">
+  <meta property="og:description" content="One sentence that says what this page is for.">
+  <meta property="og:url" content="https://YOUR-DOMAIN/">
+  <meta property="og:image" content="https://YOUR-DOMAIN/design-kit/social/social-card.png">
+  <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/design-kit/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/design-kit/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/design-kit/favicon/site.webmanifest">
+  <link rel="preload" href="/design-kit/fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/design-kit/tokens/brand.css">
+  <link rel="stylesheet" href="/design-kit/components/brand-components.css">
+  <link rel="stylesheet" href="/design-kit/web/site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <!-- Hero: a Sage panel on the page, with the header above it. One h1, one lead, at most two buttons. -->
+  <div class="ejm-hero">
+    <header class="ejm-header ejm-page">
+      <a class="ejm-header__logo" href="/" aria-label="Home"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+      <div class="ejm-header__tools">
+        <details class="ejm-menu">
+          <summary><span class="ejm-menu__label">Menu</span></summary>
+          <nav class="ejm-nav" aria-label="Main">
+            <a href="#first">First section</a>
+            <a href="#second">Second section</a>
+          </nav>
+        </details>
+        <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+      </div>
+    </header>
+    <div class="ejm-hero__body ejm-page">
+      <p class="ejm-eyebrow">label</p>
+      <h1 class="ejm-display">The main point. <span class="ejm-display__quiet">The second beat.</span></h1>
+      <p class="ejm-lead">One or two sentences that say what this is and who it is for.</p>
+      <div class="ejm-cluster">
+        <a class="ejm-button" href="#first">Primary action</a>
+        <a class="ejm-button ejm-button--secondary" href="#second">Secondary action</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- Band: Mist. Head with label, h2 and supporting text, then one kind of content. -->
+    <section class="ejm-band ejm-band--mist" id="first" aria-labelledby="first-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">label</p>
+            <h2 class="ejm-h2" id="first-title">A heading that states the point.</h2>
+          </div>
+          <p class="ejm-head__text">Supporting text that explains the heading. Keep it to two or three sentences.</p>
+        </div>
+        <div class="ejm-projects">
+          <article class="ejm-project">
+            <div class="ejm-project__meta"><span class="ejm-tag ejm-tag--quiet">Tag</span></div>
+            <h3 class="ejm-project__name">Object name</h3>
+            <p class="ejm-project__summary">One line that says what it is.</p>
+            <p class="ejm-project__text">Two sentences of detail. Describe what exists today.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Band: Paper. Use ejm-band--flow for the Flow motif behind a short band. -->
+    <section class="ejm-band" id="second" aria-labelledby="second-title">
+      <div class="ejm-page">
+        <div class="ejm-head ejm-head--flush">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">label</p>
+            <h2 class="ejm-h2" id="second-title">Another heading.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>Text that belongs under this heading.</p>
+            <dl class="ejm-status"><div><dt>project</dt><dd>name</dd></div><div><dt>status</dt><dd>exploring</dd></div></dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing band: Sage, with numbered principles or one call to action. Forest or Ink only for the one reversed moment. -->
+    <section class="ejm-band ejm-band--sage" aria-labelledby="close-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title"><h2 class="ejm-h2" id="close-title">A closing heading.</h2></div>
+        </div>
+        <ol class="ejm-principles">
+          <li class="ejm-principle"><h3>First.</h3><p>One sentence.</p></li>
+          <li class="ejm-principle"><h3>Second.</h3><p>One sentence.</p></li>
+          <li class="ejm-principle"><h3>Third.</h3><p>One sentence.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>group</h2><ul><li><a href="#first">Link</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>

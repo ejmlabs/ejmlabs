@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Screen sizes, ejmlabs</title>
+  <meta name="description" content="How ejmlabs sites fit every screen, from a 320 px phone to a 5120 px ultrawide, with a live readout of the size you are on.">
+  <meta name="theme-color" content="#F6F5EF">
+  <script src="theme.js"></script>
+  <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="preload" href="../fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="../tokens/brand.css">
+  <link rel="stylesheet" href="../components/brand-components.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <header class="ejm-header ejm-header--sticky ejm-header--paper">
+    <a class="ejm-header__logo" href="../index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+    <div class="ejm-header__tools">
+      <details class="ejm-menu">
+        <summary><span class="ejm-menu__label">Menu</span></summary>
+        <nav class="ejm-nav" aria-label="Main">
+          <a href="../index.html">Design kit</a>
+          <a href="starter.html">Starter</a>
+          <a href="patterns.html">Patterns</a>
+          <a href="responsive.html" aria-current="page">Screen sizes</a>
+        </nav>
+      </details>
+      <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+    </div>
+    <nav class="ejm-subnav" aria-label="On this page"><a href="#now">This screen</a><a href="#steps">Breakpoints</a><a href="#devices">Devices</a><a href="#live">In action</a><a href="#rules">Rules</a></nav>
+  </header>
+
+  <div class="ejm-hero">
+    <div class="ejm-hero__body ejm-page">
+      <p class="ejm-eyebrow">screen sizes</p>
+      <h1 class="ejm-display">Every screen. <span class="ejm-display__quiet">The same page.</span></h1>
+      <p class="ejm-lead">From a 320 px phone to a 5120 px ultrawide, nothing is cramped, clipped or lost in the middle of an empty screen. Resize this window and watch the readout change.</p>
+      <div class="ejm-cluster">
+        <a class="ejm-button" href="#now">See this screen</a>
+        <a class="ejm-button ejm-button--secondary" href="#devices">The device matrix</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band ejm-band--mist" id="now" aria-labelledby="now-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">this screen</p>
+            <h2 class="ejm-h2" id="now-title">What the page sees right now.</h2>
+          </div>
+          <p class="ejm-head__text">The readout reads the real window. The column and the scale are the two numbers that grow on large screens. Everything else on this page follows them.</p>
+        </div>
+        <dl class="ejm-stats">
+          <div class="ejm-stat"><dt class="ejm-stat__label">Breakpoint step</dt><dd class="ejm-stat__value" data-readout="step">loading</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">Type scale</dt><dd class="ejm-stat__value" data-readout="scale">loading</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">Page column</dt><dd class="ejm-stat__value" data-readout="column">loading</dd></div>
+        </dl>
+        <dl class="ejm-status">
+          <div><dt>window, CSS px</dt><dd data-readout="size">loading</dd></div>
+          <div><dt>pixel ratio</dt><dd data-readout="dpr">loading</dd></div>
+          <div><dt>pointer</dt><dd data-readout="pointer">loading</dd></div>
+          <div><dt>hover</dt><dd data-readout="hover">loading</dd></div>
+          <div><dt>orientation</dt><dd data-readout="orientation">loading</dd></div>
+          <div><dt>safe area top</dt><dd data-readout="inset">loading</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="steps" aria-labelledby="steps-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">breakpoints</p>
+            <h2 class="ejm-h2" id="steps-title">Twelve steps, each for a reason.</h2>
+          </div>
+          <p class="ejm-head__text">The row for your current width is marked. Below 1920 px the type scale stays at 1, so the brand scale never changes on normal screens.</p>
+        </div>
+        <div class="ejm-table" role="region" aria-label="Breakpoints" tabindex="0">
+          <table>
+            <caption>Breakpoint, what it is for, and what changes</caption>
+            <thead><tr><th scope="col" class="ejm-table__num">px</th><th scope="col">Name</th><th scope="col">What changes</th></tr></thead>
+            <tbody>
+              <tr data-step="320"><th scope="row" class="ejm-table__num">320</th><td>Floor</td><td>Smallest supported width. Under 360 the logo and header shrink one more step.</td></tr>
+              <tr data-step="375"><th scope="row" class="ejm-table__num">375</th><td>Phone</td><td>Up to 419: 16 px gutters, buttons stack full width, display type 32 to 48 px.</td></tr>
+              <tr data-step="480"><th scope="row" class="ejm-table__num">480</th><td>Large phone</td><td>Headings step up to their normal fluid sizes.</td></tr>
+              <tr data-step="640"><th scope="row" class="ejm-table__num">640</th><td>Menu</td><td>The menu button gives way to the plain nav.</td></tr>
+              <tr data-step="760"><th scope="row" class="ejm-table__num">760</th><td>Tablet</td><td>48 px gutters, 24 px panel radius, two project columns.</td></tr>
+              <tr data-step="900"><th scope="row" class="ejm-table__num">900</th><td>Split</td><td>Side by side layouts, side nav, two column heads.</td></tr>
+              <tr data-step="1240"><th scope="row" class="ejm-table__num">1240</th><td>Docs</td><td>The table of contents sits beside the text.</td></tr>
+              <tr data-step="1600"><th scope="row" class="ejm-table__num">1600</th><td>Wide</td><td>Column grows to 1360 px, gutters to 64 px, docs rails to 260 px.</td></tr>
+              <tr data-step="1920"><th scope="row" class="ejm-table__num">1920</th><td>Full HD</td><td>Scale 1.125 and a 1520 px column.</td></tr>
+              <tr data-step="2200"><th scope="row" class="ejm-table__num">2200</th><td>Ultrawide</td><td>Two column compositions: FAQ and link lists split, projects spread.</td></tr>
+              <tr data-step="2560"><th scope="row" class="ejm-table__num">2560</th><td>QHD</td><td>Scale 1.25 and a 1760 px column.</td></tr>
+              <tr data-step="3200"><th scope="row" class="ejm-table__num">3200</th><td>45 inch, 4K</td><td>Scale 1.375 and a 2000 px column.</td></tr>
+              <tr data-step="4400"><th scope="row" class="ejm-table__num">4400</th><td>Super ultrawide</td><td>Scale 1.5 and a 2360 px column.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="devices" aria-labelledby="devices-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">devices</p>
+            <h2 class="ejm-h2" id="devices-title">Fourteen screens, checked on every release.</h2>
+          </div>
+          <div class="ejm-head__text"><p>Run <span class="ejm-mono">node scripts/shoot.mjs URL</span> to screenshot a page at all of them. It reports any horizontal overflow and any tap target under 44 px.</p></div>
+        </div>
+        <div class="ejm-table" role="region" aria-label="Device matrix" tabindex="0">
+          <table>
+            <caption>Screen name, size at pixel ratio, and what it guards</caption>
+            <thead><tr><th scope="col">Name</th><th scope="col">Size</th><th scope="col">Guards</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">iphone-se1</th><td>320 x 568 at 2</td><td>The narrowest phone. Content is 288 px wide.</td></tr>
+              <tr><th scope="row">iphone-mini</th><td>375 x 812 at 3</td><td>The phone design target, and the top and bottom safe areas.</td></tr>
+              <tr><th scope="row">android-small</th><td>360 x 800 at 3</td><td>The most common Android width.</td></tr>
+              <tr><th scope="row">iphone-15</th><td>393 x 852 at 3</td><td>A current phone with a notch.</td></tr>
+              <tr><th scope="row">iphone-pro-max</th><td>430 x 932 at 3</td><td>The widest phone, where nothing may stretch.</td></tr>
+              <tr><th scope="row">phone-landscape</th><td>812 x 375 at 3</td><td>Short screens, side safe areas, a hero that fits.</td></tr>
+              <tr><th scope="row">ipad-mini</th><td>744 x 1133 at 2</td><td>Tablet portrait, just under the 760 and 900 steps.</td></tr>
+              <tr><th scope="row">ipad-landscape</th><td>1024 x 768 at 2</td><td>Side nav and split layouts, touch targets on a wide screen.</td></tr>
+              <tr><th scope="row">laptop</th><td>1440 x 900 at 2</td><td>The reference: 1200 px column and the docs table of contents.</td></tr>
+              <tr><th scope="row">desktop-fhd</th><td>1920 x 1080 at 1</td><td>The first scaled step.</td></tr>
+              <tr><th scope="row">qhd</th><td>2560 x 1440 at 1</td><td>The column and type keep up with the screen.</td></tr>
+              <tr><th scope="row">ultrawide-45</th><td>3440 x 1440 at 1</td><td>21:9 and curved: two column compositions, narrow reading text.</td></tr>
+              <tr><th scope="row">uhd-4k</th><td>3840 x 2160 at 1</td><td>Wide and tall at once.</td></tr>
+              <tr><th scope="row">super-ultrawide</th><td>5120 x 1440 at 1</td><td>32:9. Must still look intended.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="live" aria-labelledby="live-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">in action</p>
+            <h2 class="ejm-h2" id="live-title">The patterns at this size.</h2>
+          </div>
+          <p class="ejm-head__text">Each example below changes with the window. Narrow the window to see the phone behavior, widen it to see columns added instead of cards stretched.</p>
+        </div>
+
+        <div class="ejm-pattern">
+          <h3 class="ejm-card__title">Cards add columns</h3>
+          <div class="ejm-cards">
+            <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">one</span><h4 class="ejm-card__title">First card</h4><p>One sentence of text.</p></article>
+            <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">two</span><h4 class="ejm-card__title">Second card</h4><p>One sentence of text.</p></article>
+            <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">three</span><h4 class="ejm-card__title">Third card</h4><p>One sentence of text.</p></article>
+            <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">four</span><h4 class="ejm-card__title">Fourth card</h4><p>One sentence of text.</p></article>
+            <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">five</span><h4 class="ejm-card__title">Fifth card</h4><p>One sentence of text.</p></article>
+            <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">six</span><h4 class="ejm-card__title">Sixth card</h4><p>One sentence of text.</p></article>
+          </div>
+        </div>
+
+        <div class="ejm-pattern">
+          <h3 class="ejm-card__title">Code scrolls inside its own box</h3>
+          <div class="ejm-showcase">
+            <div class="ejm-showcase__text">
+              <p>The line below is longer than a phone. The page does not scroll sideways, the box does.</p>
+            </div>
+            <div class="ejm-showcase__demo">
+              <figure class="ejm-terminal">
+                <div class="ejm-terminal__bar"><span>session</span><span>ejm-cli</span></div>
+                <pre class="ejm-terminal__body" tabindex="0" aria-label="Example command output"><code><span class="ejm-terminal__prompt">$ </span>ejm run --workspace ~/projects/a-long-folder-name/with/nested/parts --provider anthropic --resume last
+resumed session 41 with 3 tools granted, shell access off</code></pre>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="ejm-pattern">
+          <h3 class="ejm-card__title">Buttons stack under 420 px</h3>
+          <div class="ejm-cluster">
+            <a class="ejm-button" href="#now">Primary action</a>
+            <a class="ejm-button ejm-button--secondary" href="#steps">Secondary action</a>
+          </div>
+        </div>
+
+        <div class="ejm-pattern">
+          <h3 class="ejm-card__title">Questions split in two on ultrawide</h3>
+          <div class="ejm-faq">
+            <details class="ejm-faq__item"><summary>Why does the text grow on big screens?</summary><div class="ejm-faq__answer"><p>At 1920 px and up the whole kit scales together, so a 45 inch screen reads like a laptop one meter closer.</p></div></details>
+            <details class="ejm-faq__item"><summary>Does it change my laptop layout?</summary><div class="ejm-faq__answer"><p>No. Under 1920 px the scale is 1 and the brand sizes are exactly as published.</p></div></details>
+            <details class="ejm-faq__item"><summary>Where does the column stop?</summary><div class="ejm-faq__answer"><p>It steps from 1200 to 1360, 1520, 1760, 2000 and 2360 px.</p></div></details>
+            <details class="ejm-faq__item"><summary>What about notches?</summary><div class="ejm-faq__answer"><p>The page, headers and footer keep clear of safe areas when the viewport meta tag has viewport-fit=cover.</p></div></details>
+            <details class="ejm-faq__item"><summary>Do hover effects matter on a phone?</summary><div class="ejm-faq__answer"><p>They are switched off where there is no hover, so nothing sticks after a tap.</p></div></details>
+            <details class="ejm-faq__item"><summary>Is 200% text size supported?</summary><div class="ejm-faq__answer"><p>Yes, down to a 320 px screen. Long words break only when they cannot fit.</p></div></details>
+          </div>
+        </div>
+
+        <div class="ejm-pattern">
+          <div class="ejm-callout ejm-callout--tip">
+            <p class="ejm-callout__label">tip</p>
+            <p>Reading text stays at about 68 characters per line, and lead text at 54, on every screen. Wider screens add columns and white space, not longer lines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--sage" id="rules" aria-labelledby="rules-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">rules</p>
+            <h2 class="ejm-h2" id="rules-title">Three habits for every page.</h2>
+          </div>
+          <div class="ejm-head__text"><p>The full checklist, the class table and the tool are in <span class="ejm-mono">web/RESPONSIVE.md</span>.</p></div>
+        </div>
+        <ol class="ejm-principles">
+          <li class="ejm-principle"><h3>Set the viewport tag.</h3><p>Use width=device-width, initial-scale=1, viewport-fit=cover.</p></li>
+          <li class="ejm-principle"><h3>Use the parts.</h3><p>Pages carry no CSS, so every size rule applies to them.</p></li>
+          <li class="ejm-principle"><h3>Shoot it.</h3><p>Run scripts/shoot.mjs and fix any overflow before you ship.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>kit</h2><ul><li><a href="starter.html">Starter</a></li><li><a href="patterns.html">Patterns</a></li><li><a href="responsive.html">Screen sizes</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var steps = [320, 375, 480, 640, 760, 900, 1240, 1600, 1920, 2200, 2560, 3200, 4400];
+    var root = document.documentElement;
+    var rows = document.querySelectorAll('tr[data-step]');
+    var probe = document.createElement('div');
+    probe.className = 'ejm-sr';
+    document.body.appendChild(probe);
+    function set(key, value) {
+      document.querySelectorAll('[data-readout="' + key + '"]').forEach(function (n) { n.textContent = value; });
+    }
+    function update() {
+      var w = window.innerWidth, step = 0;
+      steps.forEach(function (s) { if (w >= s) step = s; });
+      var page = document.querySelector('main .ejm-page');
+      var scale = parseFloat(getComputedStyle(root).getPropertyValue('--ejm-scale')) || 1;
+      set('size', w + ' x ' + window.innerHeight);
+      set('step', step ? step + ' px' : 'under 320 px');
+      set('scale', String(scale));
+      set('column', Math.round(page.getBoundingClientRect().width) + ' px');
+      set('dpr', String(window.devicePixelRatio));
+      set('pointer', matchMedia('(pointer: coarse)').matches ? 'coarse (touch)' : 'fine (mouse)');
+      set('hover', matchMedia('(hover: hover)').matches ? 'available' : 'none');
+      set('orientation', w > window.innerHeight ? 'landscape' : 'portrait');
+      probe.style.paddingTop = 'env(safe-area-inset-top, 0px)';
+      set('inset', Math.round(parseFloat(getComputedStyle(probe).paddingTop) || 0) + ' px');
+      rows.forEach(function (r) {
+        if (Number(r.getAttribute('data-step')) === step) r.setAttribute('aria-current', 'true');
+        else r.removeAttribute('aria-current');
+      });
+    }
+    window.addEventListener('resize', update);
+    update();
+  })();
+  </script>
+</body>
+</html>

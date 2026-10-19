@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Dark theme, the theme toggle and the ejm-logo. See web/THEME.md.
+   How it works: every themed color is written once as light-dark(light value, dark value) in a
+   "theme color" custom property (--ejm-theme-*). The page asks for the dark half by setting
+   color-scheme: dark, either from html[data-theme="dark"] (set by theme.js) or, when the visitor runs no
+   script, from the system preference. Patterns read the band roles (--ejm-ground, --ejm-fg, --ejm-muted,
+   --ejm-hairline) and the button roles (--ejm-btn-*), never a literal brand color, so a role change reaches
+   every pattern. Sage panels, Sage bands, Forest and Ink surfaces are "reversed": they keep their brand
+   colors in both themes by switching back to color-scheme: light inside themselves.
+   ========================================================================== */
+@supports (color: light-dark(white, black)) {
+
+/* ---------- Switch: the only place that decides light or dark ---------- */
+/* --ejm-page-scheme remembers the page theme so a card inside a reversed panel can return to it.
+   --ejm-dk and --ejm-lt are on/off switches for values that are not colors (image files):
+   an empty value is "on", and "initial" is "off". */
+:root { --ejm-page-scheme: light; --ejm-dk: initial; --ejm-lt: ; }
+html:has(.ejm-site) { color-scheme: var(--ejm-page-scheme); }
+html[data-theme="dark"], .ejm-scheme--dark { --ejm-page-scheme: dark; --ejm-dk: ; --ejm-lt: initial; }
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) { --ejm-page-scheme: dark; --ejm-dk: ; --ejm-lt: initial; }
+}
+.ejm-scheme--dark { color-scheme: dark; }
+.ejm-scheme--light { color-scheme: light; --ejm-page-scheme: light; --ejm-dk: initial; --ejm-lt: ; }
+
+/* ---------- Theme colors, then the roles that read them ---------- */
+.ejm-site, .ejm-scheme {
+  --ejm-theme-ground: light-dark(var(--ejm-paper), var(--ejm-ui-ground));
+  --ejm-theme-panel: light-dark(var(--ejm-mist), var(--ejm-ui-editor));
+  --ejm-theme-raised: light-dark(var(--ejm-paper), var(--ejm-ui-raised));
+  --ejm-theme-text: light-dark(var(--ejm-ink), var(--ejm-ui-text));
+  --ejm-theme-strong: light-dark(var(--ejm-ink), var(--ejm-ui-text-strong));
+  --ejm-theme-muted: light-dark(var(--ejm-forest), var(--ejm-ui-text-muted));
+  --ejm-theme-accent: light-dark(var(--ejm-forest), var(--ejm-ui-accent));
+  --ejm-theme-line: light-dark(color-mix(in srgb, var(--ejm-ink) 22%, transparent), var(--ejm-ui-line-strong));
+  --ejm-theme-control: light-dark(var(--ejm-forest), var(--ejm-ui-control-border));
+  --ejm-theme-tint: light-dark(var(--ejm-mist), var(--ejm-ui-tint-2));
+  --ejm-theme-hover: light-dark(var(--ejm-mist), var(--ejm-ui-hover));
+  --ejm-theme-field: light-dark(var(--ejm-white), var(--ejm-ui-editor));
+  --ejm-theme-code: light-dark(var(--ejm-forest), var(--ejm-ui-editor));
+  --ejm-theme-code-text: light-dark(var(--ejm-paper), var(--ejm-ui-text));
+  --ejm-theme-well: light-dark(var(--ejm-ink), var(--ejm-ui-raised));
+  --ejm-theme-callout: light-dark(color-mix(in srgb, var(--ejm-sage) 18%, transparent), var(--ejm-ui-raised));
+  --ejm-theme-chip: light-dark(var(--ejm-forest), var(--ejm-ui-tint-3));
+  --ejm-theme-chip-text: light-dark(var(--ejm-paper), var(--ejm-ui-text-strong));
+
+  --ejm-ground: var(--ejm-theme-ground);
+  --ejm-fg: var(--ejm-theme-text);
+  --ejm-muted: var(--ejm-theme-muted);
+  --ejm-hairline: var(--ejm-theme-line);
+  /* Buttons: Sage with Ink text in both themes. Hover is Forest in light and a lighter Sage in dark. */
+  --ejm-btn-bg-hover: light-dark(var(--ejm-forest), color-mix(in srgb, var(--ejm-sage) 70%, white));
+  --ejm-btn-fg-hover: light-dark(var(--ejm-paper), var(--ejm-ink));
+  --ejm-btn-ring: light-dark(var(--ejm-forest), var(--ejm-ui-focus));
+  /* Links and inline controls. */
+  --ejm-component-ground: var(--ejm-theme-ground);
+  --ejm-component-contrast: var(--ejm-theme-accent);
+  --ejm-component-hover: light-dark(var(--ejm-ink), var(--ejm-ui-text-strong));
+  --ejm-component-secondary-hover: var(--ejm-theme-hover);
+}
+.ejm-site { color: var(--ejm-theme-text); background: var(--ejm-theme-ground); }
+.ejm-scheme { color: var(--ejm-theme-text); background: var(--ejm-theme-ground); }
+
+/* ---------- Reversed surfaces: Sage, Forest and Ink keep their brand colors in both themes ---------- */
+.ejm-band--sage, .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body, .ejm-project--base,
+.ejm-band--forest, .ejm-band--ink, .ejm-surface--forest, .ejm-hero--forest, .ejm-header--forest, .ejm-announce--forest, .ejm-announce--ink,
+.ejm-band--sage :is(.ejm-card, .ejm-project) { color-scheme: light; }
+/* The default hero follows the page theme; only its panel is reversed. */
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) { color-scheme: var(--ejm-page-scheme); }
+/* Cards and terminals follow the page theme, wherever they sit. Inside a Sage band the cards stay Paper (see the list above). */
+.ejm-card, .ejm-project:not(.ejm-project--base), .ejm-terminal { color-scheme: var(--ejm-page-scheme); }
+
+/* ---------- Page, bands and surfaces ---------- */
+.ejm-skip { color: var(--ejm-theme-strong); background: var(--ejm-theme-raised); }
+.ejm-skip:focus { outline-color: var(--ejm-theme-strong); }
+.ejm-band--mist { --ejm-ground: var(--ejm-theme-panel); background-color: var(--ejm-theme-panel); }
+.ejm-hero--paper { --ejm-ground: var(--ejm-theme-ground); color: var(--ejm-theme-text); background-color: var(--ejm-theme-ground); }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) { color: var(--ejm-theme-text); background-color: var(--ejm-theme-ground); }
+.ejm-surface:not(.ejm-surface--forest) { color: var(--ejm-theme-text); background-color: var(--ejm-theme-raised); }
+.ejm-card, .ejm-surface:not(.ejm-surface--forest) {
+  --ejm-component-ground: var(--ejm-theme-raised); --ejm-component-contrast: var(--ejm-theme-accent);
+  --ejm-component-hover: light-dark(var(--ejm-ink), var(--ejm-ui-text-strong)); --ejm-component-secondary-hover: var(--ejm-theme-hover);
+}
+.ejm-card, .ejm-project:not(.ejm-project--base) {
+  --ejm-ground: var(--ejm-theme-raised); --ejm-fg: var(--ejm-theme-text); --ejm-muted: var(--ejm-theme-muted); --ejm-hairline: var(--ejm-theme-line);
+  color: var(--ejm-theme-text); background: var(--ejm-theme-raised);
+}
+.ejm-project__relation { color: var(--ejm-muted); }
+.ejm-status { color: var(--ejm-theme-accent); background: var(--ejm-theme-tint); }
+.ejm-announce:not(.ejm-announce--forest, .ejm-announce--ink) { color: var(--ejm-theme-accent); background: var(--ejm-theme-panel); --ejm-ground: var(--ejm-theme-panel); }
+.ejm-header--paper { color: var(--ejm-theme-text); background: var(--ejm-theme-ground); --ejm-ground: var(--ejm-theme-ground); --ejm-fg: var(--ejm-theme-text); }
+.ejm-figure__frame { background: var(--ejm-theme-panel); }
+.ejm-callout { background: var(--ejm-theme-callout); }
+.ejm-terminal { --ejm-ground: var(--ejm-theme-well); background: var(--ejm-theme-well); scrollbar-color: var(--ejm-sage) var(--ejm-theme-well); }
+.ejm-terminal__body { scrollbar-color: var(--ejm-sage) var(--ejm-theme-well); }
+.ejm-hero--paper .ejm-display__quiet, .ejm-hero--paper .ejm-eyebrow, .ejm-hero--paper .ejm-hero__index a { color: var(--ejm-theme-accent); }
+.ejm-hero--paper .ejm-hero__index a:hover { color: var(--ejm-theme-strong); }
+.ejm-hero--paper .ejm-hero__index a:focus-visible { outline-color: var(--ejm-theme-accent); }
+
+/* ---------- Kit components ---------- */
+.ejm-tag--quiet { color: var(--ejm-theme-accent); background: var(--ejm-theme-tint); }
+.ejm-tags a.ejm-tag:hover { color: var(--ejm-theme-chip-text); background: var(--ejm-theme-chip); }
+.ejm-site .ejm-button:disabled { color: var(--ejm-theme-muted); background: var(--ejm-theme-panel); border-color: var(--ejm-theme-line); }
+.ejm-site .ejm-button--secondary:disabled { background: transparent; }
+.ejm-input { color: var(--ejm-theme-text); background: var(--ejm-theme-field); border-color: var(--ejm-theme-control); caret-color: var(--ejm-theme-accent); }
+.ejm-input::placeholder { color: var(--ejm-theme-muted); }
+.ejm-input[aria-invalid="true"] { border-color: var(--ejm-theme-strong); }
+.ejm-input:disabled, .ejm-input:read-only { color: var(--ejm-theme-muted); background: var(--ejm-theme-panel); }
+.ejm-code { color: var(--ejm-theme-code-text); background: var(--ejm-theme-code); scrollbar-color: var(--ejm-sage) var(--ejm-theme-code); }
+/* On a Mist band the code block steps up to the raised tone, so it still reads as a block without an outline. */
+.ejm-band--mist .ejm-code { background: light-dark(var(--ejm-forest), var(--ejm-ui-raised)); }
+
+/* ---------- Motifs: the dark-surface file on every Paper and Mist band ---------- */
+/* Every family uses its Ink file on a dark page, and its Mist file on a Mist band in light. Tiles use the dark tile. */
+.ejm-site, .ejm-scheme, .ejm-hero--paper {
+  --ejm-motif-grid: var(--ejm-dk, url('../motifs/grid-paper.svg')) var(--ejm-lt, url('../motifs/grid-ink.svg'));
+  --ejm-motif-dots: var(--ejm-dk, url('../motifs/dots-paper.svg')) var(--ejm-lt, url('../motifs/dots-ink.svg'));
+  --ejm-motif-contour: var(--ejm-dk, url('../motifs/contour-paper.svg')) var(--ejm-lt, url('../motifs/contour-ink.svg'));
+  --ejm-motif-ripple: var(--ejm-dk, url('../motifs/ripple-paper.svg')) var(--ejm-lt, url('../motifs/ripple-ink.svg'));
+  --ejm-motif-stripe: var(--ejm-dk, url('../motifs/stripe-paper.svg')) var(--ejm-lt, url('../motifs/stripe-ink.svg'));
+  --ejm-motif-echo: var(--ejm-dk, url('../motifs/echo-paper.svg')) var(--ejm-lt, url('../motifs/echo-ink.svg'));
+  --ejm-motif-flow: var(--ejm-dk, url('../motifs/flow-paper.svg')) var(--ejm-lt, url('../motifs/flow-ink.svg'));
+  --ejm-motif-orbit: var(--ejm-dk, url('../motifs/orbit-paper.svg')) var(--ejm-lt, url('../motifs/orbit-ink.svg'));
+  --ejm-motif-signature: var(--ejm-dk, url('../motifs/signature-crop-paper.svg')) var(--ejm-lt, url('../motifs/signature-crop-ink.svg'));
+  --ejm-motif-grid-tile: var(--ejm-dk, url('../motifs/tiles/grid-tile-light.svg')) var(--ejm-lt, url('../motifs/tiles/grid-tile-dark.svg'));
+  --ejm-motif-dots-tile: var(--ejm-dk, url('../motifs/tiles/dots-tile-light.svg')) var(--ejm-lt, url('../motifs/tiles/dots-tile-dark.svg'));
+  --ejm-motif-stripe-tile: var(--ejm-dk, url('../motifs/tiles/stripe-tile-light.svg')) var(--ejm-lt, url('../motifs/tiles/stripe-tile-dark.svg'));
+}
+.ejm-band--mist {
+  --ejm-motif-grid: var(--ejm-dk, url('../motifs/grid-mist.svg')) var(--ejm-lt, url('../motifs/grid-ink.svg'));
+  --ejm-motif-dots: var(--ejm-dk, url('../motifs/dots-mist.svg')) var(--ejm-lt, url('../motifs/dots-ink.svg'));
+  --ejm-motif-contour: var(--ejm-dk, url('../motifs/contour-mist.svg')) var(--ejm-lt, url('../motifs/contour-ink.svg'));
+  --ejm-motif-ripple: var(--ejm-dk, url('../motifs/ripple-mist.svg')) var(--ejm-lt, url('../motifs/ripple-ink.svg'));
+  --ejm-motif-stripe: var(--ejm-dk, url('../motifs/stripe-mist.svg')) var(--ejm-lt, url('../motifs/stripe-ink.svg'));
+  --ejm-motif-echo: var(--ejm-dk, url('../motifs/echo-mist.svg')) var(--ejm-lt, url('../motifs/echo-ink.svg'));
+  --ejm-motif-flow: var(--ejm-dk, url('../motifs/flow-mist.svg')) var(--ejm-lt, url('../motifs/flow-ink.svg'));
+  --ejm-motif-orbit: var(--ejm-dk, url('../motifs/orbit-mist.svg')) var(--ejm-lt, url('../motifs/orbit-ink.svg'));
+  --ejm-motif-signature: var(--ejm-dk, url('../motifs/signature-crop-mist.svg')) var(--ejm-lt, url('../motifs/signature-crop-ink.svg'));
+  --ejm-motif-grid-tile: var(--ejm-dk, url('../motifs/tiles/grid-tile-light.svg')) var(--ejm-lt, url('../motifs/tiles/grid-tile-dark.svg'));
+  --ejm-motif-dots-tile: var(--ejm-dk, url('../motifs/tiles/dots-tile-light.svg')) var(--ejm-lt, url('../motifs/tiles/dots-tile-dark.svg'));
+  --ejm-motif-stripe-tile: var(--ejm-dk, url('../motifs/tiles/stripe-tile-light.svg')) var(--ejm-lt, url('../motifs/tiles/stripe-tile-dark.svg'));
+}
+.ejm-hero--paper::before { background-image: var(--ejm-dk, url('../motifs/orbit-paper.svg')) var(--ejm-lt, url('../motifs/orbit-ink.svg')); }
+.ejm-band--flow { background-color: var(--ejm-ground); background-image: var(--ejm-dk, url('../motifs/flow-paper.svg')) var(--ejm-lt, url('../motifs/flow-ink.svg')); }
+}
+
+/* ---------- Theme toggle and header tools ---------- */
+/* The tools wrapper sits at the far right of the header: navigation first, the toggle last. */
+.ejm-header__tools { display: flex; align-items: center; gap: var(--ejm-space-2) var(--ejm-space-6); margin-inline-start: auto; }
+.ejm-header__tools > .ejm-menu { margin-inline-start: 0; }
+.ejm-theme-toggle {
+  box-sizing: border-box; display: inline-grid; flex: none; place-items: center; inline-size: 44px; block-size: 44px;
+  margin: 0; padding: 0; border: 1px solid transparent; border-radius: var(--ejm-radius-small);
+  color: inherit; background: transparent; cursor: pointer; font: inherit;
+  transition: background-color var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-theme-toggle:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+.ejm-theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ejm-theme-toggle[aria-pressed="true"] .ejm-icon { --ejm-icon: url('../icons/sun.svg'); }
+html:not([data-theme]) .ejm-theme-toggle { display: none; }
+@media (max-width: 639px) { .ejm-theme-toggle { border-color: currentColor; } }
+.ejm-icon--moon { --ejm-icon: url('../icons/moon.svg'); }
+.ejm-icon--sun { --ejm-icon: url('../icons/sun.svg'); }
+
+/* ---------- Logo: the supplied Ink logo as a mask, so it follows the surrounding color on any ground ---------- */
+/* The wordmark takes the text color. The symbol stays Sage (the first 20% of the width is the symbol), as in the full-color logo.
+   Use ejm-logo--mono when the symbol must follow the text too, for example on a Sage panel.
+   Clear space is half the symbol height. Headers and bands already pad for it; use --spaced on a lone logo. */
+.ejm-logo {
+  --ejm-logo-height: 40px; --ejm-logo-symbol: var(--ejm-sage);
+  display: inline-block; flex: none; vertical-align: middle; block-size: var(--ejm-logo-height); aspect-ratio: 2373 / 405.5;
+  background: linear-gradient(to right, var(--ejm-logo-symbol) 20%, currentColor 20%);
+  -webkit-mask: url('../logos/ejmlabs-ink.svg') center / contain no-repeat; mask: url('../logos/ejmlabs-ink.svg') center / contain no-repeat;
+}
+.ejm-logo--mono { --ejm-logo-symbol: currentColor; }
+.ejm-logo--large { --ejm-logo-height: 48px; }
+.ejm-logo--spaced { margin: calc(var(--ejm-logo-height) / 2); }
+.ejm-header__logo { color: inherit; }
+.ejm-header__logo .ejm-logo { display: block; }
+.ejm-header--sticky .ejm-header__logo .ejm-logo { --ejm-logo-height: 36px; }
+@media (max-width: 379px) { .ejm-header--sticky .ejm-header__logo .ejm-logo { --ejm-logo-height: 30px; } }
+
+@media (forced-colors: active) {
+  .ejm-theme-toggle { border-color: ButtonText; }
+  .ejm-theme-toggle .ejm-icon, .ejm-logo { forced-color-adjust: none; background: CanvasText; }
+}

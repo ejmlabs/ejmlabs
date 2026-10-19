@@ -1,0 +1,110 @@
+/* Color balance. Sage is the brand's lead color, so Sage leads: the hero panel, primary buttons, tags, one big band
+   and the symbol art. Paper and Mist carry the page and Ink carries the type. Forest is the quiet accent: link and
+   hover color, one reversed panel at most, the small second beat on Sage. Rules are written once here and flow
+   through the band role variables (--ejm-ground, --ejm-fg, --ejm-muted, --ejm-hairline), so patterns stay in step.
+   Reference: the brand guide sets Paper pages with Sage artwork and uses Forest for a panel or two. */
+
+/* ---------- Page column ----------
+   The responsive part overrides these two variables at each breakpoint, so the column and every panel inside it
+   follow the same steps. */
+.ejm-site { --ejm-page-max: var(--ejm-content-width); --ejm-page-gutter: var(--ejm-space-6); }
+@media (min-width: 760px) { .ejm-site { --ejm-page-gutter: var(--ejm-space-12); } }
+.ejm-site .ejm-page { max-inline-size: var(--ejm-page-max); padding-inline: var(--ejm-page-gutter); }
+
+/* ---------- Grounds ---------- */
+.ejm-site {
+  --ejm-ground: var(--ejm-paper);
+  --ejm-fg: var(--ejm-ink);
+  --ejm-muted: var(--ejm-forest);
+  --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 22%, transparent);
+  /* Buttons read from the ground: Sage with Ink text on light grounds. */
+  --ejm-btn-bg: var(--ejm-sage);
+  --ejm-btn-fg: var(--ejm-ink);
+  --ejm-btn-bg-hover: var(--ejm-forest);
+  --ejm-btn-fg-hover: var(--ejm-paper);
+  --ejm-btn-ring: var(--ejm-forest);
+}
+/* On Sage, the button turns Ink so it stays visible. */
+.ejm-band--sage, .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body, .ejm-project--base {
+  --ejm-ground: var(--ejm-sage);
+  --ejm-fg: var(--ejm-ink);
+  --ejm-muted: var(--ejm-ink);
+  --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 28%, transparent);
+  --ejm-btn-bg: var(--ejm-ink);
+  --ejm-btn-fg: var(--ejm-paper);
+  --ejm-btn-bg-hover: var(--ejm-forest);
+  --ejm-btn-fg-hover: var(--ejm-paper);
+  --ejm-btn-ring: var(--ejm-ink);
+  --ejm-component-ground: var(--ejm-sage);
+  --ejm-component-contrast: var(--ejm-ink);
+  --ejm-component-hover: var(--ejm-forest);
+}
+/* On Forest and Ink, Sage is the button color. */
+.ejm-band--forest, .ejm-band--ink, .ejm-surface--forest, .ejm-hero--forest, .ejm-terminal {
+  --ejm-btn-bg: var(--ejm-sage);
+  --ejm-btn-fg: var(--ejm-ink);
+  --ejm-btn-bg-hover: var(--ejm-paper);
+  --ejm-btn-fg-hover: var(--ejm-ink);
+  --ejm-btn-ring: var(--ejm-paper);
+}
+
+/* ---------- Sage band: the page's one big field of brand color ---------- */
+.ejm-band--sage { color: var(--ejm-ink); background: var(--ejm-sage); }
+.ejm-band--sage .ejm-eyebrow { color: var(--ejm-ink); }
+.ejm-band--sage ::selection { color: var(--ejm-paper); background: var(--ejm-ink); }
+.ejm-band--sage .ejm-link { color: var(--ejm-ink); }
+.ejm-band--sage .ejm-lead { color: var(--ejm-ink); }
+.ejm-band--sage .ejm-card { --ejm-ground: var(--ejm-paper); --ejm-fg: var(--ejm-ink); --ejm-muted: var(--ejm-forest); --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 22%, transparent); border-color: transparent; }
+
+/* Principles read from the ground instead of assuming Forest. */
+.ejm-principle { border-block-start-color: var(--ejm-hairline); }
+.ejm-principle::before { color: var(--ejm-muted); }
+.ejm-principle p { color: var(--ejm-muted); }
+
+/* ---------- Buttons ---------- */
+.ejm-site .ejm-button { color: var(--ejm-btn-fg); background: var(--ejm-btn-bg); border-color: var(--ejm-btn-bg); }
+.ejm-site .ejm-button:hover { color: var(--ejm-btn-fg-hover); background: var(--ejm-btn-bg-hover); border-color: var(--ejm-btn-bg-hover); }
+.ejm-site .ejm-button:focus-visible { outline-color: var(--ejm-btn-ring); }
+.ejm-site .ejm-button--secondary { color: var(--ejm-fg); background: transparent; border-color: currentColor; }
+.ejm-site .ejm-button--secondary:hover { color: var(--ejm-fg); background: color-mix(in srgb, var(--ejm-fg) 10%, transparent); border-color: currentColor; }
+
+/* ---------- Cards and project cards: hairlines, not Forest outlines ---------- */
+.ejm-site .ejm-card { border-color: var(--ejm-hairline); }
+.ejm-project { border-color: var(--ejm-hairline); }
+.ejm-project--base { color: var(--ejm-ink); background: var(--ejm-sage); border-color: var(--ejm-sage); }
+.ejm-project--base .ejm-project__relation { color: var(--ejm-ink); border-color: var(--ejm-hairline); }
+.ejm-project--base .ejm-tag--quiet { color: var(--ejm-ink); background: color-mix(in srgb, var(--ejm-ink) 10%, transparent); }
+.ejm-project--base .ejm-parts dt { color: var(--ejm-ink); }
+.ejm-project--base ::selection { color: var(--ejm-paper); background: var(--ejm-ink); }
+
+/* ---------- Hero: a rounded Sage panel on a Paper page ----------
+   The header sits above the panel on Paper, so the full-color logo (Sage symbol, Ink name) is always used.
+   ejm-hero--paper keeps a flat Paper hero. ejm-hero--forest keeps the full-bleed Forest hero with Orbit, for the one
+   reversed moment a site might want. */
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) { color: var(--ejm-ink); background: var(--ejm-paper); overflow: visible; }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest)::before { display: none; }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body {
+  position: relative; isolation: isolate; overflow: hidden; box-sizing: border-box;
+  inline-size: calc(100% - 2 * var(--ejm-page-gutter));
+  max-inline-size: calc(var(--ejm-page-max) - 2 * var(--ejm-page-gutter));
+  margin-inline: auto;
+  padding: clamp(40px, 7vw, 96px) clamp(24px, 5vw, 80px);
+  color: var(--ejm-ink);
+  background: var(--ejm-sage) url('../motifs/signature-crop-sage.svg') right center / cover no-repeat;
+  border-radius: var(--ejm-radius-large);
+}
+@media (max-width: 759px) {
+  .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { border-radius: var(--ejm-radius-medium); }
+}
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-eyebrow { color: var(--ejm-ink); }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-display { color: var(--ejm-ink); }
+/* Forest on Sage is 3.6:1: allowed for large type only, which is how the second beat is set. */
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-display__quiet { color: var(--ejm-forest); }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-lead { color: var(--ejm-ink); }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index { border-block-start-color: var(--ejm-hairline); }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a { color: var(--ejm-ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.25em; }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a:hover { color: var(--ejm-ink); text-decoration-color: currentColor; }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a:focus-visible { outline-color: var(--ejm-ink); }
+.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-link { color: var(--ejm-ink); }
+
+.ejm-hero--forest { color: var(--ejm-paper); background: var(--ejm-forest); --ejm-ground: var(--ejm-forest); --ejm-fg: var(--ejm-paper); --ejm-muted: var(--ejm-mist); --ejm-hairline: color-mix(in srgb, var(--ejm-paper) 28%, transparent); }

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site theme, ejmlabs</title>
+  <meta name="description" content="The ejmlabs light and dark themes and the theme toggle, with the main surfaces and the measured contrast in both.">
+  <meta name="theme-color" content="#F6F5EF">
+  <script src="theme.js"></script>
+  <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="preload" href="../fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="../tokens/brand.css">
+  <link rel="stylesheet" href="../components/brand-components.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <header class="ejm-header ejm-header--sticky ejm-header--paper">
+    <a class="ejm-header__logo" href="../index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+    <div class="ejm-header__tools">
+      <details class="ejm-menu">
+        <summary><span class="ejm-menu__label">Menu</span></summary>
+        <nav class="ejm-nav" aria-label="Main">
+          <a href="../index.html">Design kit</a>
+          <a href="starter.html">Starter</a>
+          <a href="patterns.html">Patterns</a>
+          <a href="theme.html" aria-current="page">Theme</a>
+        </nav>
+      </details>
+      <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+    </div>
+  </header>
+
+  <div class="ejm-hero ejm-hero--paper ejm-hero--compact">
+    <div class="ejm-hero__body ejm-page">
+      <nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Design kit</a></li><li><a href="patterns.html">Patterns</a></li><li aria-current="page">Theme</li></ol></nav>
+      <p class="ejm-eyebrow">site kit</p>
+      <h1 class="ejm-display">One choice. <span class="ejm-display__quiet">Every site.</span></h1>
+      <p class="ejm-lead">Light and dark, the same toggle in the same place, remembered across every ejmlabs.com site.</p>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band ejm-band--mist" id="toggle" aria-labelledby="toggle-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">toggle</p>
+            <h2 class="ejm-h2" id="toggle-title">Try the toggle.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>The button at the far right of the header and the one below do the same thing. The label stays "Dark mode"; the pressed state says whether it is on. The choice is saved and the page keeps it on reload.</p>
+            <p class="ejm-caption">The two buttons use <span class="ejm-mono">data-theme-set</span>, which sets a theme directly. Add <span class="ejm-mono">?theme=dark</span> to the address to see a theme without saving it.</p>
+          </div>
+        </div>
+        <div class="ejm-cluster">
+          <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+          <button class="ejm-button" type="button" data-theme-set="light">Set light</button>
+          <button class="ejm-button" type="button" data-theme-set="dark">Set dark</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="surfaces" aria-labelledby="surfaces-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">surfaces</p>
+            <h2 class="ejm-h2" id="surfaces-title">The same parts, both themes.</h2>
+          </div>
+          <p class="ejm-head__text">Each pane shows its own theme whatever the page is set to. Sage panels and bands, Forest and Ink keep their brand colors in both. Everything else moves to the application theme roles.</p>
+        </div>
+        <div class="ejm-cols ejm-cols--2">
+        <div class="ejm-pattern__demo ejm-scheme ejm-scheme--light">
+          <div class="ejm-pattern__demo--pad ejm-stack">
+            <p class="ejm-eyebrow">light</p>
+            <h3 class="ejm-card__title">A heading that states the point.</h3>
+            <p class="ejm-text">Body text uses the page text color. <a class="ejm-link" href="#contrast">A link</a> keeps its underline, and <span class="ejm-mono">ejm-harness</span> sits in the line.</p>
+            <div class="ejm-cluster"><a class="ejm-button" href="#contrast">Primary action</a><a class="ejm-button ejm-button--secondary" href="#contrast">Secondary</a><button class="ejm-button" type="button" disabled>Disabled</button></div>
+            <div class="ejm-cluster"><span class="ejm-tag">Sage tag</span><span class="ejm-tag ejm-tag--quiet">Quiet tag</span><span class="ejm-tag ejm-tag--solid">Solid tag</span></div>
+            <div class="ejm-callout"><p class="ejm-callout__label">note</p><p>A callout sits on the raised surface with a Sage edge.</p></div>
+            <article class="ejm-card"><h4 class="ejm-card__title">A card</h4><p>Cards and project cards use the raised surface and a hairline.</p><a class="ejm-link" href="#contrast">About the card</a></article>
+            <div class="ejm-field"><label class="ejm-field__label" for="f-light">Form field</label><input class="ejm-input" id="f-light" type="text" placeholder="Placeholder text"></div>
+            <pre class="ejm-code" tabindex="0" aria-label="Code sample in light mode"><code>npm install ejm-cli</code></pre>
+            <dl class="ejm-status"><div><dt>project</dt><dd>name</dd></div><div><dt>status</dt><dd>exploring</dd></div></dl>
+            <div class="ejm-pattern__cells">
+              <div class="ejm-band ejm-band--mist"><p class="ejm-eyebrow">mist band</p></div>
+              <div class="ejm-band ejm-band--sage"><p class="ejm-eyebrow">sage band</p></div>
+              <div class="ejm-band ejm-band--forest"><p class="ejm-eyebrow">forest band</p></div>
+              <div class="ejm-band ejm-band--ink"><p class="ejm-eyebrow">ink band</p></div>
+            </div>
+            <div class="ejm-band ejm-motif-grid"><p class="ejm-eyebrow">paper band with the grid motif</p></div>
+          </div>
+        </div>
+        <div class="ejm-pattern__demo ejm-scheme ejm-scheme--dark ejm-ui" data-theme="dark">
+          <div class="ejm-pattern__demo--pad ejm-stack">
+            <p class="ejm-eyebrow">dark</p>
+            <h3 class="ejm-card__title">A heading that states the point.</h3>
+            <p class="ejm-text">Body text uses the page text color. <a class="ejm-link" href="#contrast">A link</a> keeps its underline, and <span class="ejm-mono">ejm-harness</span> sits in the line.</p>
+            <div class="ejm-cluster"><a class="ejm-button" href="#contrast">Primary action</a><a class="ejm-button ejm-button--secondary" href="#contrast">Secondary</a><button class="ejm-button" type="button" disabled>Disabled</button></div>
+            <div class="ejm-cluster"><span class="ejm-tag">Sage tag</span><span class="ejm-tag ejm-tag--quiet">Quiet tag</span><span class="ejm-tag ejm-tag--solid">Solid tag</span></div>
+            <div class="ejm-callout"><p class="ejm-callout__label">note</p><p>A callout sits on the raised surface with a Sage edge.</p></div>
+            <article class="ejm-card"><h4 class="ejm-card__title">A card</h4><p>Cards and project cards use the raised surface and a hairline.</p><a class="ejm-link" href="#contrast">About the card</a></article>
+            <div class="ejm-field"><label class="ejm-field__label" for="f-dark">Form field</label><input class="ejm-input" id="f-dark" type="text" placeholder="Placeholder text"></div>
+            <pre class="ejm-code" tabindex="0" aria-label="Code sample in dark mode"><code>npm install ejm-cli</code></pre>
+            <dl class="ejm-status"><div><dt>project</dt><dd>name</dd></div><div><dt>status</dt><dd>exploring</dd></div></dl>
+            <div class="ejm-pattern__cells">
+              <div class="ejm-band ejm-band--mist"><p class="ejm-eyebrow">mist band</p></div>
+              <div class="ejm-band ejm-band--sage"><p class="ejm-eyebrow">sage band</p></div>
+              <div class="ejm-band ejm-band--forest"><p class="ejm-eyebrow">forest band</p></div>
+              <div class="ejm-band ejm-band--ink"><p class="ejm-eyebrow">ink band</p></div>
+            </div>
+            <div class="ejm-band ejm-motif-grid"><p class="ejm-eyebrow">paper band with the grid motif</p></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="contrast" aria-labelledby="contrast-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">contrast</p>
+            <h2 class="ejm-h2" id="contrast-title">Measured, not judged by eye.</h2>
+          </div>
+          <p class="ejm-head__text">Ratios come from a script that reads the real color values. Text needs 4.5 to 1. Large type and field borders need 3 to 1. Every pair passes. The sample column shows the pair as the text color on its ground.</p>
+        </div>
+        <div class="ejm-stack">
+        <div class="ejm-table" role="region" aria-label="Dark theme contrast" tabindex="0">
+          <table>
+            <caption>Dark theme contrast. Text needs 4.5 to 1, large type and field borders need 3 to 1.</caption>
+            <thead><tr><th scope="col">Pair</th><th scope="col">Sample</th><th scope="col">Colors</th><th scope="col" class="ejm-table__num">Ratio</th><th scope="col" class="ejm-table__num">Needs</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Body text on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #e3e5dc;color:#e3e5dc;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#e3e5dc on #131614</td><td class="ejm-table__num">14.32 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Body text on Mist band (editor)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #e3e5dc;color:#e3e5dc;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#e3e5dc on #1c211d</td><td class="ejm-table__num">12.85 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Body text on card (raised)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #e3e5dc;color:#e3e5dc;background:#262c27;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#e3e5dc on #262c27</td><td class="ejm-table__num">11.21 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Strong text on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #f6f5ef;color:#f6f5ef;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#f6f5ef on #131614</td><td class="ejm-table__num">16.68 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Muted text on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #a8b4a2;color:#a8b4a2;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#a8b4a2 on #131614</td><td class="ejm-table__num">8.43 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Muted text on Mist band (editor)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #a8b4a2;color:#a8b4a2;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#a8b4a2 on #1c211d</td><td class="ejm-table__num">7.56 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Muted text on card (raised)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #a8b4a2;color:#a8b4a2;background:#262c27;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#a8b4a2 on #262c27</td><td class="ejm-table__num">6.60 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Link and accent text on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #b8c6aa;color:#b8c6aa;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#b8c6aa on #131614</td><td class="ejm-table__num">10.15 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Accent text on Mist band (editor)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #b8c6aa;color:#b8c6aa;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#b8c6aa on #1c211d</td><td class="ejm-table__num">9.10 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Accent text on card (raised)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #b8c6aa;color:#b8c6aa;background:#262c27;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#b8c6aa on #262c27</td><td class="ejm-table__num">7.95 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Quiet tag text on tint</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #b8c6aa;color:#b8c6aa;background:#2f4a3e;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#b8c6aa on #2f4a3e</td><td class="ejm-table__num">5.39 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Quiet display line on page ground (large)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #b8c6aa;color:#b8c6aa;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#b8c6aa on #131614</td><td class="ejm-table__num">10.15 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Code text on code block (editor)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #e3e5dc;color:#e3e5dc;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#e3e5dc on #1c211d</td><td class="ejm-table__num">12.85 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Code text on code block inside a Mist band (raised)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #e3e5dc;color:#e3e5dc;background:#262c27;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#e3e5dc on #262c27</td><td class="ejm-table__num">11.21 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Placeholder (muted) on field (editor)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #a8b4a2;color:#a8b4a2;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#a8b4a2 on #1c211d</td><td class="ejm-table__num">7.56 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Disabled button text (muted) on panel</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #a8b4a2;color:#a8b4a2;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#a8b4a2 on #1c211d</td><td class="ejm-table__num">7.56 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Primary button: Ink on Sage</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#8A9A7B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #8A9A7B</td><td class="ejm-table__num">5.09 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Primary button hover: Ink on lighter Sage</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#adb8a3;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #adb8a3</td><td class="ejm-table__num">7.40 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Tag: Ink on Sage</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#8A9A7B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #8A9A7B</td><td class="ejm-table__num">5.09 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Sage panel and band: Ink text on Sage</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#8A9A7B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #8A9A7B</td><td class="ejm-table__num">5.09 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Sage panel: second beat Forest on Sage (large only)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #29443B;color:#29443B;background:#8A9A7B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#29443B on #8A9A7B</td><td class="ejm-table__num">3.52 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Forest band: Paper text on Forest</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #F6F5EF;color:#F6F5EF;background:#29443B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#F6F5EF on #29443B</td><td class="ejm-table__num">9.69 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Forest band: Mist muted text on Forest</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #E8EDE3;color:#E8EDE3;background:#29443B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#E8EDE3 on #29443B</td><td class="ejm-table__num">8.90 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Forest-lit motif band: Paper on Forest</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #F6F5EF;color:#F6F5EF;background:#29443B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#F6F5EF on #29443B</td><td class="ejm-table__num">9.69 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Paper hero over Forest orbit: muted lead on Forest</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #a8b4a2;color:#a8b4a2;background:#29443B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#a8b4a2 on #29443B</td><td class="ejm-table__num">4.90 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Paper hero over Forest orbit: accent beat on Forest (large)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #b8c6aa;color:#b8c6aa;background:#29443B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#b8c6aa on #29443B</td><td class="ejm-table__num">5.89 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Ink band: Mist text on Ink</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #E8EDE3;color:#E8EDE3;background:#202721;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#E8EDE3 on #202721</td><td class="ejm-table__num">12.85 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Focus ring (Sage) on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #8a9a7b;color:#8a9a7b;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#8a9a7b on #131614</td><td class="ejm-table__num">6.06 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Focus ring (Sage) on card (raised)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #8a9a7b;color:#8a9a7b;background:#262c27;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#8a9a7b on #262c27</td><td class="ejm-table__num">4.75 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Focus ring (Sage) on Mist band (editor)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #8a9a7b;color:#8a9a7b;background:#1c211d;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#8a9a7b on #1c211d</td><td class="ejm-table__num">5.44 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Field border on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #6a7c6c;color:#6a7c6c;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#6a7c6c on #131614</td><td class="ejm-table__num">4.09 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Field border on card (raised)</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #6a7c6c;color:#6a7c6c;background:#262c27;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#6a7c6c on #262c27</td><td class="ejm-table__num">3.20 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Theme toggle icon (text) on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #e3e5dc;color:#e3e5dc;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#e3e5dc on #131614</td><td class="ejm-table__num">14.32 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Card edge (decorative) on page ground</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #465349;color:#465349;background:#131614;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#465349 on #131614</td><td class="ejm-table__num">2.25 to 1</td><td class="ejm-table__num">decorative</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ejm-table" role="region" aria-label="Light theme contrast, for reference" tabindex="0">
+          <table>
+            <caption>Light theme contrast, for reference. Text needs 4.5 to 1, large type and field borders need 3 to 1.</caption>
+            <thead><tr><th scope="col">Pair</th><th scope="col">Sample</th><th scope="col">Colors</th><th scope="col" class="ejm-table__num">Ratio</th><th scope="col" class="ejm-table__num">Needs</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Body text: Ink on Paper</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#F6F5EF;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #F6F5EF</td><td class="ejm-table__num">14.00 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Muted text: Forest on Paper</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #29443B;color:#29443B;background:#F6F5EF;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#29443B on #F6F5EF</td><td class="ejm-table__num">9.69 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Muted text: Forest on Mist</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #29443B;color:#29443B;background:#E8EDE3;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#29443B on #E8EDE3</td><td class="ejm-table__num">8.90 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Primary button: Ink on Sage</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#8A9A7B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #8A9A7B</td><td class="ejm-table__num">5.09 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Primary button hover: Paper on Forest</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #F6F5EF;color:#F6F5EF;background:#29443B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#F6F5EF on #29443B</td><td class="ejm-table__num">9.69 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Sage panel: Ink on Sage</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #202721;color:#202721;background:#8A9A7B;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#202721 on #8A9A7B</td><td class="ejm-table__num">5.09 to 1</td><td class="ejm-table__num">4.5 to 1</td></tr>
+              <tr><th scope="row">Focus ring (Forest) on Paper</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #29443B;color:#29443B;background:#F6F5EF;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#29443B on #F6F5EF</td><td class="ejm-table__num">9.69 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+              <tr><th scope="row">Field border (Forest) on Paper</th><td><span style="display:inline-block;min-inline-size:44px;padding:2px 10px;border:1px solid #29443B;color:#29443B;background:#F6F5EF;font:600 16px/1.5 sans-serif;text-align:center">Aa</span></td><td class="ejm-mono">#29443B on #F6F5EF</td><td class="ejm-table__num">9.69 to 1</td><td class="ejm-table__num">3 to 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="logo" aria-labelledby="logo-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">logo</p>
+            <h2 class="ejm-h2" id="logo-title">One logo for every ground.</h2>
+          </div>
+          <p class="ejm-head__text">The logo is a mask, so the wordmark follows the text color and the symbol stays Sage. Use the mono form on a Sage ground.</p>
+        </div>
+        <div class="ejm-cols ejm-cols--2">
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></div>
+          <div class="ejm-pattern__demo ejm-pattern__demo--pad ejm-band--sage"><span class="ejm-logo ejm-logo--mono" role="img" aria-label="ejmlabs"></span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>kit</h2><ul><li><a href="../index.html">Design kit</a></li><li><a href="patterns.html">Patterns</a></li><li><a href="starter.html">Site starter</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>

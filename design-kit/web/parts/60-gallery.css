@@ -1,0 +1,159 @@
+/* Gallery parts. The brand gallery (index.html) and the pattern catalog (web/patterns.html) are built from kit
+   classes plus the ejm-gallery-* parts below. Loaded last, so every name is specific to the gallery.
+   Everything reads the band role variables (--ejm-ground, --ejm-fg, --ejm-muted), the tone variables from 15-open
+   (--ejm-tone, --ejm-tone-alt) and brand tokens. There are no literal colors and no breakpoints of its own:
+   layout answers to the width of its container (container queries) and to clamp(). See web/GALLERY.md. */
+
+/* ---------- Blocks and grids ---------- */
+.ejm-gallery-block { container: gallery / inline-size; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3.5vw, 40px); min-inline-size: 0; }
+.ejm-gallery-block + .ejm-gallery-block { margin-block-start: clamp(64px, 9vw, 128px); }
+.ejm-gallery-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px); min-inline-size: 0; align-items: start; }
+@container gallery (min-width: 40rem) {
+  .ejm-gallery-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ejm-gallery-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ejm-gallery-grid--wide-left { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .ejm-gallery-grid--lead > :first-child, .ejm-gallery-grid--tail > :last-child { grid-column: 1 / -1; }
+}
+@container gallery (min-width: 64rem) {
+  .ejm-gallery-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Stage: a tonal ground for an asset ----------
+   Assets always show on the ground they are approved for, in both themes (--paper, --mist, --sage, --forest).
+   The plain and --tone stages follow the page. */
+.ejm-gallery-stage {
+  --ejm-gallery-ground: var(--ejm-tone); --ejm-gallery-fg: var(--ejm-fg);
+  display: grid; place-items: center; min-inline-size: 0; padding: clamp(32px, 6vw, 72px);
+  border-radius: var(--ejm-radius-large); color: var(--ejm-gallery-fg); background: var(--ejm-gallery-ground);
+}
+.ejm-gallery-stage--tone { --ejm-gallery-ground: var(--ejm-tone); --ejm-gallery-fg: var(--ejm-fg); }
+.ejm-gallery-stage--paper { --ejm-gallery-ground: var(--ejm-paper); --ejm-gallery-fg: var(--ejm-ink); }
+.ejm-gallery-stage--mist { --ejm-gallery-ground: var(--ejm-mist); --ejm-gallery-fg: var(--ejm-ink); }
+.ejm-gallery-stage--sage { --ejm-gallery-ground: var(--ejm-sage); --ejm-gallery-fg: var(--ejm-ink); }
+.ejm-gallery-stage--forest { --ejm-gallery-ground: var(--ejm-forest); --ejm-gallery-fg: var(--ejm-paper); }
+.ejm-gallery-stage--sage .ejm-tag { color: var(--ejm-paper); background: var(--ejm-ink); }
+.ejm-gallery-stage--sage .ejm-tags a.ejm-tag:hover { background: var(--ejm-forest); }
+.ejm-gallery-stage > img { display: block; inline-size: min(100%, 28rem); block-size: auto; }
+.ejm-gallery-stage--avatar > img { inline-size: min(100%, 14rem); border-radius: 22%; }
+
+/* ---------- Asset: a figure with its downloads ---------- */
+.ejm-gallery-asset { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-4); align-content: start; min-inline-size: 0; }
+.ejm-gallery-asset--hero .ejm-gallery-stage { padding-block: clamp(48px, 9vw, 120px); }
+.ejm-gallery-asset--hero .ejm-gallery-stage > img { inline-size: min(100%, 48rem); }
+.ejm-gallery-asset__media { display: block; overflow: hidden; border-radius: var(--ejm-radius-large); }
+.ejm-gallery-asset__media img { display: block; inline-size: 100%; block-size: auto; }
+.ejm-gallery-asset__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ejm-space-2); padding: clamp(8px, 1.6vw, 16px); border-radius: var(--ejm-radius-large); background: var(--ejm-tone); }
+.ejm-gallery-asset__pair img { display: block; inline-size: 100%; block-size: auto; border-radius: var(--ejm-radius-medium); }
+.ejm-gallery-asset__caption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--ejm-space-2) var(--ejm-space-6); }
+.ejm-gallery-asset__caption--stack { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: stretch; gap: var(--ejm-space-3); }
+.ejm-gallery-asset__caption--stack p { max-inline-size: 52ch; color: var(--ejm-muted); }
+.ejm-gallery-block .ejm-heading { overflow-wrap: anywhere; font-size: clamp(1.375rem, 1vw + 1.1rem, 1.75rem); line-height: 1.25; }
+.ejm-gallery-asset__name { font-weight: var(--ejm-weight-heading); }
+.ejm-gallery-asset__meta { margin-inline-start: var(--ejm-space-2); font-weight: var(--ejm-weight-body); color: var(--ejm-muted); }
+
+/* Download pills wrap their label when text is enlarged, so a long name never forces a sideways scroll. */
+.ejm-gallery-block .ejm-tags > li { min-inline-size: 0; max-inline-size: 100%; }
+.ejm-gallery-block .ejm-tag { max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere; }
+
+/* ---------- Color: swatches, pairs and the copy button ---------- */
+.ejm-gallery-swatches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ejm-space-3); }
+.ejm-gallery-swatch {
+  --ejm-gallery-edge: transparent;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: var(--ejm-space-8);
+  min-block-size: 9rem; margin: 0; padding: var(--ejm-space-6); border: 0; border-radius: var(--ejm-radius-large);
+  font: inherit; text-align: start; cursor: pointer; color: var(--ejm-ink); background: var(--ejm-sage);
+  box-shadow: inset 0 0 0 1px var(--ejm-gallery-edge);
+  transition: transform var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-gallery-swatch--lead { grid-column: 1 / -1; min-block-size: clamp(11rem, 36vw, 14rem); }
+.ejm-gallery-swatch--sage { background: var(--ejm-sage); color: var(--ejm-ink); }
+.ejm-gallery-swatch--forest { background: var(--ejm-forest); color: var(--ejm-paper); }
+.ejm-gallery-swatch--ink { background: var(--ejm-ink); color: var(--ejm-paper); }
+/* A light sample needs its own edge to be seen on a light page. This is the one inset ring in the kit. */
+.ejm-gallery-swatch--paper { --ejm-gallery-edge: color-mix(in srgb, var(--ejm-ink) 16%, transparent); background: var(--ejm-paper); color: var(--ejm-ink); }
+.ejm-gallery-swatch--mist { --ejm-gallery-edge: color-mix(in srgb, var(--ejm-ink) 12%, transparent); background: var(--ejm-mist); color: var(--ejm-ink); }
+.ejm-gallery-swatch:focus-visible, .ejm-gallery-copy:focus-visible { outline: 2px solid var(--ejm-fg); outline-offset: 4px; }
+.ejm-gallery-swatch__name { font-size: clamp(18px, 1vw + 14px, 22px); font-weight: var(--ejm-weight-heading); line-height: 1.2; }
+.ejm-gallery-swatch__hex { font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.4 var(--ejm-font-mono); user-select: all; overflow-wrap: anywhere; }
+@container gallery (min-width: 40rem) {
+  .ejm-gallery-swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ejm-gallery-swatch { min-block-size: 11rem; }
+  .ejm-gallery-swatch--lead { grid-column: span 2; grid-row: span 2; min-block-size: 23rem; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ejm-gallery-swatch:hover { transform: translateY(-4px); }
+}
+
+.ejm-gallery-pairs { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-4); }
+.ejm-gallery-pair {
+  --ejm-gallery-edge: transparent;
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--ejm-space-1) var(--ejm-space-6);
+  padding: var(--ejm-space-6) var(--ejm-space-8); border-radius: var(--ejm-radius-large); box-shadow: inset 0 0 0 1px var(--ejm-gallery-edge);
+}
+.ejm-gallery-pair--paper { --ejm-gallery-edge: color-mix(in srgb, var(--ejm-ink) 16%, transparent); background: var(--ejm-paper); color: var(--ejm-ink); }
+.ejm-gallery-pair--forest { background: var(--ejm-forest); color: var(--ejm-paper); }
+.ejm-gallery-pair--sage { background: var(--ejm-sage); color: var(--ejm-ink); }
+.ejm-gallery-pair--mist { --ejm-gallery-edge: color-mix(in srgb, var(--ejm-ink) 12%, transparent); background: var(--ejm-mist); color: var(--ejm-forest); }
+.ejm-gallery-pair__sample { font-size: clamp(32px, 4vw, 44px); font-weight: var(--ejm-weight-heading); line-height: 1; letter-spacing: -0.04em; }
+.ejm-gallery-pair__label { flex: 1 1 8rem; min-inline-size: 0; font-weight: var(--ejm-weight-heading); }
+.ejm-gallery-pair__ratio { margin-inline-start: auto; font: var(--ejm-weight-technical) var(--ejm-body-size) / 1.4 var(--ejm-font-mono); }
+@container gallery (min-width: 40rem) { .ejm-gallery-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.ejm-gallery-copy {
+  box-sizing: border-box; min-block-size: 44px; margin: 0; padding-inline: var(--ejm-space-6); border: 0; cursor: pointer;
+  font: inherit; font-family: var(--ejm-font-mono); font-weight: var(--ejm-weight-technical);
+  color: var(--ejm-fg); background: color-mix(in srgb, var(--ejm-fg) 9%, transparent);
+  transition: background-color var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-gallery-copy:hover { background: color-mix(in srgb, var(--ejm-fg) 16%, transparent); }
+
+/* ---------- Type: specimens and the scale ---------- */
+.ejm-gallery-specimen { align-self: stretch; place-items: stretch; align-content: space-between; gap: var(--ejm-space-8); min-block-size: 24rem; justify-items: start; }
+.ejm-gallery-specimen__glyph { font-size: clamp(6rem, 18vw, 9.5rem); font-weight: var(--ejm-weight-heading); line-height: 1; letter-spacing: -0.06em; }
+.ejm-gallery-specimen--mono .ejm-gallery-specimen__glyph { font-family: var(--ejm-font-mono); font-weight: var(--ejm-weight-technical); font-size: clamp(3.5rem, 11vw, 6.5rem); }
+.ejm-gallery-specimen p { max-inline-size: 44ch; }
+
+.ejm-gallery-scale { display: grid; gap: var(--ejm-space-8); min-inline-size: 0; }
+.ejm-gallery-scale__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-2) var(--ejm-space-8); align-items: baseline; min-inline-size: 0; }
+.ejm-gallery-scale__spec { font-weight: var(--ejm-weight-heading); }
+.ejm-gallery-scale__spec .ejm-mono { margin-inline-end: var(--ejm-space-1); }
+.ejm-gallery-scale__face { display: block; font-weight: var(--ejm-weight-body); font-size: var(--ejm-caption-size); color: var(--ejm-muted); }
+.ejm-gallery-scale__sample { min-inline-size: 0; overflow-wrap: anywhere; }
+.ejm-gallery-scale__sample--display { font-size: clamp(2rem, 6vw, 3rem); font-weight: var(--ejm-weight-heading); line-height: 1.125; letter-spacing: -0.035em; }
+.ejm-gallery-scale__sample--heading { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: var(--ejm-weight-heading); line-height: 1.25; letter-spacing: -0.03em; }
+.ejm-gallery-scale__sample--body { font-size: 1rem; line-height: 1.625; }
+.ejm-gallery-scale__sample--caption { font-size: 0.875rem; line-height: 1.43; }
+.ejm-gallery-scale__sample--technical { font: var(--ejm-weight-technical) 0.75rem / 1.5 var(--ejm-font-mono); }
+@container gallery (min-width: 40rem) { .ejm-gallery-scale__row { grid-template-columns: minmax(10rem, 1fr) minmax(0, 3fr); } }
+
+/* ---------- Icons ---------- */
+.ejm-gallery-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr)); gap: var(--ejm-space-8) var(--ejm-space-6); }
+.ejm-gallery-icon { display: grid; justify-items: start; gap: var(--ejm-space-3); min-inline-size: 0; font-size: var(--ejm-caption-size); color: var(--ejm-muted); }
+.ejm-gallery-icon .ejm-icon { font-size: 2rem; color: var(--ejm-fg); }
+.ejm-gallery-icon .ejm-mono { overflow-wrap: anywhere; }
+
+/* ---------- Pattern catalog: the index and the specimen stack ---------- */
+.ejm-gallery-specimens { display: grid; min-inline-size: 0; }
+.ejm-gallery-index { display: grid; gap: var(--ejm-space-12); container: gindex / inline-size; min-inline-size: 0; }
+.ejm-gallery-index__group { display: grid; gap: var(--ejm-space-3) var(--ejm-space-8); align-items: start; min-inline-size: 0; }
+.ejm-gallery-index__title { font: var(--ejm-weight-heading) var(--ejm-body-size) / 1.4 var(--ejm-font-sans); padding-block-start: var(--ejm-space-3); }
+@container gindex (min-width: 48rem) { .ejm-gallery-index__group { grid-template-columns: minmax(10rem, 1fr) minmax(0, 4fr); } }
+/* A row of pills. Narrow containers keep it on one line that scrolls sideways, wide ones let it wrap. */
+.ejm-gallery-chips { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-inline: calc(var(--ejm-page-gutter, 0px) * -1); padding-inline: var(--ejm-page-gutter, 0px); }
+.ejm-gallery-chips::-webkit-scrollbar { display: none; }
+.ejm-gallery-chips > li { flex: none; }
+@container gindex (min-width: 48rem) {
+  .ejm-gallery-chips { flex-wrap: wrap; overflow: visible; margin-inline: 0; padding-inline: 0; }
+}
+
+/* ---------- Toast: confirms a copied hex value. An overlay, so it may cast a shadow. ---------- */
+.ejm-gallery-toast {
+  position: fixed; z-index: 20; inset-inline: var(--ejm-space-4); inset-block-end: calc(var(--ejm-space-6) + env(safe-area-inset-bottom, 0px));
+  inline-size: fit-content; max-inline-size: calc(100% - 2 * var(--ejm-space-4)); margin-inline: auto; padding: var(--ejm-space-3) var(--ejm-space-6);
+  border-radius: var(--ejm-radius-pill); color: var(--ejm-paper); background: var(--ejm-ink); font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.4 var(--ejm-font-mono);
+  box-shadow: 0 16px 32px -12px color-mix(in srgb, var(--ejm-ink) 45%, transparent);
+  opacity: 0; visibility: hidden; transform: translateY(8px); pointer-events: none;
+  transition: opacity var(--ejm-duration-interface) var(--ejm-ease-interface), transform var(--ejm-duration-interface) var(--ejm-ease-interface), visibility 0s linear var(--ejm-duration-interface);
+}
+.ejm-gallery-toast.is-shown { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+@media (forced-colors: active) { .ejm-gallery-toast { border: 1px solid CanvasText; } .ejm-gallery-swatch, .ejm-gallery-pair, .ejm-gallery-stage { border: 1px solid CanvasText; } }

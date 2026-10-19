@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion, ejmlabs</title>
+  <meta name="description" content="The ejmlabs motion system shown live: tokens, entrances, reveals, feedback and page transitions, with replay buttons.">
+  <meta name="theme-color" content="#F6F5EF">
+  <script src="theme.js"></script>
+  <script src="motion.js"></script>
+  <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="preload" href="../fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="../tokens/brand.css">
+  <link rel="stylesheet" href="../components/brand-components.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body class="ejm-site">
+  <div class="ejm-scroll-progress" aria-hidden="true"></div>
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <header class="ejm-header ejm-header--sticky ejm-header--paper ejm-sticky-shrink">
+    <a class="ejm-header__logo" href="../index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+    <div class="ejm-header__tools">
+      <details class="ejm-menu">
+        <summary><span class="ejm-menu__label">Menu</span></summary>
+        <nav class="ejm-nav" aria-label="Main">
+          <a href="../index.html">Design kit</a>
+          <a href="starter.html">Starter</a>
+          <a href="patterns.html">Patterns</a>
+          <a href="motion.html" aria-current="page">Motion</a>
+        </nav>
+      </details>
+      <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+    </div>
+    <nav class="ejm-subnav" aria-label="On this page"><a href="#tokens">Tokens</a><a href="#reveal">Reveal</a><a href="#stagger">Stagger</a><a href="#count">Count</a><a href="#terminal">Terminal</a><a href="#feedback">Feedback</a><a href="#pages">Pages</a></nav>
+  </header>
+
+  <div class="ejm-hero">
+    <div class="ejm-hero__body ejm-page ejm-enter" id="hero-body">
+      <p class="ejm-eyebrow">motion system</p>
+      <h1 class="ejm-display">Calm by default. <span class="ejm-display__quiet">Short and eased out.</span></h1>
+      <p class="ejm-lead">Every part here is a named class with a fallback for no script and for reduced motion. This hero is the <span class="ejm-mono">ejm-enter</span> choreography.</p>
+      <div class="ejm-cluster">
+        <button class="ejm-button" type="button" data-ejm-replay="#hero-body">Replay the entrance</button>
+        <a class="ejm-button ejm-button--secondary" href="#tokens">See the tokens</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band ejm-band--mist" id="tokens" aria-labelledby="tokens-title">
+      <div class="ejm-page">
+        <div class="ejm-head ejm-reveal">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">tokens</p>
+            <h2 class="ejm-h2" id="tokens-title">Five durations, four easings, three distances.</h2>
+          </div>
+          <p class="ejm-head__text">Pick the shorter one when two fit. Arrivals decelerate, exits accelerate and are faster. Ambient motion stays at 32 seconds, linear.</p>
+        </div>
+        <div class="ejm-table ejm-reveal ejm-reveal--fade" role="region" aria-label="Motion tokens" tabindex="0">
+          <table>
+            <caption>Motion tokens and what each is for</caption>
+            <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Use it for</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-duration-instant</span></th><td>90ms</td><td>Press feedback</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-duration-fast</span></th><td>150ms</td><td>Hover color, underline, focus ring, exits</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-duration-base</span></th><td>240ms</td><td>Menus, disclosures, card lift</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-duration-slow</span></th><td>420ms</td><td>Reveal and entrance</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-duration-slower</span></th><td>720ms</td><td>Count-up, rare large moves</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-duration-ambient</span></th><td>32000ms</td><td>The Orbit drift only</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-ease-standard</span></th><td>0.2, 0.7, 0.3, 1</td><td>State changes</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-ease-enter</span></th><td>0, 0, 0.2, 1</td><td>Things arriving</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-ease-exit</span></th><td>0.4, 0, 1, 1</td><td>Things leaving</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-ease-emphasis</span></th><td>0.16, 1, 0.3, 1</td><td>The hero entrance</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-distance-small</span></th><td>8px</td><td>Menu rise, stagger children</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-distance-medium</span></th><td>16px</td><td>Reveal and entrance rise</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-distance-large</span></th><td>32px</td><td>The hero headline</td></tr>
+              <tr><th scope="row"><span class="ejm-mono">--ejm-stagger-step</span></th><td>60ms</td><td>Gap between siblings</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="reveal" aria-labelledby="reveal-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-reveal</p>
+            <h2 class="ejm-h2" id="reveal-title">Arrive once, as they scroll in.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>Four variants: up, fade, scale and left. Each plays once, in 420 ms. Without script, or with reduced motion, they are simply there.</p>
+            <div class="ejm-cluster"><button class="ejm-button ejm-button--secondary" type="button" data-ejm-replay="#reveal-demo">Replay the reveals</button></div>
+          </div>
+        </div>
+        <div class="ejm-cols ejm-cols--4" id="reveal-demo">
+          <div class="ejm-card ejm-reveal ejm-reveal--up"><h3 class="ejm-card__title">Up</h3><p>Fades in with a 16 px rise. The default.</p></div>
+          <div class="ejm-card ejm-reveal ejm-reveal--fade"><h3 class="ejm-card__title">Fade</h3><p>Opacity only. For text, figures and calls to action.</p></div>
+          <div class="ejm-card ejm-reveal ejm-reveal--scale"><h3 class="ejm-card__title">Scale</h3><p>Grows from 0.96. For panels and images.</p></div>
+          <div class="ejm-card ejm-reveal ejm-reveal--left"><h3 class="ejm-card__title">Left</h3><p>Slides 16 px in from the start side.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="stagger" aria-labelledby="stagger-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-stagger</p>
+            <h2 class="ejm-h2" id="stagger-title">Siblings, one after another.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>Put the class on the container. Children follow in source order, 60 ms apart. These cards contain links, so they lift 2 px on hover.</p>
+            <div class="ejm-cluster"><button class="ejm-button ejm-button--secondary" type="button" data-ejm-replay="#stagger-demo">Replay the stagger</button></div>
+          </div>
+        </div>
+        <div class="ejm-cards ejm-stagger" id="stagger-demo">
+          <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">one</span><h3 class="ejm-card__title">First card</h3><p>Arrives first.</p><a class="ejm-link" href="#stagger">Read more</a></article>
+          <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">two</span><h3 class="ejm-card__title">Second card</h3><p>Sixty milliseconds later.</p><a class="ejm-link" href="#stagger">Read more</a></article>
+          <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">three</span><h3 class="ejm-card__title">Third card</h3><p>Sixty milliseconds after that.</p><a class="ejm-link" href="#stagger">Read more</a></article>
+          <article class="ejm-card"><span class="ejm-tag ejm-tag--quiet">four</span><h3 class="ejm-card__title">Fourth card</h3><p>The set is done in about half a second.</p><a class="ejm-link" href="#stagger">Read more</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="count" aria-labelledby="count-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-count</p>
+            <h2 class="ejm-h2" id="count-title">Numbers count up once.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>The final number is written in the page, so it is there without script and for screen readers. The count runs for 720 ms, when the figure scrolls into view.</p>
+            <div class="ejm-cluster"><button class="ejm-button ejm-button--secondary" type="button" data-ejm-replay="#count-demo">Replay the counts</button></div>
+          </div>
+        </div>
+        <dl class="ejm-stats ejm-stagger" id="count-demo">
+          <div class="ejm-stat"><dt class="ejm-stat__label">open source projects</dt><dd class="ejm-stat__value ejm-count">3</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">tokens in the motion system</dt><dd class="ejm-stat__value ejm-count">14</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">example with a comma</dt><dd class="ejm-stat__value ejm-count">1,240</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">example with a decimal</dt><dd class="ejm-stat__value ejm-count">99.9%</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--ink" id="terminal" aria-labelledby="terminal-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-typewriter and ejm-cursor</p>
+            <h2 class="ejm-h2" id="terminal-title">Terminal text types in steps.</h2>
+          </div>
+          <div class="ejm-head__text">
+            <p>One short line, a character at a time, 40 ms each. The caret blinks eight times and then rests; nothing here loops.</p>
+            <div class="ejm-cluster"><button class="ejm-button ejm-button--secondary" type="button" data-ejm-replay="#terminal-demo">Replay the typing</button></div>
+          </div>
+        </div>
+        <figure class="ejm-terminal" id="terminal-demo">
+          <figcaption class="ejm-terminal__bar"><span>design-kit</span><span>sample output</span></figcaption>
+          <pre class="ejm-terminal__body" tabindex="0" aria-label="Sample terminal session"><code><span class="ejm-terminal__prompt">$ </span><span class="ejm-typewriter ejm-cursor">node scripts/build-web.mjs</span></code></pre>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="feedback" aria-labelledby="feedback-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">feedback</p>
+            <h2 class="ejm-h2" id="feedback-title">Every control answers.</h2>
+          </div>
+          <p class="ejm-head__text">Hover, press and tab through these. Nothing needs a class: the kit's own parts carry the feedback.</p>
+        </div>
+        <div class="ejm-cols ejm-cols--2">
+          <div class="ejm-stack">
+            <h3 class="ejm-card__title">Buttons, links and tags</h3>
+            <div class="ejm-cluster"><button class="ejm-button" type="button">Press me</button><button class="ejm-button ejm-button--secondary" type="button">And me</button></div>
+            <p>A <a class="ejm-link" href="#feedback">link with a resting underline</a> thickens on hover. Linked tags ease their color.</p>
+            <ul class="ejm-tags" aria-label="Linked tags"><li><a class="ejm-tag ejm-tag--quiet" href="#feedback">Hover</a></li><li><a class="ejm-tag ejm-tag--quiet" href="#feedback">Press</a></li><li><a class="ejm-tag ejm-tag--quiet" href="#feedback">Focus</a></li></ul>
+            <ul class="ejm-links">
+              <li><a href="#feedback"><span class="ejm-links__text"><span class="ejm-links__title">A row with an arrow</span><span class="ejm-links__meta">The arrow slides 4 px.</span></span></a></li>
+              <li><a href="#feedback" rel="external"><span class="ejm-links__text"><span class="ejm-links__title">An external row</span><span class="ejm-links__meta">The arrow goes up and right.</span></span></a></li>
+            </ul>
+          </div>
+          <div class="ejm-stack">
+            <h3 class="ejm-card__title">Disclosures</h3>
+            <div class="ejm-faq">
+              <details class="ejm-faq__item"><summary>Does the answer animate?</summary><div class="ejm-faq__answer"><p>Yes, where the browser supports it: the height and a fade over 240 ms. Elsewhere it opens at once.</p></div></details>
+              <details class="ejm-faq__item"><summary>What about reduced motion?</summary><div class="ejm-faq__answer"><p>It opens at once. The page is never left hidden.</p></div></details>
+            </div>
+            <details class="ejm-collapse"><summary>A collapse block</summary><p>Folds and unfolds with the same 240 ms height.</p></details>
+            <article class="ejm-project"><h3 class="ejm-project__name"><a href="#feedback">A project card</a></h3><p class="ejm-project__summary">Lifts 2 px on hover and darkens its border, because it holds a link.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="pages" aria-labelledby="pages-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">pages</p>
+            <h2 class="ejm-h2" id="pages-title">Scroll, navigate, switch theme.</h2>
+          </div>
+          <div class="ejm-head__text"><p>The Sage line at the top of this page is <span class="ejm-mono">ejm-scroll-progress</span>. The header above shrinks its logo and gains a hairline: <span class="ejm-mono">ejm-sticky-shrink</span>. Both are CSS only, and both are off with reduced motion.</p></div>
+        </div>
+        <div class="ejm-reveal">
+          <p class="ejm-measure">In browsers that support cross-document view transitions, the next two links cross-fade in 180 ms while the logo and nav stay in place. The same cross-fade serves the theme switch.</p>
+          <ul class="ejm-links">
+            <li><a href="starter.html"><span class="ejm-links__text"><span class="ejm-links__title">Site starter</span><span class="ejm-links__meta">Navigate and watch the logo hold still.</span></span></a></li>
+            <li><a href="patterns.html"><span class="ejm-links__text"><span class="ejm-links__title">Site patterns</span><span class="ejm-links__meta">Every named part, live.</span></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>motion</h2><ul><li><a href="#tokens">Tokens</a></li><li><a href="#reveal">Reveal</a></li><li><a href="#feedback">Feedback</a></li></ul></div>
+          <div><h2>kit</h2><ul><li><a href="../index.html">Design kit</a></li><li><a href="starter.html">Site starter</a></li><li><a href="patterns.html">Patterns</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>

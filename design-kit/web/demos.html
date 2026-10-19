@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive demos, ejmlabs</title>
+  <meta name="description" content="Try ejm-cli, ejm-ide and ejm-harness in your browser. Each demo is a scripted simulation that runs on the page.">
+  <meta name="theme-color" content="#F6F5EF">
+  <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
+  <script src="/design-kit/web/theme.js"></script>
+  <script src="/design-kit/web/motion.js"></script>
+  <script src="/design-kit/web/analytics.js" defer></script>
+  <script src="/design-kit/web/demo.js" defer></script>
+  <link rel="canonical" href="https://ejmlabs.com/design-kit/web/demos.html">
+  <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/design-kit/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="preload" href="/design-kit/fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/design-kit/tokens/brand.css">
+  <link rel="stylesheet" href="/design-kit/components/brand-components.css">
+  <link rel="stylesheet" href="/design-kit/web/site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <header class="ejm-header ejm-header--sticky ejm-header--paper">
+    <a class="ejm-header__logo" href="../index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+    <div class="ejm-header__tools">
+      <details class="ejm-menu">
+        <summary><span class="ejm-menu__label">Menu</span></summary>
+        <nav class="ejm-nav" aria-label="Main">
+          <a href="../index.html">Design kit</a>
+          <a href="patterns.html">Patterns</a>
+          <a href="demos.html" aria-current="page">Demos</a>
+          <a href="../ui/index.html">Application kit</a>
+        </nav>
+      </details>
+      <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+    </div>
+    <nav class="ejm-subnav" aria-label="Demos"><a href="#cli">ejm-cli</a><a href="#ide">ejm-ide</a><a href="#harness">ejm-harness</a></nav>
+  </header>
+
+  <div class="ejm-hero ejm-hero--paper ejm-hero--compact">
+    <div class="ejm-hero__body ejm-page">
+      <nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="../index.html">Design kit</a></li><li aria-current="page">Demos</li></ol></nav>
+      <p class="ejm-eyebrow">interactive demos</p>
+      <h1 class="ejm-display">Try the product. <span class="ejm-display__quiet">Install nothing.</span></h1>
+      <p class="ejm-lead">Three scripted simulations that run in this page. Nothing runs on your machine, nothing is sent anywhere, and the replies are not model output.</p>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band ejm-band--mist" id="cli" aria-labelledby="cli-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-cli</p>
+            <h2 class="ejm-h2" id="cli-title">A terminal coding agent.</h2>
+          </div>
+          <p class="ejm-head__text">Send a prompt and watch a tool call stream in. File tools are read only until write access is granted, and the header shows the grant.</p>
+        </div>
+        <div class="ejm-demo" data-ejm-demo="cli">
+          <div class="ejm-demo__fallback">
+            <figure class="ejm-terminal">
+              <figcaption class="ejm-terminal__bar"><span>ejm-cli</span><span>static transcript</span></figcaption>
+              <pre class="ejm-terminal__body" tabindex="0" aria-label="Static transcript of an ejm-cli session"><code>ejm-cli replay  ·  Fix the flaky retry test
+grants: read  ·  ~/code/harbor  ·  s_4f2a91
+
+you
+Fix the flaky retry test
+
+ejm-cli
+I will read the retry module and find where it reads the clock.
+
+▸ read_file src/retry.rs
+▸ search Instant::now
+▸ patch_file src/retry.rs
+✗ blocked: write access is not granted
+
+! patch_file was blocked because write access is off.</code></pre>
+            </figure>
+            <p>Simulated demo. Nothing runs on your machine and nothing is sent anywhere. Turn on JavaScript to send your own prompt.</p>
+          </div>
+          <noscript><p class="ejm-demo__error">The interactive ejm-cli demo needs JavaScript. The transcript above shows what it does.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="ide" aria-labelledby="ide-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-ide</p>
+            <h2 class="ejm-h2" id="ide-title">An editor with an agent beside it.</h2>
+          </div>
+          <p class="ejm-head__text">Open files, ask Edi for a change, and review the diff of the proposed write before it lands in the editor.</p>
+        </div>
+        <div class="ejm-demo" data-ejm-demo="ide">
+          <div class="ejm-demo__fallback">
+            <pre class="ejm-code" tabindex="0" aria-label="Static example of a proposed change in ejm-ide"><code>write_file src/retry.rs   proposed
+
+@@ -8,4 +8,3 @@
+ /// True while the retry window is still open.
+-pub fn window_open(started: Instant, budget: Duration) -> bool {
+-    let now = Instant::now();
++pub fn window_open(started: Instant, now: Instant, budget: Duration) -> bool {
+     now.duration_since(started) &lt; budget
+
+[Accept] [Reject]</code></pre>
+            <p>Simulated demo. Nothing runs on your machine and nothing is sent anywhere. Turn on JavaScript to try the editor, the chat and the command palette.</p>
+          </div>
+          <noscript><p class="ejm-demo__error">The interactive ejm-ide demo needs JavaScript. The example above shows what it does.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="harness" aria-labelledby="harness-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">ejm-harness</p>
+            <h2 class="ejm-h2" id="harness-title">Many sessions, one governor.</h2>
+          </div>
+          <p class="ejm-head__text">Queue sessions, change the limit, and crash the worker. Every transition lands in an append-only journal, and recovery replays it.</p>
+        </div>
+        <div class="ejm-demo" data-ejm-demo="harness">
+          <div class="ejm-demo__fallback">
+            <pre class="ejm-code" tabindex="0" aria-label="Static sample of an ejm-harness event journal"><code>#001  +0.00s  engine.start  limit 3, command slots 2
+#002  +0.00s  session.queued  session-a1
+#005  +0.25s  session.admitted  session-a1 (1/3 running)
+#031  +4.50s  worker.crashed  3 running sessions interrupted
+#036  +4.50s  recovery.replay  replayed 9 events for session-a1
+#040  +5.50s  session.resumed  session-a1</code></pre>
+            <p>Simulated demo. Counts, timings and event names are illustrative sample values. Turn on JavaScript to run it.</p>
+          </div>
+          <noscript><p class="ejm-demo__error">The interactive ejm-harness demo needs JavaScript. The sample above shows what it does.</p></noscript>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>kit</h2><ul><li><a href="patterns.html">Patterns</a></li><li><a href="DEMOS.md">Demo catalog</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>
