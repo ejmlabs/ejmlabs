@@ -15,7 +15,7 @@
 
 ## 3. Remaining source and file retirement
 
-- [ ] 3.1 Remove the inert root X rendered assets/fonts together with their font notices, and retired swag assets in a separate bounded slice; verify no output or active build dependency and current docs.
+- [x] 3.1 Remove the inert root X rendered assets/fonts together with their font notices, and retired swag assets in a separate bounded slice; verify no output or active build dependency and current docs.
 - [ ] 3.2 Remove the inert copied X rendered assets/fonts together with their font notices in a separate bounded slice; verify no output or active build dependency and current docs.
 - [ ] 3.3 Establish pinned public `ejm-ui` source or package assembly through public exports; verify clean source resolution and owner contract checks.
 

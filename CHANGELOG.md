@@ -17,7 +17,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 - Obsolete redesign handoff with outdated source paths and workflow instructions.
 - Kit archive generation and download offers, X kit pages, and the swag gallery from generated site output.
-- Three committed ZIPs, duplicate X source and handoff files, and five unused kit helpers. Remaining rendered assets await bounded source cleanup.
+- Three committed ZIPs, duplicate X source and handoff files, and five unused kit helpers.
+- Inert root X rendered assets and bundled font copies, with their notices, plus retired swag artwork, mockups, and handoff docs. The copied X kit remains for a separate bounded deletion.
 
 ## [0.1.0] - 2026-10-18
 

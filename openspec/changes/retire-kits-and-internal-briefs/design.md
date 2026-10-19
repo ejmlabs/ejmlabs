@@ -98,3 +98,16 @@ output measurement, not a before/after speed or footprint claim. No owner
 package check, browser review, Cloudflare dry run, hosted CI, AI review, or
 publication ran for this local phase. Remaining source removals, trusted public
 UI assembly, Studio adoption, live kit retirement, and browser checks stay open.
+
+## Root X and swag removal verification
+
+The next bounded source slice removes 54 inert files totaling 8,209,750 bytes:
+the root X kit, its bundled font copies and notices, and the retired swag
+artwork, mockups, and handoff docs. The copied X kit remains for task 3.2.
+Active brand masters and live font notices keep their bytes and modes.
+
+All three existing site tests pass under Node 24.19.0. A real build before and
+after deletion emits the same 238 paths. Only the two updated kit guides differ;
+all 236 other output files retain their bytes, including runtime assets and
+headers. Strict OpenSpec and whitespace checks pass. This local evidence does
+not establish hosted review, browser acceptance, or deployment of this slice.
