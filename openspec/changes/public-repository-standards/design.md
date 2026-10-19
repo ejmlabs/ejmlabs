@@ -24,7 +24,7 @@ At the start of this audit, the projects were private and main had no branch pro
 
 - Shared workflow changes affect several products. Immutable caller pins and reviewed update PRs bound rollout.
 - Human readiness costs a small metadata action and can delay outside contributions. The expensive checks remain unavailable until deliberate admission.
-- CLI and IDE quality checks remain blocked until the harness is public. The owner chose not to provision a private cross-repository token. After the harness fixes merge, update both hosts to that reviewed commit and rerun their required gates.
+- CLI and IDE consume pinned sibling harness revisions. The 2026-10-18 plan recorded the owner's decision to wait for a public harness and use no private cross-repository token. IDE hosted checks remain blocked under that policy. CLI's current dependency access belongs to its separate credential task. This refresh changes no consumer harness pin or credential and grants no dependency access. Later pin updates need review and hosted acceptance through the owning task.
 - API review needs a scoped OPENAI_API_KEY and provider budget settings. Setup does not prove a successful paid review.
 - Local disk space is constrained. Coordinate Cargo checks, use focused existing caches, and report missing full platform evidence honestly.
 - Source and history scans reduce known risk; partial scan coverage and platform-specific tests remain explicit.
@@ -36,3 +36,74 @@ Create and test the shared repository first. Add pinned consumers and version me
 ## Studio adapter
 
 The studio quality profile runs the design kit freshness checks and site tests/build. Keep brand kit archives generated through the existing build, and do not relicense the studio's visual assets by adding a broad source license.
+
+## Shared workflow refresh
+
+The initial local refresh generated both normal product callers from shared revision
+`965cd684713ae91a7804745eddd452cc392af11d`, retained under its protected
+`workflow-pins/965cd684713ae91a7804745eddd452cc392af11d` reference. This adopts
+the shared SemVer prerelease validation and explicit removal of `GITHUB_TOKEN`
+from the Codex reviewer environment. Preserve human admission, maintainer
+approval, all required checks, and two medium Codex passes. The missing-model-key
+test caller remains exclusive to the shared standards repository.
+
+This change updates workflow metadata and its verification record. It changes no
+studio product behavior or public site content. Check the exact pinned standards
+and community templates, caller syntax, strict OpenSpec validation, and
+whitespace. Product gates and live acceptance are separate evidence; this local
+refresh does not repeat or claim them.
+
+## Completion guard and review source context
+
+The admitted review of [studio PR #3](https://github.com/ejmlabs/ejmlabs/pull/3)
+at `662765b7031637bcdc70fb2f414d18e81761cabd` ran through
+[run 39244751207](https://github.com/ejmlabs/ejmlabs/actions/runs/39244751207).
+Its trusted default caller came from
+`dc4d2680dcd308916b2686e310e1ade0d18efb7b` and executed shared revision
+`5fae851502c2e3c31d4df9a44f8d56c2cb49e098`. The proposed
+`965cd684713ae91a7804745eddd452cc392af11d` caller did not run. Both model
+summaries reported incomplete reviews because the archive lacked the old and
+new shared workflow implementations. The old validator accepted those outputs,
+so their success statuses do not establish complete AI acceptance. The PR was
+converted to draft and remains unmerged. Existing human comments are preserved.
+
+Both normal callers in this unmerged repair select retained shared revision
+`aa4144fa978d711a5e009b384718b4cf27cf87bf`. The shared schema requires
+a boolean `complete`; it permits `false` so a reviewer can report a limit. The
+trusted validator accepts only `complete: true` and rejects a missing, false, or
+nonboolean value. Keep exact admitted-head and pass validation, two serial
+`gpt-6.1-sol` medium passes, and all merge protections. Do not add a product
+alternate route or treat the incomplete reviews as acceptance.
+
+`ejmlabs/.github` owns `scripts/export_review_context.py`, the shared generator
+for this source context. Export exact canonical Git blobs for the old and new
+shared revisions into `.github/review-context/<oldsha>/` and
+`.github/review-context/<newsha>/`, with the exporter manifest. Use its fixed
+allowlist and enforce the combined 750,000-byte cap before writing. Verify the
+manifest's commit, tree, file mode, blob hash, and size against the canonical
+local Git objects. The exporter needs no network or private token. These
+nonexecutable snapshots are data for offline static review only; never import
+or execute them. Generate them only through the shared exporter, and remove the
+obsolete pair during a later reviewed pin rotation.
+
+The studio has no broad root Ruff or Prettier scan. Its existing checks stay
+within the design kit and `site` directory, so these snapshots need no formatter
+exclusion. No inspected product check imports or executes the snapshots.
+
+The shared repository owns the guard, exporter, and consumer templates. The
+studio owns its normal pinned callers and review data; no runtime dependency
+points from the shared repository back into a product. This repair changes no
+product runtime, dependency, lockfile, site, or public API. It enforces the
+existing governance requirement that incomplete reviews block merging. Product
+guidance needs no public site change, and no publication is claimed. Verify exact
+snapshots, pinned
+standards and templates, actionlint, strict OpenSpec validation, and whitespace.
+Local preparation exported 32 exact source blobs and a 9,067-byte manifest,
+totaling 582,279 bytes. Canonical blob and manifest equality, inert file modes,
+normal template and community standards, alternate-route rejection, actionlint,
+strict OpenSpec, whitespace, and projected admission bounds passed. No native
+or full product gate was repeated for these workflow and review-data changes.
+The replacement guard has not executed through this product's default caller,
+and no new CI or model run was started. The changed head still needs fresh human
+readiness and approval and complete hosted reviews under task 3.2. Do not sync,
+archive, or declare public readiness yet.
