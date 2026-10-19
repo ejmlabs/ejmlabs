@@ -109,6 +109,8 @@ does not close task 3.2. Do not sync, archive, or declare public readiness yet.
 
 ## Installed completion guard acceptance
 
+Preparation snapshot on 2026-10-19, before this follow-up was admitted.
+
 [Studio PR #3](https://github.com/ejmlabs/ejmlabs/pull/3) at repaired head
 `fdfbf0203d348e37750bc14eae12cd4d3d434b08` received fresh human
 [readiness](https://github.com/ejmlabs/ejmlabs/pull/3#issuecomment-6269402303)
