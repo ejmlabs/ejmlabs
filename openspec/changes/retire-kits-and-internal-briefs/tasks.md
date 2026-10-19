@@ -17,6 +17,8 @@
 
 - [x] 3.1 Remove the inert root X rendered assets/fonts together with their font notices, and retired swag assets in a separate bounded slice; verify no output or active build dependency and current docs.
 - [x] 3.2 Remove the inert copied X rendered assets/fonts together with their font notices in a separate bounded slice; verify no output or active build dependency and current docs.
+- [x] 3.2a Expose the retained checker through Studio-owned `node scripts/check.mjs`, route existing local commands and the site test hook through it, and document its compatibility gap and removal condition; verify unchanged checker behavior, build output, assets, notices, and workflow bytes.
+- [x] 3.2b Restore the exact pinned shared contributor template, keep local check and migration guidance in Studio's root and site guides, and verify focused docs links, pinned standards, strict OpenSpec, whitespace, PR bounds, and unchanged runtime blobs/modes and retained output; reuse prior runtime checks and require fresh exact-head acceptance before hosted admission.
 - [ ] 3.3 Establish pinned public `ejm-ui` source or package assembly through public exports; verify clean source resolution and owner contract checks.
 
 ## 4. Studio adoption and live kit retirement

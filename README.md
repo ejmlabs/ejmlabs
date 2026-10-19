@@ -17,7 +17,7 @@ Node.js 24 LTS and npm. Python 3 is useful for the local static preview. The des
 ```sh
 git clone https://github.com/ejmlabs/ejmlabs.git
 cd ejmlabs
-node design-kit/scripts/check-kit.mjs
+node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
 npm --prefix site run preview
@@ -34,12 +34,28 @@ Start with [the studio site guide](site/README.md). This checkout still builds t
 ```sh
 node design-kit/scripts/build-ui.mjs
 node design-kit/scripts/build-ui.mjs --check
-node design-kit/scripts/check-kit.mjs
+node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
 ```
 
 Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets and their source definitions consistent. Human admission controls CI and AI runs; see the contributor guide. A successful local build does not deploy the site.
+
+### Local check entry
+
+[The Studio entry](scripts/check.mjs) temporarily imports the retained kit
+checker. It preserves that checker's output and failure status. The site tests
+use the same entry; the build keeps its existing generation and copy steps.
+
+The compatibility gap is pending public `ejm-ui` adoption and the shared
+governance command's direct use of the legacy checker path. `ejm-ui` owns shared
+tokens and site checks, `ejmlabs/.github` owns the shared governance command, and
+Studio owns this entry and its assembly checks. Keep `node scripts/check.mjs`
+when switching it to pinned public owner exports and Studio assembly checks.
+Remove its legacy import and the kit checker only after a clean checkout
+resolves those exports, owner and Studio checks pass, and no kit dependency
+remains. The [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md#studio-check-entry-precursor)
+records this boundary. This precursor changes no workflow or deployed site.
 
 ## Source ownership
 
