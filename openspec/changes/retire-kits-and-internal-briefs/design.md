@@ -253,6 +253,20 @@ context, both callers, UI pin, build inputs, and live fonts. The earlier
 238-file build evidence is reused; no new build or UI install ran. A separate
 local review found no concrete gap. Hosted completeness remains unverified.
 
+### Installed-pin verification
+
+Installation [PR #9](https://github.com/ejmlabs/ejmlabs/pull/9) merged as
+`2aa9fd26f39b5a7de1f2ecca63aa84e29d53e69a` after both complete AI reviews and
+all required checks passed. Its old caller still could not prove the newly
+installed UI handoff. Prepare a fresh guide-only PR against this protected base
+to test the installed caller, UI archive/context, dependency install, and Studio
+checks. Preserve callers, pins, static review data, runtime files, fonts, and
+notices. Reuse the unchanged runtime build proof and check local source identity,
+docs, standards, strict OpenSpec, whitespace, and diff bounds. Task 3.3 remains
+open until fresh human admission, both complete hosted reviews, and every
+protected check pass. Owner API adoption, live kit removal, browser checks, and
+site deployment remain separate work.
+
 ## Earlier Verification
 
 The docs phase checked 17 distinct local link targets, strict OpenSpec, and

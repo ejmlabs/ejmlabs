@@ -59,7 +59,7 @@ exact UI archive and context to credential-free jobs. When that archive exists,
 Quality runs `npm --prefix ../ejm-ui ci --ignore-scripts` before the Studio
 entry, site tests, and site build. No private source token is needed.
 
-The installation PR's old trusted-base packet has no UI archive. Separate
+The installation PR's old trusted-base packet had no UI archive. Separate
 [UI install review context](../review/dependency-sources/ejm-ui/README.md)
 therefore supplies the exact pinned root manifest, full lockfile, all ten
 workspace manifests, and owner license with Git identities and SHA-256 values.
@@ -67,11 +67,12 @@ These ordinary nonexecutable snapshots let reviewers assess the dependency
 install boundary. They are never imported, executed, or packaged as shared
 code. They establish neither an actual install nor a dependency advisory audit.
 
-The installation PR runs the previous protected caller and cannot prove its
-proposed workflow or UI revision executed. After merge, require a fresh admitted
-PR to verify the installed caller, selected UI source/archive identity, both
-complete AI reviews, and all protected checks. Keep every runtime file and all
-six live font files through this installation. Later full-font adoption must
+[PR #9](https://github.com/ejmlabs/ejmlabs/pull/9) installed these pins. Its run
+used the previous protected caller. A fresh admitted PR must now verify the
+installed caller, UI selection from protected base, exact source archive and
+review context, both complete AI reviews, and all protected checks. Keep task
+3.3 open until that hosted evidence passes. Preserve every runtime file and all
+six live font files through this verification. Later full-font adoption must
 use `@ejm/tokens/assets/fonts/*` from the pinned public owner source, retain the
 existing `/design-kit/fonts/*` URLs and notice bytes, and pass owner and Studio
 checks. The separate `@ejm/ui/fonts/*` exports are smaller subset fonts.
