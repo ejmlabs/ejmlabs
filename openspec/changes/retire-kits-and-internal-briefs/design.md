@@ -369,6 +369,88 @@ CI or AI review of this slice. No browser review, Cloudflare dry run, release,
 or deployment ran. Full owner site adoption, the remaining live kit removal,
 and browser verification remain open; no runtime speed claim is made.
 
+## Bounded motif and template adoption
+
+The six-family adoption in [PR #11](https://github.com/ejmlabs/ejmlabs/pull/11)
+passed all eight jobs and five protected checks in
+[run 39349439187](https://github.com/ejmlabs/ejmlabs/actions/runs/39349439187).
+Both actual `gpt-6.1-sol` medium reviews were complete with no findings.
+Native review `5579479728` matched the exact human approval. It merged normally
+as `0e9f6bf252d16e85da835b1332f0ca4a73398200`, with main protection unchanged.
+The reviewed and merged tree is `769d5d1980fd3a59857406808eb6f27e0d9c5d5e`.
+
+Start the next source slice from that exact main. Extend the existing public
+asset resolver with the complete `motifs` and `templates` directories from
+`@ejm/tokens/assets/*`. All 92 files match the prior Studio inventories, Git
+blobs, bytes and modes at unchanged UI pin
+`7cf86428d0266297901ee52d0e137df100f8c23d`. The earlier 64 owner assets stay
+adopted. Studio owns only the existing legacy output-path mapping; UI remains
+the source owner. Add no package, downloader, private import or second resolver.
+
+Remove the measured first group of 41 motif files: the dots, echo, flow, orbit
+and ripple families, including their nested tile files. They total 3,264,491
+source bytes and 878,155 deletion-only diff bytes. Keep the other 39 motifs and
+12 templates for the next bounded deletion. Once complete public families
+supply output, these remaining copies are not the source authority.
+
+Stop invoking `build-motifs.mjs --check` from the retained checker. Preserve
+every other theme, contrast, CSS, class and catalog check until the later site
+runtime migration replaces those contracts. The local motif generator remains
+historical reference and is not called by the current build or checker.
+Do not regenerate local motif copies or edit that generator for new artwork.
+
+The builder currently copies the raw checker script as a reference file.
+Removing its motif check therefore changes the emitted
+`design-kit/scripts/check-kit.mjs` bytes. This is the sole output-byte change;
+preserve all 238 output paths and modes and the other 237 files exactly.
+Every rendered/runtime asset, original font notice, metadata file and response
+header remains byte-for-byte identical. Do not claim complete output-byte
+equality or add an adapter merely to retain the obsolete raw checker bytes.
+
+The existing site output test already reads `sharedAssets`; its public
+resolution and source-byte/mode checks expand to all eight families without
+another test or copied implementation. Verify all 156 public resolutions,
+exact complete-family inventory and Git blob/mode equality, the 41 deletions,
+affected owner token/provenance checks, three existing Studio tests, and a
+standalone build. Compare the full output inventory with the one named raw
+script exception. Check affected current guides, pinned standards, strict
+OpenSpec, whitespace and normal/conservative whole-PR bounds.
+
+No workflow, source pin, dependency, license, version or uniform community
+template changes. Keep rendered historical guides unchanged; current root and
+site guides state that raw kit source is partial, owner motifs/templates are
+assembled from the fixed public source, and local motif generation is retired
+from the normal check. Require fresh exact-head human admission, both complete
+reviews and every protected check before merge. Runtime adoption, the remaining
+live kit removal, browser checks and deployment stay open. Reverting this slice
+restores the local copies and old checker without changing the UI owner.
+
+### Local motif/template verification
+
+On 19 October 2026, all 92 newly adopted motif/template files match the exact
+owner inventories, Git blobs, modes, sizes and SHA-256 values. All 156 public
+asset resolutions select the fixed UI checkout. Exactly 41 selected local
+motifs are deleted and the other 51 motif/template copies remain unchanged.
+No removed motif is recreated by the normal checker or build.
+
+The three existing Studio tests, standalone build, direct consistency entry,
+token generator check (17 outputs and contrast) and 244-file local owner
+provenance check pass under Node 24.19.0. The existing output test covers the
+expanded public families without another test. The generated inventory stays
+at 238 paths with every mode unchanged. The raw checker reference grows by
+60 bytes to document its changed check set; all other 237 files retain their
+exact bytes. No rendered/runtime asset, font notice, metadata or header changes.
+
+Pinned standards, affected Markdown links, strict OpenSpec, whitespace and
+normal/conservative whole-PR bounds pass. All 221 untouched tracked paths
+preserve their Git blobs and modes, including the workflows, source pins,
+static review data, license/version files, generator, builder and test.
+The final PR summary records the complete diff and net source reduction.
+The isolated UI tracked checkout stays at its exact pin after its existing
+lockfile install and focused checks. These local results close tasks 3.6 and
+3.7; tasks 4.1 through 4.3 remain open. No fresh hosted CI, AI review, browser
+check, Cloudflare dry run, release or deployment ran for this slice.
+
 ## Earlier Verification
 
 The docs phase checked 17 distinct local link targets, strict OpenSpec, and
