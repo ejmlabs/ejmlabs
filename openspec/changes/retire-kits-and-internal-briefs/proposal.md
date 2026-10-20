@@ -21,9 +21,13 @@ confusion and upkeep while the shared UI owner migration remains open.
   Supply the exact UI install manifests, full lockfile, and license as separate
   static review data until trusted preparation can supply the installed pin.
   Keep all runtime files and fonts through this source admission prerequisite.
-- Leave hosted public source verification, Studio owner adoption, full legacy
-  kit retirement, and browser verification open. A fresh admitted PR must verify
-  the installed pins before adopting owner APIs or removing live assets.
+- Record the completed installed-pin verification from Studio PR #10. Adopt
+  the pinned owner's public favicon, font, icon, lockup, logo, and social asset
+  exports, then remove the 64 matching Studio source copies. Preserve every
+  generated output path, byte, mode, and font notice.
+- Keep the remaining owner adoption, live legacy kit retirement, and browser
+  verification open. Each later slice still needs normal human admission,
+  both complete AI reviews, and every protected check.
 
 ## Capabilities
 
@@ -44,7 +48,9 @@ public owner exports without copied implementations or private imports.
 
 The output phase changes the static build, gallery, docs, and output tests.
 The source admission prerequisite changes only workflow callers, static review
-data, the UI source manifest, guides, and this plan.
+data, the UI source manifest, guides, and this plan. The next asset slice changes
+Studio assembly and its existing output check, consumes public owner exports,
+and removes matching local copies without rotating callers or source pins.
 It adds no dependency or service. It removes archive work from each build and
 must stay below the existing 200-file, 12,000-line, and 1,000,000-byte PR bounds.
 Local checks do not establish hosted CI, deployment, or publication.

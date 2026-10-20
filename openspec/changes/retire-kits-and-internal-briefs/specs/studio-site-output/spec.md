@@ -70,3 +70,26 @@ live asset removal.
   repository, commit, tree, Git blob, mode, size, and SHA-256
 - **AND** these copies are never imported, executed, or used as installed code
 - **AND** static review does not replace fresh installed-pin verification
+
+### Requirement: Adopted assets come from public owner exports
+
+After installed-pin verification, Studio SHALL assemble the favicon, font,
+icon, lockup, logo, and social asset families from the pinned public
+`@ejm/tokens/assets/*` exports and remove their duplicate local source copies.
+The source families SHALL have exactly the previous inventory, bytes, and file
+modes, including both original font notices. The build SHALL preserve every
+generated path, byte, and file mode.
+
+#### Scenario: The selected asset families are assembled
+
+- **WHEN** Studio builds beside the installed pinned public UI workspace
+- **THEN** Node's package resolver selects only public token asset exports
+- **AND** all 64 selected files keep their existing `/design-kit/` output paths
+- **AND** the output inventory, bytes, modes, metadata, and headers are unchanged
+- **AND** current guides explain the fixed source layout and install step
+
+#### Scenario: Owner source is unavailable
+
+- **WHEN** the pinned UI workspace or its installed package links are absent
+- **THEN** the normal package resolution error stops the build
+- **AND** the build neither downloads source nor falls back to retired copies

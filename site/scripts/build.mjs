@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { cpSync, rmSync, mkdirSync } from 'node:fs';
 import { join, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { sharedAssets } from './assets.mjs';
 
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const kit = join(site, '..', 'design-kit');
@@ -17,6 +18,9 @@ rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist);
 cpSync(join(site, 'src'), dist, { recursive: true, filter: include });
 cpSync(kit, join(dist, 'design-kit'), { recursive: true, filter: include });
+for (const [directory, source] of Object.entries(sharedAssets)) {
+  cpSync(source, join(dist, 'design-kit', directory), { recursive: true, filter: include });
+}
 // One response-header policy for every ejmlabs site, owned by the kit.
 cpSync(join(kit, 'web', '_headers'), join(dist, '_headers'));
 console.log('dist/ is ready');

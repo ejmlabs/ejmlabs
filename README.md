@@ -10,12 +10,15 @@ This repository holds studio source and brand materials. Source version 0.1.0 is
 
 ## Requirements
 
-Node.js 24 LTS and npm. Python 3 is useful for the local static preview. The design kit uses checked generated files and bundled font notices.
+Node.js 24 LTS and npm. Python 3 is useful for the local static preview. Build beside the pinned public UI checkout described below; its asset exports supply the adopted brand files and original font notices.
 
 ## Quick start
 
 ```sh
 git clone https://github.com/ejmlabs/ejmlabs.git
+git clone https://github.com/ejmlabs/ejm-ui.git
+git -C ejm-ui checkout --detach 7cf86428d0266297901ee52d0e137df100f8c23d
+npm --prefix ejm-ui ci --ignore-scripts
 cd ejmlabs
 node scripts/check.mjs
 npm --prefix site test
@@ -27,7 +30,7 @@ The preview listens only on 127.0.0.1:4827.
 
 ## Usage
 
-Start with [the studio site guide](site/README.md). This checkout still builds the site from the retained [design kit](design-kit/README.md), including its [site components](design-kit/SITES.md). The retained [application kit](design-kit/UI.md) holds earlier application assets. Kit ZIP downloads, X kit pages, and the swag gallery are retired. The site build excludes them and does not create replacement archives.
+Start with [the studio site guide](site/README.md). The build assembles public UI assets with the remaining retained [design kit](design-kit/README.md), including its [site components](design-kit/SITES.md). Its complete brand and application references are available in the built output at `/design-kit/` and `/design-kit/ui/`; the raw source subtree is no longer standalone. Kit ZIP downloads, X kit pages, and the swag gallery are retired. The site build excludes them and does not create replacement archives.
 
 ## Development
 
@@ -62,19 +65,36 @@ records this boundary.
 The coupled PR and draft-release callers pin the reviewed shared source.
 [The UI manifest](.github/ui-source.json) pins public `ejmlabs/ejm-ui` source;
 the [CI guide](site/README.md#shared-workflow-updates) records both exact pins
-and the trusted-base preparation rule. This prerequisite retains every runtime
-file and font. A fresh admitted PR after installation must verify the new
-workflow and exact UI source handoff before owner API adoption or asset removal.
+and the trusted-base preparation rule. [PR #10](https://github.com/ejmlabs/ejmlabs/pull/10)
+verified the installed caller and exact UI source handoff with both complete
+AI reviews and every protected check. Studio now consumes the public token
+asset exports described below without rotating those pins.
 The separate [UI install review context](review/dependency-sources/ejm-ui/README.md)
 contains exact pinned manifests, the full lockfile, and license for static
 assessment of the initial install. These copies are never build inputs.
 It does not publish a release or deploy the site.
 
+### Public asset assembly
+
+The build resolves `@ejm/tokens/assets/*` through the installed sibling UI
+workspace. It copies the favicon, fonts, icons, lockups, logos, and social
+families to their existing `/design-kit/<family>/` paths. All 64 files retain
+their bytes and modes, including both original OFL notices. The complete font
+files come from `@ejm/tokens`, not the smaller `@ejm/ui` font subsets.
+
+Keep the Studio checkout and `ejm-ui` beside each other as shown in Quick start.
+Shared CI supplies the same sibling layout from the protected source pin and
+installs the owner lockfile with lifecycle scripts disabled. If Node reports
+`MODULE_NOT_FOUND`, check that pin, location, and install before rebuilding.
+The build downloads no source and has no fallback copy. Studio owns this
+output-path mapping; remove it when full owner site adoption replaces the
+remaining kit assembly.
+
 ## Source ownership
 
 `ejm-ui` owns active UI tokens, themes, reusable components, and shared site infrastructure. `ejmlabs` owns Studio pages and content, project discovery, brand guidance, and public download assembly. Make shared implementation changes in `ejm-ui` and consume its public `@ejm/*` exports here.
 
-This checkout still depends on the retained live kit files. Their retirement needs verified public owner source assembly and Studio adoption first. Both X kit copies and the swag files are removed. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through that migration.
+This checkout still depends on retained kit themes, CSS, scripts, motifs, templates, and reference material. Public UI source assembly is verified, and the six asset families above are adopted. Both X kit copies and the swag files are removed. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through the remaining migration.
 
 ## Documentation
 

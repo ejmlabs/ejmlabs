@@ -16,6 +16,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 - Check generated site output for working links, retained assets and notices, response headers, and absent retired resources.
 - Route local consistency commands and site tests through Studio-owned `scripts/check.mjs`, retaining the existing kit checker until public UI adoption.
 - Couple PR and draft-release callers to reviewed shared `6717b433c462e01abaed86e2118e4843827598cb`, with exact old/new static source context and current source-admission guidance.
+- Assemble favicon, fonts, icons, lockups, logos, and social files from the pinned public `@ejm/tokens/assets/*` exports, preserving every generated path, byte, mode, and font notice.
+- Verify the installed shared caller and full pinned UI source handoff through fresh PR #10, both complete Codex Sol 6.1 medium reviews, and all protected checks.
 
 ### Removed
 
@@ -24,6 +26,7 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 - Three committed ZIPs, duplicate X source and handoff files, and five unused kit helpers.
 - Inert root X rendered assets and bundled font copies, with their notices, plus retired swag artwork, mockups, and handoff docs.
 - Remaining copied X rendered assets and bundled font copies, with their notices.
+- 64 duplicate local asset and font files, totaling 1,916,019 source bytes, replaced by their exact public owner exports.
 
 ## [0.1.0] - 2026-10-18
 
