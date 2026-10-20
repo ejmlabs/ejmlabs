@@ -4,9 +4,22 @@
 
 See `proposal.md` for the purpose and scope. This is a plan for a new product. This change has not provisioned or verified chess resources, an application, an account flow, or a public hostname.
 
-The studio currently consumes public `@ejm/*` packages through declared local dependencies. Its shared project registry covers four existing identities, and its generated static security policy does not yet expose the options chess needs. The new `ejm-chess` checkout and upstream `ejm-ui` checkout are outside this change's write scope. This planning home grants no authority to edit either one.
+The local studio UI-migration checkout consumes public `@ejm/*` packages through declared local dependencies. The shared project registry covers four existing identities. Public header/build hooks already support additive CSP sources; chess must verify its policy through those hooks before adding an API. The new `ejm-chess` checkout and upstream `ejm-ui` checkout are outside this change's write scope. This planning home grants no authority to edit either one.
 
 The owner confirmed that accounts are required for ranked play, guests may play casual games, and the owner will review flags and appeals through a private admin page. The proposed default formats are 5+3 blitz and 10+5 rapid. Reviewer availability does not establish detection quality or launch readiness.
+
+### Planning baseline prerequisite
+
+The modified deltas were authored against local main specs at commit `3917ca01886280c93795c84126084c32a4415aad`. The reviewed GitHub base, `c92a4a0df2944e6ac6c22498ad4d132f0518d569`, contains only `.gitkeep` under `openspec/specs/` and lacks these targets:
+
+| Spec | Modified requirement |
+| --- | --- |
+| `ejmlabs-site` | `Home page` |
+| `documentation-discovery` | `Direct guide links` |
+| `public-web-access` | `Worldwide public access` |
+| `public-web-access` | `Public production entry points retain edge protection` |
+
+Land or reconcile these baselines through separate reviewed work, refresh the four requirement blocks against accepted main, and verify spec mergeability before affected studio implementation or sync/archive. Do not publish unrelated local changes to fill the gap. Strict change validation checks format and scenarios; it does not prove these modified deltas can merge into a missing baseline. The package observations above describe the local migration, not a verified adoption on remote main.
 
 ## Goals / Non-Goals
 
@@ -30,12 +43,14 @@ The owner confirmed that accounts are required for ranked play, guests may play 
 | Owner | Public contract and downstream impact |
 | --- | --- |
 | `ejm-chess` | Owns the game Worker, assets, Durable Objects, auth composition, ratings, fair play, admin, and product guides. Consumes declared public dependencies. |
-| `ejm-ui` | Extends `@ejm/site/projects` with chess identity and an unreleased-project discovery gate, plus exported build/header policy options for authentication, Turnstile, and same-host WebSockets. Owns shared controls, shell, tokens, and prerendering. |
+| `ejm-ui` | Extends `@ejm/site/projects` with chess identity and an unreleased-project discovery gate. Owns existing public build/header options, any verified policy extensions, shared controls, shell, tokens, and prerendering. |
 | `ejmlabs` | Adds honest studio discovery, product-guide links, and the canonical chess host to the public security operations contract after verified publication. |
 
-The direction is chess/studio into `@ejm/tokens`, deep `@ejm/ui` exports, `@ejm/site`, and `@ejm/ssg`. Chess does not use or change the agent harness. Read each owner's instructions and establish its scoped OpenSpec change during apply before editing there. Preserve the ongoing site migration and unrelated files.
+The direction is chess/studio into `@ejm/tokens`, deep `@ejm/ui` exports, `@ejm/site`, and `@ejm/ssg`. Chess does not use or change the agent harness. Read each owner's instructions and establish scoped work before editing there. Use OpenSpec where the owner already has a root; otherwise work normally and do not initialize it without a user request. The inspected `ejm-ui` checkout has no OpenSpec root. Preserve the ongoing site migration and unrelated files.
 
-The upstream registry, discovery gate, and header options are known contract gaps. Resolve them in `ejm-ui` before adoption; do not copy its registry/header generator or import sibling private source. Current `otherSites()` exposes every entry and consumers use live declared `file:` packages, so merely adding chess can publish premature links on an unrelated rebuild. Add an explicit unreleased/discoverable contract: local/preview builds may use chess metadata while shared navigation excludes it. Existing discovery output remains unchanged until product and guide destinations are verified; only then enable chess discovery. Test all four existing identities, the hidden/new chess identity, existing static policies, and the narrow chess policy. This plan adds no compatibility adapter.
+The upstream chess registry identity and discovery gate are known contract gaps. Resolve them in `ejm-ui` before adoption; do not copy its registry/header generator or import sibling private source. Current `otherSites()` exposes every entry and consumers use live declared `file:` packages, so merely adding chess can publish premature links on an unrelated rebuild. Add an explicit unreleased/discoverable contract: local/preview builds may use chess metadata while shared navigation excludes it. Existing discovery output remains unchanged until product and guide destinations are verified; only then enable chess discovery.
+
+The public `ejmSite({ project, headers })` API already accepts a custom `Project`, and `HeadersOptions.extra` adds CSP sources for same-host WebSockets and Turnstile. Reuse those contracts and test the actual auth flow. These APIs generate static `_headers`; verify Worker responses separately rather than assuming they inherit static policy. The current `form-action 'none'` default does not by itself prove chess needs a replacement API. Add a narrow shared extension only if verified behavior cannot be expressed through existing public options; record that gap and preserve default policies. Test all four existing identities, the hidden/new chess identity, existing static policies, and the narrow chess policy without wildcard or unrelated-host grants. This plan adds no compatibility adapter.
 
 Alternative: put chess inside the studio. Rejected because a stateful game and its guides need a product owner, independent deployment, and bounded runtime dependencies.
 
@@ -184,7 +199,7 @@ Use Cloudflare's maintained Worker/DO test tools and focused browser tests. Cove
 
 Product-owned guides cover setup, architecture/public interfaces, configuration, local development, migrations, formats, server-arrival clocks, adjudication limits, reconnect recovery, provisional ratings, leaderboard eligibility, fair play, privacy, appeals, queue failures, rating repair, backups, admission, and rollback. Keep route links, examples, API errors, package notices, and generated pages in the normal docs build.
 
-Extend the canonical-host policy specifically to `chess.ejmlabs.com`, keeping worldwide access, TLS, managed WAF, and DDoS protections. Avoid blanket challenges on auth APIs and WebSockets. Disable unwanted `workers.dev` and preview URLs; use a separately protected preview. Configure narrow shared CSP options for same-host `wss`, auth connections and Turnstile script/frame/connect origins. No wildcard policy or hand-maintained duplicate `_headers` file.
+Extend the canonical-host policy specifically to `chess.ejmlabs.com`, keeping worldwide access, TLS, managed WAF, and DDoS protections. Avoid blanket challenges on auth APIs and WebSockets. Disable unwanted `workers.dev` and preview URLs; use a separately protected preview. Configure existing public CSP options for same-host `wss`, auth connections and Turnstile script/frame/connect origins; extend the owner API only for a verified missing capability. No wildcard policy or hand-maintained duplicate `_headers` file.
 
 ## Risks / Trade-offs
 
@@ -195,12 +210,12 @@ Extend the canonical-host policy specifically to `chess.ejmlabs.com`, keeping wo
 - [Analysis/mail are paid or quota constrained] -> Verify Email beta access/domain delivery and measure capped Containers under a spending ceiling before enabling the dependent feature.
 - [D1 projections or storage lag/grow] -> Version writes, use primary auth reads and session bookmarks where needed, alert on lag/capacity, and retain retryable authority outside projections.
 - [Deployments or provider outages interrupt games] -> Test reconnect/version compatibility, preserve durable events, and use a documented technical-abort policy that voids affected ratings when server records are unreliable; player disconnects alone do not qualify.
-- [Owner checkout/API scope is unavailable] -> Establish scoped changes and access in `ejm-chess`/`ejm-ui` during apply; do not work around missing shared APIs in studio files.
+- [Owner checkout/API scope is unavailable] -> Establish scoped work and access in `ejm-chess`/`ejm-ui` during apply through each owner's existing workflow; do not work around missing shared APIs in studio files or initialize OpenSpec without a user request.
 
 ## Migration Plan
 
-1. Review this planning change, then enter apply only after a new implementation request. Establish owner checkouts, instructions, and scoped changes; no repository or resource is created by this document.
-2. Add and check the upstream chess registry/discovery/header contracts, then consume their public exports in the product. Keep unreleased chess out of existing cross-site discovery while building the product/docs locally.
+1. Review this planning change, then enter apply only after a new implementation request. Establish owner checkouts, instructions, and scoped work through each owner's existing workflow; do not initialize OpenSpec without a user request. Reconcile the baseline specs before affected studio implementation or sync/archive. No repository or resource is created by this document.
+2. Add and check the upstream chess registry/discovery contracts, verify existing public header options, and extend them only for a proven gap before consumer adoption. Keep unreleased chess out of existing cross-site discovery while building the product/docs locally.
 3. Implement and test active-game recovery, auth, atomic competition/outboxes, projections, corrections, private review, and the resolved adjudication policy. Run bundle, service, load, accessibility, and failure checks.
 4. Before resource creation, obtain the deployment/spending scope, verify Workers Paid and Email beta eligibility, onboard the sender domain, and measure/approve the analysis budget. Prepare scoped secrets, additive D1 migrations, DO migrations, backups, retention and recovery runbooks. Do not place credentials in artifacts.
 5. After separately authorized deployment, test the protected preview and exact public host/routes: two distinct browsers, a guest invitation, verified-account ranked eligibility, promotion, clocks, reconnect, terminal settlement, leaderboard update, report, owner review, appeal, and replay repair. Verify access denial, headers, aliases, delivery, quotas, regional latency, and deployed revision. A dry run or configured setting does not establish these results.
