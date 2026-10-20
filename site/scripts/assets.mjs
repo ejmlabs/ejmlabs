@@ -10,5 +10,7 @@ export const sharedAssets = Object.fromEntries([
   'icons/sheet.svg',
   'lockups/signature-sage.svg',
   'logos/ejmlabs-primary.svg',
+  'motifs/contour-forest.svg',
   'social/avatar.png',
+  'templates/image-frame.svg',
 ].map(path => [dirname(path), dirname(resolveAsset(path))]));

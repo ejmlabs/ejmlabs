@@ -77,8 +77,8 @@ After installed-pin verification, Studio SHALL assemble the favicon, font,
 icon, lockup, logo, and social asset families from the pinned public
 `@ejm/tokens/assets/*` exports and remove their duplicate local source copies.
 The source families SHALL have exactly the previous inventory, bytes, and file
-modes, including both original font notices. The build SHALL preserve every
-generated path, byte, and file mode.
+modes, including both original font notices. The initial adoption of these six
+families SHALL preserve every generated path, byte, and file mode.
 
 #### Scenario: The selected asset families are assembled
 
@@ -93,3 +93,33 @@ generated path, byte, and file mode.
 - **WHEN** the pinned UI workspace or its installed package links are absent
 - **THEN** the normal package resolution error stops the build
 - **AND** the build neither downloads source nor falls back to retired copies
+
+### Requirement: Motif and template adoption preserves runtime output
+
+Studio SHALL assemble the complete 80-file motif and 12-file template families
+from the same pinned public token asset exports. Their inventory, bytes and
+modes SHALL match the previous Studio families. The first bounded removal
+SHALL delete exactly 41 local dots, echo, flow, orbit and ripple files and keep
+the other 51 local motif/template copies until the next source deletion.
+
+#### Scenario: The first motif removal is built
+
+- **WHEN** Studio resolves the complete public motif and template families
+- **THEN** all 238 output paths and file modes remain unchanged
+- **AND** all rendered/runtime assets, notices, metadata and headers remain exact
+- **AND** only `design-kit/scripts/check-kit.mjs` changes its emitted bytes
+- **AND** the other 237 output files remain byte-for-byte identical
+
+#### Scenario: The retained consistency entry runs
+
+- **WHEN** a contributor runs `node scripts/check.mjs`
+- **THEN** the retained checker no longer invokes the local motif generator
+- **AND** its theme, site CSS, contrast, class and documentation checks remain
+- **AND** the existing output test compares all complete public asset families
+
+#### Scenario: Local removal is prepared for review
+
+- **WHEN** the bounded motif removal passes local checks
+- **THEN** current guides name the one emitted developer-script byte change
+- **AND** they distinguish those results from fresh hosted and browser checks
+- **AND** the remaining live kit adoption and retirement tasks stay open

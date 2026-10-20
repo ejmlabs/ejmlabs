@@ -25,6 +25,13 @@ confusion and upkeep while the shared UI owner migration remains open.
   the pinned owner's public favicon, font, icon, lockup, logo, and social asset
   exports, then remove the 64 matching Studio source copies. Preserve every
   generated output path, byte, mode, and font notice.
+- Extend that public asset mapping to the complete 80-file motif and 12-file
+  template families. Remove 41 exact motif copies in a bounded slice and stop
+  invoking local motif generation from the retained consistency checker.
+  Preserve all 238 output paths and modes and every rendered/runtime byte.
+  Only the emitted raw checker script changes to reflect that removed check;
+  the other 237 output files remain exact. Keep the remaining 51 motif/template
+  copies for the next bounded source deletion.
 - Keep the remaining owner adoption, live legacy kit retirement, and browser
   verification open. Each later slice still needs normal human admission,
   both complete AI reviews, and every protected check.

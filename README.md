@@ -47,8 +47,10 @@ Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets 
 ### Local check entry
 
 [The Studio entry](scripts/check.mjs) temporarily imports the retained kit
-checker. It preserves that checker's output and failure status. The site tests
-use the same entry; the build keeps its existing generation and copy steps.
+checker. It keeps the theme, site CSS, contrast, class and catalog checks. The
+site tests use the same entry and check complete public asset families against
+their owner bytes and modes. The local motif generator is no longer invoked
+by this entry or the build; edit motif and template source in `ejm-ui`.
 
 The compatibility gap is pending public `ejm-ui` adoption. The pinned shared
 Quality recipe calls this entry. `ejm-ui` owns shared tokens and site checks,
@@ -77,10 +79,19 @@ It does not publish a release or deploy the site.
 ### Public asset assembly
 
 The build resolves `@ejm/tokens/assets/*` through the installed sibling UI
-workspace. It copies the favicon, fonts, icons, lockups, logos, and social
-families to their existing `/design-kit/<family>/` paths. All 64 files retain
-their bytes and modes, including both original OFL notices. The complete font
+workspace. It copies the favicon, fonts, icons, lockups, logos, motifs, social
+and templates families to their existing `/design-kit/<family>/` paths. All 156
+owner files retain their bytes and modes, including both original OFL notices. The complete font
 files come from `@ejm/tokens`, not the smaller `@ejm/ui` font subsets.
+
+The complete 80-file motif and 12-file template inventories come from the same
+unchanged public source pin. This slice removes 41 local dots, echo, flow,
+orbit and ripple copies, totaling 3,264,491 source bytes. The other 39 motif
+and 12 template copies remain for the next bounded deletion; the build uses
+the complete owner families. Do not regenerate local motif copies. All 238
+built paths and modes stay unchanged. The emitted raw consistency-checker
+script changes to drop its motif check; the other 237 files, including every
+rendered/runtime asset, metadata, header and notice, remain byte-identical.
 
 Keep the Studio checkout and `ejm-ui` beside each other as shown in Quick start.
 Shared CI supplies the same sibling layout from the protected source pin and
@@ -94,7 +105,7 @@ remaining kit assembly.
 
 `ejm-ui` owns active UI tokens, themes, reusable components, and shared site infrastructure. `ejmlabs` owns Studio pages and content, project discovery, brand guidance, and public download assembly. Make shared implementation changes in `ejm-ui` and consume its public `@ejm/*` exports here.
 
-This checkout still depends on retained kit themes, CSS, scripts, motifs, templates, and reference material. Public UI source assembly is verified, and the six asset families above are adopted. Both X kit copies and the swag files are removed. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through the remaining migration.
+This checkout still depends on retained kit themes, CSS, scripts and reference material. Public UI source assembly is verified, and the eight asset families above are adopted. Both X kit copies and the swag files are removed. The remaining motif/template copies and live kit migration stay open. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through the remaining migration.
 
 ## Documentation
 

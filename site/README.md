@@ -1,6 +1,6 @@
 # ejmlabs.com
 
-The studio site. The current single page uses retained site classes, with no CSS of its own, and six asset families from the pinned public UI owner. The page is `src/index.html`.
+The studio site. The current single page uses retained site classes, with no CSS of its own, and eight asset families from the pinned public UI owner. The page is `src/index.html`.
 
 ## Local preview
 
@@ -25,8 +25,8 @@ assembled reference through the preview.
 
 - `src/index.html` is the page. Edit copy and structure here.
 - `../design-kit/web/_headers` supplies the emitted Cloudflare response headers, replacing `src/_headers` during the build. Files revalidate because their names are not versioned.
-- `scripts/build.mjs` regenerates the retained theme files, then assembles `dist/` from `src/`, the remaining `../design-kit/` paths, and the six owner asset families. It excludes ZIP files, the X kit subtree, and the swag subtree. It creates no archives.
-- `scripts/assets.mjs` resolves public `@ejm/tokens/assets/*` anchors with Node's package resolver through the installed sibling UI workspace. It maps favicon, fonts, icons, lockups, logos, and social directories to their existing output paths. It neither downloads source nor parses package exports itself.
+- `scripts/build.mjs` regenerates the retained theme files, then assembles `dist/` from `src/`, the remaining `../design-kit/` paths, and the eight owner asset families. It excludes ZIP files, the X kit subtree, and the swag subtree. It creates no archives.
+- `scripts/assets.mjs` resolves public `@ejm/tokens/assets/*` anchors with Node's package resolver through the installed sibling UI workspace. It maps favicon, fonts, icons, lockups, logos, motifs, social and templates directories to their existing output paths. It neither downloads source nor parses package exports itself.
 - `dist/` is generated. Never edit it.
 - `test/site.test.mjs` guards the rules in `../design-kit/SITES.md`.
 - `wrangler.jsonc` configures Cloudflare Workers static assets, the apex domain, and a separate preview environment.
@@ -35,7 +35,7 @@ assembled reference through the preview.
 
 `ejm-ui` owns active UI tokens, reusable components, and shared site infrastructure. Studio owns this page's content, discovery, brand guidance, and download assembly. Make shared changes in the owner and adopt its public `@ejm/*` exports here.
 
-The current build still reads retained CSS, theme source, scripts, motifs, templates, headers, and reference material from `../design-kit/`. The six adopted asset families come only from the public UI package. Their 64 duplicate Studio files are removed, while all output paths, bytes, modes, and notices remain unchanged. Both X kit copies and the swag files are removed. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the remaining kit files.
+The current build still reads retained CSS, theme source, scripts, headers and reference material from `../design-kit/`. The eight adopted asset families come only from the public UI package. The earlier 64 copies and this slice's 41 motif copies are removed. The other 39 motif and 12 template copies remain for a later bounded deletion; they no longer supply output. All 238 output paths and modes stay unchanged. Only the emitted raw `design-kit/scripts/check-kit.mjs` bytes change to drop local motif checking; the other 237 files, including every rendered/runtime asset, notice, metadata file and header, remain exact. Both X kit copies and the swag files are removed. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the remaining kit files.
 
 ## Checks
 
@@ -47,7 +47,7 @@ wrangler deploy --config wrangler.jsonc --env "" --dry-run
 wrangler deploy --config wrangler.jsonc --env preview --dry-run
 ```
 
-The Studio-owned `node ../scripts/check.mjs` entry temporarily calls the retained kit checker. The tests use it to check that the generated theme files are current and keep their contrast. They build the output, check the home page and brand gallery links, anchors, headings, image descriptions, and kit styles, then verify retired paths are absent. They compare retained runtime files and all six adopted owner asset families, including font notices, with their source bytes and modes. They also verify exact response-header bytes. The asset check resolves every owner file through its public export. See [local check entry](../README.md#local-check-entry) for the ownership boundary and when the temporary import can be removed. These local checks do not verify browser rendering or the deployed site. Dry runs check the Worker configuration without uploading files or changing DNS.
+The Studio-owned `node ../scripts/check.mjs` entry temporarily calls the retained kit checker. It keeps theme/site CSS generation, contrast, class and catalog checks, and no longer invokes the local motif generator. The tests build the output, check the home page and brand gallery links, anchors, headings, image descriptions and kit styles, then verify retired paths are absent. They compare retained runtime files and all 156 files in the eight adopted owner asset families, including font notices, with their source bytes and modes. They also verify exact response-header bytes. The asset check resolves every owner file through its public export. Do not regenerate local motif copies; make motif/template changes in their owner. See [local check entry](../README.md#local-check-entry) for the ownership boundary and when the temporary import can be removed. These local checks do not verify browser rendering or the deployed site. Dry runs check the Worker configuration without uploading files or changing DNS.
 
 ## Shared workflow updates
 
@@ -83,8 +83,9 @@ It merged normally with main protection unchanged. Task 3.3 is complete.
 The asset adoption now uses `@ejm/tokens/assets/fonts/*` for all six complete
 font and notice files, retaining the `/design-kit/fonts/*` URLs and exact
 notices. The separate `@ejm/ui/fonts/*` exports are smaller subset fonts.
-Favicon, icon, lockup, logo, and social files use the same public token asset
-contract. The resolver's fixed sibling layout is documented in
+Favicon, icon, lockup, logo, motif, social and template files use the same public
+token asset contract. Motifs and templates use their complete source families
+at this unchanged pin. The resolver's fixed sibling layout is documented in
 [public asset assembly](../README.md#public-asset-assembly). Missing package
 links fail with Node's resolution error; restore the exact checkout and install
 instead of copying legacy files back. Remaining owner site adoption and live

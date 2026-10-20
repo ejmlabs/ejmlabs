@@ -14,7 +14,8 @@ const run = script => {
   try { execFileSync('node', [join(kit, 'scripts', script), '--check'], { stdio: 'pipe' }); }
   catch (e) { problems.push(`${script} --check failed:\n${String(e.stderr || e.stdout).trim().replace(/^/gm, '    ')}`); }
 };
-for (const script of ['build-ui.mjs', 'build-web.mjs', 'build-motifs.mjs']) run(script);
+// Studio's output tests check the complete public motif and template families.
+for (const script of ['build-ui.mjs', 'build-web.mjs']) run(script);
 
 const list = (dir, ext) => readdirSync(join(kit, dir)).filter(f => f.endsWith(ext)).map(f => join(dir, f));
 const read = f => readFileSync(join(kit, f), 'utf8');
