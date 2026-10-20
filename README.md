@@ -47,21 +47,34 @@ Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets 
 checker. It preserves that checker's output and failure status. The site tests
 use the same entry; the build keeps its existing generation and copy steps.
 
-The compatibility gap is pending public `ejm-ui` adoption and the shared
-governance command's direct use of the legacy checker path. `ejm-ui` owns shared
-tokens and site checks, `ejmlabs/.github` owns the shared governance command, and
+The compatibility gap is pending public `ejm-ui` adoption. The pinned shared
+Quality recipe calls this entry. `ejm-ui` owns shared tokens and site checks,
+`ejmlabs/.github` owns the shared governance command, and
 Studio owns this entry and its assembly checks. Keep `node scripts/check.mjs`
 when switching it to pinned public owner exports and Studio assembly checks.
 Remove its legacy import and the kit checker only after a clean checkout
 resolves those exports, owner and Studio checks pass, and no kit dependency
 remains. The [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md#studio-check-entry-precursor)
-records this boundary. This precursor changes no workflow or deployed site.
+records this boundary.
+
+### Public UI source admission
+
+The coupled PR and draft-release callers pin the reviewed shared source.
+[The UI manifest](.github/ui-source.json) pins public `ejmlabs/ejm-ui` source;
+the [CI guide](site/README.md#shared-workflow-updates) records both exact pins
+and the trusted-base preparation rule. This prerequisite retains every runtime
+file and font. A fresh admitted PR after installation must verify the new
+workflow and exact UI source handoff before owner API adoption or asset removal.
+The separate [UI install review context](review/dependency-sources/ejm-ui/README.md)
+contains exact pinned manifests, the full lockfile, and license for static
+assessment of the initial install. These copies are never build inputs.
+It does not publish a release or deploy the site.
 
 ## Source ownership
 
 `ejm-ui` owns active UI tokens, themes, reusable components, and shared site infrastructure. `ejmlabs` owns Studio pages and content, project discovery, brand guidance, and public download assembly. Make shared implementation changes in `ejm-ui` and consume its public `@ejm/*` exports here.
 
-This checkout still depends on the retained live kit files. Their retirement needs pinned public owner source assembly and Studio adoption first. Both X kit copies and the swag files are removed. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through that migration.
+This checkout still depends on the retained live kit files. Their retirement needs verified public owner source assembly and Studio adoption first. Both X kit copies and the swag files are removed. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through that migration.
 
 ## Documentation
 

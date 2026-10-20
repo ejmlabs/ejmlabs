@@ -16,8 +16,14 @@ confusion and upkeep while the shared UI owner migration remains open.
 - Keep active site CSS, JavaScript, fonts, icons, motifs, headers, notices, and
   provenance unchanged. Retain the remaining rendered X and swag files for
   separate bounded removals, outside the generated site.
-- Leave public `ejm-ui` source assembly, Studio owner adoption, full legacy kit
-  retirement, and browser verification open.
+- Install reviewed shared workflow callers and a pinned public `ejm-ui` source
+  manifest, with the exact old and new workflow sources for static review.
+  Supply the exact UI install manifests, full lockfile, and license as separate
+  static review data until trusted preparation can supply the installed pin.
+  Keep all runtime files and fonts through this source admission prerequisite.
+- Leave hosted public source verification, Studio owner adoption, full legacy
+  kit retirement, and browser verification open. A fresh admitted PR must verify
+  the installed pins before adopting owner APIs or removing live assets.
 
 ## Capabilities
 
@@ -36,7 +42,9 @@ None. This checkout has no existing main specs.
 tokens, components, and site infrastructure. Later adoption must consume pinned
 public owner exports without copied implementations or private imports.
 
-This phase changes the current static build, gallery, docs, and output tests.
+The output phase changes the static build, gallery, docs, and output tests.
+The source admission prerequisite changes only workflow callers, static review
+data, the UI source manifest, guides, and this plan.
 It adds no dependency or service. It removes archive work from each build and
 must stay below the existing 200-file, 12,000-line, and 1,000,000-byte PR bounds.
 Local checks do not establish hosted CI, deployment, or publication.
