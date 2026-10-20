@@ -267,6 +267,108 @@ open until fresh human admission, both complete hosted reviews, and every
 protected check pass. Owner API adoption, live kit removal, browser checks, and
 site deployment remain separate work.
 
+### Installed-pin acceptance completed
+
+[PR #10](https://github.com/ejmlabs/ejmlabs/pull/10), head
+`75800f7d7783ce9ae21f466c7fc147d2b48097d8`, passed fresh admission against
+the installed shared pin in
+[run 39347228551](https://github.com/ejmlabs/ejmlabs/actions/runs/39347228551).
+All eight jobs and five protected statuses passed. Both actual
+`gpt-6.1-sol` medium reviews returned `complete:true` with no findings. Native
+review `5579343214` records the exact-head human approval. The PR merged
+normally as `15b4271e1bb69b13af010e3cdbe40fa50c041f31`; its tree matches the
+reviewed head and main protection stayed unchanged.
+
+Strict artifact and executed-log verification binds the public UI archive to
+`7cf86428d0266297901ee52d0e137df100f8c23d`, all 894 Git blobs and modes,
+and archive SHA-256
+`c4208ea475f6bb8d788368acb3059c1d529d1ce6e37e143dce688a4f6706a461`.
+Preparation, owner dependency installation, canonical Quality commands, and
+both reviewers' full product/UI archive extraction executed. This closes task
+3.3. It proves no browser acceptance or site deployment.
+
+## Bounded public asset adoption
+
+Start this actual adoption slice from that verified merged main. Consume six
+complete asset families through `@ejm/tokens/assets/*`: favicon (9 files),
+fonts (6), icons (16), lockups (9), logos (12), and social (12). Their 64 local
+copies total 1,916,019 source bytes. The selected owner families have exactly
+the same file inventory, Git blobs, and modes, with no extra owner files.
+Motifs and templates remain because their outlined SVG deletions would exceed
+the review byte limit in this slice.
+
+Studio owns the small assembly mapping from those exports to existing
+`dist/design-kit/<family>/` URLs. `ejm-ui` owns every selected asset and font
+notice. Resolve public file anchors with Node's standard `createRequire`
+resolver, normalizing native separators for public specifiers, then copy the
+complete directories with the existing Node file copy API. Reuse that resolver
+in the existing output check; do not create a
+second resolver, asset manifest, downloader, or shared implementation.
+
+The only layout adapter fixes the sibling source setup already supplied by
+trusted preparation: `<workspace>/ejmlabs` (Studio) and
+`<workspace>/ejm-ui` (the exact public pin). Anchor package resolution at the
+installed UI root, whose lockfile installation creates the workspace package
+links. Local users make the same source layout and run the documented
+`npm ci --ignore-scripts` command. A missing checkout or link fails through
+normal Node resolution. No private import or fallback copy is permitted.
+The adapter is Studio output composition, not another owner build engine.
+Remove this legacy URL mapping when full owner site adoption replaces the
+remaining retained kit assembly.
+
+Delete only the 64 selected local asset files, including the font files and
+their two original notices together. Emit the identical owner notices beside
+the fonts. Leave legacy specimen guides unchanged in output; current root and
+site guides explain that the complete `/design-kit/` reference is assembled by
+the build and that the raw source subtree is no longer standalone. Retain
+historical provenance and current license scope.
+
+Before and after builds must match all 238 paths, 9,535,524 bytes, and file
+modes. Reuse the three existing site tests, extend their source-byte check to
+the six public families and modes, run the affected token generator/provenance
+checks, and verify every selected public resolution against the fixed owner
+Git tree. Check current docs, pinned standards, strict OpenSpec, whitespace,
+and the whole PR's normal and conservative diff forms against 200 files,
+12,000 changed lines, and 1,000,000 bytes. Add no new broad runtime suite.
+
+This slice rotates no workflow or source pin and changes no CSS, JavaScript,
+page markup, metadata, headers, or rendered output. Full owner API adoption,
+the remaining live kit and duplicate code removal, and browser verification
+stay open in tasks 4.1 through 4.3. Fresh human acceptance and all protected
+hosted gates are required before merge. Reverting this slice restores the
+local copies and previous assembly; deployment is a separate owner decision.
+
+### Local asset adoption verification
+
+On 19 October 2026, both source trees and Node's public resolver confirm exact
+selected-family inventory equality: all 64 owner files match the removed
+Studio Git blobs, modes, sizes, and hashes, with no extra files. The build
+removes 1,916,019 duplicate source bytes. The small assembly helper uses only
+Node APIs and the existing installed owner workspace; no package dependency,
+download service, or workflow change is added. Local builds now need that
+workspace setup, which hosted Quality already performed before this slice.
+
+- Baseline and adopted builds both emit exactly 238 paths and 9,535,524 bytes.
+  Every file's bytes and mode match, including all 64 owner assets, both font
+  notices, metadata, response headers, and retained reference guides.
+- All three existing Studio site tests, the direct retained checker, the
+  affected token generator check (17 outputs and contrast), and the owner's
+  244-file local provenance check pass under Node 24.19.0.
+- The pinned standards validator checks all affected Markdown guides and plan
+  files, including 50 links, and preserves the exact shared community templates.
+  Strict OpenSpec, whitespace, and both normal and conservative PR bounds pass.
+  The final PR summary records the exact diff and net source measurements.
+- All 261 untouched Studio tracked paths preserve their Git blobs and modes.
+  Callers, pins, static review sources, licenses, versions, notices, page markup,
+  CSS, and scripts outside Studio assembly and its existing output test remain
+  unchanged. The isolated UI checkout retains its exact Git source after its
+  existing lockfile install and focused checks.
+
+These results close local tasks 3.4 and 3.5. They do not establish fresh hosted
+CI or AI review of this slice. No browser review, Cloudflare dry run, release,
+or deployment ran. Full owner site adoption, the remaining live kit removal,
+and browser verification remain open; no runtime speed claim is made.
+
 ## Earlier Verification
 
 The docs phase checked 17 distinct local link targets, strict OpenSpec, and

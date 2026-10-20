@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveAsset, sharedAssets } from '../scripts/assets.mjs';
 
 // Use Studio's check entry for retained-kit consistency and the kit's page checks.
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,11 +34,17 @@ test('built output excludes retired resources and preserves live assets and font
       assert.doesNotMatch(reference, /\.zip(?:[?#]|$)|(?:^|\/)x-kit(?:\/|$)|(?:^|\/)swag(?:\/|$)|^#swag$/i);
     }
   }
-  for (const directory of ['tokens', 'components', 'fonts', 'icons', 'motifs', 'web', 'ui']) {
-    for (const file of readdirSync(join(kit, directory), { recursive: true })) {
-      const source = join(kit, directory, file);
-      if (statSync(source).isFile()) {
-        assert.deepEqual(readFileSync(join(dist, 'design-kit', directory, file)), readFileSync(source), `${directory}/${file} keeps source bytes`);
+  const sources = {
+    ...Object.fromEntries(['tokens', 'components', 'motifs', 'web', 'ui'].map(directory => [directory, join(kit, directory)])),
+    ...sharedAssets,
+  };
+  for (const [directory, sourceDirectory] of Object.entries(sources)) {
+    for (const file of readdirSync(sourceDirectory, { recursive: true })) {
+      if (statSync(join(sourceDirectory, file)).isFile()) {
+        const source = directory in sharedAssets ? resolveAsset(`${directory}/${file}`) : join(sourceDirectory, file);
+        const output = join(dist, 'design-kit', directory, file);
+        assert.deepEqual(readFileSync(output), readFileSync(source), `${directory}/${file} keeps source bytes`);
+        assert.equal(statSync(output).mode & 0o777, statSync(source).mode & 0o777, `${directory}/${file} keeps its mode`);
       }
     }
   }
