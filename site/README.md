@@ -76,7 +76,7 @@ code. They establish neither an actual install nor a dependency advisory audit.
 [PR #9](https://github.com/ejmlabs/ejmlabs/pull/9) installed these pins. Fresh
 [PR #10](https://github.com/ejmlabs/ejmlabs/pull/10) verified the installed caller,
 protected-base UI selection, exact product/UI archives, dependency install,
-both complete Codex Sol 6.1 medium reviews, and all five protected checks in
+both complete automated review steps at medium effort, and all five protected checks in
 [run 39347228551](https://github.com/ejmlabs/ejmlabs/actions/runs/39347228551).
 It merged normally with main protection unchanged. Task 3.3 is complete.
 

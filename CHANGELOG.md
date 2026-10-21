@@ -6,7 +6,7 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ### Added
 
-- Shared repository standards, explicit human admission, protected merge gates, two-pass Codex review, and a draft source release pipeline.
+- Shared repository standards, explicit human admission, protected merge gates, two automated review passes, and a draft source release pipeline.
 - Pinned public UI source metadata for trusted shared preparation, retaining all runtime assets and fonts until fresh installed-pipeline verification and owner adoption.
 - Exact static UI install manifests, full lockfile, and owner license for initial dependency review before the installed source pin can supply its archive.
 
@@ -18,7 +18,7 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 - Couple PR and draft-release callers to reviewed shared `6717b433c462e01abaed86e2118e4843827598cb`, with exact old/new static source context and current source-admission guidance.
 - Assemble favicon, fonts, icons, lockups, logos, and social files from the pinned public `@ejm/tokens/assets/*` exports, preserving every generated path, byte, mode, and font notice.
 - Assemble complete public motif and template families from the same pin; stop local motif checking while retaining all other checker contracts. All 238 output paths and modes stay unchanged. Only the emitted raw checker-script bytes change; the other 237 files, including every rendered/runtime asset and notice, remain exact.
-- Verify the installed shared caller and full pinned UI source handoff through fresh PR #10, both complete Codex Sol 6.1 medium reviews, and all protected checks.
+- Verify the installed shared caller and full pinned UI source handoff through fresh PR #10, both complete automated review steps at medium effort, and all protected checks.
 
 ### Removed
 
