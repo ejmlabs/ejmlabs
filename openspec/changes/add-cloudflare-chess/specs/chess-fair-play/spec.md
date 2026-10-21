@@ -6,6 +6,15 @@ Protect competitive chess with preventive controls, reproducible evidence, accou
 
 ## ADDED Requirements
 
+### Requirement: AI mode remains separate from human fair play
+
+The optional computer opponent mode SHALL NOT weaken the ban on outside assistance in human games. Computer-opponent results SHALL be excluded from engine-use screening and player farming findings. The privacy guidance SHALL explain browser Stockfish execution, same-host asset delivery, private server game records, and the absence of external model inference. A selected browser engine label SHALL NOT be treated as audited execution provenance.
+
+#### Scenario: AI game completes
+
+- **WHEN** a game against a disclosed AI opponent finishes
+- **THEN** the game is retained as an unrated AI game without creating an engine-use case against the model or the human player
+
 ### Requirement: Layered preventive controls
 
 The service SHALL enforce participant authorization, legal moves, deadlines, ranked eligibility, and bounded request rates. Signup, matchmaking, and reporting abuse controls SHALL be enforced on the server. Bot challenges SHALL NOT be presented as proof that a player is unassisted.
@@ -87,7 +96,11 @@ Affected account owners SHALL receive a decision notice and an appeal path. Auth
 
 ### Requirement: Fair play privacy and retention
 
-The product SHALL publish the purpose and bounded retention of account, connection, report, and analysis data before collection. Decision evidence SHALL remain available through the appeal window after notice and any timely appeal. Raw secrets SHALL NOT enter evidence. Live moves SHALL NOT include private telemetry or analysis. The first release SHALL NOT require cameras, screen recording, or invasive device fingerprinting.
+Before collection, the product SHALL publish data purposes, access and bounded
+cleanup ages for account, connection, report and analysis records. It SHALL
+preserve appeal-held evidence, permanent competition history and minimal audit,
+exclude secrets from evidence and private telemetry/analysis from live moves,
+and require no cameras, screen recording or invasive fingerprinting.
 
 #### Scenario: Evidence retention expires
 
@@ -98,6 +111,26 @@ The product SHALL publish the purpose and bounded retention of account, connecti
 
 - **WHEN** a player receives a decision notice shortly before ordinary evidence expiry
 - **THEN** the decision evidence is held through the published appeal window and any timely appeal so ordinary expiry cannot defeat review
+
+#### Scenario: Private case text reaches its cleanup age
+
+- **WHEN** 90 days have passed since final case action and all appeal windows and holds have ended
+- **THEN** bounded maintenance minimizes reviewer notes, corroboration and appeal text while preserving only the permitted competition and minimal audit record
+
+#### Scenario: Account requests use automated controls
+
+- **WHEN** the product publishes its account-request route
+- **THEN** password-confirmed controls replace an unverified staffed contact promise, without publishing the private alert recipient or promising a human response
+
+#### Scenario: Native recovery and drill records are retained
+
+- **WHEN** recovery guidance states retention and access rules
+- **THEN** it distinguishes verified native provider history from separately approved private exports, treats cleanup ages as eligibility limits, and deletes raw synthetic drill files after acceptance within 30 days while allowing sanitized evidence to remain
+
+#### Scenario: Account closure and recovery overlap
+
+- **WHEN** native history is restored from before an accepted closure
+- **THEN** later closure receipts remain outside restore targets and their private-data removal is reapplied before access reopens, without deleting retained rating or correction history
 
 ### Requirement: Bounded and recoverable analysis operations
 
@@ -110,9 +143,51 @@ Analysis SHALL have enforced instance, concurrency, job, retry, storage, and spe
 
 ### Requirement: Honest fair play launch gate
 
-Public ranked launch SHALL require a working review and appeals process, a documented evaluation of screening errors, and tested abuse and correction paths. The owner SHALL be the initial reviewer. The product SHALL state that engine assistance cannot be fully prevented in unsupervised browser chess.
+Public ranked launch SHALL require tested unattended adjudication, objective abuse controls, correction/recovery, and privacy limits. Optional reviewed sanctions SHALL still require human corroboration. Engine screening and reports SHALL be informational when no reviewer is active. The product SHALL state that engine assistance cannot be fully prevented in unsupervised browser chess.
 
 #### Scenario: A readiness gate is unmet
 
-- **WHEN** screening, review, appeals, or rating correction is not ready
+- **WHEN** adjudication, unattended abuse/recovery, privacy, or rating correction is not ready
 - **THEN** the product remains a clearly labelled beta with public competitive launch disabled, while verified casual play can remain available
+
+### Requirement: Unattended runtime
+
+Ordinary play and tournaments SHALL not wait indefinitely for human review. Unknown adjudication SHALL become one versioned technical void after 30 seconds. Unattended mode SHALL disclose report review availability and disable new case-based sanctions and appeal decisions. Engine accuracy, IP, focus, report count, or other statistical screening alone SHALL never convict or restrict an account.
+
+#### Scenario: No reviewer is active
+
+- **WHEN** a participant reports suspected engine assistance
+- **THEN** the private receipt discloses review unavailability, promises no human action, and triggers no automatic sanction
+
+#### Scenario: Unknown adjudication expires
+
+- **WHEN** no proved result exists after the bounded wait
+- **THEN** one technical void preserves the record and normal durable settlement releases reservations without a fabricated winner
+
+### Requirement: Bounded unreviewed report closure
+
+In unattended mode, an open case SHALL close as expired-unreviewed after seven days only without a human decision, unresolved appeal, or future evidence hold. An indexed pass SHALL close at most 500 cases and preserve the 1,000-open-case cap. Closure SHALL record automatic outcome/time and one version change without a human finding. Receipts and normal evidence retention SHALL remain. Duplicate reports and late analysis SHALL NOT reopen the case or extend retention.
+
+#### Scenario: A report receives no review
+
+- **WHEN** an unattended open report reaches seven days without a human decision, unresolved appeal, or future evidence hold
+- **THEN** bounded maintenance records one expired-unreviewed closure, preserves receipts and normal evidence retention, and changes no rating or account access
+
+#### Scenario: A closed report is retried
+
+- **WHEN** a participant resubmits an automatically expired report or its optional analysis arrives later
+- **THEN** the original receipt and closure remain, no case is reopened, and evidence expiry is not extended
+
+### Requirement: Safe automatic terminal retirement
+
+Settled casual payloads SHALL retire only after one hour and matching projected terminal version, rules version, and digest, with no active work or evidence hold. Batches SHALL contain at most four records per minute. Permanent ID tombstones SHALL prevent reinitialization. Completed PGN and immutable rating/correction records SHALL remain recoverable. Storage exhaustion SHALL close new admission without deleting accepted results or claiming unlimited retention.
+
+#### Scenario: Retirement reply is lost
+
+- **WHEN** a retired Game is retried before its D1 archive marker was saved
+- **THEN** its durable tombstone returns the same retirement receipt and maintenance completes without recreating or deleting the game twice
+
+#### Scenario: Active game or evidence hold exists
+
+- **WHEN** a candidate has active delivery, AI work, pending settlement, or an evidence hold
+- **THEN** maintenance preserves its payload and retries only after the contract permits retirement
