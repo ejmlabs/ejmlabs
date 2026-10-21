@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240mm" height="183.265292725mm" viewBox="470.463035298 -56.534140337 1379.073929403 1053.068280674" role="img" aria-labelledby="ejmlabs-orbit-print-title ejmlabs-orbit-print-desc">
+  <title id="ejmlabs-orbit-print-title">Orbit print in Sage, 240 mm wide</title>
+  <desc id="ejmlabs-orbit-print-desc">Eight selected ellipses from the ejmlabs Orbit motif, with a stroke above 1 mm at the supplied width. Transparent vector artwork for garment print sampling.</desc>
+  <g transform="rotate(-26 1160 470)">
+    <ellipse cx="1160" cy="470" rx="310" ry="188" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="370" ry="227" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="430" ry="266" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="490" ry="305" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="550" ry="344" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="610" ry="383" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="670" ry="422" fill="none" stroke="#8A9A7B" stroke-width="6" />
+    <ellipse cx="1160" cy="470" rx="730" ry="461" fill="none" stroke="#8A9A7B" stroke-width="6" />
+  </g>
+</svg>

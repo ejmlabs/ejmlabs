@@ -1,124 +1,122 @@
 # ejmlabs.com
 
-The studio site. The current single page uses retained site classes, with no CSS of its own, and eight asset families from the pinned public UI owner. The page is `src/index.html`.
+The ejmlabs site: a Vite and React site on the ejm-ui design system, prerendered to static HTML and served by a Cloudflare Worker with static assets. Copy introduces open source projects, links to their code and contribution guides, and leaves room for future projects outside AI and developer tools.
+
+## Routes
+
+| Route | Page |
+| --- | --- |
+| `/` | Home: open source projects, approved project marks and links to each project site. Served as static HTML. |
+| `/projects/` | ejm-cli, ejm-ide and ejm-harness, with approved marks, per-project source access, guide links and recorded browser examples. |
+| `/try/` | CLI, IDE and harness completing useful work in autoplay example sessions, with Pause or Resume and Restart. Meaningful static views remain available without scripts. |
+| `/about/` | What guides the work, room for projects beyond AI and developer tools, and quiet Company details naming `ejmlabs, llc`. |
+| `/brand/` | Approved logo previews, file and variant guidance, palette, clear space, rights, and brand and swag downloads. |
+| `/privacy/` | What analytics measures and what is stored. |
 
 ## Local preview
 
-First complete the [root setup](../README.md#quick-start), including the pinned
-sibling `ejm-ui` checkout and `npm ci --ignore-scripts`. Then, from Studio:
+Needs Node 24, the `zip` and `unzip` commands, and ejm-ui checked out next to this repository (`../ejm-ui`) with `npm install` run once inside it.
 
 ```sh
 cd site
+npm install
 npm run build
 npm run preview
 ```
 
-Open [the site](http://127.0.0.1:4827/). The brand kit is at `/design-kit/` and the application kit at `/design-kit/ui/`. Kit ZIP downloads, X kit pages, and the swag gallery are retired.
+Open [the site](http://127.0.0.1:4827/). `npm run dev` runs the Vite dev server (client render only).
 
-There are no dependencies to install inside `site/`. The build needs Node 24
-and the installed pinned UI workspace beside the Studio checkout. Shared CI
-supplies that same source layout and disables lifecycle scripts for its install.
-The raw retained `design-kit/` source is no longer standalone; open its complete
-assembled reference through the preview.
+The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local development server can load edits from ejm-ui. Built sites receive them when rebuilt and published. Once a registry exists and the owner approves publishing, replace the links with versions (see `ejm-ui/ADOPTION.md`).
 
 ## Files
 
-- `src/index.html` is the page. Edit copy and structure here.
-- `../design-kit/web/_headers` supplies the emitted Cloudflare response headers, replacing `src/_headers` during the build. Files revalidate because their names are not versioned.
-- `scripts/build.mjs` regenerates the retained theme files, then assembles `dist/` from `src/`, the remaining `../design-kit/` paths, and the eight owner asset families. It excludes ZIP files, the X kit subtree, and the swag subtree. It creates no archives.
-- `scripts/assets.mjs` resolves public `@ejm/tokens/assets/*` anchors with Node's package resolver through the installed sibling UI workspace. It maps favicon, fonts, icons, lockups, logos, motifs, social and templates directories to their existing output paths. It neither downloads source nor parses package exports itself.
-- `dist/` is generated. Never edit it.
-- `test/site.test.mjs` guards the rules in `../design-kit/SITES.md`.
-- `wrangler.jsonc` configures Cloudflare Workers static assets, the apex domain, and a separate preview environment.
+- `index.html` has the two `@ejm/ssg` markers. The head tags, `theme-boot.js`, the icons, the manifest and `_headers` are written by `@ejm/site` during the build. Do not keep copies of them.
+- Browser icons use the current mark in Ink on Sage. Shared build code versions icon and manifest URLs from their content, including install icons referenced by the manifest. The original direct filenames still work. This adds no client script or stylesheet.
+- `src/site.tsx` lists the routes and their heads. Every route is a lazy route, so the entry holds only the shell.
+- `src/shell.tsx` is the frame: the approved mark beside the name in one home link, header with the theme toggle last, footer, analytics.
+- `src/pages/` has the routes. `src/stages/HomeContent.tsx` and `src/stages/BrandContent.tsx` hold static home and asset-guide content, rendered through the public `Static` boundary from `@ejm/ssg`. Native links and downloads remain available without page JavaScript.
+- `src/pages/Try.tsx` consumes `LazyCliPreview`, `LazyIdePreview` and `LazyHarnessPreview` from the public per-product `@ejm/demos/islands/*-preview` entries. Shared code owns their geometry, static fallback, playback, controls and lifecycle.
+- `src/stages/HomeContent.tsx` places approved project marks beside the Current projects names through the shared `Row` title slot. Ink marks remain legible on Sage in both page themes; each row keeps one accessible project link.
+- `src/pages/Projects.tsx` uses the shared `Brand` component in the `SectionHead` title slot. Mist and Paper switch between approved Ink and Paper assets with the page theme; Sage keeps Ink in both themes. `Brand` reserves each image's proportions and leaves the heading to supply its accessible name. The header and home project rows use the same component.
+- `src/content.ts` has the project facts, taken from each project's README, and reviewed source availability. Repository URLs still come from the shared project registry.
+- `src/head.ts` selects ejmlabs defaults from `@ejm/site/head`, which imports the font list directly and keeps the component barrel out of the first load.
+- `public/` has `robots.txt` and `sitemap.xml`.
+- `scripts/build.mjs` runs `ejm-ssg build`, resolves approved image/icon assets from public token exports, then builds both public ZIPs from named file allowlists. Internal notes, comparisons, generators, HTML and nested archives stay out of `dist/design-kit/`.
+- Studio favicon downloads and retained public URLs read the public `@ejm/tokens/assets/favicon/*` exports, the same source used by the site's browser icons. The retained working kit is not a second source for active assets.
+- `brand-kit/` holds the public usage guides and rights summary. The Brand page reads palette values from the public `@ejm/tokens/assets/brand/palette.json` export. The build includes the existing root `LICENSE` unchanged and the original font notices. Swag contains the eight SVG masters and manifest unchanged, plus three previews labelled as concepts. Working playbooks and image prompts are not downloads.
+- `dist/` and `.ejm-ssg/` are generated. Never edit them.
+- `wrangler.jsonc` configures Workers static assets (`./dist`, with the 404 page), the apex domain, and a separate preview environment.
 
-## Shared UI ownership
+## Package boundaries
 
-`ejm-ui` owns active UI tokens, reusable components, and shared site infrastructure. Studio owns this page's content, discovery, brand guidance, and download assembly. Make shared changes in the owner and adopt its public `@ejm/*` exports here.
+This site owns its text, route composition, project facts, guide destinations,
+and public download assembly. Product repositories own their guides and runtime
+behavior. Keep reusable components and site behavior in ejm-ui and consume its public exports when a change spans repositories.
 
-The current build still reads retained CSS, theme source, scripts, headers and reference material from `../design-kit/`. The eight adopted asset families come only from the public UI package. The earlier 64 copies and this slice's 41 motif copies are removed. The other 39 motif and 12 template copies remain for a later bounded deletion; they no longer supply output. All 238 output paths and modes stay unchanged. Only the emitted raw `design-kit/scripts/check-kit.mjs` bytes change to drop local motif checking; the other 237 files, including every rendered/runtime asset, notice, metadata file and header, remain exact. Both X kit copies and the swag files are removed. Track the remaining work in the [cleanup plan](../openspec/changes/retire-kits-and-internal-briefs/design.md) and [tasks](../openspec/changes/retire-kits-and-internal-briefs/tasks.md). Preserve needed brand source, provenance, and font notices when retiring the remaining kit files.
+`ejm-ui` owns the public `@ejm/*` contracts consumed here: tokens and themes,
+components and interactions, the project registry, analytics, shared head and
+headers, prerendering, demo machinery, and capture tooling. Fix reusable behavior
+there and consume its public exports. Keep page copy and composition here. Do
+not import private package source, copy shared implementations, or make shared
+packages depend on this site. Local `file:` dependencies still follow these
+rules. Approved public brand files come from `@ejm/tokens/assets/*`; Studio retains the swag masters and concept previews and owns public download assembly.
+
+Before changing a shared contract, name its owner, public interface, downstream
+impact, and owner/consumer checks in the plan and review. Report any unrun checks
+or compatibility gaps. A local build does not publish either repository.
+
+## Rules this site keeps
+
+- Build pages from public `@ejm/ui` components with deep imports (`@ejm/ui/layout/Band`). ejm-ui owns type, spacing, branding, themes, motion, controls, and composition. Supply content, route data, and accessible state. Use `SectionBody`, `Columns`, `Actions`, notes, asset previews and links from `@ejm/ui/layout/SiteContent`; extend the shared owner when a pattern is missing.
+- `ejmSite` checks authored site source during builds and development. Local CSS rules or imports, inline styles, style elements, visual `className` values, and unsupported visual overrides fail with a source location. Only the public shared CSS imports, the content-scan exclusion, and the literal `Static className="contents"` structure are allowed. Header and footer take structured identity; headings take a semantic purpose. Hero motion has one shared policy and respects reduced motion. Keep browser examples in `@ejm/demos/ShowcaseFrame`.
+- Budgets per route are JavaScript 95, CSS 14 and HTML 30 KiB gzip, with fonts limited to 70 KiB of raw WOFF2. The gate counts scripts linked by the initial HTML and excludes dynamic imports. A breach fails the build. Never raise a budget: lazy load or trim. After React, the router and the shell, a route has about 8 KiB of initial JavaScript left.
+- The copy welcomes people to run, study, change, and contribute to projects. Keep personal team-size framing, invented adoption or sales claims, and em dashes out of the text. Current projects do not limit the direction of future work.
+- Standalone page actions use the shared button treatment, including text links, to retain 44 px touch targets. Inline prose links use the shared inline link.
+- One `h1` per route, the skip link first, the theme toggle last in the header, external links marked `rel="external"`.
 
 ## Checks
 
 ```sh
-node ../scripts/check.mjs
-npm test
-npm run build
-wrangler deploy --config wrangler.jsonc --env "" --dry-run
-wrangler deploy --config wrangler.jsonc --env preview --dry-run
+npm run typecheck
+npm run build        # also checks the budgets
+npm test             # reads the built HTML of every route
+node ../../ejm-ui/scripts/perf.mjs dist
 ```
 
-The Studio-owned `node ../scripts/check.mjs` entry temporarily calls the retained kit checker. It keeps theme/site CSS generation, contrast, class and catalog checks, and no longer invokes the local motif generator. The tests build the output, check the home page and brand gallery links, anchors, headings, image descriptions and kit styles, then verify retired paths are absent. They compare retained runtime files and all 156 files in the eight adopted owner asset families, including font notices, with their source bytes and modes. They also verify exact response-header bytes. The asset check resolves every owner file through its public export. Do not regenerate local motif copies; make motif/template changes in their owner. See [local check entry](../README.md#local-check-entry) for the ownership boundary and when the temporary import can be removed. These local checks do not verify browser rendering or the deployed site. Dry runs check the Worker configuration without uploading files or changing DNS.
+`npm test` builds when `dist/` is missing. The home checks keep the project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
 
-## Shared workflow updates
+## Home and example sessions
 
-The PR caller, draft-release caller, and release `standards-ref` pin shared
-`6717b433c462e01abaed86e2118e4843827598cb`. They rotate together from
-`aa4144fa978d711a5e009b384718b4cf27cf87bf`. The canonical old/new source pair
-and its blob/hash manifest are [static review data](../.github/review-context/manifest.json),
-not executable project inputs. Builds and checks must never import them.
+Home opens with the current projects, their approved marks and direct links. It uses the shared page heading and row recipes, with no separate introductory hero. It has no product preview slideshow, carousel controls or image preloads. Current projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
 
-[The UI source manifest](../.github/ui-source.json) fixes repository
-`ejmlabs/ejm-ui` at public commit
-`7cf86428d0266297901ee52d0e137df100f8c23d`. Trusted preparation reads this pin
-from protected base, validates proposed metadata separately, and hands the
-exact UI archive and context to credential-free jobs. When that archive exists,
-Quality runs `npm --prefix ../ejm-ui ci --ignore-scripts` before the Studio
-entry, site tests, and site build. No private source token is needed.
+Try shows each product's native layout with sample code and recorded local output. CLI follows a code fix through tests and a diff. The IDE example shows Edi reading, searching and making reviewed edits. Those edits and tool updates are authored; its added tests were not run. The visible note states that limit. Harness shows tool admission and retained history in its real terminal presentation. The browser makes no model or tool calls. Shared fixtures and their provenance live in `ejm-ui/packages/demos`, rather than this site. Its IDE styles come from the separate `@ejm/demos/ide-preview.css` import, so CLI and harness consumers do not have to ship them.
 
-The installation PR's old trusted-base packet had no UI archive. Separate
-[UI install review context](../review/dependency-sources/ejm-ui/README.md)
-therefore supplies the exact pinned root manifest, full lockfile, all ten
-workspace manifests, and owner license with Git identities and SHA-256 values.
-These ordinary nonexecutable snapshots let reviewers assess the dependency
-install boundary. They are never imported, executed, or packaged as shared
-code. They establish neither an actual install nor a dependency advisory audit.
+All three project repositories and the shared UI repository are public. Source builds still require the documented sibling checkout and compatible revisions. Project pages link to source, contribution guides and source-build instructions. Keep unpublished installer and package limits beside setup choices. Every project offers its recorded browser example; it does not prove a native installation or model run. Recheck anonymous repository access during release preparation and update the project facts, home, project actions and footer together. Build, check and publish affected pages before claiming that live content has changed.
 
-[PR #9](https://github.com/ejmlabs/ejmlabs/pull/9) installed these pins. Fresh
-[PR #10](https://github.com/ejmlabs/ejmlabs/pull/10) verified the installed caller,
-protected-base UI selection, exact product/UI archives, dependency install,
-both complete Codex Sol 6.1 medium reviews, and all five protected checks in
-[run 39347228551](https://github.com/ejmlabs/ejmlabs/actions/runs/39347228551).
-It merged normally with main protection unchanged. Task 3.3 is complete.
+All three examples use the same shared responsive frame and preserve its dimensions as playback loads. The public lazy entries preserve static server content, load playback near the viewport and start when visible, without prior input. Native product actions are passive. Only Pause or Resume and Restart control playback, outside the product viewport. The IDE keeps its full native workspace in a horizontal scroll region on narrow screens. Named workspace, code and message regions also support keyboard scrolling. A run finishes on its useful final state without looping. Offscreen and background tabs pause progression, a manual pause remains in effect, reduced motion shows a completed state, and restart cancels the prior run. Loading does not move focus into the product. The shared `Static` boundary serves the home content and keeps its internal links routed through the shared client.
 
-The asset adoption now uses `@ejm/tokens/assets/fonts/*` for all six complete
-font and notice files, retaining the `/design-kit/fonts/*` URLs and exact
-notices. The separate `@ejm/ui/fonts/*` exports are smaller subset fonts.
-Favicon, icon, lockup, logo, motif, social and template files use the same public
-token asset contract. Motifs and templates use their complete source families
-at this unchanged pin. The resolver's fixed sibling layout is documented in
-[public asset assembly](../README.md#public-asset-assembly). Missing package
-links fail with Node's resolution error; restore the exact checkout and install
-instead of copying legacy files back. Remaining owner site adoption and live
-kit removal stay open. This migration still needs its own human admission and
-protected checks, and establishes no browser acceptance or deployment.
+Try places one disclosure beside each playback. The Harness terminal formats values from its retained historical recording; resource figures describe admission reservations, not measured process memory. The recording does not prove provider support in a newer source revision.
 
-For each caller update, retain the exact implementation in `ejmlabs/.github`
-under `workflow-pins/FULL_SHA`, verify update/deletion protection with no bypass
-actors, and replace the bounded canonical review pair in the same PR. Follow
-the [shared source contract](https://github.com/ejmlabs/.github/blob/6717b433c462e01abaed86e2118e4843827598cb/docs/operations.md#public-ui-source-assembly)
-and [rollout runbook](https://github.com/ejmlabs/.github/blob/6717b433c462e01abaed86e2118e4843827598cb/docs/operations.md#bootstrap-and-rollout).
-Local source checks establish no hosted execution or site publication.
+The header and route transitions share the existing 320ms motion tokens. Explicit theme switches crossfade when the browser supports View Transitions; reduced motion and unsupported browsers switch immediately. Shared content remains visible at first paint.
+
+The dry run below checks the Worker bundle locally and does not publish it:
+
+```sh
+wrangler deploy --config wrangler.jsonc --dry-run
+```
+
+An actual deploy needs the owner's explicit approval.
+
+## Keep docs current after each change
+
+Review the public docs with every change. Update affected pages in the same change, including relevant setup, configuration, workflows, APIs, examples, errors, limits, and recovery. Keep navigation, links, examples and reference material aligned. If no public docs are affected, record the reason in the change summary.
+
+Product guides live in each project's repository and are linked from `/projects/`. Edit this site only for discovery: the project facts in `src/content.ts` and the routes above. Keep planned, implemented, tested, and released behavior distinct, and state verification, availability, security, and performance limits plainly. A successful local build proves the source can be assembled; it does not prove publication. Report which source changed and which checks passed. Include affected docs in the normal review and release process described in `../CONTRIBUTING.md` and `../RELEASING.md`. After authorized publication, verify the affected public pages, guide destinations, navigation, and response headers over HTTPS before claiming the live site is updated.
 
 ## Cloudflare hosting
 
-The canonical address is [ejmlabs.com](https://ejmlabs.com/). The build prepares the site and retained live kit for Cloudflare. It no longer emits kit archives, X kit pages, or swag resources. This local cleanup does not establish their current deployed availability. The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the existing apex zone is active.
+The canonical address is [ejmlabs.com](https://ejmlabs.com/). The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the apex zone is active. Cloudflare serves `dist/`, which holds the site, `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`.
 
-Run publishing commands in an interactive terminal with a TTY. Wrangler checks custom-domain conflicts and asks before replacing existing DNS in a TTY. In noninteractive mode it can override those conflicts automatically.
+Publishing follows protected source review and the owner's approval. Use the existing custom-domain mapping and record the new Worker version. After a deploy, check every route, the two downloads and the response headers over HTTPS.
 
-To publish a preview after review:
-
-```sh
-npm run build
-wrangler deploy --config wrangler.jsonc --env preview
-```
-
-The preview uses a separate `ejmlabs-preview` Worker at its `workers.dev` address. Its route list is empty, so it does not attach `ejmlabs.com`.
-
-To publish to the apex domain:
-
-```sh
-npm run build
-wrangler deploy --config wrangler.jsonc --env ""
-```
-
-After deployment, check the home page, `/design-kit/`, `/design-kit/ui/`, and the response headers over HTTPS. Confirm retired archive, X kit, and swag paths are unavailable. Record browser and publication results separately from local build checks.
+See [Cloudflare security operations](SECURITY-OPERATIONS.md) for canonical hosts, preview access, credentials, verification, and recovery.

@@ -2,126 +2,65 @@
 
 ## Overview
 
-The ejmlabs studio website, project directory, brand guidance, and product download discovery at [ejmlabs.com](https://ejmlabs.com/).
+Open source projects, experiments and brand resources at [ejmlabs.com](https://ejmlabs.com/).
 
 ## Status
 
-This repository holds studio source and brand materials. Source version 0.1.0 is a development baseline. Consult [releases](https://github.com/ejmlabs/ejmlabs/releases) for actual published artifacts. Brand material has its own rights and is not licensed as an MIT software product.
+This repository owns Studio pages and public brand downloads. Source version 0.1.0 is a development baseline. A source commit or local build does not establish publication. Product repositories own their guides and releases.
 
 ## Requirements
 
-Node.js 24 LTS and npm. Python 3 is useful for the local static preview. Build beside the pinned public UI checkout described below; its asset exports supply the adopted brand files and original font notices.
+Node 24, npm, Python 3 for the loopback preview, and zip and unzip for public downloads. Check out the pinned public ejm-ui source beside this repository.
 
 ## Quick start
 
 ```sh
 git clone https://github.com/ejmlabs/ejmlabs.git
 git clone https://github.com/ejmlabs/ejm-ui.git
-git -C ejm-ui checkout --detach 7cf86428d0266297901ee52d0e137df100f8c23d
-npm --prefix ejm-ui ci --ignore-scripts
 cd ejmlabs
+git -C ../ejm-ui checkout --detach "$(node -p "require('./.github/ui-source.json').revision")"
+npm --prefix ../ejm-ui ci --ignore-scripts
 node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
 npm --prefix site run preview
 ```
 
-The preview listens only on 127.0.0.1:4827.
+The preview listens on 127.0.0.1:4827. See [local setup](site/README.md#local-preview).
 
 ## Usage
 
-Start with [the studio site guide](site/README.md). The build assembles public UI assets with the remaining retained [design kit](design-kit/README.md), including its [site components](design-kit/SITES.md). Its complete brand and application references are available in the built output at `/design-kit/` and `/design-kit/ui/`; the raw source subtree is no longer standalone. Kit ZIP downloads, X kit pages, and the swag gallery are retired. The site build excludes them and does not create replacement archives.
+Browse projects, watch recorded examples, read About, or download approved brand files. The Brand page supplies public usage guidance, original rights and font notices. Swag images are concepts, not products for sale. Software licenses do not grant rights to the marks.
 
 ## Development
 
 ```sh
-node design-kit/scripts/build-ui.mjs
-node design-kit/scripts/build-ui.mjs --check
 node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
+npm --prefix site run budget
 ```
 
-Use the OpenSpec workflow for feature and bugfix changes. Keep generated assets and their source definitions consistent. Human admission controls CI and AI runs; see the contributor guide. A successful local build does not deploy the site.
+The check entry installs the exact site lock with lifecycle scripts off, then checks types. The build checks shared design ownership, prerenders routes, applies shared headers and enforces transfer budgets. Tests check generated content, links, playback fallbacks and curated downloads.
 
-### Local check entry
+Pages consume public @ejm exports. ejm-ui owns tokens, themes, visual components, motion, native profiles, site policy, prerendering and demos. Studio owns content, route composition, project discovery and download assembly. Public brand files resolve through @ejm/tokens/assets exports; Studio retains the swag masters and previews. Retained design-kit references are not active UI primitives and are not copied into the site as a playbook.
 
-[The Studio entry](scripts/check.mjs) temporarily imports the retained kit
-checker. It keeps the theme, site CSS, contrast, class and catalog checks. The
-site tests use the same entry and check complete public asset families against
-their owner bytes and modes. The local motif generator is no longer invoked
-by this entry or the build; edit motif and template source in `ejm-ui`.
-
-The compatibility gap is pending public `ejm-ui` adoption. The pinned shared
-Quality recipe calls this entry. `ejm-ui` owns shared tokens and site checks,
-`ejmlabs/.github` owns the shared governance command, and
-Studio owns this entry and its assembly checks. Keep `node scripts/check.mjs`
-when switching it to pinned public owner exports and Studio assembly checks.
-Remove its legacy import and the kit checker only after a clean checkout
-resolves those exports, owner and Studio checks pass, and no kit dependency
-remains. The [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md#studio-check-entry-precursor)
-records this boundary.
-
-### Public UI source admission
-
-The coupled PR and draft-release callers pin the reviewed shared source.
-[The UI manifest](.github/ui-source.json) pins public `ejmlabs/ejm-ui` source;
-the [CI guide](site/README.md#shared-workflow-updates) records both exact pins
-and the trusted-base preparation rule. [PR #10](https://github.com/ejmlabs/ejmlabs/pull/10)
-verified the installed caller and exact UI source handoff with both complete
-AI reviews and every protected check. Studio now consumes the public token
-asset exports described below without rotating those pins.
-The separate [UI install review context](review/dependency-sources/ejm-ui/README.md)
-contains exact pinned manifests, the full lockfile, and license for static
-assessment of the initial install. These copies are never build inputs.
-It does not publish a release or deploy the site.
-
-### Public asset assembly
-
-The build resolves `@ejm/tokens/assets/*` through the installed sibling UI
-workspace. It copies the favicon, fonts, icons, lockups, logos, motifs, social
-and templates families to their existing `/design-kit/<family>/` paths. All 156
-owner files retain their bytes and modes, including both original OFL notices. The complete font
-files come from `@ejm/tokens`, not the smaller `@ejm/ui` font subsets.
-
-The complete 80-file motif and 12-file template inventories come from the same
-unchanged public source pin. This slice removes 41 local dots, echo, flow,
-orbit and ripple copies, totaling 3,264,491 source bytes. The other 39 motif
-and 12 template copies remain for the next bounded deletion; the build uses
-the complete owner families. Do not regenerate local motif copies. All 238
-built paths and modes stay unchanged. The emitted raw consistency-checker
-script changes to drop its motif check; the other 237 files, including every
-rendered/runtime asset, metadata, header and notice, remain byte-identical.
-
-Keep the Studio checkout and `ejm-ui` beside each other as shown in Quick start.
-Shared CI supplies the same sibling layout from the protected source pin and
-installs the owner lockfile with lifecycle scripts disabled. If Node reports
-`MODULE_NOT_FOUND`, check that pin, location, and install before rebuilding.
-The build downloads no source and has no fallback copy. Studio owns this
-output-path mapping; remove it when full owner site adoption replaces the
-remaining kit assembly.
-
-## Source ownership
-
-`ejm-ui` owns active UI tokens, themes, reusable components, and shared site infrastructure. `ejmlabs` owns Studio pages and content, project discovery, brand guidance, and public download assembly. Make shared implementation changes in `ejm-ui` and consume its public `@ejm/*` exports here.
-
-This checkout still depends on retained kit themes, CSS, scripts and reference material. Public UI source assembly is verified, and the eight asset families above are adopted. Both X kit copies and the swag files are removed. The remaining motif/template copies and live kit migration stay open. See the [cleanup plan](openspec/changes/retire-kits-and-internal-briefs/design.md) and [open tasks](openspec/changes/retire-kits-and-internal-briefs/tasks.md). Keep needed brand source, provenance, and font notices through the remaining migration.
+Use OpenSpec for feature and bugfix work. Keep the source pin and build lock together. Trusted CI reads the UI pin from protected main, so adoption of a new pin precedes a site PR that depends on it. Keep the installed human admission and approval rules in [Contributing](CONTRIBUTING.md).
 
 ## Documentation
 
-- [Design kit](design-kit/README.md), [catalog](design-kit/CATALOG.md), [sites](design-kit/SITES.md), [applications](design-kit/UI.md)
-- [Studio site](site/README.md)
-- [Semantic releases](RELEASING.md)
-- [Shared standards](https://github.com/ejmlabs/.github)
-- Products: [ejm-cli](https://github.com/ejmlabs/ejm-cli), [ejm-harness](https://github.com/ejmlabs/ejm-harness), [ejm-ide](https://github.com/ejmlabs/ejm-ide)
+- [Studio development and publication](site/README.md)
+- [Hosting and recovery](site/SECURITY-OPERATIONS.md)
+- [Releases](RELEASING.md)
+- [CLI](https://cli.ejmlabs.com/docs/), [IDE](https://ide.ejmlabs.com/docs/), [Harness](https://harness.ejmlabs.com/docs/)
 
 ## Contributing
 
-See [Contributing](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
+See [Contributing](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md). Ideas, examples, documentation and fixes are welcome.
 
 ## Security
 
-Use [private vulnerability reporting](SECURITY.md). Keep local credentials and private reference material out of commits and generated site output.
+Use [private vulnerability reporting](SECURITY.md). Keep credentials, personal data and local logs out of source and generated downloads.
 
 ## Support
 
@@ -129,4 +68,4 @@ See [Support](SUPPORT.md).
 
 ## License
 
-See [License](LICENSE) and [Third-party notices](THIRD_PARTY_NOTICES.md). The studio's brand artwork retains its owner's rights. Bundled fonts keep their SIL OFL licenses. The three software products retain their own MIT licenses.
+See [License](LICENSE) and [Third-party notices](THIRD_PARTY_NOTICES.md). Brand artwork keeps its owner's rights. Fonts keep their SIL OFL notices. CLI, IDE and Harness retain their own MIT licenses.
