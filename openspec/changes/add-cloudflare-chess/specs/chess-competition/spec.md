@@ -322,3 +322,35 @@ and no-store responses.
 
 - **WHEN** an event's supported entrant or concurrent-game capacity is published
 - **THEN** the claim identifies the measured admission envelope and recovery/cost limits rather than treating a configured maximum or local test as production evidence
+
+### Requirement: Once-only isolated native capacity qualification
+
+The private qualification entry SHALL allow one durable run with at most
+20,000 permanently charged synthetic game IDs and at most $25 inside the
+unchanged $100 budget. It SHALL reuse normal atomic receipts and native
+Game/Competition authorities. Production SHALL reject its private budget
+exception and retain existing ceilings.
+
+#### Scenario: A run is retried or restarted
+
+- **WHEN** restart, retry, month change, token replacement or deployment occurs
+- **THEN** the run is not renewed, uncertain reservations are not refunded and unresolved work permits remain charged
+- **AND** all run costs remain inside the existing core allocation without spending the separate recovery reserve
+
+#### Scenario: Capacity resources are prepared
+
+- **WHEN** the approved isolated harness is built
+- **THEN** it has fresh synthetic resources, fixed expiry, private authentication, a once-only arm, native work/storage/request metering and at most 2,048 non-hibernatable objects over 60 minutes, with no production, mail, engine, analysis or Container binding
+- **AND** a frozen exact candidate and fresh complete cost ledger require owner approval before provisioning or load
+
+#### Scenario: The sustained and delayed workload is measured
+
+- **WHEN** the first-tier provider run is accepted
+- **THEN** 18,000 distinct native regular results span 900 elapsed seconds while 1,000 additional distinct delayed results recover within 60 seconds, with five matching duplicates each and unchanged normal authority, account and score checks
+- **AND** real registration, sockets, reconnects, public cached standings, declared faults and named regional paths are reported without fabricated clocks, terminal rows or unsupported regional claims
+
+#### Scenario: A run reaches a safety boundary
+
+- **WHEN** expiry, a finite work ceiling, uncertain control state, missing metrics or complete-cost headroom blocks further work
+- **THEN** new synthetic admission stops permanently, accepted receipts reconcile only under their original IDs, unresolved work remains charged, and the failed or unrun target remains visible
+- **AND** this run does not complete the separate full retention, calendar, ranked or later-tier gates

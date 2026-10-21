@@ -660,6 +660,124 @@ exports, migrations, tournament guides, and capacity evidence. The security
 owner integrates HTTP/deadline/farming hooks. The operations owner supplies
 budget/retention controls. No harness or new shared visual contract is needed.
 
+#### Approved isolated native capacity run
+
+The owner approved the bounded capacity-test plan on 2026-10-21 UTC. Build one
+private disposable qualification run with at most 20,000 permanently charged
+synthetic admissions and at most $25 complete incremental cost inside the
+existing $50 core allocation. The total remains $100, including $20 for proofs
+and the separate $20 accepted-work/recovery reserve. Do not spend that reserve,
+raise production's 10,000 monthly game ceiling, reset counters, refund uncertain
+reservations or open public play. A frozen runnable candidate, fixed UTC
+manifest and fresh complete account cost readback still need owner approval
+before provisioning or load. This plan approval is not that live-run approval.
+
+Product owns the isolated entry, config, run controls, protocol driver, narrow
+budget-policy boundary, native fixtures, reports and operations guides. Reuse
+Game, Competition, arena admission, primary account/session eligibility,
+normal atomic game receipts, permanent IDs, score receipts, public cache reads
+and native metrics. Keep the shared UI, studio and harness interfaces unchanged.
+The once-only policy is constructed only by the isolated entry and bound to
+the sealed database, namespaces and run manifest. An environment flag or HTTP
+input cannot select it. Do not copy the budget SQL or bypass normal authority
+verification. Production rejects the exception.
+
+Use one fresh Worker, D1 database, Game namespace, Competition namespace and
+small durable run controller, with a private expiring authenticated ingress.
+Disable version previews and public product routes. Verify exact resource
+ownership before arming. No production/account-service, sender, mail, analysis,
+proof, queue, Container, model or production-secret binding belongs here. Reject
+unknown run IDs before creating a Game stub. Client input cannot choose SQL,
+classes, resources, clocks, results, FENs, policies or counters.
+
+Reserve a run unit and normal game receipt before initialization. A durable
+once-only arm, charged-ID ledger, monotonic stop and expiry, bounded request
+and work counters, unresolved permits and final accounting digest survive
+restart, lost replies, month changes, token changes and deployment. No timeout
+releases unresolved work or renews its allowance. Denied or uncertain control
+reads close new work; existing accepted receipts may reconcile under the same
+IDs after a stop. Preserve all accepted state until evidence disposal review.
+
+Use 6,000 synthetic no-email credential accounts across three 2,000-entry
+events, imported as existing-account fixtures rather than signup evidence.
+Keep ordinary pair, initialization, concurrency, retry, repeat-opponent,
+projection and page-size limits. Allow 1,000 combined unfinished games, 20,000
+retained tournament payloads/IDs, 2 GiB authority admission budget, 32 starts
+per second with burst 32, 50 registrations per second with burst 100, and the
+unchanged 50 ms Worker CPU cap. If normal limits miss the target, record failure.
+
+| Complete run bound, including setup, retries, faults and cleanup | Ceiling |
+| --- | ---: |
+| New charged game IDs / synthetic accounts | 20,000 / 6,000 |
+| Generated Worker requests / native DO request equivalents | 1,200,000 / 1,000,000 |
+| Worker CPU | 60,000,000 ms |
+| DO SQLite rows written / read | 5,000,000 / 500,000,000 |
+| D1 rows written / read | 1,000,000 / 100,000,000 |
+| Aggregate physical DO / D1 storage | 3 GiB / 512 MiB |
+| Simultaneously non-hibernatable objects, all classes | 2,048 |
+| Absolute compute accounting interval from successful arm | 60 minutes |
+| Raw synthetic evidence retention before disposal review | 30 days |
+
+Use actual SQL cursor and D1 metadata, not returned-row counts. Reserve the
+worst next operation and concurrent overshoot before dispatch, including
+metering and reconciliation. Keep each object's durable permit until all
+native event work finishes. Include active, settling and terminal objects
+with pending I/O, controllers, alarms and instrumentation. A lost reply cannot
+free a permit. Prove every exported operation, alarm and follow-on path obeys
+expiry and work bounds; fail local qualification if any path is unbounded.
+Inactive completed objects must have no unnecessary I/O, timers or alarms.
+
+Allow setup and initial occupancy at most 10 minutes, retain the full 900-second
+regular phase, close new admissions/generated reads by minute 30, stop issuing
+work by minute 45, and allow at most 15 more minutes for already pending native
+I/O. Freeze unresolved synthetic state and fail if normal work does not drain.
+Private test stopping cannot change production accepted-work policy. The
+driver and independent server guards enforce the same fixed manifest and
+deadlines, without a free-running cron or an extendable run.
+
+The combined sustained phase requires 19,000 distinct admitted native games:
+1,000 initial games form the delayed-result set, and 18,000 later games form
+the 20-per-second regular stream over 900 elapsed seconds. Real Game readiness,
+legal moves and authoritative terminal rules must produce each result. Recover
+the delayed 1,000 within 60 seconds while regular traffic continues, with five
+exact duplicate deliveries each and at least 40 unique settlements/second in
+catch-up. Duplicates are requests, not new results or admissions. Reserve at
+most the remaining 1,000 admissions for declared safety cases and uncertainty.
+
+Also exercise the existing registration burst with truthful rate-limit retry,
+2,000 participant sockets and a 2,000 replacement burst, actual move CPU/commit
+latency under occupancy, public standings read load equivalent to 10,000
+viewers refreshing every 10 seconds, and head/varied pages through the real
+10-second cache contract. Require p95 settlement acknowledgement at most 250 ms
+and ordinary p95 projection lag at most 15 seconds. Report driver saturation,
+missed schedules, offered/admitted/accepted rates, cache locality and all stalls.
+Finite declared faults cover real restart evidence, D1 outage, lost replies,
+conflicting/duplicate results, exhausted limits, expiry, no-shows, eligibility,
+pause/resume and repeat-opponent controls. Do not edit clocks or fabricate
+terminal rows, acknowledgements or alarm eviction evidence.
+
+Separate US West/East, Europe, Asia-Pacific, Australia and South America probes
+need named real egress runners and transport paths. Colo hints or inter-Worker
+calls do not prove those WAN paths. Unavailable regions remain unqualified;
+paid runners require a reviewed cost line. All probes count toward the run.
+
+At zero shared included allowance, the reviewed whole-unit model is $22.60
+plus $2.40 uncertainty. The 2,048-object/60-minute bound is 943,718.4 GB-s and
+reserves one $12.50 DO duration unit; a second unit exceeds the model. The
+remaining dimensions cover requests, CPU, rows and a full month of bounded
+storage. Refresh rates, taxes, plan, prior usage and attribution before live
+approval. Missing/delayed metrics or insufficient headroom stops new work.
+Private ingress and finite work units do not create a hard provider invoice cap.
+
+Seal exact source, config, fixture corpus and driver before live approval.
+After a run, reconcile physical/native usage, billing units, unique IDs and
+final projections, disable ingress/alarms, verify no continuing synthetic work,
+and publish sanitized evidence with all failures and unrun checks. A passing
+run does not complete the 72,000-hot-payload steady state, 25-per-second
+retirement after the full one-hour hold, mixed holds, real hourly/daily/weekly
+calendar, ranked cost, long-term growth or later 10,000-entry/5,000-live tier.
+Plan those separately without removing the existing acceptance requirements.
+
 The owner requires hundreds and thousands of entrants in one automatic event. The existing three/four-player round-robin implementation is a local preview and does not satisfy this requirement. The selected arena design above resolves the format; implementation and capacity qualification remain incomplete. Do not raise a cap and claim scale.
 
 Qualification candidates are 10,000 entrants, 5,000 concurrent games, registration bursts, simultaneous completions/reconnects, and cached spectator standings. These are proposed test targets, not supported capacity. Evaluate partitioned entrant/pairing state, per-game authorities, shared account reservations across modes, idempotent score receipts, paged standings, retirement throughput, D1 auth load, regional behavior, and cost. Select admission limits from evidence. Party mode remains conversation only until its design and implementation scope are confirmed.
