@@ -1,7 +1,14 @@
 import { PROJECTS } from '@ejm/site/projects';
 
-// What the pages say about the three projects. The facts come from each project's README; status is stated as the README states it.
+// What the pages say about the projects. The facts come from each project's README; status is stated as the README states it.
 export const GITHUB = PROJECTS.ejmlabs.repo;
+
+export const UI_PROJECT = {
+  name: 'ejm-ui',
+  url: 'https://ui.ejmlabs.com/',
+  host: 'ui.ejmlabs.com',
+  repo: 'https://github.com/ejmlabs/ejm-ui',
+} as const;
 
 export const projects = [
   {
@@ -77,6 +84,27 @@ export const projects = [
     docs: [
       ['User guide', `${PROJECTS.harness.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.harness.url}docs/developer-guide/`],
+    ],
+  },
+  {
+    id: 'ui',
+    ...UI_PROJECT,
+    kind: 'React / design system',
+    summary: 'The design system behind our sites and apps.',
+    row: 'Build with shared components, themes and layouts.',
+    facts: [
+      ['license', 'MIT for software and docs. Brand assets retain their own rights.'],
+      ['written in', 'TypeScript and React, with shared web and terminal themes'],
+      ['get started', 'Browse the gallery or build from source. Registry packages are not published yet.'],
+    ],
+    does: [
+      ['One design system', 'Shared tokens, themes and components keep sites and apps consistent.'],
+      ['Ready to explore', 'Browse components, layouts and working page examples.'],
+      ['Built together', 'Help improve components, accessibility and documentation.'],
+    ],
+    docs: [
+      ['Getting started', `${UI_PROJECT.url}docs/`],
+      ['Components', `${UI_PROJECT.url}docs/components/`],
     ],
   },
 ] as const;

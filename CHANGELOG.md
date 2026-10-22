@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Add ejm-ui to Studio project discovery with gallery, documentation and source links.
+
 ### Added
 
 - Public project, About, Brand and Privacy pages with approved marks, clear contribution links and passive product examples.

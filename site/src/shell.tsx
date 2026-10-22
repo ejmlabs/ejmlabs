@@ -1,3 +1,4 @@
+import { UI_PROJECT } from './content';
 import { Link, usePath } from '@ejm/ssg';
 import { Analytics } from '@ejm/site/analytics';
 import { otherSites, PROJECTS, sourceLinks } from '@ejm/site/projects';
@@ -33,7 +34,7 @@ const footer: FooterProps = {
   },
   columns: [
     { heading: 'Pages', links: footerPages },
-    { heading: 'Projects', links: otherSites('ejmlabs') },
+    { heading: 'Projects', links: [...otherSites('ejmlabs'), { label: UI_PROJECT.name, href: UI_PROJECT.url, external: true }] },
     { heading: 'Source', links: sourceLinks('ejmlabs') },
   ],
   privacy: (
@@ -44,7 +45,7 @@ const footer: FooterProps = {
       <InlineLink href="/privacy/">Privacy</InlineLink>
     </>
   ),
-  legal: `© 2026 ${here.name}. ejm-cli, ejm-ide and ejm-harness are open source under the MIT license.`,
+  legal: `© 2026 ${here.name}. Project software and docs are MIT licensed. Brand assets retain their own rights.`,
 };
 
 const isHere = (path: string, href: string) =>

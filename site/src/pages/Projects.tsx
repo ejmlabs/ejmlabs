@@ -1,3 +1,5 @@
+import uiInk from '@ejm/tokens/assets/logos/symbol-ink.svg?no-inline';
+import uiPaper from '@ejm/tokens/assets/logos/symbol-paper.svg?no-inline';
 import {
   Actions,
   Columns,
@@ -23,6 +25,7 @@ const projectMarks = {
   cli: { light: cliInk, dark: cliPaper },
   ide: { light: ideInk, dark: ideInk }, // Sage keeps its light scheme in either page theme.
   harness: { light: harnessInk, dark: harnessPaper },
+  ui: { light: uiInk, dark: uiPaper },
 };
 
 export default function Projects() {
@@ -35,7 +38,7 @@ export default function Projects() {
           title="Explore the projects."
           id="projects-title"
         >
-          <p>Three tools, all MIT licensed. Choose one to get started.</p>
+          <p>Open source projects to use, study and improve.</p>
         </SectionHead>
       </Band>
 
@@ -45,7 +48,7 @@ export default function Projects() {
           <Band
             key={p.id}
             id={p.id}
-            tone={tones[i] ?? 'paper'}
+            tone={tones[i % tones.length]}
             aria-labelledby={`${p.id}-title`}
           >
             <SectionHead
@@ -94,7 +97,7 @@ export default function Projects() {
                     Explore {p.name}
                   </a>
                 </Button>
-                <Button variant="link" asChild><a href={`/try/#${p.id}`}>Watch a session</a></Button>
+                <Button variant="link" asChild><a href={p.id === 'ui' ? `${p.url}components/` : `/try/#${p.id}`}>{p.id === 'ui' ? 'Browse components' : 'Watch a session'}</a></Button>
               </Actions>
             </SectionBody>
             <SectionBody>

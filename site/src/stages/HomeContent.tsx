@@ -1,3 +1,4 @@
+import uiMark from '@ejm/tokens/assets/logos/symbol-ink.svg?url';
 import cliMark from '@ejm/tokens/assets/projects/cli/mark-ink.svg?url';
 import ideMark from '@ejm/tokens/assets/projects/ide/mark-ink.svg?url';
 import harnessMark from '@ejm/tokens/assets/projects/harness/mark-ink.svg?url';
@@ -9,7 +10,7 @@ import { Brand } from '@ejm/ui/shell/Brand';
 import { Actions, SectionBody } from '@ejm/ui/layout/SiteContent';
 import { projects } from '../content';
 
-const projectMarks = { cli: cliMark, ide: ideMark, harness: harnessMark };
+const projectMarks = { cli: cliMark, ide: ideMark, harness: harnessMark, ui: uiMark };
 
 export default function HomeContent() {
   return <>

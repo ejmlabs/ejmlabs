@@ -16,7 +16,7 @@ export default defineSite({
     {
       path: '/projects/',
       load: () => import('./pages/Projects'),
-      head: { title: 'Projects', description: 'Explore the current open source projects: ejm-cli, ejm-ide, and ejm-harness. Find source code, setup guides, and ways to contribute.' },
+      head: { title: 'Projects', description: 'Explore the current open source projects: ejm-cli, ejm-ide, ejm-harness, and ejm-ui. Find source code, setup guides, and ways to contribute.' },
     },
     {
       path: '/try/',
