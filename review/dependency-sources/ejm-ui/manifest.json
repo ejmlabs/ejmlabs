@@ -1,10 +1,10 @@
 {
   "repository": "ejmlabs/ejm-ui",
-  "commit": "d4f7b06fbca61f2311a9b81971fbc6afb99b2821",
-  "tree": "e753fae8a4d697dd952fed7459c12903b67c34f7",
-  "source_status": "protected_owner_accepted_consumer_pin_proposed",
+  "commit": "a5551a056b04bc0c3472afc443621a552747613c",
+  "tree": "3e674b05f8693fcd650d093515235f3c121b608d",
+  "source_status": "immutable_owner_candidate_pending_protected_acceptance",
   "protected_pin": false,
-  "purpose": "Exact install metadata for the accepted owner; consumer pin awaits protected acceptance.",
+  "purpose": "Read-only install metadata. Activate only after complete source prerequisites and protected owner acceptance.",
   "workspace_metadata_files": [
     "LICENSE",
     "apps/gallery/package.json",
@@ -29,7 +29,7 @@
       "size": 1678,
       "sha256": "5cc41f9d34bcfbf8dd3b2120b50dab803eb90b5e8aae31563bd5e61d79c10825",
       "fixture_mode": "100644",
-      "fixture": "c7bacfa0fd0558f257eee52c3547be02f696f4fa/LICENSE",
+      "fixture": "7cf86428d0266297901ee52d0e137df100f8c23d/LICENSE",
       "current_source_bytes_match_fixture": true,
       "reused_fixture": true
     },
@@ -73,7 +73,7 @@
       "size": 1510,
       "sha256": "f5a4b0e1f36181a3f5c63cedb9f54899bfc98341eb4746fda65c62805bf7ffae",
       "fixture_mode": "100644",
-      "fixture": "c7bacfa0fd0558f257eee52c3547be02f696f4fa/package.json",
+      "fixture": "7cf86428d0266297901ee52d0e137df100f8c23d/package.json",
       "current_source_bytes_match_fixture": true,
       "reused_fixture": true
     },
