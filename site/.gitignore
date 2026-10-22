@@ -1,2 +1,4 @@
+dist/
+.ejm-ssg/
 node_modules/
 .wrangler/
