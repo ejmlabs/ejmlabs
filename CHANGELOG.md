@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Adopt shared brand-name fitting so project names stay on one line.
+
 - Add ejm-ui to Studio project discovery with gallery, documentation and source links.
 
 ### Added
