@@ -1,3 +1,16 @@
+# Active UI adoption
+
+The proposed pin is accepted UI commit `d4f7b06fbca61f2311a9b81971fbc6afb99b2821`,
+tree `e753fae8a4d697dd952fed7459c12903b67c34f7`. The current manifest binds
+its install metadata, and `source-supplement.json` binds all 330 changed
+owner files to retained snapshots. Studio source prerequisites #18 through
+#22 are accepted. All 343 metadata and source bindings match their bytes.
+The consumer pin still needs protected review. These files remain inert.
+
+## Historical install context
+
+The following records describe the earlier pin and remain scoped to it.
+
 # UI install review context
 
 These are exact source copies from public `ejmlabs/ejm-ui` at
