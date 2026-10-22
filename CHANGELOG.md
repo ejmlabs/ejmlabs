@@ -12,6 +12,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ### Changed
 
+- Propose the accepted shared UI source pin with complete hash-bound review context; site redesign adoption follows protected pin acceptance.
+
 - Correct Studio source guidance and record shared `ejm-ui` ownership and the remaining live kit migration.
 - Check generated site output for working links, retained assets and notices, response headers, and absent retired resources.
 - Route local consistency commands and site tests through Studio-owned `scripts/check.mjs`, retaining the existing kit checker until public UI adoption.
