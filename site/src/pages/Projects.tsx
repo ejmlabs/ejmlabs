@@ -97,7 +97,13 @@ export default function Projects() {
                     Explore {p.name}
                   </a>
                 </Button>
-                <Button variant="link" asChild><a href={p.id === 'ui' ? `${p.url}components/` : `/try/#${p.id}`}>{p.id === 'ui' ? 'Browse components' : 'Watch a session'}</a></Button>
+                <Button variant="link" asChild>
+                  {p.id === 'ui' ? (
+                    <ExternalLink href={`${p.url}components/`}>Browse components</ExternalLink>
+                  ) : (
+                    <a href={`/try/#${p.id}`}>Watch a session</a>
+                  )}
+                </Button>
               </Actions>
             </SectionBody>
             <SectionBody>
