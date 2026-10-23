@@ -3,6 +3,7 @@ import uiPaper from '@ejm/tokens/assets/logos/symbol-paper.svg?no-inline';
 import {
   Actions,
   Columns,
+  InlineLink,
   SectionBody,
 } from '@ejm/ui/layout/SiteContent';
 import cliInk from '@ejm/tokens/assets/projects/cli/mark-ink.svg?no-inline';
@@ -16,7 +17,6 @@ import { Fact, Facts } from '@ejm/ui/layout/Facts';
 import { Row, Rows } from '@ejm/ui/layout/Rows';
 import { SectionHead } from '@ejm/ui/layout/SectionHead';
 import { Button } from '@ejm/ui/components/ui/button';
-import { ExternalLink } from '@ejm/ui/shell/ExternalLink';
 import { Disclosure } from '@ejm/ui/components/ui/disclosure';
 import { projects } from '../content';
 
@@ -97,29 +97,26 @@ export default function Projects() {
                     Explore {p.name}
                   </a>
                 </Button>
-                <Button variant="link" asChild>
-                  {p.id === 'ui' ? (
-                    <ExternalLink href={`${p.url}components/`}>Browse components</ExternalLink>
-                  ) : (
-                    <a href={`/try/#${p.id}`}>Watch a session</a>
-                  )}
-                </Button>
+                <InlineLink external={p.id === 'ui'} href={p.id === 'ui' ? `${p.url}components/` : `/try/#${p.id}`}>{p.id === 'ui' ? 'Browse components' : 'Watch a session'}</InlineLink>
               </Actions>
             </SectionBody>
             <SectionBody>
               <Disclosure summary="Guides and source">
                 <Actions>
                   {p.docs.map(([label, href]) => (
-                    <Button key={label} variant="link" asChild>
-                      <ExternalLink href={href}>{label}</ExternalLink>
-                    </Button>
+                    <InlineLink key={label} href={href} external>
+                      {label}
+                    </InlineLink>
                   ))}
-                  <Button variant="link" asChild>
-                    <ExternalLink href={p.repo}>Source on GitHub</ExternalLink>
-                  </Button>
-                  <Button variant="link" asChild>
-                    <ExternalLink href={`${p.repo}/blob/main/CONTRIBUTING.md`}>Contribute</ExternalLink>
-                  </Button>
+                  <InlineLink href={p.repo} external>
+                    Source on GitHub
+                  </InlineLink>
+                  <InlineLink
+                    href={`${p.repo}/blob/main/CONTRIBUTING.md`}
+                    external
+                  >
+                    Contribute
+                  </InlineLink>
                 </Actions>
               </Disclosure>
             </SectionBody>

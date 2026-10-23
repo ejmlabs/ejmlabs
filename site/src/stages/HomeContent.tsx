@@ -7,7 +7,7 @@ import { Button } from '@ejm/ui/components/ui/button';
 import { Row, Rows } from '@ejm/ui/layout/Rows';
 import { SectionHead } from '@ejm/ui/layout/SectionHead';
 import { Brand } from '@ejm/ui/shell/Brand';
-import { Actions, SectionBody } from '@ejm/ui/layout/SiteContent';
+import { Actions, InlineLink, SectionBody } from '@ejm/ui/layout/SiteContent';
 import { projects } from '../content';
 
 const projectMarks = { cli: cliMark, ide: ideMark, harness: harnessMark, ui: uiMark };
@@ -31,7 +31,7 @@ export default function HomeContent() {
         </Rows>
       </SectionBody>
       <SectionBody>
-        <Actions><Button variant="link" asChild><a href="/projects/">Project guides and source</a></Button></Actions>
+        <Actions><InlineLink href="/projects/">Project guides and source</InlineLink></Actions>
       </SectionBody>
     </Band>
     <Band tone="paper" aria-labelledby="try-title">

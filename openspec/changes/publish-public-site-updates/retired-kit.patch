@@ -1,0 +1,139 @@
+diff --git a/design-kit/projects/README.md b/design-kit/projects/README.md
+index b0f6649..2b743de 100644
+--- a/design-kit/projects/README.md
++++ b/design-kit/projects/README.md
+@@ -15,0 +16,6 @@ changed.
++## Relay local review
++
++The [Relay identity guide](relay/README.md) covers its curved handoff mark,
++local review board and targeted export. Shared-package adoption, CLI use and
++publication are pending; the existing family boards remain unchanged.
++
+diff --git a/design-kit/projects/tools/check-marks.mjs b/design-kit/projects/tools/check-marks.mjs
+index 33f5e96..c0d4cbc 100644
+--- a/design-kit/projects/tools/check-marks.mjs
++++ b/design-kit/projects/tools/check-marks.mjs
+@@ -3 +3 @@
+-//   node design-kit/projects/tools/check-marks.mjs [directory]
++//   node design-kit/projects/tools/check-marks.mjs [directory] [--project relay]
+@@ -11,0 +12 @@ import { fileURLToPath } from 'node:url';
++import { parseArgs } from 'node:util';
+@@ -14 +15,4 @@ import { rasterize, decodePng, ridgeWidths, quantile } from './raster.mjs';
+-const root = process.argv[2] || join(dirname(fileURLToPath(import.meta.url)), '..');
++const { values, positionals } = parseArgs({ options: { project: { type: 'string' } }, allowPositionals: true });
++if (positionals.length > 1 || (values.project !== undefined && values.project !== 'relay')) throw new Error('Use [directory] [--project relay].');
++const root = positionals[0] || join(dirname(fileURLToPath(import.meta.url)), '..');
++const projects = values.project === 'relay' ? ['relay'] : ['cli', 'ide', 'harness'];
+@@ -44 +48 @@ const nearerInk = (data, i) => { const d = c => (data[i] - c[0]) ** 2 + (data[i
+-for (const project of ['cli', 'ide', 'harness']) {
++for (const project of projects) {
+@@ -70 +74 @@ for (const project of ['cli', 'ide', 'harness']) {
+-    const png = decodePng(execFileSync('rsvg-convert', ['--width', String(size), '--format', 'png', join(dir, 'favicon.svg')], { maxBuffer: 1 << 26 }));
++    const png = decodePng(execFileSync(process.env.RSVG_CONVERT || 'rsvg-convert', ['--width', String(size), '--format', 'png', join(dir, 'favicon.svg')], { maxBuffer: 1 << 26 }));
+diff --git a/design-kit/projects/tools/marks.mjs b/design-kit/projects/tools/marks.mjs
+index e1d4236..b0657fb 100644
+--- a/design-kit/projects/tools/marks.mjs
++++ b/design-kit/projects/tools/marks.mjs
+@@ -90,0 +91,10 @@ export const chosen = { cli: 'a', ide: 'e', harness: 'b' };
++
++// A flowing handoff: staggered ribbons around one open diagonal channel.
++// Both follow the same spine at one pitch, with one long outer taper.
++export function relay() {
++  const spine = [0, 0, 0, [['L', 18], ['A', 72, 70], ['A', 72, -70], ['L', 18]]];
++  return [
++    { spine, offset: -P / 2, to: sum(spine[3]) - 22 },
++    { spine, offset: P / 2, from: 22, taper: TAIL },
++  ];
++}
+diff --git a/design-kit/scripts/build-projects.mjs b/design-kit/scripts/build-projects.mjs
+index c76cbf0..3f8efa2 100644
+--- a/design-kit/scripts/build-projects.mjs
++++ b/design-kit/scripts/build-projects.mjs
+@@ -6 +6 @@ import { execFileSync } from 'node:child_process';
+-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
++import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+@@ -8,0 +9,5 @@ import { fileURLToPath } from 'node:url';
++import { parseArgs } from 'node:util';
++
++const { values } = parseArgs({ options: { project: { type: 'string' } } });
++if (values.project !== undefined && values.project !== 'relay') throw new Error('Use --project relay, or omit --project for CLI, IDE and Harness.');
++const relayOnly = values.project === 'relay';
+@@ -24,0 +30,2 @@ const projects = [
++const relayProject = { id: 'relay', description: 'The handoff.', tagline: 'Private remote control for your local coding agent.' };
++const selectedProjects = relayOnly ? [relayProject] : projects;
+@@ -30 +37 @@ import { SYMBOL, RATIO, W, G, P, outlines } from '../projects/tools/ribbons.mjs'
+-import { candidates, chosen } from '../projects/tools/marks.mjs';
++import { candidates, chosen, relay } from '../projects/tools/marks.mjs';
+@@ -40,0 +48,6 @@ const shapes = Object.fromEntries(Object.keys(chosen).map(id => {
++if (relayOnly) {
++  const outline = outlines(relay());
++  extent.relay = outline.extent;
++  shapes.relay = outline.paths;
++  console.log(`relay: mark ${outline.extent.map(v => v.toFixed(1)).join(' x ')} in the 256 box`);
++}
+@@ -170 +183 @@ function browserAssets(project) {
+-for (const project of projects) {
++for (const project of selectedProjects) {
+@@ -184,0 +198,54 @@ for (const project of projects) {
++function relayReview() {
++  let body = rect(0, 0, 600, 720, C.paper) + rect(600, 0, 600, 720, C.forest);
++  for (const [dark, x] of [[false, 0], [true, 600]]) {
++    const foreground = dark ? C.paper : C.ink, quiet = dark ? C.mist : C.forest;
++    body += label('RELAY / LOCAL ARTWORK REVIEW', x + 40, 36, 13, quiet, true);
++    const lockup = logo(relayProject, dark ? 'paper' : 'primary');
++    const width = Number(lockup.match(/viewBox="([^"]+)"/)[1].split(/\s+/)[2]);
++    body += place(lockup.slice(lockup.indexOf('>') + 1, lockup.lastIndexOf('</svg>')), x + 64, 110, 472 / width)
++      + label('Flowing ribbons. An open handoff.', x + 40, 285, 22, foreground)
++      + label('ONE COLOR / FOUR DISTINCT MARKS', x + 40, 365, 12, quiet, true);
++    [...projects, relayProject].forEach((project, i) => {
++      const cx = x + 82 + i * 145;
++      body += place(mark(project.id, foreground), cx - 48, 410, 96 / 256)
++        + centered(project.id, cx, 528, 18, foreground);
++    });
++    body += label('EXPORTED FAVICONS / ACTUAL PIXEL SIZES', x + 40, 600, 12, quiet, true);
++    for (const [i, size] of [16, 24, 32].entries()) {
++      const px = x + 64 + i * 120;
++      const png = readFileSync(join(output, 'relay', `favicon-${size}.png`)).toString('base64');
++      body += `<image x="${px}" y="638" width="${size}" height="${size}" href="data:image/png;base64,${png}"/>`
++        + label(`${size} px`, px + 42, 642, 12, quiet, true);
++    }
++  }
++  return svg(1200, 720, body, 'Relay light and dark logos, four project marks in one color, and actual 16, 24 and 32 pixel favicon exports');
++}
++
++function relayGallery() {
++  return `<!doctype html>
++<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
++<title>Relay artwork | ejmlabs</title>
++<style>body{margin:0;background:${C.paper};color:${C.ink};font-family:Manrope,sans-serif;line-height:1.6}main{max-width:1200px;margin:auto}.board{display:block;width:100%;height:auto}nav,p{padding:20px 32px;margin:0}nav{display:flex;flex-wrap:wrap;gap:16px}a{color:${C.forest};text-underline-offset:4px}a:focus-visible{outline:3px solid ${C.forest};outline-offset:5px}.samples{display:flex;align-items:center;gap:24px;padding:20px 32px}.samples img{flex:none}</style></head>
++<body><main><img class="board" src="review.svg" width="1200" height="720" alt="Relay light and dark logos, a monochrome comparison with cli, ide and harness, and exported 16, 24 and 32 pixel favicons.">
++<p>Local artwork for review. Shared-package adoption and application publication are pending.</p>
++<nav aria-label="Download Relay artwork"><a href="logo-primary.svg" download>Primary logo</a><a href="logo-ink.svg" download>Ink logo</a><a href="logo-paper.svg" download>Paper logo</a><a href="mark-sage.svg" download>Sage mark</a><a href="mark-ink.svg" download>Ink mark</a><a href="mark-paper.svg" download>Paper mark</a><a href="icon-sage.png" download>Sage icon</a><a href="icon-forest.png" download>Forest icon</a><a href="favicon.ico" download>Favicon</a><a href="site.webmanifest" download>Manifest</a><a href="social-card.png" download>Social card</a><a href="review.png" download>Review PNG</a></nav>
++<div class="samples" aria-label="Favicons at native pixel sizes"><img src="favicon-16.png" width="16" height="16" alt="Relay at 16 pixels"><img src="favicon-24.png" width="24" height="24" alt="Relay at 24 pixels"><img src="favicon-32.png" width="32" height="32" alt="Relay at 32 pixels"></div>
++</main></body></html>\n`;
++}
++
++if (relayOnly) {
++  save('relay/review', relayReview(), 1200);
++  const directory = join(output, 'relay');
++  writeFileSync(join(directory, 'index.html'), relayGallery());
++  for (const treatment of ['sage', 'ink', 'paper']) {
++    if (readFileSync(join(directory, `mark-${treatment}.svg`)).length > 8 * 1024) throw new Error('Relay mark exceeds 8 KiB.');
++  }
++  for (const treatment of ['primary', 'ink', 'paper']) {
++    if (readFileSync(join(directory, `logo-${treatment}.svg`)).length > 24 * 1024) throw new Error('Relay logo exceeds 24 KiB.');
++  }
++  const folderBytes = dir => readdirSync(dir, { withFileTypes: true }).reduce((bytes, entry) => bytes + (entry.isDirectory() ? folderBytes(join(dir, entry.name)) : readFileSync(join(dir, entry.name)).length), 0);
++  const bytes = folderBytes(directory);
++  if (bytes > 1024 * 1024) throw new Error(`Relay folder exceeds 1 MiB (${bytes} bytes).`);
++  console.log(`Built Relay assets and local review (${bytes} bytes).`);
++} else {
++
+@@ -289,0 +357 @@ console.log('Built CLI, IDE, and Harness logos, browser bundles, social cards, a
++}
+diff --git a/design-kit/web/CONTAINERLESS.md b/design-kit/web/CONTAINERLESS.md
+index 7c4e4e3..e45c20f 100644
+--- a/design-kit/web/CONTAINERLESS.md
++++ b/design-kit/web/CONTAINERLESS.md
+@@ -200,0 +201 @@ New or changed classes in this rewrite. Same table style as `GALLERY.md`.
++

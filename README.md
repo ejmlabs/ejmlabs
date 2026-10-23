@@ -69,3 +69,7 @@ See [Support](SUPPORT.md).
 ## License
 
 See [License](LICENSE) and [Third-party notices](THIRD_PARTY_NOTICES.md). Brand artwork keeps its owner's rights. Fonts keep their SIL OFL notices. CLI, IDE and Harness retain their own MIT licenses.
+
+## Work in progress
+
+See the [OpenSpec handoff](openspec/changes/publish-public-site-updates/HANDOFF.md) for pending work, owner PRs, checks and release blockers.

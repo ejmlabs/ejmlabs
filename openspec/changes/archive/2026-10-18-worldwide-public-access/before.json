@@ -1,0 +1,457 @@
+{
+  "zones/4755cac49c3ce147b9d10e1199a718f8/rulesets/d432213b60bf4474bdc0bd7d8b6274d0": {
+    "result": {
+      "description": "",
+      "id": "d432213b60bf4474bdc0bd7d8b6274d0",
+      "kind": "zone",
+      "last_updated": "2026-10-18T02:54:16.369086Z",
+      "phase": "http_request_firewall_custom",
+      "rules": [
+        {
+          "action": "block",
+          "description": "Block exploit scanners",
+          "enabled": true,
+          "expression": "(ends_with(http.request.uri.path, \".php\") or starts_with(http.request.uri.path, \"/wp-\") or http.request.uri.path contains \"/.env\" or http.request.uri.path contains \"/.git\")",
+          "id": "3ada635f0d7642a08c9cbbb8398af91a",
+          "last_updated": "2026-10-14T19:31:48.360447Z",
+          "ref": "3ada635f0d7642a08c9cbbb8398af91a",
+          "version": "1"
+        }
+      ],
+      "source": "firewall_custom",
+      "version": "4"
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "zones/4755cac49c3ce147b9d10e1199a718f8/rulesets/phases/http_request_firewall_managed/entrypoint": {
+    "absent": true
+  },
+  "zones/4755cac49c3ce147b9d10e1199a718f8/rulesets/phases/http_ratelimit/entrypoint": {
+    "absent": true
+  },
+  "zones/4755cac49c3ce147b9d10e1199a718f8/settings": {
+    "result": [
+      {
+        "id": "0rtt",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "advanced_ddos",
+        "value": "on",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "always_online",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "always_use_https",
+        "value": "on",
+        "modified_on": "2026-10-13T04:15:18.568929Z",
+        "editable": true
+      },
+      {
+        "id": "automatic_https_rewrites",
+        "value": "on",
+        "modified_on": "2026-10-13T04:15:18.433557Z",
+        "editable": true
+      },
+      {
+        "id": "brotli",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "browser_cache_ttl",
+        "value": 14400,
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "browser_check",
+        "value": "on",
+        "modified_on": "2026-10-14T19:39:40.076539Z",
+        "editable": true
+      },
+      {
+        "id": "cache_level",
+        "value": "aggressive",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "challenge_ttl",
+        "value": 1800,
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "ciphers",
+        "value": [],
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "cname_flattening",
+        "value": "flatten_at_root",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "development_mode",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "early_hints",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "ech",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "edge_cache_ttl",
+        "value": 7200,
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "email_obfuscation",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "filter_logs_to_cloudflare",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "hotlink_protection",
+        "modified_on": null,
+        "value": "off",
+        "editable": true
+      },
+      {
+        "id": "http2",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "http3",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "ip_geolocation",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "ipv6",
+        "value": "on",
+        "modified_on": "2025-10-11T21:10:01.981728Z",
+        "editable": true
+      },
+      {
+        "id": "log_to_cloudflare",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "long_lived_grpc",
+        "value": "off",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "max_upload",
+        "value": 100,
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "min_tls_version",
+        "value": "1.3",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "minify",
+        "value": {
+          "css": "off",
+          "html": "off",
+          "js": "off"
+        },
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "mirage",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "mobile_redirect",
+        "value": {
+          "status": "off",
+          "mobile_subdomain": null,
+          "strip_uri": false
+        },
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "opportunistic_encryption",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "opportunistic_onion",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "orange_to_orange",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "origin_error_page_pass_thru",
+        "value": "off",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "polish",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "pq_keyex",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "prefetch_preload",
+        "value": "off",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "privacy_pass",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "proxy_read_timeout",
+        "value": "125",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "pseudo_ipv4",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "replace_insecure_js",
+        "value": "on",
+        "modified_on": "2026-10-12T02:51:16.435310Z",
+        "editable": true
+      },
+      {
+        "id": "response_buffering",
+        "value": "off",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "rocket_loader",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "security_header",
+        "modified_on": "2026-10-14T19:39:40.450589Z",
+        "value": {
+          "strict_transport_security": {
+            "enabled": true,
+            "max_age": 31536000,
+            "include_subdomains": true,
+            "preload": false,
+            "nosniff": true
+          }
+        },
+        "editable": true
+      },
+      {
+        "id": "security_level",
+        "value": "medium",
+        "modified_on": "2026-10-14T20:53:00.743007Z",
+        "editable": true
+      },
+      {
+        "id": "server_side_exclude",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "sort_query_string_for_cache",
+        "value": "off",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "ssl",
+        "value": "strict",
+        "modified_on": "2026-10-13T04:15:18.555091Z",
+        "certificate_status": "active",
+        "validation_errors": [],
+        "editable": true
+      },
+      {
+        "id": "tls_1_2_only",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "tls_1_3",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "tls_client_auth",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "true_client_ip_header",
+        "value": "off",
+        "modified_on": null,
+        "editable": false
+      },
+      {
+        "id": "visitor_ip",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "waf",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "webp",
+        "value": "off",
+        "modified_on": null,
+        "editable": true
+      },
+      {
+        "id": "websockets",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      }
+    ],
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "zones/4755cac49c3ce147b9d10e1199a718f8/bot_management": {
+    "result": {
+      "enable_js": false,
+      "optimize_wordpress": false,
+      "suppress_session_score": false,
+      "sbfm_definitely_automated": "allow",
+      "sbfm_verified_bots": "allow",
+      "sbfm_static_resource_protection": false,
+      "ai_bots_protection": "block",
+      "content_bots_protection": "disabled",
+      "crawler_protection": "disabled",
+      "ai_training": "disallow",
+      "ai_search": "disabled",
+      "ai_user": "disabled",
+      "is_robots_txt_managed": false,
+      "bot_preference_sync_enabled": false,
+      "cf_robots_variant": "off",
+      "ai_bots_migration_opt_out": false,
+      "using_latest_model": true
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "zones/4755cac49c3ce147b9d10e1199a718f8/firewall/access_rules/rules?per_page=100": {
+    "result": [],
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "accounts/478a0db3a110d8503c16abbc1db27af4/rulesets": {
+    "result": [
+      {
+        "description": "Created by the Cloudflare security team, this ruleset is designed to provide protection for free zones",
+        "id": "77454fe2d30c4220b5701f6fdfb893ba",
+        "kind": "managed",
+        "last_updated": "2026-08-17T16:24:51.912839Z",
+        "name": "Cloudflare Managed Free Ruleset",
+        "phase": "http_request_firewall_managed",
+        "source": "firewall_managed",
+        "version": "74"
+      }
+    ],
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "accounts/478a0db3a110d8503c16abbc1db27af4/firewall/access_rules/rules?per_page=100": {
+    "result": [],
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "accounts/478a0db3a110d8503c16abbc1db27af4/access/apps?per_page=100": {
+    "scope": "Four public project hosts only; no Access application covered them in this audit. Unrelated application records are omitted.",
+    "hosts": [],
+    "originalAccountSnapshotSha256": "54c774bc2b86e3076ff563b719a59d60df56087206ca71c9b8b0cdd59cdfc003"
+  },
+  "_scope": {
+    "revised": "2026-10-20",
+    "description": "Project-scoped historical excerpt. Unrelated private-host rules and application records are omitted. This is not a full account snapshot."
+  }
+}

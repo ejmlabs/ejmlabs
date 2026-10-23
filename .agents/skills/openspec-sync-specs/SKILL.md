@@ -10,6 +10,74 @@ metadata:
   generatedBy: "1.14.3"
 ---
 
+## Small footprint and fast execution
+
+Small footprint and fast execution are the primary engineering goals, within
+correctness, security, and required behavior. Minimize memory, CPU, startup
+time, latency, binary or bundle size, I/O, and dependency cost. Choose the
+smallest suitable design and the fastest measured option for the real workload.
+Avoid needless services, background work, allocations, copies, and abstractions.
+Define budgets for affected paths and measure representative workloads before
+claiming an improvement. Document trade-offs when speed and footprint conflict,
+and justify any regression. Apply these goals to package choice, tests, and
+cleanup.
+
+## Use maintained packages
+
+Do not handroll functionality when a trusted, maintained package already meets
+the functional, security, footprint, and performance requirements. Check the
+standard library, platform APIs, and existing dependencies first, then evaluate
+established packages for maintenance, security, license, compatibility, and
+measured resource cost. Use the smallest suitable option and keep custom code
+to product-specific behavior and thin adapters. If none fits, document the
+alternatives and unmet requirement with evidence before writing custom code.
+A measured footprint or speed constraint can rule out a package; preference or
+assumption cannot. Apply this rule to production code, tests, fixtures, scripts,
+and tooling.
+
+## Tests must earn their place
+
+Every test must protect meaningful behavior, a project contract, or a concrete
+regression risk. Do not add or keep tests that merely mirror implementation,
+assert incidental wording or source shape, duplicate equivalent coverage, or
+retest a dependency without protecting a project contract. If a test provides
+no distinct protection, remove or replace it. Match test cost and scope to the
+risk; a reversible, low-impact edit does not need a new test by default.
+
+## Campground rule
+
+Leave the area you touch better than you found it. Fix nearby defects, stale
+guidance, dead code, and needless complexity when the improvement is safe,
+relevant, and easy to verify. Keep cleanup within the task’s scope, preserve
+behavior and unrelated work, and record larger follow-up work rather than
+starting an unrelated rewrite.
+
+## Keep public docs current, honest, and detailed
+
+For every change, review the public docs site and update all affected
+documentation in the same change. Keep it accurate, honest, and detailed enough
+for users and contributors to use, operate, and extend the current product.
+Cover relevant setup, configuration, workflows, APIs, examples, errors, limits,
+and recovery. Distinguish planned, implemented, tested, and released behavior;
+state verification, availability, security, and performance limits plainly.
+Keep navigation, links, examples, generated content, and reference material in
+sync through the existing docs build. Check the affected docs and include them
+in the normal release process. If a change has no public docs impact, record
+the reason in its summary. Do not claim the live site is updated without
+verifying publication.
+
+## Package boundaries
+
+Read [AGENTS.md](../../../AGENTS.md#package-boundaries) before this workflow.
+Keep shared execution, auth, and tools in the harness, shared visuals and site
+infrastructure in ejm-ui, and studio content and discovery in ejmlabs. Use public
+interfaces, keep dependencies acyclic, and fix shared behavior in its owner.
+Reject private sibling imports, copied shared implementations, and dependencies
+from shared harness code back to products. A temporary adapter needs a named
+gap, upstream owner, compatibility checks, and removal condition.
+
+Compare ownership and public contracts with the implemented change before syncing. Preserve known gaps and do not turn a consumer workaround into a shared-package requirement.
+
 Sync delta specs from a change to main specs.
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
@@ -51,7 +119,7 @@ In both branches, never create the root as a side effect: do not run `openspec i
    openspec status --change "<name>" --json
    ```
 
-   The JSON includes `planningHome.root`. Main specs live under `<planningHome.root>/openspec/specs/` - use that (store-aware) root for every main-spec path below, not a hardcoded repo path. When a store is selected it points at the store, not the current repository.
+   The JSON includes `planningHome.root`. Main specs live under `<planningHome.root>/openspec/specs/` — use that (store-aware) root for every main-spec path below, not a hardcoded repo path. When a store is selected it points at the store, not the current repository.
 
 3. **Find delta specs**
 
@@ -63,14 +131,14 @@ In both branches, never create the root as a side effect: do not run `openspec i
 
    Sync every path in `existingOutputPaths` unless the caller narrowed the set.
    A caller narrows it by naming an explicit list of complete entries from
-   `existingOutputPaths` - copy those absolute values verbatim. Archive does
+   `existingOutputPaths` — copy those absolute values verbatim. Archive does
    this inline, and a user can too (for example, by selecting the entry ending
    in `/specs/billing/invoices/spec.md`).
    Then sync only the named paths and leave the remaining delta specs untouched:
    bulk archive excludes a delta whose implementation it could not find, and
    syncing it anyway would write a main spec the caller deliberately withheld.
    Carry that narrowed selection through step 4; never widen it back to the full
-   list. If a named path is not in `existingOutputPaths`, do not sync it -
+   list. If a named path is not in `existingOutputPaths`, do not sync it —
    report it and stop, rather than dropping it silently. If the named list is
    empty, report that there is nothing to sync and stop without writing a main
    spec.
@@ -101,7 +169,7 @@ In both branches, never create the root as a side effect: do not run `openspec i
    selected roots, delta paths, CLI checks, or workflow steps. Use their text as
    constraints without copying it verbatim into a main spec or summary.
 
-   For each capability delta spec path selected in step 3 - the full `existingOutputPaths` list, or the narrowed subset when a caller supplied one (these may belong to a selected store, not the repo):
+   For each capability delta spec path selected in step 3 — the full `existingOutputPaths` list, or the narrowed subset when a caller supplied one (these may belong to a selected store, not the repo):
 
    a. **Read the delta spec** to understand the intended changes
 

@@ -10,6 +10,74 @@ metadata:
   generatedBy: "1.14.3"
 ---
 
+## Small footprint and fast execution
+
+Small footprint and fast execution are the primary engineering goals, within
+correctness, security, and required behavior. Minimize memory, CPU, startup
+time, latency, binary or bundle size, I/O, and dependency cost. Choose the
+smallest suitable design and the fastest measured option for the real workload.
+Avoid needless services, background work, allocations, copies, and abstractions.
+Define budgets for affected paths and measure representative workloads before
+claiming an improvement. Document trade-offs when speed and footprint conflict,
+and justify any regression. Apply these goals to package choice, tests, and
+cleanup.
+
+## Use maintained packages
+
+Do not handroll functionality when a trusted, maintained package already meets
+the functional, security, footprint, and performance requirements. Check the
+standard library, platform APIs, and existing dependencies first, then evaluate
+established packages for maintenance, security, license, compatibility, and
+measured resource cost. Use the smallest suitable option and keep custom code
+to product-specific behavior and thin adapters. If none fits, document the
+alternatives and unmet requirement with evidence before writing custom code.
+A measured footprint or speed constraint can rule out a package; preference or
+assumption cannot. Apply this rule to production code, tests, fixtures, scripts,
+and tooling.
+
+## Tests must earn their place
+
+Every test must protect meaningful behavior, a project contract, or a concrete
+regression risk. Do not add or keep tests that merely mirror implementation,
+assert incidental wording or source shape, duplicate equivalent coverage, or
+retest a dependency without protecting a project contract. If a test provides
+no distinct protection, remove or replace it. Match test cost and scope to the
+risk; a reversible, low-impact edit does not need a new test by default.
+
+## Campground rule
+
+Leave the area you touch better than you found it. Fix nearby defects, stale
+guidance, dead code, and needless complexity when the improvement is safe,
+relevant, and easy to verify. Keep cleanup within the task’s scope, preserve
+behavior and unrelated work, and record larger follow-up work rather than
+starting an unrelated rewrite.
+
+## Keep public docs current, honest, and detailed
+
+For every change, review the public docs site and update all affected
+documentation in the same change. Keep it accurate, honest, and detailed enough
+for users and contributors to use, operate, and extend the current product.
+Cover relevant setup, configuration, workflows, APIs, examples, errors, limits,
+and recovery. Distinguish planned, implemented, tested, and released behavior;
+state verification, availability, security, and performance limits plainly.
+Keep navigation, links, examples, generated content, and reference material in
+sync through the existing docs build. Check the affected docs and include them
+in the normal release process. If a change has no public docs impact, record
+the reason in its summary. Do not claim the live site is updated without
+verifying publication.
+
+## Package boundaries
+
+Read [AGENTS.md](../../../AGENTS.md#package-boundaries) before this workflow.
+Keep shared execution, auth, and tools in the harness, shared visuals and site
+infrastructure in ejm-ui, and studio content and discovery in ejmlabs. Use public
+interfaces, keep dependencies acyclic, and fix shared behavior in its owner.
+Reject private sibling imports, copied shared implementations, and dependencies
+from shared harness code back to products. A temporary adapter needs a named
+gap, upstream owner, compatibility checks, and removal condition.
+
+Review owner placement and the recorded owner and consumer checks before archiving. Report remaining gaps and unrun checks; an archive does not prove runtime compliance or publication.
+
 Archive a completed change in the experimental workflow.
 
 **Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
@@ -51,8 +119,8 @@ In both branches, never create the root as a side effect: do not run `openspec i
    ```
    Keep the same selected-root flags on this command. This lookup is advisory and
    optional: it only supplies extra prompt inputs, so it must never block archiving.
-   If it exits non-zero or returns invalid JSON - for example on an older CLI that
-   does not support this command yet - continue the archive workflow with no
+   If it exits non-zero or returns invalid JSON — for example on an older CLI that
+   does not support this command yet — continue the archive workflow with no
    context and no operation guidance. Do not report an error and do not stop.
 
    A successful response may omit both optional fields. Treat `context` as a
@@ -131,10 +199,10 @@ In both branches, never create the root as a side effect: do not run `openspec i
    - Otherwise, if already synced: "Archive now", "Sync anyway", "Cancel"
 
    Route on the answer:
-   - "Cancel" - stop, do not archive
-   - "Archive without syncing" or "Archive now" - proceed to archive
-   - "Sync now" or "Sync anyway" - sync, then verify (below). Do not start any sync while a capability is sync-blocked; explain the blocker and repeat the available choices.
-   - Anything else - ask again rather than archiving
+   - "Cancel" — stop, do not archive
+   - "Archive without syncing" or "Archive now" — proceed to archive
+   - "Sync now" or "Sync anyway" — sync, then verify (below). Do not start any sync while a capability is sync-blocked; explain the blocker and repeat the available choices.
+   - Anything else — ask again rather than archiving
 
    Before a selected sync writes any main spec, run
    `openspec instructions specs --change "<name>" --json` once with the same
@@ -145,7 +213,7 @@ In both branches, never create the root as a side effect: do not run `openspec i
    form of main specs produced by this merge; do not use them as archive guidance,
    change CLI behavior, or copy the rule text into any output file.
 
-   Then run the `openspec-sync-specs` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching `specs` instructions again. Do not delegate it to a background task - step 5 would move `changeRoot` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
+   Then run the `openspec-sync-specs` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching `specs` instructions again. Do not delegate it to a background task — step 5 would move `changeRoot` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
 
    If the sync reports any stop or blocking condition, treat the sync as failed.
    Stop the archive immediately. Do not perform the post-sync content comparison and do not move its `changeRoot`.
@@ -158,13 +226,13 @@ In both branches, never create the root as a side effect: do not run `openspec i
    - Verify that no delta-style section headers (`## ADDED Requirements`, `## MODIFIED Requirements`, `## REMOVED Requirements`, `## RENAMED Requirements`) remain in the main spec, adhering strictly to the sync workflow formatting rules.
    - Requirement blocks the sync wrote or changed use `### Requirement:` headings, and their scenarios use `#### Scenario:` headings, under the spec's `## Requirements` section. Leave content the delta does not mention exactly as it is.
 
-   Then re-run the comparison from the top of this step, including the explicitly retired, missing-spec case, against every capability that has a delta spec in `artifactPaths.specs.existingOutputPaths` - not only the ones the sync reports it touched. A successful sync leaves nothing left to apply, so each capability must now read as already synced:
+   Then re-run the comparison from the top of this step, including the explicitly retired, missing-spec case, against every capability that has a delta spec in `artifactPaths.specs.existingOutputPaths` — not only the ones the sync reports it touched. A successful sync leaves nothing left to apply, so each capability must now read as already synced:
    - ADDED requirements present
    - MODIFIED requirements carrying the scenario and description changes named in the delta, with their other scenarios intact
-   - REMOVED requirements gone - and where this sync retired a capability (removed its last requirement, leaving `## Requirements` empty), its main spec deleted rather than left empty.
+   - REMOVED requirements gone — and where this sync retired a capability (removed its last requirement, leaving `## Requirements` empty), its main spec deleted rather than left empty.
    - RENAMED requirements present under the new name and absent under the old one
 
-   If the sync failed, or any capability does not match, report what differs and stop - do not archive. Nothing has moved and `changeRoot` is intact, so the user can fix the mismatch or re-run the sync and start the archive again.
+   If the sync failed, or any capability does not match, report what differs and stop — do not archive. Nothing has moved and `changeRoot` is intact, so the user can fix the mismatch or re-run the sync and start the archive again.
 
 5. **Perform the archive**
 
@@ -202,7 +270,7 @@ In both branches, never create the root as a side effect: do not run `openspec i
 **Archived to:** the archive path derived from `planningHome.changesDir`/<target-name>/
 **Specs:** <"✓ Synced to main specs" only if the step 4 verification passed; otherwise "No delta specs" or "Sync skipped">
 
-<"All artifacts complete. All tasks complete." - or, if archived with warnings, list them instead (e.g. "Archived with 2 incomplete tasks")>
+<"All artifacts complete. All tasks complete." — or, if archived with warnings, list them instead (e.g. "Archived with 2 incomplete tasks")>
 ```
 
 **Guardrails**
@@ -212,7 +280,7 @@ In both branches, never create the root as a side effect: do not run `openspec i
 - Preserve .openspec.yaml when moving to archive (it moves with the directory)
 - Show clear summary of what happened
 - If sync is requested, run the `openspec-sync-specs` workflow inline (agent-driven)
-- Never archive while a spec sync is still in flight - run the sync inline and verify the main specs before moving `changeRoot`
+- Never archive while a spec sync is still in flight — run the sync inline and verify the main specs before moving `changeRoot`
 - If delta specs exist, always run the sync assessment and show the combined summary before prompting
 - Apply relevant runtime context and report conflicts; operation guidance remains advisory
 - Consider every guidance entry and explain any inapplicable or conflicting advice

@@ -2,9 +2,9 @@ import { SectionBody } from '@ejm/ui/layout/SiteContent';
 import { ShowcaseFrame } from '@ejm/demos/ShowcaseFrame';
 import { Band } from '@ejm/ui/layout/Band';
 import { SectionHead } from '@ejm/ui/layout/SectionHead';
-import { LazyCliPreview } from '@ejm/demos/islands/cli-preview';
-import { LazyIdePreview } from '@ejm/demos/islands/ide-preview';
-import { LazyHarnessPreview } from '@ejm/demos/islands/harness-preview';
+import { LazyCliShowcase } from '@ejm/demos/islands/cli-lazy';
+import { LazyIdeShowcase } from '@ejm/demos/islands/ide-lazy';
+import { LazyHarnessShowcase } from '@ejm/demos/islands/harness-lazy';
 
 export default function Try() {
   return (
@@ -17,7 +17,8 @@ export default function Try() {
           id="try-title"
         >
           <p>
-            Follow a bug fix, inspect an edit, and watch tools at work.
+            Watch a bug fix in CLI, follow an edit with Edi, and see harness
+            manage tools and saved sessions.
           </p>
         </SectionHead>
       </Band>
@@ -32,9 +33,9 @@ export default function Try() {
         <SectionBody>
           <ShowcaseFrame
             label="ejm-cli example session"
-            note="Example session with recorded test output."
+            note="Sample session with recorded test output. No model runs here."
           >
-            <LazyCliPreview rootMargin="200px" />
+            <LazyCliShowcase rootMargin="200px" />
           </ShowcaseFrame>
         </SectionBody>
       </Band>
@@ -42,15 +43,16 @@ export default function Try() {
       <Band id="ide" tone="sage" aria-labelledby="ide-title">
         <SectionHead title="ejm-ide" id="ide-title">
           <p>
-            Read the source with Edi. Follow the search, edits and review.
+            Follow Edi through file reads, code search and automatically
+            reviewed edits.
           </p>
         </SectionHead>
         <SectionBody>
           <ShowcaseFrame
             label="ejm-ide example session"
-            note="Example edit. Tests shown have not been run."
+            note="Sample editor session with recorded tool output. No model runs here."
           >
-            <LazyIdePreview rootMargin="200px" />
+            <LazyIdeShowcase rootMargin="200px" />
           </ShowcaseFrame>
         </SectionBody>
       </Band>
@@ -58,15 +60,16 @@ export default function Try() {
       <Band id="harness" tone="mist" aria-labelledby="harness-title">
         <SectionHead title="ejm-harness" id="harness-title">
           <p>
-            Follow tool calls, then reopen the session and read its history.
+            Watch tools share a job limit, then reopen the session and read its
+            history.
           </p>
         </SectionHead>
         <SectionBody>
           <ShowcaseFrame
             label="ejm-harness example session"
-            note="Recorded development session. Playback only; resource figures are reservations."
+            note="Formatted local recording. No worker or model runs here. Resource figures are admission reservations."
           >
-            <LazyHarnessPreview rootMargin="200px" />
+            <LazyHarnessShowcase rootMargin="200px" />
           </ShowcaseFrame>
         </SectionBody>
       </Band>

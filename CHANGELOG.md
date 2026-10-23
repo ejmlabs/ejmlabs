@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Preserve pending Studio, launch-film and OpenSpec work with an owner and release handoff. This draft is not a published release.
+
 - Adopt shared brand-name fitting so project names stay on one line.
 
 - Add ejm-ui to Studio project discovery with gallery, documentation and source links.

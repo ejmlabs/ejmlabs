@@ -19,7 +19,7 @@ export const projects = [
     repo: PROJECTS.cli.repo,
     kind: 'Rust / terminal',
     summary: 'A coding agent for your terminal.',
-    row: 'Code from your terminal. Steer a turn, save a session and review the work.',
+    row: 'Code from your terminal. Steer a turn, save a session and keep resource use bounded.',
     facts: [
       ['license', 'MIT'],
       ['written in', 'Rust, with Ratatui and Tokio'],
@@ -69,7 +69,7 @@ export const projects = [
     repo: PROJECTS.harness.repo,
     kind: 'Rust / engine',
     summary: 'A reusable Rust engine for coding agents.',
-    row: 'Build agents in Rust, TypeScript or Python with tools and saved sessions.',
+    row: 'Build agents in Rust, TypeScript or Python with shared limits and durable sessions.',
     facts: [
       ['license', 'MIT'],
       ['written in', 'Rust, with TypeScript and Python SDKs'],
@@ -77,7 +77,7 @@ export const projects = [
       ['model access', 'Configure an HTTP or trusted package provider. Model requests may incur provider charges.'],
     ],
     does: [
-      ['Tools you control', 'Choose which tools an agent can use and set the permissions it needs.'],
+      ['Shared resource limits', 'One governor admits sessions, model requests and local work. Jobs wait when capacity is full.'],
       ['A durable event journal', 'The journal records session events and supports recovery after an interrupted run.'],
       ['Three languages', 'Use it from Rust, or from typed TypeScript and Python APIs with tool callbacks.'],
     ],

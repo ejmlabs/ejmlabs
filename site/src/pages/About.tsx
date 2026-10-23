@@ -1,11 +1,10 @@
 import {
   Actions,
   ContentHeading,
+  InlineLink,
   Note,
   SectionBody,
 } from '@ejm/ui/layout/SiteContent';
-import { Button } from '@ejm/ui/components/ui/button';
-import { ExternalLink } from '@ejm/ui/shell/ExternalLink';
 import { PROJECTS } from '@ejm/site/projects';
 import { Band } from '@ejm/ui/layout/Band';
 import { Row, Rows } from '@ejm/ui/layout/Rows';
@@ -59,10 +58,10 @@ export default function About() {
         <SectionHead title="Build with us." id="where-title" />
         <SectionBody>
           <Actions>
-            <Button variant="link" asChild><a href="/projects/">See the projects</a></Button>
-            <Button variant="link" asChild>
-              <ExternalLink href={PROJECTS.ejmlabs.repo}>ejmlabs on GitHub</ExternalLink>
-            </Button>
+            <InlineLink href="/projects/">See the projects</InlineLink>
+            <InlineLink href={PROJECTS.ejmlabs.repo} external>
+              ejmlabs on GitHub
+            </InlineLink>
           </Actions>
         </SectionBody>
         <SectionBody>
