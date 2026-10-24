@@ -239,7 +239,7 @@
     const head1 = line('ejm-demo__nowrap'), head2 = line('ejm-demo__nowrap');
     const paintHead = () => {
       const g = G();
-      head1.replaceChildren(rl('ejm-cli ', 'accent t-bold'), D.app.provider, rl('  ' + g.sep + '  ' + s.title, 'dim'));
+      head1.replaceChildren(rl('>_ ejm-cli ', 'accent t-bold'), D.app.provider, rl('  ' + g.sep + '  ' + s.title, 'dim'));
       head2.replaceChildren(rl('grants: read' + (s.write ? ' + write' : ''), s.write ? 'warn' : 'dim'), rl('  ' + g.sep + '  ' + D.app.cwd + '  ' + g.sep + '  ' + s.sid, 'dim'));
     };
 

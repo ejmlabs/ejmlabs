@@ -1,0 +1,11 @@
+{
+  "revision": "bde96726270afe16777a3ae6461064367ce4d204",
+  "source": "../ejm-ide",
+  "archiveSha256": "07963932d2c458d8b3c078ad6751c31f16d2e243d1d30a7f8beaf5f27a999e3a",
+  "patchSha256": "b0ae3ee16a231ed5d19a22ee18dd1af36a1f5521e9c969befbe0888281f85d16",
+  "driverPurpose": "Visible native capture and task-only test actions. No product behavior is replaced.",
+  "_publication": {
+    "revisedAt": "2026-10-24",
+    "note": "Redacted publication copy. Personal home paths were replaced; historical hashes and results were retained. See PUBLICATION-SCOPE.md."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "actionStartedAt": "2026-10-19T18:36:31.329628+00:00",
+  "windowId": 67268,
+  "ownerPID": 64352,
+  "capture": "screencapture -x -o -v -V 55 -l 67268",
+  "nativeVisibility": "visible after LaunchServices activate",
+  "story": "Native Edi reads, navigates, highlights, adds and reviews a regression test."
+}

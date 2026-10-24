@@ -1,0 +1,195 @@
+<!-- Retained historical source. Asset paths and kit instructions describe an earlier snapshot. This file is not a standalone current gallery or a published product. See design-kit/README.md. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Editorial parts, ejmlabs</title>
+  <meta name="description" content="Display type, labelled facts, dated feeds, and buttons and links with arrows, in the ejmlabs brand fonts.">
+  <meta name="theme-color" content="#F6F5EF">
+  <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
+  <script src="/design-kit/web/theme.js"></script>
+  <!-- Motion and analytics: motion.js is synchronous so content never flashes; analytics.js is deferred. -->
+  <script src="/design-kit/web/motion.js"></script>
+  <script src="/design-kit/web/analytics.js" defer></script>
+  <link rel="canonical" href="https://ejmlabs.com/design-kit/web/editorial.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Editorial parts, ejmlabs">
+  <meta property="og:description" content="Display type, labelled facts, dated feeds, and buttons and links with arrows, in the ejmlabs brand fonts.">
+  <meta property="og:url" content="https://ejmlabs.com/design-kit/web/editorial.html">
+  <meta property="og:image" content="https://ejmlabs.com/design-kit/social/social-card.png">
+  <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/design-kit/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/design-kit/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/design-kit/favicon/site.webmanifest">
+  <link rel="preload" href="/design-kit/fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/design-kit/tokens/brand.css">
+  <link rel="stylesheet" href="/design-kit/components/brand-components.css">
+  <link rel="stylesheet" href="/design-kit/web/site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <div class="ejm-hero">
+    <header class="ejm-header ejm-page">
+      <a class="ejm-header__logo" href="/" aria-label="Home"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+      <div class="ejm-header__tools">
+        <details class="ejm-menu">
+          <summary><span class="ejm-menu__label">Menu</span></summary>
+          <nav class="ejm-nav" aria-label="Main">
+            <a href="#display">Display type</a>
+            <a href="#facts">Facts</a>
+            <a href="#feed">Feed</a>
+            <a href="#actions">Buttons and links</a>
+          </nav>
+        </details>
+        <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+      </div>
+    </header>
+    <div class="ejm-hero__body ejm-page">
+      <p class="ejm-eyebrow">Editorial parts</p>
+      <h1 class="ejm-display ejm-display--xl">Small tools, <span class="ejm-display__quiet">set with care.</span></h1>
+      <p class="ejm-lead">Scale, tracking and rhythm give a page its voice. These parts add a display tier, labelled facts, a calm feed and refined actions, all in Manrope and IBM Plex Mono.</p>
+      <div class="ejm-cluster">
+        <a class="ejm-button ejm-button--arrow" href="#display">See the display tier</a>
+        <a class="ejm-button ejm-button--secondary" href="#feed">Jump to the feed</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band" id="display" aria-labelledby="display-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">Display tier</p>
+            <h2 class="ejm-h2" id="display-title">A confident step above the brand scale.</h2>
+          </div>
+          <p class="ejm-head__text">Display type grows with the screen and tightens as it grows. Headings wrap in balanced lines, and paragraphs avoid a lonely last word.</p>
+        </div>
+        <div class="ejm-stack">
+          <p class="ejm-meta">ejm-display--xl, up to 120 px</p>
+          <p class="ejm-display ejm-display--xl">Build slowly, ship calmly.</p>
+          <p class="ejm-meta">ejm-display--lg, up to 80 px</p>
+          <p class="ejm-display ejm-display--lg">Every detail is a small decision.</p>
+          <p class="ejm-lead">Body text stays between <span class="ejm-numeral">17</span> and <span class="ejm-numeral">20</span> px with generous leading, so long pages read quietly while the display type does the talking.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--mist" id="facts" aria-labelledby="facts-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">Facts</p>
+            <h2 class="ejm-h2" id="facts-title">Labelled facts that line up.</h2>
+          </div>
+          <p class="ejm-head__text">A mono label, a value and a hairline. Rows stack by the width of their own container, so a narrow card never clips a value.</p>
+        </div>
+        <div class="ejm-stack">
+        <dl class="ejm-facts">
+          <div class="ejm-facts__row"><dt>Kit version</dt><dd>1.0.0</dd></div>
+          <div class="ejm-facts__row"><dt>Fonts</dt><dd>Manrope, IBM Plex Mono</dd></div>
+          <div class="ejm-facts__row"><dt>Display range</dt><dd>44 to 120 px</dd></div>
+          <div class="ejm-facts__row"><dt>Body range</dt><dd>17 to 20 px</dd></div>
+        </dl>
+        <div class="ejm-cards">
+          <article class="ejm-card">
+            <h3 class="ejm-card__title">ejm-cli</h3>
+            <dl class="ejm-facts">
+              <div class="ejm-facts__row"><dt>Version</dt><dd>1.4.2</dd></div>
+              <div class="ejm-facts__row"><dt>License</dt><dd>Apache-2.0</dd></div>
+              <div class="ejm-facts__row"><dt>Stack</dt><dd>Rust, Ratatui</dd></div>
+              <div class="ejm-facts__row"><dt>Status</dt><dd>Exploring</dd></div>
+            </dl>
+          </article>
+          <article class="ejm-card">
+            <h3 class="ejm-card__title">ejm-harness</h3>
+            <dl class="ejm-facts">
+              <div class="ejm-facts__row"><dt>Version</dt><dd>0.9.0</dd></div>
+              <div class="ejm-facts__row"><dt>License</dt><dd>Apache-2.0</dd></div>
+              <div class="ejm-facts__row"><dt>Stack</dt><dd>Rust, Tokio, SQLite</dd></div>
+              <div class="ejm-facts__row"><dt>Last release</dt><dd>12 September 2026</dd></div>
+            </dl>
+          </article>
+          <article class="ejm-card">
+            <h3 class="ejm-card__title">ejm-ide</h3>
+            <dl class="ejm-facts">
+              <div class="ejm-facts__row"><dt>Version</dt><dd>0.3.1</dd></div>
+              <div class="ejm-facts__row"><dt>License</dt><dd>Apache-2.0</dd></div>
+              <div class="ejm-facts__row"><dt>Stack</dt><dd>Rust, Tauri</dd></div>
+              <div class="ejm-facts__row"><dt>Status</dt><dd>Exploring</dd></div>
+            </dl>
+          </article>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="feed" aria-labelledby="feed-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">Feed</p>
+            <h2 class="ejm-h2" id="feed-title">Releases and notes without cards.</h2>
+          </div>
+          <p class="ejm-head__text">Each entry is a row: date, title, a short description and a category. Space and one hairline separate them, and the whole row is the link.</p>
+        </div>
+        <ol class="ejm-feed">
+          <li class="ejm-feed__item">
+            <time class="ejm-feed__date" datetime="2026-10-12">12 Oct 2026</time>
+            <h3 class="ejm-feed__title"><a class="ejm-feed__link" href="#feed">Display tier and facts rows land in the kit</a></h3>
+            <p class="ejm-feed__text">Large fluid headings, balanced wrapping and labelled rows for project details.</p>
+            <span class="ejm-feed__category">Release</span>
+          </li>
+          <li class="ejm-feed__item">
+            <time class="ejm-feed__date" datetime="2026-09-28">28 Sep 2026</time>
+            <h3 class="ejm-feed__title"><a class="ejm-feed__link" href="#feed">Why the kit keeps two fonts</a></h3>
+            <p class="ejm-feed__text">Personality comes from scale, weight and spacing, not from a longer font list.</p>
+            <span class="ejm-feed__category">Note</span>
+          </li>
+          <li class="ejm-feed__item">
+            <time class="ejm-feed__date" datetime="2026-09-12">12 Sep 2026</time>
+            <h3 class="ejm-feed__title"><a class="ejm-feed__link" href="#feed">Harness 0.9 adds session recovery</a></h3>
+            <p class="ejm-feed__text">A crashed session resumes from its last saved step.</p>
+            <span class="ejm-feed__category">Release</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ejm-band ejm-band--sage" id="actions" aria-labelledby="actions-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">Buttons and links</p>
+            <h2 class="ejm-h2" id="actions-title">Clear states, a small arrow.</h2>
+          </div>
+          <p class="ejm-head__text">Rest, hover, focus and pressed each look different. The arrow moves a few pixels on hover; with reduced motion only the tone changes.</p>
+        </div>
+        <div class="ejm-cluster">
+          <a class="ejm-button ejm-button--arrow" href="#display">Primary with arrow</a>
+          <a class="ejm-button ejm-button--secondary ejm-button--arrow" href="#facts">Secondary with arrow</a>
+          <a class="ejm-button" href="#feed">Plain button</a>
+          <a class="ejm-link ejm-link--arrow" href="#display">Read the display guidance</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>On this page</h2><ul><li><a href="#display">Display type</a></li><li><a href="#facts">Facts</a></li><li><a href="#feed">Feed</a></li><li><a href="#actions">Buttons and links</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>

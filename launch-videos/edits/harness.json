@@ -1,0 +1,58 @@
+{
+  "musicStart": 0,
+  "problemSeconds": 3,
+  "outcomeSeconds": 3.6,
+  "posterTime": 19,
+  "cuts": [
+    {
+      "source": "raw/harness/master.mp4",
+      "start": 0.1,
+      "end": 2.3
+    },
+    {
+      "source": "raw/harness/master.mp4",
+      "start": 4.3,
+      "end": 5.5,
+      "crop": {
+        "x": 24,
+        "y": 8,
+        "width": 1472,
+        "height": 828
+      }
+    },
+    {
+      "source": "raw/harness/master.mp4",
+      "start": 5.6,
+      "end": 10.3,
+      "crop": {
+        "x": 24,
+        "y": 8,
+        "width": 1472,
+        "height": 828
+      }
+    },
+    {
+      "source": "raw/harness/master.mp4",
+      "start": 10.4,
+      "end": 11.7,
+      "crop": {
+        "x": 24,
+        "y": 8,
+        "width": 1472,
+        "height": 828
+      },
+      "hold": 0.8
+    },
+    {
+      "source": "raw/harness/master.mp4",
+      "start": 11.7,
+      "end": 19.8,
+      "crop": {
+        "x": 24,
+        "y": 8,
+        "width": 1472,
+        "height": 828
+      }
+    }
+  ]
+}

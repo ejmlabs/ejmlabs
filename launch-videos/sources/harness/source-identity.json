@@ -1,0 +1,28 @@
+{
+  "repository": "https://github.com/ejmlabs/ejm-harness",
+  "checkout": "/private/tmp/ejm-harness-cli-api-publication-20261019",
+  "revision": "943aa862209101624421ca82745cc68642169647",
+  "status": "",
+  "files": {
+    "target/debug/ejm-harness-worker": {
+      "sha256": "3cdd0018f141fe1fcaf44410fc89b2565d9491b9f1fe49d2a72eef42897f0004",
+      "bytes": 45061936
+    },
+    "sdk/typescript/dist/index.js": {
+      "sha256": "6ef8ea9476448e0e236fc342457955955311dc446d0b00de405dcd52976ee5f5",
+      "bytes": 24829
+    },
+    "sdk/typescript/dist/protocol.js": {
+      "sha256": "ae2173ba09c787fc186c3641118ce4c331f3280b850a62cc7a41b8a2246ac95c",
+      "bytes": 70
+    },
+    "sdk/python/ejm_harness/client.py": {
+      "sha256": "3e380f36d5147258ab2d6a5d4423b1ce04faa7293f8cfbf9f0e4ae01819d810f",
+      "bytes": 31842
+    },
+    "sdk/python/ejm_harness/protocol.py": {
+      "sha256": "e283df0365a71bf0d9fa126869b0393e0261b1d31b3508ac2a4c542fe3252504",
+      "bytes": 12035
+    }
+  }
+}

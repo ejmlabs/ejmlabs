@@ -1,0 +1,17 @@
+{
+  "taskOwnedProcessesStopped": [
+    {
+      "pid": 64302,
+      "port": 1420
+    },
+    {
+      "pid": 72719,
+      "port": 18787
+    },
+    {
+      "pid": 79295,
+      "app": "Task-only ejm-ide"
+    }
+  ],
+  "sourceScratchPreserved": "/private/tmp/ejm-ide-launch-film-20261019"
+}

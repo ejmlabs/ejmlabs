@@ -1,16 +1,47 @@
-# ejmlabs design kit
+# Retained ejmlabs design sources
+
+## Current owner and use
+
+`ejm-ui` owns active tokens, themes, components, interaction, and site tooling.
+Studio consumes its public `@ejm/*` exports. Use the [Studio guide](../site/README.md)
+and the [root ownership rules](../AGENTS.md#package-boundaries) for current work.
+
+This folder preserves earlier artwork construction, review boards, experiments,
+and brand guidance. Its CSS, Rust helpers, page templates, and scripts are
+historical sources. Do not adopt them as a second design system or copy them into
+a product. Changes to reusable UI belong in `ejm-ui`.
+
+The accepted shared source at `a5551a056b04bc0c3472afc443621a552747613c`
+already contains the finished CLI, IDE, Harness, and Relay brand exports.
+The PR omits 125 byte-identical project exports and preserves upstream removal
+of copied favicon and X kit files. The distinct generators, editable Relay
+sources, and review boards remain here. See [project source status](projects/README.md).
+
+Historical HTML and generators may refer to files moved to the shared owner.
+They are not standalone working galleries or current build instructions. Do
+not regenerate assets here to fill those gaps. Restore a historical snapshot in
+a scratch directory only when provenance work needs it. Carry any proposed
+production change into the owning package and check its consumers.
+
+The current Studio build uses public token assets and named download allowlists.
+It does not publish this source folder as a complete kit. This PR does not
+publish a site, package, gallery, or download. Historical verification below
+records the earlier checks only; it does not establish current compatibility,
+application use, or deployment.
+
+## Historical guide
+
+The retained guide below describes the earlier kit. Its file paths, commands,
+download references, and adoption notes are historical.
+
 
 Version 1.2.0. Built from the six-page ejmlabs brand guide, version 1.0, October 2026.
 
-Open `index.html` for the visual reference. All retained assets and fonts are local. Using the kit needs no build step or external service. Only editing `ui/theme.json` needs Node, to regenerate the files that carry its colors.
+Open `index.html` for the visual reference. Download the complete package from `ejmlabs-design-kit.zip`. All assets and fonts are local. Using the kit needs no build step or external service. Rebuilding generated assets needs the tools listed with each script.
 
-Version 1.1.0 added four motif families, two signature lockups, three editable layouts, fourteen interface icons, and web components. These are new applications of the identity. Source rules and artwork remain unchanged.
+Version 1.1.0 adds four motif families, two signature lockups, three editable layouts, fourteen interface icons, web components, a Sage and Forest X kit, and a swag concept collection. These are new applications of the identity. Source rules and artwork remain unchanged.
 
 Version 1.2.0 adds the rules that make every product look the same. The site kit (`web/`, `SITES.md`) defines the page shell and sections for websites. The application kit (`ui/`, `UI.md`) defines one dark and light theme and the components for desktop, web and terminal apps, with generators for CSS, Rust (ratatui), Monaco and six terminal emulators. `ui/TUI.md` is the terminal app guide.
-
-## Retirement status
-
-As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are retired. The Studio build excludes their paths and does not generate replacement archives. Both X kit copies and the swag files are removed. The active kit still supports this site until Studio adopts the public `ejm-ui` exports. `REVIEW.md` preserves the original provenance and historical checks. No deployment or new browser verification is claimed here.
 
 ## Start here
 
@@ -21,25 +52,34 @@ As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are 
 - Use `logos/ejmlabs-paper.svg` on Forest.
 - Keep the symbol and complete lowercase name together in the full logo.
 - Use the standalone symbol for avatars and icons.
+- Use [the project logo family](projects/README.md) for cli, ide, and harness. Open [its preview](projects/index.html) to compare marks, name lockups, and square icons.
 - Load `tokens/brand.css` for the palette, complete local fonts, type scale, and web tokens.
 - Use `favicon/favicon.svg` and the supplied PNG/ICO files for browser and device icons.
 - Use `social/avatar.png` for profiles and `social/social-card.png` for link previews.
 - Choose one motif family from `motifs/` for a cover or backdrop. Read `MOTIFS.md` before combining it with copy.
-- Use `lockups/` for a ready-made logo and signature composition, and `templates/` for project posts, the studio signature or a short thought, and imagery.
+- Use `lockups/` for a ready-made logo and signature composition, and `templates/` for project posts, the ejmlabs signature or a short thought, and imagery.
 - Building a website? Copy `web/starter.html` and follow `SITES.md`. Load `web/site.css` after `components/brand-components.css` and write no CSS of your own.
 - Building an app? Load `ui/theme.css` and `ui/app.css` and follow `UI.md`. Terminal apps follow `ui/TUI.md` and copy `ui/rust/ejm_theme.rs`. Open `ui/index.html` to see everything in both themes.
 - Open `components/index.html` for reusable web parts and `icons/sheet.svg` for the fourteen interface icons.
+- Open `social/x-kit/index.html` for the dedicated X assets, placement guidance, and profile copy.
+- Use `swag/mockups/` to review the apparel and accessory direction, then read `swag/PRODUCTION.md` and `swag/artwork/README.md` for production artwork and placement.
 
 ## Contents
 
 | Folder or file | Contents |
 | --- | --- |
 | `logos/` | Primary, Ink, and Paper full logos; Sage, Ink, and Paper symbols. Every variant has an SVG and a transparent PNG. |
+| `projects/` | cli, ide, and harness logos, transparent marks and name lockups, square icons, small favicons, editable sources, and light/dark family previews. Start with `projects/README.md`. |
 | `favicon/` | SVG, ICO with 16/32/48 px images, individual 16/32/48 px PNGs, 180 px Apple touch icon, 192/512 px Android icons, and a web manifest. |
 | `social/` | A 1024 x 1024 avatar and a 1200 x 630 social card, each in SVG and PNG. Social-card text is outlined in its SVG. |
+| `social/x-kit/` | Dedicated X profile kit with Sage and Forest artwork, banner layouts, and usage guidance. |
+| `social/ejmlabs-x-kit.zip` | The self-contained X kit as a separate download. |
 | `motifs/` | Signature crop, Echo, Flow, and Orbit families. Each has Forest and Paper SVGs and 1600 x 900 PNGs. |
 | `lockups/` | Forest and Paper signature lockups in SVG and PNG, each at 1200 x 500. |
 | `templates/` | Project announcement, signature or short-thought, and image-frame layouts. Production SVGs and PNGs are 1600 x 900; editable SVGs are in `templates/editable/`. |
+| `swag/mockups/` | Apparel, accessories, and glassware concept boards. These are visual references, not manufactured products or production artwork. |
+| `swag/PRODUCTION.md` | Material, placement, artwork, and supplier guidance for swag. |
+| `swag/artwork/` | Eight sized SVG artwork masters and their production-use guide. |
 | `components/` | A local HTML specimen and optional CSS for web controls and content patterns. |
 | `icons/` | Fourteen individual interface SVGs and a visual sheet. |
 | `MOTIFS.md` | Motif families, composition, and usage guidance. |
@@ -49,8 +89,10 @@ As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are 
 | `web/` | `site.css` page shell, heroes, sections and docs layout; `PATTERNS.md` catalog; `patterns.html` live specimen; `starter.html`, the page to copy for a new site. |
 | `UI.md` | Application kit: roles, setup, layout, states, motion and accessibility. |
 | `ui/` | `theme.json` (the one source of color), generated `theme.css`, Rust module, Monaco themes and terminal schemes, plus `app.css` primitives, `PRIMITIVES.md` catalog, `TUI.md` guide, `rust/ejm_tui.rs` terminal helpers, and the specimens `index.html` and `tui.html`. |
-| `social/` | Sage edition first: `social-card.*` and `avatar.*` are the Sage defaults (Ink symbol on Sage); `social-card-sage.*`, `social-card-forest.*`, `avatar-sage.*` and `avatar-forest.*` are the named variants. |
+| `social/` | Sage edition first: `social-card.*` and `avatar.*` are the Sage defaults (Ink symbol on Sage); `social-card-sage.*`, `social-card-forest.*`, `avatar-sage.*` and `avatar-forest.*` are the named variants. The X kit in `social/x-kit/` is Sage first with Forest and Paper alternates. |
 | `lockups/`, `templates/` | Sage signature lockup (`signature-sage.*`) and Sage project template (`project-sage.*`) join the Forest and Paper ones. |
+| `scripts/build-social.mjs` | Rebuilds the Sage social and X assets. Needs Chrome; optionally Python with fontTools for outlined text. |
+| `scripts/build-projects.mjs` | Rebuilds the project logo family. Needs Node.js, HarfBuzz `hb-view`, and librsvg `rsvg-convert`. |
 | `scripts/check-site.mjs`, `scripts/check-kit.mjs` | The shared checkers. `check-site.mjs <page.html>` verifies a page uses the kit properly; `check-kit.mjs` verifies the kit agrees with itself. |
 | `scripts/build-motifs.mjs` | Generates the five newer motif families (grid, dots, contour, ripple, stripe) in four surfaces, plus tiles. Run with `--check` to verify. |
 | `scripts/build-ui.mjs` | Checks contrast and regenerates every file in `ui/` that carries colors. Run with `--check` to verify. |
@@ -127,7 +169,7 @@ The PDF's embedded font subsets are not distributed as web fonts. The supplied f
 
 Sources: guide pages 1 and 5.
 
-- Studio description: An independent studio for small experiments, useful software, and open source tools.
+- Description: A one-person lab for small experiments, useful software, and open source tools. The brand guide (page 1) says "An independent studio for small experiments, useful software, and open source tools."; the owner changed it to the lab wording on 2026-10-18.
 - Signature phrase: Small experiments. Useful things.
 - Use the symbol as a graphic: crop, repeat, and leave room.
 - Keep the complete logo on project pages. Keep the symbol clear in avatars.
@@ -148,7 +190,7 @@ Each family has `-forest` and `-paper` variants. SVGs remain editable; PNGs are 
 
 - Use one motif family per composition.
 - Leave generous open space. Keep busy parts away from copy.
-- Use the complete logo in its own clear area to identify the studio. A cropped motif does not replace it.
+- Use the complete logo in its own clear area to identify ejmlabs. A cropped motif does not replace it.
 - Preserve the six source colors. Use the approved reading pairs for text.
 - Keep motif color treatments within the supplied palette and preserve the original drawing.
 - Keep project imagery in its own frame. It may have its own colors.
@@ -165,11 +207,25 @@ The three templates are new, editable 1600 x 900 compositions:
 
 Replace sample copy and imagery before publishing. Keep text within its intended area, preserve logo clear space, and check the finished layout at the size people will read it. Use the SVGs in `templates/editable/` for editing, then export a PNG for social uploads. The SVGs directly in `templates/` have outlined text for consistent production rendering. Matching PNGs show the supplied starting compositions.
 
+## Swag concepts and artwork
+
+The collection applies the same Sage, Forest, Ink, Paper, Mist, and utility White palette to shirts, sweaters, fleece, hoodies, socks, hats, beanies, eyewear, and drinkware.
+
+- `swag/mockups/apparel-collection.png`: the apparel concept board.
+- `swag/mockups/accessories-collection.png`: the accessories concept board.
+- `swag/mockups/glassware.png`: Studio glass etched tumblers and Flow glass highballs.
+- `swag/PRODUCTION.md`: production methods, placement, and supplier guidance.
+- `swag/artwork/README.md`: the exact vector artwork and instructions for its use.
+
+The concept images explore appearance, materials, and placement. They are not manufactured products, stock photography, or files to print directly. Use the exact vector artwork for print, embroidery, and engraving. Choose the blank garment or object with the supplier, confirm the material and color match, and approve a physical sample before ordering a run.
+
 ## Interface building blocks
 
 `components/brand-components.css` extends `tokens/brand.css` with reusable web parts. Open `components/index.html` to see the component specimen, then follow `COMPONENTS.md` for setup and use. The CSS is optional; the original tokens remain useful on their own.
 
 `icons/` contains fourteen matching functional SVGs. See `icons/sheet.svg` for the set and `ICONS.md` for accessible use. Use functional icons with clear labels, and reserve the original ejmlabs symbol for brand identity.
+
+The X kit is at `social/x-kit/index.html`. Its separate ZIP is `social/ejmlabs-x-kit.zip`. Use those canvases for X profiles and posts rather than stretching the general social card.
 
 ## Added web settings
 
@@ -185,7 +241,12 @@ These are implementation defaults, not claims about the source guide. The websit
 
 The browser and social exports are new applications of the extracted artwork. The PDF refers to such files but does not embed them. The original shape is preserved, including in the small favicon.
 
-Motifs, lockups, templates, interface icons, and web components are also kit additions. They are not presented as content extracted from the PDF. `REVIEW.md` records that distinction.
+The current studio browser icons use the original symbol in Ink on Sage. Their
+canonical exports live in `ejm-ui/packages/tokens/assets/favicon/` and are rebuilt
+there with `node scripts/assets.mjs --favicon`. This kit retains matching copies
+for existing links and downloads.
+
+Motifs, lockups, templates, interface icons, web components, the X kit, and swag concepts are also kit additions. They are not presented as content extracted from the PDF. `REVIEW.md` records that distinction.
 
 ## Web use
 

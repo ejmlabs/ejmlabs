@@ -4,6 +4,13 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+### Handoff
+
+- Retain outstanding OpenSpec plans, scoped historical records, brand source and launch film work with an explicit continuation guide.
+- Preserve accepted Studio source, shared UI pins, workflow pins and asset retirements while reconciling the local snapshot.
+- Record failed and stopped chess qualification runs, private source recovery, remaining tasks and verification limits without claiming a launch.
+- Add the current package ownership and engineering rules to contributor and local workflow guidance.
+
 - Adopt shared brand-name fitting so project names stay on one line.
 
 - Add ejm-ui to Studio project discovery with gallery, documentation and source links.

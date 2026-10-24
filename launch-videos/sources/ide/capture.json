@@ -1,0 +1,87 @@
+{
+  "method": "Approved macOS single-window recording of the real native IDE",
+  "revision": "bde96726270afe16777a3ae6461064367ce4d204",
+  "window": {
+    "id": 67268,
+    "pid": 64352,
+    "logicalSize": [
+      1280,
+      820
+    ],
+    "pixels": [
+      2560,
+      1640
+    ]
+  },
+  "provider": "Local deterministic model replay. Native tools, source checks, automatic review, file effects, persistence and rendering are real.",
+  "successfulTools": [
+    "read_file",
+    "open_file",
+    "highlight_code",
+    "read_file",
+    "write_file"
+  ],
+  "sourceVideo": {
+    "path": "raw/ide/native-edit.mov",
+    "sha256": "cce1d73192e5215e06e21278b93bc494b45a347c3668fe5386cf2603c8ecc716",
+    "bytes": 25592281,
+    "durationSeconds": 55.028333,
+    "frames": 2901,
+    "codec": "h264",
+    "frameRate": "variable"
+  },
+  "rawAudio": false,
+  "extraTakes": {
+    "take01": "Discarded because background webview timers slowed composer typing. No product tool ran.",
+    "take03": "Excluded because the optional second-turn open_file failed with current-request validation. First take02 tools all succeeded.",
+    "retainedAt": "/private/tmp/ejm-ide-launch-film-20261019/evidence",
+    "take04": "Excluded because the native window was no longer on screen. A verified visible window and capture-only focus calls fixed the result shot in take05."
+  },
+  "limits": [
+    "A scratch startup adapter invoked the unchanged native frontend and commands. This is not a released product binary.",
+    "The model messages are scripted input, not evidence of hosted model reasoning.",
+    "Edi did not run the sample tests. A separate native cargo test check passed both tests.",
+    "Native macOS recording badge appears in the titlebar while recording. The delivered edit may crop it."
+  ],
+  "diffVideo": {
+    "path": "raw/ide/native-diff.mov",
+    "sha256": "ed7ffb0df924d40b269ca9b5f252b484664689ba988c8d9ecbeec9831e55a360",
+    "bytes": 7250643,
+    "durationSeconds": 15.023333,
+    "codec": "h264",
+    "frameRate": "variable",
+    "windowId": 67570,
+    "ownerPID": 79295,
+    "story": "The successful first-turn recorded diff, restored through normal native startup. No new agent operation.",
+    "captureDriver": "diff-startup-driver.patch",
+    "binary": "diff-binary.json"
+  },
+  "verification": {
+    "nativeEditFullDecode": {
+      "tool": "ffmpeg -v error -threads 2 -i raw/ide/native-edit.mov -f null -",
+      "exitCode": 0
+    },
+    "nativeDiffFullDecode": {
+      "tool": "ffmpeg -v error -threads 2 -i raw/ide/native-diff.mov -f null -",
+      "exitCode": 0
+    },
+    "representativeFrames": [
+      6,
+      12,
+      18,
+      24,
+      32,
+      48
+    ],
+    "diffFramesInspected": [
+      1,
+      5,
+      8,
+      12
+    ],
+    "unchangedTrackedSourceFiles": 522,
+    "separateFixtureTestExitCode": 0,
+    "separateFixtureTestsPassed": 2
+  },
+  "providerSha256": "c71c0b207d48ef4ff018646cc5b07bf80f675b44d6a0b0fb90800237584a2881"
+}

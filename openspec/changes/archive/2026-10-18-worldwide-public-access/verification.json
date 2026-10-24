@@ -1,0 +1,146 @@
+[
+  {
+    "url": "https://ejmlabs.com/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://ejmlabs.com/design-kit/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://ejmlabs.com/.env",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://ejmlabs.com/wp-login.php",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/docs/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/docs/user-guide/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/docs/developer-guide/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/.env",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/wp-login.php",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://cli.ejmlabs.com/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://cli.ejmlabs.com/docs/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://cli.ejmlabs.com/docs/user-guide/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://cli.ejmlabs.com/docs/developer-guide/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://cli.ejmlabs.com/.env",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://cli.ejmlabs.com/wp-login.php",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://harness.ejmlabs.com/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://harness.ejmlabs.com/docs/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://harness.ejmlabs.com/docs/user-guide/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://harness.ejmlabs.com/docs/developer-guide/",
+    "status": 200,
+    "expected": 200,
+    "challenge": null
+  },
+  {
+    "url": "https://harness.ejmlabs.com/.env",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://harness.ejmlabs.com/wp-login.php",
+    "status": 403,
+    "expected": 403,
+    "challenge": null
+  },
+  {
+    "url": "https://ide.ejmlabs.com/api/releases",
+    "status": 200,
+    "expected": 200,
+    "challenge": null,
+    "manifest": {
+      "schemaVersion": 1,
+      "version": null,
+      "publishedAt": null,
+      "artifacts": []
+    }
+  }
+]

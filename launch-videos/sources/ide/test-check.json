@@ -1,0 +1,6 @@
+{
+  "command": "cargo test --manifest-path /private/tmp/ejm-ide-launch-film-20261019/harbor/Cargo.toml --offline --jobs 2",
+  "exitCode": 0,
+  "nativeAgentRanTests": false,
+  "note": "Separate verification after the real native file write."
+}

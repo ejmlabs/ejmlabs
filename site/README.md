@@ -51,7 +51,9 @@ The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local
 
 This site owns its text, route composition, project facts, guide destinations,
 and public download assembly. Product repositories own their guides and runtime
-behavior. Keep reusable components and site behavior in ejm-ui and consume its public exports when a change spans repositories.
+behavior. Follow the [root ownership rules](../AGENTS.md#package-boundaries) when
+a change spans repositories. Keep reusable components and site behavior in
+ejm-ui and consume its public exports.
 
 `ejm-ui` owns the public `@ejm/*` contracts consumed here: tokens and themes,
 components and interactions, the project registry, analytics, shared head and

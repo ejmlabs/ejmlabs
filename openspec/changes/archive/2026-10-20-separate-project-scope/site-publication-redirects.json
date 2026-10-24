@@ -1,0 +1,26 @@
+[
+  {
+    "host": "ejmlabs.com",
+    "status": 301,
+    "location": "https://ejmlabs.com/",
+    "passed": true
+  },
+  {
+    "host": "cli.ejmlabs.com",
+    "status": 301,
+    "location": "https://cli.ejmlabs.com/",
+    "passed": true
+  },
+  {
+    "host": "harness.ejmlabs.com",
+    "status": 301,
+    "location": "https://harness.ejmlabs.com/",
+    "passed": true
+  },
+  {
+    "host": "ide.ejmlabs.com",
+    "status": 301,
+    "location": "https://ide.ejmlabs.com/",
+    "passed": true
+  }
+]

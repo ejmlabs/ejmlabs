@@ -1,110 +1,71 @@
-/* Color balance. Sage is the brand's lead color, so Sage leads: the hero panel, primary buttons, tags, one big band
-   and the symbol art. Paper and Mist carry the page and Ink carries the type. Forest is the quiet accent: link and
-   hover color, one reversed panel at most, the small second beat on Sage. Rules are written once here and flow
-   through the band role variables (--ejm-ground, --ejm-fg, --ejm-muted, --ejm-hairline), so patterns stay in step.
-   Reference: the brand guide sets Paper pages with Sage artwork and uses Forest for a panel or two. */
+/* Color balance and controls. The page is Paper (Ink in dark). Sage leads as full-bleed bands (about 30 percent of a page),
+   Paper and Mist carry the rest, Forest stays under 10 percent, Ink carries the type and the footer band.
+   Every band sets the same role variables, and every part reads them, so a part looks right on any band:
+     --ejm-ground  the fill      --ejm-fg  the type      --ejm-muted  secondary type      --ejm-hairline  1px rules
+     --ejm-wash    hover tint    --ejm-tone  a solid step off the ground (for objects such as demo frames)
+     --ejm-btn-*   button colors --ejm-component-*  link colors
+   Contrast: Ink on Sage is 5.09:1 and is the only text pair on Sage. Forest on Sage is 3.6:1: large type only. */
 
-/* ---------- Page column ----------
-   The responsive part overrides these two variables at each breakpoint, so the column and every panel inside it
-   follow the same steps. */
+/* ---------- Page column ---------- */
 .ejm-site { --ejm-page-max: var(--ejm-content-width); --ejm-page-gutter: var(--ejm-space-6); }
 @media (min-width: 760px) { .ejm-site { --ejm-page-gutter: var(--ejm-space-12); } }
 .ejm-site .ejm-page { max-inline-size: var(--ejm-page-max); padding-inline: var(--ejm-page-gutter); }
 
-/* ---------- Grounds ---------- */
+/* ---------- Page ground: Paper ---------- */
 .ejm-site {
   --ejm-ground: var(--ejm-paper);
   --ejm-fg: var(--ejm-ink);
   --ejm-muted: var(--ejm-forest);
-  --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 22%, transparent);
-  /* Buttons read from the ground: Sage with Ink text on light grounds. */
+  --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 26%, transparent);
+  --ejm-wash: color-mix(in srgb, var(--ejm-fg) 7%, transparent);
+  --ejm-tone: var(--ejm-mist);
+  --ejm-tone-alt: var(--ejm-paper);
   --ejm-btn-bg: var(--ejm-sage);
   --ejm-btn-fg: var(--ejm-ink);
   --ejm-btn-bg-hover: var(--ejm-forest);
   --ejm-btn-fg-hover: var(--ejm-paper);
   --ejm-btn-ring: var(--ejm-forest);
 }
-/* On Sage, the button turns Ink so it stays visible. */
-.ejm-band--sage, .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body, .ejm-project--base {
-  --ejm-ground: var(--ejm-sage);
-  --ejm-fg: var(--ejm-ink);
-  --ejm-muted: var(--ejm-ink);
-  --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 28%, transparent);
-  --ejm-btn-bg: var(--ejm-ink);
-  --ejm-btn-fg: var(--ejm-paper);
-  --ejm-btn-bg-hover: var(--ejm-forest);
-  --ejm-btn-fg-hover: var(--ejm-paper);
-  --ejm-btn-ring: var(--ejm-ink);
-  --ejm-component-ground: var(--ejm-sage);
-  --ejm-component-contrast: var(--ejm-ink);
-  --ejm-component-hover: var(--ejm-forest);
-}
-/* On Forest and Ink, Sage is the button color. */
-.ejm-band--forest, .ejm-band--ink, .ejm-surface--forest, .ejm-hero--forest, .ejm-terminal {
-  --ejm-btn-bg: var(--ejm-sage);
-  --ejm-btn-fg: var(--ejm-ink);
-  --ejm-btn-bg-hover: var(--ejm-paper);
-  --ejm-btn-fg-hover: var(--ejm-ink);
-  --ejm-btn-ring: var(--ejm-paper);
-}
 
-/* ---------- Sage band: the page's one big field of brand color ---------- */
-.ejm-band--sage { color: var(--ejm-ink); background: var(--ejm-sage); }
-.ejm-band--sage .ejm-eyebrow { color: var(--ejm-ink); }
+/* ---------- Bands: full-bleed tone changes ---------- */
+.ejm-band--paper, .ejm-band--mist, .ejm-band--sage, .ejm-band--ink, .ejm-band--forest, .ejm-surface--forest {
+  color: var(--ejm-fg); background-color: var(--ejm-ground);
+}
+.ejm-band--paper { --ejm-tone: var(--ejm-mist); }
+.ejm-band--mist { --ejm-ground: var(--ejm-mist); --ejm-tone: var(--ejm-paper); --ejm-tone-alt: var(--ejm-mist); }
+.ejm-band--sage {
+  --ejm-ground: var(--ejm-sage); --ejm-fg: var(--ejm-ink); --ejm-muted: var(--ejm-ink);
+  --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 32%, transparent);
+  --ejm-tone: var(--ejm-paper); --ejm-tone-alt: color-mix(in srgb, var(--ejm-paper) 45%, var(--ejm-sage));
+  --ejm-btn-bg: var(--ejm-ink); --ejm-btn-fg: var(--ejm-paper); --ejm-btn-bg-hover: var(--ejm-forest); --ejm-btn-fg-hover: var(--ejm-paper); --ejm-btn-ring: var(--ejm-ink);
+  --ejm-component-ground: var(--ejm-sage); --ejm-component-contrast: var(--ejm-ink); --ejm-component-hover: var(--ejm-ink);
+}
+.ejm-band--forest, .ejm-band--ink, .ejm-surface--forest, .ejm-header--forest {
+  --ejm-ground: var(--ejm-forest); --ejm-fg: var(--ejm-paper); --ejm-muted: var(--ejm-mist);
+  --ejm-hairline: color-mix(in srgb, var(--ejm-paper) 28%, transparent);
+  --ejm-tone: color-mix(in srgb, var(--ejm-paper) 10%, var(--ejm-ground)); --ejm-tone-alt: color-mix(in srgb, var(--ejm-paper) 18%, var(--ejm-ground));
+  --ejm-btn-bg: var(--ejm-sage); --ejm-btn-fg: var(--ejm-ink); --ejm-btn-bg-hover: var(--ejm-paper); --ejm-btn-fg-hover: var(--ejm-ink); --ejm-btn-ring: var(--ejm-paper);
+  --ejm-component-ground: var(--ejm-ground); --ejm-component-contrast: var(--ejm-paper); --ejm-component-hover: var(--ejm-white);
+}
+.ejm-band--ink, .ejm-terminal { --ejm-ground: var(--ejm-ink); }
+.ejm-terminal { --ejm-fg: var(--ejm-paper); --ejm-muted: var(--ejm-mist); --ejm-hairline: color-mix(in srgb, var(--ejm-paper) 28%, transparent); --ejm-btn-bg: var(--ejm-sage); --ejm-btn-fg: var(--ejm-ink); --ejm-btn-bg-hover: var(--ejm-paper); --ejm-btn-fg-hover: var(--ejm-ink); --ejm-btn-ring: var(--ejm-paper); }
+.ejm-band--sage .ejm-display__quiet { color: var(--ejm-forest); } /* large type only */
 .ejm-band--sage ::selection { color: var(--ejm-paper); background: var(--ejm-ink); }
-.ejm-band--sage .ejm-link { color: var(--ejm-ink); }
-.ejm-band--sage .ejm-lead { color: var(--ejm-ink); }
-.ejm-band--sage .ejm-card { --ejm-ground: var(--ejm-paper); --ejm-fg: var(--ejm-ink); --ejm-muted: var(--ejm-forest); --ejm-hairline: color-mix(in srgb, var(--ejm-ink) 22%, transparent); border-color: transparent; }
+.ejm-band--forest ::selection, .ejm-band--ink ::selection { color: var(--ejm-ink); background: var(--ejm-sage); }
+/* The soft Flow motif behind a short Paper band. */
+.ejm-band--flow { background: var(--ejm-ground) var(--ejm-motif-flow) center top / cover no-repeat; }
 
-/* Principles read from the ground instead of assuming Forest. */
-.ejm-principle { border-block-start-color: var(--ejm-hairline); }
-.ejm-principle::before { color: var(--ejm-muted); }
-.ejm-principle p { color: var(--ejm-muted); }
-
-/* ---------- Buttons ---------- */
-.ejm-site .ejm-button { color: var(--ejm-btn-fg); background: var(--ejm-btn-bg); border-color: var(--ejm-btn-bg); }
+/* ---------- Buttons: pills ---------- */
+.ejm-site .ejm-button {
+  min-block-size: 44px; padding: 0.75rem 1.75rem; border-radius: var(--ejm-radius-pill); line-height: 1.35; font-size: 1rem;
+  color: var(--ejm-btn-fg); background: var(--ejm-btn-bg); border-color: var(--ejm-btn-bg);
+}
 .ejm-site .ejm-button:hover { color: var(--ejm-btn-fg-hover); background: var(--ejm-btn-bg-hover); border-color: var(--ejm-btn-bg-hover); }
 .ejm-site .ejm-button:focus-visible { outline-color: var(--ejm-btn-ring); }
 .ejm-site .ejm-button--secondary { color: var(--ejm-fg); background: transparent; border-color: currentColor; }
-.ejm-site .ejm-button--secondary:hover { color: var(--ejm-fg); background: color-mix(in srgb, var(--ejm-fg) 10%, transparent); border-color: currentColor; }
+.ejm-site .ejm-button--secondary:hover { color: var(--ejm-fg); background: var(--ejm-wash); border-color: currentColor; }
+.ejm-site .ejm-cluster { gap: var(--ejm-space-3) var(--ejm-space-4); }
 
-/* ---------- Cards and project cards: hairlines, not Forest outlines ---------- */
-.ejm-site .ejm-card { border-color: var(--ejm-hairline); }
-.ejm-project { border-color: var(--ejm-hairline); }
-.ejm-project--base { color: var(--ejm-ink); background: var(--ejm-sage); border-color: var(--ejm-sage); }
-.ejm-project--base .ejm-project__relation { color: var(--ejm-ink); border-color: var(--ejm-hairline); }
-.ejm-project--base .ejm-tag--quiet { color: var(--ejm-ink); background: color-mix(in srgb, var(--ejm-ink) 10%, transparent); }
-.ejm-project--base .ejm-parts dt { color: var(--ejm-ink); }
-.ejm-project--base ::selection { color: var(--ejm-paper); background: var(--ejm-ink); }
-
-/* ---------- Hero: a rounded Sage panel on a Paper page ----------
-   The header sits above the panel on Paper, so the full-color logo (Sage symbol, Ink name) is always used.
-   ejm-hero--paper keeps a flat Paper hero. ejm-hero--forest keeps the full-bleed Forest hero with Orbit, for the one
-   reversed moment a site might want. */
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) { color: var(--ejm-ink); background: var(--ejm-paper); overflow: visible; }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest)::before { display: none; }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body {
-  position: relative; isolation: isolate; overflow: hidden; box-sizing: border-box;
-  inline-size: calc(100% - 2 * var(--ejm-page-gutter));
-  max-inline-size: calc(var(--ejm-page-max) - 2 * var(--ejm-page-gutter));
-  margin-inline: auto;
-  padding: clamp(40px, 7vw, 96px) clamp(24px, 5vw, 80px);
-  color: var(--ejm-ink);
-  background: var(--ejm-sage) url('../motifs/signature-crop-sage.svg') right center / cover no-repeat;
-  border-radius: var(--ejm-radius-large);
-}
-@media (max-width: 759px) {
-  .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { border-radius: var(--ejm-radius-medium); }
-}
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-eyebrow { color: var(--ejm-ink); }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-display { color: var(--ejm-ink); }
-/* Forest on Sage is 3.6:1: allowed for large type only, which is how the second beat is set. */
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-display__quiet { color: var(--ejm-forest); }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-lead { color: var(--ejm-ink); }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index { border-block-start-color: var(--ejm-hairline); }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a { color: var(--ejm-ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.25em; }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a:hover { color: var(--ejm-ink); text-decoration-color: currentColor; }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a:focus-visible { outline-color: var(--ejm-ink); }
-.ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-link { color: var(--ejm-ink); }
-
-.ejm-hero--forest { color: var(--ejm-paper); background: var(--ejm-forest); --ejm-ground: var(--ejm-forest); --ejm-fg: var(--ejm-paper); --ejm-muted: var(--ejm-mist); --ejm-hairline: color-mix(in srgb, var(--ejm-paper) 28%, transparent); }
+/* ---------- Fields: pill inputs, a soft corner on multi-line ones ---------- */
+.ejm-site .ejm-input { border-radius: var(--ejm-radius-pill); padding-inline: var(--ejm-space-6); }
+.ejm-site textarea.ejm-input { border-radius: var(--ejm-radius-medium); padding-block: var(--ejm-space-4); }

@@ -75,7 +75,7 @@
 
 /* ---------- Enter: page-load choreography for a hero. Pure CSS, no script. ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  /* A hero panel fades and rises 8 px once; its contents follow. Only translate, so the rounded corners stay put. */
+  /* The hero body fades and rises 8 px once; its contents follow. */
   .ejm-hero__body.ejm-enter { --ejm-enter-rise: var(--ejm-distance-small); animation: ejm-enter var(--ejm-duration-slow) var(--ejm-ease-enter) backwards; }
   .ejm-enter > * {
     --ejm-enter-rise: var(--ejm-distance-medium);
@@ -120,16 +120,13 @@
 }
 .ejm-link, .ejm-announce a, .ejm-breadcrumb a { text-decoration-thickness: 1px; }
 /* Links with no resting underline: it fades in under the text. */
-.ejm-hero__index a, .ejm-footer li a, .ejm-project__name a, .ejm-links__title {
+.ejm-hero__index a, .ejm-footer li a, .ejm-links__title {
   text-decoration-line: underline; text-decoration-color: transparent; text-underline-offset: 0.25em;
   transition: text-decoration-color var(--ejm-duration-fast) var(--ejm-ease-standard), color var(--ejm-duration-fast) var(--ejm-ease-standard);
 }
-.ejm-project__name a { text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
 .ejm-links a:hover .ejm-links__title { text-decoration-color: currentColor; }
 .ejm-links a::after { transition-duration: var(--ejm-duration-base); }
-.ejm-hero__index a:hover, .ejm-footer li a:hover, .ejm-project__name a:hover { text-decoration-color: currentColor; }
-.ejm-card, .ejm-project { transition: border-color var(--ejm-duration-base) var(--ejm-ease-standard), transform var(--ejm-duration-base) var(--ejm-ease-standard); }
-.ejm-card:has(a:focus-visible), .ejm-project:not(.ejm-project--base):has(a:focus-visible) { border-color: var(--ejm-fg); }
+.ejm-hero__index a:hover, .ejm-footer li a:hover { text-decoration-color: currentColor; }
 
 /* ---------- Movement: only for people who have not asked for less. ---------- */
 @media (prefers-reduced-motion: no-preference) {
@@ -140,14 +137,6 @@
   .ejm-site :where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
     animation: ejm-focus var(--ejm-duration-fast) var(--ejm-ease-enter);
   }
-}
-
-/* Cards that contain a link lift 2 px and darken their border, on devices with a real hover. */
-@media (hover: hover) {
-  .ejm-card:has(a[href]):hover, .ejm-project:not(.ejm-project--base):has(a[href]):hover { border-color: var(--ejm-fg); }
-}
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .ejm-card:has(a[href]):hover, .ejm-project:has(a[href]):hover { transform: translateY(-2px); }
 }
 
 /* ---------- Disclosures: FAQ and collapse open and close with a height transition where the browser can do it. ---------- */

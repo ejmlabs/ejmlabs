@@ -1,0 +1,440 @@
+[
+  {
+    "sequence": 1,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190310,
+    "type": "run_started",
+    "prompt": "Retry ignores its time limit. Reproduce the failure."
+  },
+  {
+    "sequence": 2,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190310,
+    "type": "model_started",
+    "step": 1
+  },
+  {
+    "sequence": 3,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190310,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 4,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190311,
+    "type": "tool_queued",
+    "call": {
+      "id": "call_5f59ccd046ce4e0a9ddd9e1282795218",
+      "name": "shell",
+      "arguments": {
+        "command": "./check",
+        "heavy": true,
+        "timeout_ms": 10000
+      }
+    }
+  },
+  {
+    "sequence": 5,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190311,
+    "type": "tool_started",
+    "call": {
+      "id": "call_5f59ccd046ce4e0a9ddd9e1282795218",
+      "name": "shell",
+      "arguments": {
+        "command": "./check",
+        "heavy": true,
+        "timeout_ms": 10000
+      }
+    }
+  },
+  {
+    "sequence": 6,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190605,
+    "type": "tool_finished",
+    "call_id": "call_5f59ccd046ce4e0a9ddd9e1282795218",
+    "output": {
+      "content": "exit: Some(1) | 294 ms\nnot ok 2 - stop when time is used\nnot ok 5 - zero budget means no retry\n# tests 5\n# pass 3\n# fail 2\n",
+      "data": {
+        "duration_ms": 294,
+        "exit_code": 1,
+        "peak_memory_bytes": 1982464,
+        "peak_processes": 1,
+        "truncated": false
+      },
+      "is_error": true,
+      "artifact": "/private/tmp/c-IdhBZh/s/artifacts/exec-56101c2b-20d2-4ffc-a64c-d96142e8ec8c.log"
+    }
+  },
+  {
+    "sequence": 7,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190605,
+    "type": "model_started",
+    "step": 2
+  },
+  {
+    "sequence": 8,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190606,
+    "type": "text_delta",
+    "text": "2 tests fail. Retries still run at the time limit and with a zero budget."
+  },
+  {
+    "sequence": 9,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190606,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 10,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+    "created": 1792435190606,
+    "type": "run_finished",
+    "summary": {
+      "run_id": "6abcab15-1784-4e76-99b5-8bbcd8b1bf1e",
+      "status": "completed",
+      "steps": 2,
+      "text": "2 tests fail. Retries still run at the time limit and with a zero budget.",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "error": null
+    }
+  },
+  {
+    "sequence": 11,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198629,
+    "type": "run_started",
+    "prompt": "Read the retry code and fix the boundary."
+  },
+  {
+    "sequence": 12,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198630,
+    "type": "model_started",
+    "step": 1
+  },
+  {
+    "sequence": 13,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198630,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 14,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198630,
+    "type": "tool_queued",
+    "call": {
+      "id": "call_435f866500844bbaa5106e8559ed6a0f",
+      "name": "read_file",
+      "arguments": {
+        "path": "src/retry.mjs"
+      }
+    }
+  },
+  {
+    "sequence": 15,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198631,
+    "type": "tool_started",
+    "call": {
+      "id": "call_435f866500844bbaa5106e8559ed6a0f",
+      "name": "read_file",
+      "arguments": {
+        "path": "src/retry.mjs"
+      }
+    }
+  },
+  {
+    "sequence": 16,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198631,
+    "type": "tool_finished",
+    "call_id": "call_435f866500844bbaa5106e8559ed6a0f",
+    "output": {
+      "content": "1: export function shouldRetry(attempt, elapsedMs, { maxAttempts, budgetMs }) {\n2:   return attempt < maxAttempts && elapsedMs <= budgetMs;\n3: }\n\nsha256: 87b03c6ee108301ffbda297e643f522df33a95140b1681f97628d1cba4a50129 | 3 lines",
+      "data": {
+        "lines": 3,
+        "offset": 1,
+        "path": "src/retry.mjs",
+        "returned": 3,
+        "sha256": "87b03c6ee108301ffbda297e643f522df33a95140b1681f97628d1cba4a50129",
+        "truncated": false
+      },
+      "is_error": false
+    }
+  },
+  {
+    "sequence": 17,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198631,
+    "type": "model_started",
+    "step": 2
+  },
+  {
+    "sequence": 18,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198631,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 19,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198631,
+    "type": "tool_queued",
+    "call": {
+      "id": "call_3875bb48b6dd4e3ca6b2a5bb77307a4d",
+      "name": "patch_file",
+      "arguments": {
+        "expected_hash": "87b03c6ee108301ffbda297e643f522df33a95140b1681f97628d1cba4a50129",
+        "new": "elapsedMs < budgetMs",
+        "old": "elapsedMs <= budgetMs",
+        "path": "src/retry.mjs"
+      }
+    }
+  },
+  {
+    "sequence": 20,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198631,
+    "type": "tool_started",
+    "call": {
+      "id": "call_3875bb48b6dd4e3ca6b2a5bb77307a4d",
+      "name": "patch_file",
+      "arguments": {
+        "expected_hash": "87b03c6ee108301ffbda297e643f522df33a95140b1681f97628d1cba4a50129",
+        "new": "elapsedMs < budgetMs",
+        "old": "elapsedMs <= budgetMs",
+        "path": "src/retry.mjs"
+      }
+    }
+  },
+  {
+    "sequence": 21,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198642,
+    "type": "tool_finished",
+    "call_id": "call_3875bb48b6dd4e3ca6b2a5bb77307a4d",
+    "output": {
+      "content": "Patched src/retry.mjs (135 bytes)",
+      "data": {
+        "bytes": 135,
+        "path": "src/retry.mjs",
+        "sha256": "12bc0d829905b3da9de141e94f3d4909249b9ffd81b29cb2010bac2541aea685"
+      },
+      "is_error": false
+    }
+  },
+  {
+    "sequence": 22,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198643,
+    "type": "model_started",
+    "step": 3
+  },
+  {
+    "sequence": 23,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198643,
+    "type": "text_delta",
+    "text": "Changed <= to <. A retry stops when the time budget is used."
+  },
+  {
+    "sequence": 24,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198643,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 25,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+    "created": 1792435198643,
+    "type": "run_finished",
+    "summary": {
+      "run_id": "32081600-30b8-4ef0-b476-ec07efd2051e",
+      "status": "completed",
+      "steps": 3,
+      "text": "Changed <= to <. A retry stops when the time budget is used.",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "error": null
+    }
+  },
+  {
+    "sequence": 26,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206118,
+    "type": "run_started",
+    "prompt": "Run the same tests again."
+  },
+  {
+    "sequence": 27,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206119,
+    "type": "model_started",
+    "step": 1
+  },
+  {
+    "sequence": 28,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206119,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 29,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206119,
+    "type": "tool_queued",
+    "call": {
+      "id": "call_ef887c39beec400383a97bee4e230f66",
+      "name": "shell",
+      "arguments": {
+        "command": "./check",
+        "heavy": true,
+        "timeout_ms": 10000
+      }
+    }
+  },
+  {
+    "sequence": 30,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206119,
+    "type": "tool_started",
+    "call": {
+      "id": "call_ef887c39beec400383a97bee4e230f66",
+      "name": "shell",
+      "arguments": {
+        "command": "./check",
+        "heavy": true,
+        "timeout_ms": 10000
+      }
+    }
+  },
+  {
+    "sequence": 31,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206209,
+    "type": "tool_finished",
+    "call_id": "call_ef887c39beec400383a97bee4e230f66",
+    "output": {
+      "content": "exit: Some(0) | 89 ms\n# tests 5\n# pass 5\n# fail 0\n",
+      "data": {
+        "duration_ms": 89,
+        "exit_code": 0,
+        "peak_memory_bytes": 475136,
+        "peak_processes": 1,
+        "truncated": false
+      },
+      "is_error": false,
+      "artifact": "/private/tmp/c-IdhBZh/s/artifacts/exec-c539c53d-b72d-4945-8b60-caae04632649.log"
+    }
+  },
+  {
+    "sequence": 32,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206209,
+    "type": "model_started",
+    "step": 2
+  },
+  {
+    "sequence": 33,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206210,
+    "type": "text_delta",
+    "text": "5 tests pass. The retry budget now stops at the boundary."
+  },
+  {
+    "sequence": 34,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206210,
+    "type": "usage",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  {
+    "sequence": 35,
+    "session_id": "bf56aa65-42a1-4447-83f0-6decaae1ba8f",
+    "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+    "created": 1792435206210,
+    "type": "run_finished",
+    "summary": {
+      "run_id": "8c658e51-7976-43d9-a3cb-ce3ea99518cd",
+      "status": "completed",
+      "steps": 2,
+      "text": "5 tests pass. The retry budget now stops at the boundary.",
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "error": null
+    }
+  }
+]

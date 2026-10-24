@@ -1,0 +1,31 @@
+{
+  "result": {
+    "description": "",
+    "id": "1bcfc3c02e444da095502949ca18a30f",
+    "kind": "zone",
+    "last_updated": "2026-10-19T03:45:36.433577Z",
+    "name": "Public ejmlabs managed WAF",
+    "phase": "http_request_firewall_managed",
+    "rules": [
+      {
+        "action": "execute",
+        "action_parameters": {
+          "id": "efb7b8c949ac4650a09736fc376e9aee",
+          "version": "latest"
+        },
+        "description": "Managed attack protection for public ejmlabs sites",
+        "enabled": true,
+        "expression": "http.host in {\"ejmlabs.com\" \"ide.ejmlabs.com\" \"cli.ejmlabs.com\" \"harness.ejmlabs.com\"}",
+        "id": "f8488f9196b24cf79fd1ca4bbf860b64",
+        "last_updated": "2026-10-19T03:45:36.433577Z",
+        "ref": "ejmlabs_public_managed_waf",
+        "version": "1"
+      }
+    ],
+    "source": "firewall_managed",
+    "version": "1"
+  },
+  "success": true,
+  "errors": [],
+  "messages": []
+}

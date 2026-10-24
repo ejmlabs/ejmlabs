@@ -1,0 +1,16 @@
+{
+  "createdAt": "2026-10-19T19:17:09.149035+00:00",
+  "revision": "bde96726270afe16777a3ae6461064367ce4d204",
+  "source": "../ejm-ide",
+  "scratchSource": "/private/tmp/ejm-ide-launch-film-20261019/ejm-ide",
+  "workspace": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor",
+  "isolatedHome": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/home",
+  "binary": "/private/tmp/ejm-ide-launch-film-20261019/ejm-ide.app/Contents/MacOS/ejm-ide",
+  "binarySha256": "d19f93f3d3a60d933b5c3dc13a255cb3e419f08b6df0114f81151d5fa9b4aa17",
+  "workspaceArchiveSha256": "0fe1af3f85cd7297a397a961a1439f64a99ac609d68a75b58ef13aa2f113b637",
+  "mode": "Native local code index and UI navigation. No model request, edit, or test run.",
+  "_publication": {
+    "revisedAt": "2026-10-24",
+    "note": "Redacted publication copy. Personal home paths were replaced; historical hashes and results were retained. See PUBLICATION-SCOPE.md."
+  }
+}

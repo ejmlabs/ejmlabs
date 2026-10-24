@@ -1,0 +1,13 @@
+{
+  "revision": "bde96726270afe16777a3ae6461064367ce4d204",
+  "source": "../ejm-ide",
+  "archiveSha256": "07963932d2c458d8b3c078ad6751c31f16d2e243d1d30a7f8beaf5f27a999e3a",
+  "patchSha256": "a243c1330072599429454a8e38c7e920a9c5a0b24040f245f24383ac40b76a8c",
+  "driverPurpose": "Restore, show and focus only the disposable native IDE window before recording its real saved diff.",
+  "buildSeconds": 14.93,
+  "buildJobs": 2,
+  "_publication": {
+    "revisedAt": "2026-10-24",
+    "note": "Redacted publication copy. Personal home paths were replaced; historical hashes and results were retained. See PUBLICATION-SCOPE.md."
+  }
+}

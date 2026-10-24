@@ -1,5 +1,7 @@
 # Source review
 
+Historical source and review record. See the [retained-source notice](README.md). File paths, commands, and asset availability below describe the earlier kit, not current production.
+
 Reviewed all six pages visually and extracted the PDF text and vector content.
 
 Kit version 1.2.0 preserves the source identity and adds a broader set of applications, including site and application kits. The source guide remains version 1.0, October 2026.
@@ -12,7 +14,7 @@ This document retains the original extraction and gallery observations below. Th
 
 | Page | Confirmed material |
 | --- | --- |
-| 1 | Brand version 1.0, October 2026; complete logo; studio description; signature phrase. |
+| 1 | Brand version 1.0, October 2026; complete logo; description (the guide says "independent studio"; the owner changed it to the lab wording on 2026-10-18); signature phrase. |
 | 2 | Fancy e symbol plus complete lowercase name; primary, solid Ink, and reversed Paper variants; full-logo clear space of half the symbol height; standalone clear space of one quarter symbol width; 180 px full-logo and 24 px symbol examples; dedicated 16 px favicon instruction. |
 | 3 | Sage, Forest, Ink, Paper, Mist, and utility White; four approved reading pairs; Sage on Paper limited to artwork and decoration. All five printed contrast ratios match independent calculation. |
 | 4 | Manrope for main text with 400 body and 600 headings; IBM Plex Mono for technical use; exact five-role type scale; sentence case and generous leading. |
@@ -46,7 +48,7 @@ The source guide calls for cropped and repeated symbol graphics but does not sup
 | Echo motifs | New repeated-form compositions, following page 5's direction. |
 | Flow and Orbit motifs | New mathematical linework that complements the identity. These shapes are not extracted from the PDF and do not replace the logo. |
 | Forest and Paper signature lockups | New layouts using the original artwork, palette, and supplied signature phrase. |
-| Project, signature or short-thought, and image-frame templates | New editable layouts. Any sample content is a placeholder, not a claim about studio projects or customers. |
+| Project, signature or short-thought, and image-frame templates | New editable layouts. Any sample content is a placeholder, not a claim about ejmlabs projects or customers. |
 | Twelve interface icons | A new functional drawing set. The icons are not additional brand marks. |
 | Web components | Optional CSS and a local specimen extending the source typography, colors, and added web tokens. |
 | X profile kit | New Sage and Forest applications for platform-specific profile and post canvases. |

@@ -429,7 +429,7 @@ button.ejm-ui-chip:active { background: var(--ejm-ui-hover); }
 .ejm-ui-btn .ejm-ui-spinner { color: inherit; }
 @keyframes ejm-ui-spin { to { transform: rotate(360deg); } }
 
-.ejm-ui-skel { display: block; border-radius: var(--ejm-ui-r-ctl); background: var(--ejm-ui-fill); }
+.ejm-ui-skel { display: block; border-radius: var(--ejm-ui-r-ctl); background: color-mix(in srgb, var(--ejm-ui-line-strong) 70%, var(--ejm-ui-raised)); }
 .ejm-ui-skel--text { block-size: 10px; margin-block: 5px; inline-size: var(--w, 100%); border-radius: 999px; }
 .ejm-ui-skel--row { block-size: var(--ejm-ui-row); }
 .ejm-ui-skel--block { block-size: 96px; border-radius: var(--ejm-ui-r-card); }
@@ -580,6 +580,65 @@ button.ejm-ui-chip:active { background: var(--ejm-ui-hover); }
   .ejm-ui-hbar__value { grid-area: value; }
   .ejm-ui-hbar__track { grid-area: track; }
 }
+
+/* ---- Charts: direct values, line and area charts, text and table alternatives ---- */
+.ejm-ui-chart__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.ejm-ui-bars__bar { position: relative; }
+.ejm-ui-bars__value { position: absolute; inset-inline: -4px; inset-block-end: calc(100% + 4px); text-align: center; white-space: nowrap; font: var(--ejm-weight-technical) 11px / 16px var(--ejm-font-mono); color: var(--ejm-ui-text-strong); font-variant-numeric: tabular-nums; pointer-events: none; }
+.ejm-ui-bars:has(.ejm-ui-bars__value) { padding-block-start: 20px; }
+@container (max-width: 340px) { .ejm-ui-bars__value { font-size: 10px; inset-inline: -6px; } }
+
+/* A line or area chart. The plot is an SVG on a 0 to 100 grid that stretches to its box, so lines scale and stay crisp.
+   Axis text, markers and ticks are HTML placed by --x and --y (0 to 100), so text never scales. A series' hue also sets
+   its dash and its marker shape, so color is never the only way to tell series apart. */
+.ejm-ui-lines { --ejm-ui-lines-h: 220px; --ejm-ui-lines-yw: 44px; display: grid; grid-template-columns: var(--ejm-ui-lines-yw) minmax(0, 1fr); grid-template-rows: var(--ejm-ui-lines-h) 16px; gap: 8px; min-inline-size: 0; }
+.ejm-ui-lines__y, .ejm-ui-lines__x { position: relative; font: var(--ejm-weight-technical) 11px / 16px var(--ejm-font-mono); color: var(--ejm-ui-text-subtle); font-variant-numeric: tabular-nums; }
+.ejm-ui-lines__y > span { position: absolute; right: 0; bottom: calc(var(--y, 0) * 1%); transform: translateY(50%); white-space: nowrap; }
+.ejm-ui-lines__x { grid-column: 2; }
+.ejm-ui-lines__x > span { position: absolute; left: calc(var(--x, 0) * 1%); transform: translateX(-50%); white-space: nowrap; }
+.ejm-ui-lines__plot { position: relative; }
+.ejm-ui-lines__plot > svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; overflow: visible; }
+.ejm-ui-lines__grid { fill: none; stroke: var(--ejm-ui-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ejm-ui-lines__grid--base { stroke: var(--ejm-ui-line-strong); }
+.ejm-ui-lines__line { --ejm-ui-c: var(--ejm-ui-hue-1); fill: none; stroke: var(--ejm-ui-c); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: var(--ejm-ui-dash, none); vector-effect: non-scaling-stroke; }
+.ejm-ui-lines__area { --ejm-ui-c: var(--ejm-ui-hue-1); fill: var(--ejm-ui-c); fill-opacity: 0.12; stroke: none; }
+.ejm-ui-lines__mark { --ejm-ui-c: var(--ejm-ui-hue-1); position: absolute; left: calc(var(--x, 0) * 1%); bottom: calc(var(--y, 0) * 1%); inline-size: 9px; block-size: 9px; transform: translate(-50%, 50%); background: var(--ejm-ui-c); clip-path: var(--ejm-ui-shape, circle(50%)); }
+.ejm-ui-lines [data-hue='2'], .ejm-ui-legend--marks > [data-hue='2'] { --ejm-ui-dash: 8 5; --ejm-ui-shape: inset(0); }
+.ejm-ui-lines [data-hue='3'], .ejm-ui-legend--marks > [data-hue='3'] { --ejm-ui-dash: 1 5; --ejm-ui-shape: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.ejm-ui-lines [data-hue='4'], .ejm-ui-legend--marks > [data-hue='4'] { --ejm-ui-dash: 12 4 2 4; --ejm-ui-shape: polygon(50% 0, 100% 100%, 0 100%); }
+.ejm-ui-lines [data-hue='5'], .ejm-ui-legend--marks > [data-hue='5'] { --ejm-ui-dash: 4 3; --ejm-ui-shape: polygon(0 0, 100% 0, 50% 100%); }
+.ejm-ui-lines [data-hue='6'], .ejm-ui-legend--marks > [data-hue='6'] { --ejm-ui-dash: 18 5 2 5 2 5; --ejm-ui-shape: polygon(35% 0, 65% 0, 65% 35%, 100% 35%, 100% 65%, 65% 65%, 65% 100%, 35% 100%, 35% 65%, 0 65%, 0 35%, 35% 35%); }
+.ejm-ui-legend--marks > li::before { inline-size: 10px; block-size: 10px; border-radius: 0; clip-path: var(--ejm-ui-shape, circle(50%)); }
+@container (max-width: 420px) { .ejm-ui-lines { --ejm-ui-lines-h: 180px; --ejm-ui-lines-yw: 36px; gap: 6px; } }
+
+/* The table alternative to a chart: a quiet disclosure under it. */
+.ejm-ui-accordion.ejm-ui-chart__data { border-block-end: 0; }
+.ejm-ui-accordion.ejm-ui-chart__data > summary { inline-size: fit-content; min-block-size: 32px; margin-inline-start: -12px; font-size: 12px; font-weight: var(--ejm-weight-body); color: var(--ejm-ui-text-muted); }
+.ejm-ui-chart__data .ejm-ui-accordion__body { padding: 8px 0 0; }
+
+/* ---- Dashboard: tiles, a chart, a table and an activity list that reflow with their container ---- */
+.ejm-ui-dash { container-type: inline-size; display: grid; gap: 24px; inline-size: 100%; max-inline-size: 1600px; min-inline-size: 0; margin-inline: auto; }
+.ejm-ui-dash__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+.ejm-ui-dash__head > :first-child { display: grid; gap: 4px; min-inline-size: 0; }
+.ejm-ui-dash__tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 12px; }
+.ejm-ui-dash__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.ejm-ui-dash__grid > * { min-inline-size: 0; }
+@container (min-width: 760px) {
+  .ejm-ui-dash__grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .ejm-ui-dash__wide { grid-column: 1 / -1; }
+}
+.ejm-ui-stat__row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; min-inline-size: 0; }
+
+/* ---- States: empty, loading and error inside a table, list, panel or tile ---- */
+.ejm-ui-empty--flush { align-content: center; padding: 32px 16px; background: transparent; }
+.ejm-ui-table td.ejm-ui-table__state { block-size: auto; padding: 0; white-space: normal; border-block-end: 0; }
+.ejm-ui-table tbody tr:hover td.ejm-ui-table__state { background: transparent; }
+.ejm-ui-skel--value { block-size: 24px; inline-size: var(--w, 40%); margin-block: 4px; border-radius: 6px; }
+.ejm-ui-skel--chart { block-size: 220px; border-radius: var(--ejm-ui-r-card); }
+.ejm-ui-skellist { display: grid; gap: 20px; }
+.ejm-ui-skellist > li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 12px; align-items: start; }
+.ejm-ui-skellist > li > .ejm-ui-skel--avatar { inline-size: 9px; block-size: 9px; margin: 5px 3.5px 0; }
+.ejm-ui-skellist .ejm-ui-skel--text { margin-block: 3px; }
 
 .ejm-ui-log { margin: 0; padding-block: 8px; overflow: auto; border-radius: var(--ejm-ui-r-card); background: var(--ejm-ui-block); font: var(--ejm-weight-technical) 12px / 20px var(--ejm-font-mono); }
 .ejm-ui-log__line { display: grid; grid-template-columns: 8ch 5ch minmax(0, 1fr); gap: 12px; padding-inline: 16px; color: var(--ejm-ui-text); white-space: pre-wrap; overflow-wrap: anywhere; transition: background-color var(--ejm-ui-t); }
@@ -769,6 +828,10 @@ button.ejm-ui-chip:active { background: var(--ejm-ui-hover); }
   .ejm-ui-handle:focus-visible { outline: 2px solid Highlight; }
   .ejm-ui-spinner { border-color: GrayText; border-top-color: CanvasText; }
   .ejm-ui-skel { border: 1px solid GrayText; }
+  .ejm-ui-lines__line { forced-color-adjust: none; stroke: CanvasText; }
+  .ejm-ui-lines__area { forced-color-adjust: none; fill: CanvasText; }
+  .ejm-ui-lines__mark, .ejm-ui-legend--marks > li::before { forced-color-adjust: none; background: CanvasText; }
+  .ejm-ui-lines__grid { stroke: GrayText; }
   .ejm-ui-slider::-webkit-slider-runnable-track { background: CanvasText; }
 }
 

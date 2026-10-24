@@ -1,0 +1,6 @@
+{
+  "binary": "/private/tmp/ejm-ide-launch-film-20261019/ejm-ide.app/Contents/MacOS/ejm-ide",
+  "sha256": "d19f93f3d3a60d933b5c3dc13a255cb3e419f08b6df0114f81151d5fa9b4aa17",
+  "bytes": 104636256,
+  "reason": "Task-only capture window restore and focus calls added. No model, tool, source or UI implementation changed."
+}
