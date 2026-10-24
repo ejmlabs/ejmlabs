@@ -6,7 +6,7 @@ The ejmlabs site: a Vite and React site on the ejm-ui design system, prerendered
 
 | Route | Page |
 | --- | --- |
-| `/` | Home: a text hero, an interactive ejm-cli demo, the studio, three habits, open source projects with approved project marks and links to each project site, example sessions and ways to contribute. Served as static HTML; only the interactive ejm-cli demo hydrates. |
+| `/` | Home: a text hero, how we work, open source projects with approved project marks and links to each project site, example sessions and ways to contribute. Served as static HTML without hydration. |
 | `/projects/` | CLI, IDE, harness and UI with existing marks, source and guide links. Agent projects link to recorded sessions; UI links to its component gallery. |
 | `/try/` | CLI, IDE and harness completing useful work in autoplay example sessions, with Pause or Resume and Restart. Meaningful static views remain available without scripts. |
 | `/about/` | What guides the work, room for projects beyond AI and developer tools, and quiet Company details naming `ejmlabs, llc`. |
@@ -83,21 +83,19 @@ npm test             # reads the built HTML of every route
 node ../../ejm-ui/scripts/perf.mjs dist
 ```
 
-`npm test` builds when `dist/` is missing. The home checks keep the sections in order, the ejm-cli demo mount, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles (the home demo's in its lazy chunk) and declares no private package source scans or local visual rules.
+`npm test` builds when `dist/` is missing. The home checks keep the sections in order, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
 
 ## Home and example sessions
 
 Home sections, in order:
 
 1. Hero: "Open source. Room to explore." with the shared text `Hero` and its ripple art.
-2. "Try ejm-cli in your browser.": the interactive ejm-cli demo (`@ejm/demos/islands/cli` through `LazyIsland`), from `src/stages/HomeDemo.tsx`. Visitors type a prompt or pick one, see the patch blocked, grant write and see it apply. The server serves the static ejm-cli screen and the demo note, which is also what shows without scripts. The island and `src/stages/cli-demo.css` load together near the viewport. That stylesheet repeats the page imports in the same order and adds `@ejm/demos/styles.css`, so the page CSS and its budget stay unchanged and the added rules keep the shared cascade.
-3. "An independent studio."
-4. "Three habits.": start small, make it useful, share the tools.
-5. "Current projects.": approved marks and direct links.
-6. "See it in action.": a link to the example sessions.
-7. "Help improve a project."
+2. "How we work.": start small, make it useful, share the tools.
+3. "Current projects.": approved marks and direct links.
+4. "See it in action.": a link to the example sessions.
+5. "Help improve a project."
 
-`src/pages/Home.tsx` serves the hero and sections 3 to 7 from `src/stages/HomeContent.tsx` through two `Static` boundaries around the demo, so only the demo hydrates. It uses the shared hero, section heading and row recipes. It has no product preview slideshow, carousel controls or image preloads. Current projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
+`src/pages/Home.tsx` serves every section from `src/stages/HomeContent.tsx` through one `Static` boundary, so the page does not hydrate. It uses the shared hero, section heading and row recipes. It has no product preview slideshow, carousel controls or image preloads. Current projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
 
 Try shows each product's native layout with sample code and recorded local output. CLI follows a code fix through tests and a diff. The IDE example shows Edi reading, searching and making reviewed edits. Those edits and tool updates are authored; its added tests were not run. The visible note states that limit. Harness shows tool admission and retained history in its real terminal presentation. The browser makes no model or tool calls. Shared fixtures and their provenance live in `ejm-ui/packages/demos`, rather than this site. Its IDE styles come from the separate `@ejm/demos/ide-preview.css` import, so CLI and harness consumers do not have to ship them.
 

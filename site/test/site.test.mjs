@@ -2,6 +2,7 @@ import test, { before } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -115,16 +116,10 @@ test('the home page opens with a text hero and keeps project names on one line',
   }
 });
 
-/** The ejm-cli demo mount, from its opening tag to the next band. Its static screen is the one product window home serves. */
-const demoMarkup = html => {
-  const start = html.indexOf('<div id="cli-demo"');
-  return start < 0 ? '' : html.slice(start, html.indexOf('<section', start));
-};
-
-test('the home page serves its sections in order and the ejm-cli demo without scripts', () => {
+test('the home page serves its sections in order', () => {
   const html = read('index.html');
   const text = prose(html);
-  const titles = ['Open source. Room to explore.', 'Try ejm-cli in your browser.', 'An independent studio.', 'Three habits.', 'Current projects.', 'See it in action.', 'Help improve a project.'];
+  const titles = ['Open source. Room to explore.', 'How we work.', 'Current projects.', 'See it in action.', 'Help improve a project.'];
   let last = -1;
   for (const title of titles) {
     const at = text.indexOf(title);
@@ -132,15 +127,30 @@ test('the home page serves its sections in order and the ejm-cli demo without sc
     last = at;
   }
   for (const habit of ['Start small.', 'Make it useful.', 'Share the tools.']) assert.ok(text.includes(habit), habit);
-  const demo = demoMarkup(html);
-  assert.ok(demo, 'the ejm-cli demo mount');
-  assert.match(demo, /aria-label="ejm-cli, a simulated screen"/, 'the static ejm-cli screen is served');
-  assert.ok(text.includes('Simulated demo. Nothing runs on your machine and nothing is sent anywhere.'), 'the demo note');
+});
+
+test('the home page calls ejmlabs a lab and has no ejm-cli demo section', () => {
+  const html = read('index.html');
+  assert.doesNotMatch(html, /studio/i, 'no studio wording');
+  assert.doesNotMatch(html, /\sid="(?:try|cli-demo|cli-demo-title|studio)"/, 'no try, ejm-cli demo or studio section');
+  assert.doesNotMatch(html, /data-demo="cli"/, 'no ejm-cli demo mount');
+  assert.ok(!prose(html).includes('Try ejm-cli in your browser.'), 'no ejm-cli demo title');
+});
+
+test('the EJM UI project row uses the ejm-ui grid-e mark', () => {
+  const html = read('index.html');
+  const start = html.indexOf('id="projects"');
+  const row = html.slice(start, html.indexOf('<section', start));
+  const marks = tags(row, 'img').map(tag => attr(tag, 'src'));
+  const ui = marks.find(src => /ui-mark-ink[^/]*\.svg$/.test(src));
+  assert.ok(ui, 'the ui row shows ui-mark-ink.svg');
+  assert.ok(!marks.some(src => /symbol-ink/.test(src)), 'the company symbol is not a project mark');
+  const served = readFileSync(join(dist, ui));
+  assert.equal(createHash('sha256').update(served).digest('hex'), '08ff7f3099ba18d9e1dc2a1e309fa3d444d996bbb7832b7d401aa91caaa8b049', 'the mark is served unchanged');
 });
 
 test('the home page has no product previews, carousel controls or image preloads', () => {
-  const index = read('index.html');
-  const html = index.replace(demoMarkup(index), '');
+  const html = read('index.html');
   assert.doesNotMatch(html, /\sdata-(?:window|shot|hero-(?:shots|slide|controls|select|pause))=/, 'no shared product preview or slideshow markup');
   assert.doesNotMatch(html, /aria-roledescription="carousel"/, 'no carousel');
   const preloads = tags(html, 'link').filter(tag => attr(tag, 'rel') === 'preload' && attr(tag, 'as') === 'image');

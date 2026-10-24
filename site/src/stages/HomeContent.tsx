@@ -1,10 +1,10 @@
-import uiMark from '@ejm/tokens/assets/logos/symbol-ink.svg?url';
+// Switch to @ejm/tokens/assets/projects/ui/mark-ink.svg once ejm-ui ships that file.
+import uiMark from '../assets/ui-mark-ink.svg?url';
 import cliMark from '@ejm/tokens/assets/projects/cli/mark-ink.svg?url';
 import ideMark from '@ejm/tokens/assets/projects/ide/mark-ink.svg?url';
 import harnessMark from '@ejm/tokens/assets/projects/harness/mark-ink.svg?url';
 import ripple from '@ejm/ui/art/inline/divider-ripple.svg?raw';
 import { Band } from '@ejm/ui/layout/Band';
-import { Fact, Facts } from '@ejm/ui/layout/Facts';
 import { Button } from '@ejm/ui/components/ui/button';
 import { Hero } from '@ejm/ui/layout/Hero';
 import { Row, Rows } from '@ejm/ui/layout/Rows';
@@ -29,8 +29,7 @@ const habits = [
   ['Share the tools.', 'What we build for ourselves, we release as open source so others can build on it.'],
 ] as const;
 
-// The hero, served before the live ejm-cli demo (HomeDemo.tsx); the remaining sections follow it.
-export function HomeHero() {
+function HomeHero() {
   return <Hero
     art={ripple}
     drawOn
@@ -46,19 +45,9 @@ export function HomeHero() {
 
 export default function HomeContent() {
   return <>
-    <Band id="studio" tone="paper" aria-labelledby="studio-title">
-      <SectionHead title="An independent studio." id="studio-title">
-        <p>We make small experiments, useful software and open source tools. Each project starts as a question and ends as something you can use.</p>
-      </SectionHead>
-      <SectionBody>
-        <Facts>
-          <Fact label="project">ejmlabs</Fact>
-          <Fact label="status">exploring</Fact>
-        </Facts>
-      </SectionBody>
-    </Band>
+    <HomeHero />
     <Band id="approach" tone="mist" aria-labelledby="approach-title">
-      <SectionHead title="Three habits." id="approach-title" />
+      <SectionHead title="How we work." id="approach-title" />
       <SectionBody>
         <Rows aria-label="Habits">
           {habits.map(([title, description]) => <Row key={title} title={title} description={description} />)}
