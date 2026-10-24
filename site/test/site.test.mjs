@@ -115,6 +115,25 @@ test('the home page opens with a text hero and keeps project names on one line',
   }
 });
 
+test('the home page serves its sections in order and the ejm-cli demo without scripts', () => {
+  const html = read('index.html');
+  const text = prose(html);
+  const titles = ['Open source. Room to explore.', 'Try ejm-cli in your browser.', 'An independent studio.', 'Three habits.', 'Current projects.', 'See it in action.', 'Help improve a project.'];
+  let last = -1;
+  for (const title of titles) {
+    const at = text.indexOf(title);
+    assert.ok(at > last, `${title}: present and in order`);
+    last = at;
+  }
+  for (const habit of ['Start small.', 'Make it useful.', 'Share the tools.']) assert.ok(text.includes(habit), habit);
+  const frame = tags(html, 'div').find(tag => attr(tag, 'id') === 'cli-demo');
+  assert.ok(frame, 'the ejm-cli demo mount');
+  assert.equal(attr(frame, 'role'), 'group');
+  const demo = html.slice(html.indexOf(frame));
+  assert.ok(tags(demo, 'div').some(tag => attr(tag, 'data-showcase') === 'ejm-cli'), 'the static ejm-cli excerpt is served');
+  assert.ok(text.includes('Simulated demo. Nothing runs on your machine and nothing is sent anywhere.'), 'the demo note');
+});
+
 test('the home page has no product previews, carousel controls or image preloads', () => {
   const html = read('index.html');
   assert.doesNotMatch(html, /\sdata-(?:window|shot|hero-(?:shots|slide|controls|select|pause))=/, 'no shared product preview or slideshow markup');

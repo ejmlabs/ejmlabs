@@ -4,6 +4,7 @@ import ideMark from '@ejm/tokens/assets/projects/ide/mark-ink.svg?url';
 import harnessMark from '@ejm/tokens/assets/projects/harness/mark-ink.svg?url';
 import ripple from '@ejm/ui/art/inline/divider-ripple.svg?raw';
 import { Band } from '@ejm/ui/layout/Band';
+import { Fact, Facts } from '@ejm/ui/layout/Facts';
 import { Button } from '@ejm/ui/components/ui/button';
 import { Hero } from '@ejm/ui/layout/Hero';
 import { Row, Rows } from '@ejm/ui/layout/Rows';
@@ -22,19 +23,51 @@ const homeRows = {
   ui: 'Build with shared components, themes and layouts.',
 };
 
+const habits = [
+  ['Start small.', 'Each experiment answers one question, so it can be built, tried and judged quickly.'],
+  ['Make it useful.', 'A project is finished when someone can use it, not when it is clever.'],
+  ['Share the tools.', 'What we build for ourselves, we release as open source so others can build on it.'],
+] as const;
+
+// The hero, served before the live ejm-cli demo (HomeDemo.tsx); the remaining sections follow it.
+export function HomeHero() {
+  return <Hero
+    art={ripple}
+    drawOn
+    title="Open source. Room to explore."
+    actions={<>
+      <Button asChild arrow><a href="#projects">Explore the projects</a></Button>
+      <Button asChild variant="link"><a href={GITHUB} rel="external noopener">Browse the source</a></Button>
+    </>}
+  >
+    <p>ejmlabs is a home for open source projects and experiments. Explore the code, try something out, or help improve it.</p>
+  </Hero>;
+}
+
 export default function HomeContent() {
   return <>
-    <Hero
-      art={ripple}
-      drawOn
-      title="Open source. Room to explore."
-      actions={<>
-        <Button asChild arrow><a href="#projects">Explore the projects</a></Button>
-        <Button asChild variant="link"><a href={GITHUB} rel="external noopener">Browse the source</a></Button>
-      </>}
-    >
-      <p>ejmlabs is a home for open source projects and experiments. Explore the code, try something out, or help improve it.</p>
-    </Hero>
+    <Band id="studio" tone="paper" aria-labelledby="studio-title">
+      <SectionHead title="An independent studio." id="studio-title">
+        <p>We make small experiments, useful software and open source tools. Each project starts as a question and ends as something you can use.</p>
+      </SectionHead>
+      <SectionBody>
+        <Facts>
+          <Fact label="project">ejmlabs</Fact>
+          <Fact label="status">exploring</Fact>
+        </Facts>
+      </SectionBody>
+    </Band>
+    <Band id="approach" tone="mist" aria-labelledby="approach-title">
+      <SectionHead title="Three habits." id="approach-title" />
+      <SectionBody>
+        <Rows aria-label="Habits">
+          {habits.map(([title, description]) => <Row key={title} title={title} description={description} />)}
+        </Rows>
+      </SectionBody>
+      <SectionBody>
+        <Actions><Button variant="link" asChild><a href="/about/">More about ejmlabs</a></Button></Actions>
+      </SectionBody>
+    </Band>
     <Band id="projects" tone="sage" aria-labelledby="projects-title">
       <SectionHead title="Current projects." id="projects-title">
         <p>A terminal agent, a desktop editor, the engine they share, and the design system behind these sites. All four are open source under the MIT license, with public code and documentation.</p>
