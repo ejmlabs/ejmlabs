@@ -105,6 +105,16 @@ test('the home page links the three project sites as external without scripts', 
   }
 });
 
+test('the home page opens with a text hero and keeps project names on one line', () => {
+  const html = read('index.html');
+  assert.match(html, /<h1\b[^>]*>Open source\. Room to explore\.<\/h1>/);
+  assert.ok(tags(html, 'a').some(a => attr(a, 'href') === '#projects'), 'the hero links to the projects');
+  for (const name of ['ejm-cli', 'ejm-ide', 'ejm-harness']) {
+    assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
+    assert.ok(html.includes(name.replace('-', '‑')), `${name}: footer label uses a non-breaking hyphen`);
+  }
+});
+
 test('the home page has no product previews, carousel controls or image preloads', () => {
   const html = read('index.html');
   assert.doesNotMatch(html, /\sdata-(?:window|shot|hero-(?:shots|slide|controls|select|pause))=/, 'no shared product preview or slideshow markup');

@@ -20,6 +20,9 @@ const nav = [
   { label: 'Brand', href: '/brand/' },
 ];
 
+// Footer links take plain text labels, so project names use a non-breaking hyphen (U+2011) to stay on one line.
+const unbroken = (link: NavItem) => ({ ...link, label: link.label.replaceAll('-', '‑') });
+
 const footerPages = [
   { label: 'Home', href: '/' },
   ...nav,
@@ -34,7 +37,7 @@ const footer: FooterProps = {
   },
   columns: [
     { heading: 'Pages', links: footerPages },
-    { heading: 'Projects', links: [...otherSites('ejmlabs'), { label: UI_PROJECT.name, href: UI_PROJECT.url, external: true }] },
+    { heading: 'Projects', links: [...otherSites('ejmlabs'), { label: UI_PROJECT.name, href: UI_PROJECT.url, external: true }].map(unbroken) },
     { heading: 'Source', links: sourceLinks('ejmlabs') },
   ],
   privacy: (
