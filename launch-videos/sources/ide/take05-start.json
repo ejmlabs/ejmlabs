@@ -1,0 +1,7 @@
+{
+  "actionStartedAt": "2026-10-19T18:44:24.665192+00:00",
+  "windowId": 67570,
+  "ownerPID": 79295,
+  "capture": "screencapture -x -o -v -V 15 -l 67570",
+  "story": "Native recorded diff from the successful first turn scrolls to its real assertion. No new agent work."
+}

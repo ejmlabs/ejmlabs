@@ -1,0 +1,42 @@
+{
+  "frontend": {
+    "cwd": "/private/tmp/ejm-ide-launch-film-20261019/ejm-ide",
+    "argv": [
+      "node (24.19.0; historical path redacted)",
+      "node_modules/vite/bin/vite.js",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "1420",
+      "--strictPort"
+    ]
+  },
+  "application": {
+    "argv": [
+      "/usr/bin/open",
+      "-n",
+      "-a",
+      "/private/tmp/ejm-ide-launch-film-20261019/ejm-ide.app"
+    ],
+    "environment": {
+      "HOME": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/home",
+      "EJM_IDE_CAPTURE_ROOT": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture",
+      "EJM_IDE_CAPTURE_TOKEN": "native-graph-no-provider",
+      "EJM_IDE_RUST_LSP": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/no-language-server"
+    },
+    "environmentMethod": "macOS open --env NAME=value per entry"
+  },
+  "captureAdapter": "Same recorded capture-only startup patch and binary as earlier result take. Native UI and public IPC behavior unchanged.",
+  "nativePreferences": {
+    "theme": "dark",
+    "fontSize": 16,
+    "inlineEnabled": false,
+    "lineBlame": false
+  },
+  "languageServer": "Unset executable at recorded local path selects the existing saved-source index fallback; no language server is started.",
+  "model": "No model inference request or hosted provider account is used.",
+  "_publication": {
+    "revisedAt": "2026-10-24",
+    "note": "Redacted publication copy. Personal home paths were replaced; historical hashes and results were retained. See PUBLICATION-SCOPE.md."
+  }
+}

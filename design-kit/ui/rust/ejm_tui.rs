@@ -749,6 +749,117 @@ pub fn prompt_line(theme: &Theme, g: &Glyphs, label: &str, input: &str, hint: &s
 }
 
 // ---------------------------------------------------------------------------------------------
+// States and dashboard helpers: loading, empty with an action, error with an action, stats, bars
+// ---------------------------------------------------------------------------------------------
+
+/// Which way a change figure leans: `Good` is success, `Bad` is error, `Neutral` is dim. The sign in the
+/// text always carries the meaning, so `NO_COLOR` loses nothing.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Tone {
+    Neutral,
+    Good,
+    Bad,
+}
+
+/// The one action of a state, as `[Enter] New session`. The key is bold accent, the label plain. Like
+/// `empty_state`, it has no side pad: the caller pads every line the same.
+pub fn action_line(theme: &Theme, g: &Glyphs, key: &str, label: &str, w: usize) -> Line<'static> {
+    fit(vec![(format!("[{key}]"), theme.accent.add_modifier(Modifier::BOLD)), (format!(" {label}"), theme.plain)], w, g.ellipsis)
+}
+
+/// The empty state with its one action underneath: title, help, then `[key] label`. Say what is missing in
+/// the title and the way out in the label. Use it instead of `empty_state` wherever an action exists.
+pub fn empty_state_action(theme: &Theme, g: &Glyphs, title: &str, help: &[&str], key: &str, label: &str, w: usize) -> Vec<Line<'static>> {
+    let mut lines = empty_state(theme, title, help, w);
+    lines.push(action_line(theme, g, key, label, w));
+    lines.push(Line::raw(""));
+    lines
+}
+
+/// A region that is waiting for data: the spinner frame and `Loading <what>…` in bold accent, then a dim hint.
+/// Pass `spinner_frame(...)` as `spin`: with reduced motion that is the static running glyph. Spacing matches
+/// `empty_state`, so the screen does not jump when the data arrives.
+pub fn loading_state(theme: &Theme, g: &Glyphs, what: &str, hint: &str, spin: &str, w: usize) -> Vec<Line<'static>> {
+    let title = truncate(&format!("  {spin} Loading {what}{}", g.ellipsis), w, g.ellipsis);
+    let mut lines = vec![Line::raw(""), Line::styled(title, theme.accent.add_modifier(Modifier::BOLD)), Line::raw("")];
+    if !hint.is_empty() {
+        lines.extend(styled_lines(wrap_text(hint, w), theme.dim));
+        lines.push(Line::raw(""));
+    }
+    lines
+}
+
+/// One table row of dim dots while rows load, with the same column widths and alignment as `table_row`.
+/// Dots are ASCII in every mode, so the row reads under `--plain` and `NO_COLOR`.
+pub fn loading_row(theme: &Theme, cols: &[(usize, Align)]) -> Line<'static> {
+    let cells: Vec<String> = cols
+        .iter()
+        .map(|&(w, align)| {
+            let dots = ".".repeat(w.min(6));
+            if align == Align::Right { pad_left(&dots, w) } else { pad_right(&dots, w) }
+        })
+        .collect();
+    Line::styled(format!(" {}", cells.join("  ")), theme.dim)
+}
+
+/// A failed region: the fail glyph and what failed in bold error, the next step in plain text under it, then
+/// the one action as `[key] label`. Text hangs under the first word. The glyph and words carry the state when
+/// color is gone. The session and the user's work stay open.
+pub fn error_state_action(theme: &Theme, g: &Glyphs, what: &str, next: &str, key: &str, label: &str, w: usize) -> Vec<Line<'static>> {
+    let hang = width(g.fail) + 1;
+    let inner = w.saturating_sub(2 + hang).max(1);
+    let indent = " ".repeat(2 + hang);
+    let mut lines = vec![Line::raw("")];
+    for (i, l) in wrap_text(what, inner).into_iter().enumerate() {
+        let text = if i == 0 { format!("  {} {l}", g.fail) } else { format!("{indent}{l}") };
+        lines.push(Line::styled(text, theme.error.add_modifier(Modifier::BOLD)));
+    }
+    for l in wrap_text(next, inner) {
+        lines.push(Line::styled(format!("{indent}{l}"), theme.plain));
+    }
+    lines.push(Line::raw(""));
+    let mut action = action_line(theme, g, key, label, inner);
+    action.spans.insert(0, Span::raw(indent));
+    lines.push(action);
+    lines.push(Line::raw(""));
+    lines
+}
+
+/// A stat tile as one line: dim label padded to `label_w`, bold value padded to `value_w` so the changes line up
+/// in a column, then the change with its sign. An empty
+/// `value` shows a dim dash, never zero; put the reason ("No data yet") in `delta`.
+pub fn stat_line(theme: &Theme, g: &Glyphs, label: &str, value: &str, delta: &str, tone: Tone, label_w: usize, value_w: usize, w: usize) -> Line<'static> {
+    let (value_text, value_style) = if value.is_empty() { ("-".to_string(), theme.dim) } else { (value.to_string(), theme.bold) };
+    let delta_style = match tone {
+        Tone::Neutral => theme.dim,
+        Tone::Good => theme.success,
+        Tone::Bad => theme.error,
+    };
+    let delta_text = if delta.is_empty() { String::new() } else { format!("  {delta}") };
+    fit(
+        vec![(format!(" {}", pad_right(&truncate(label, label_w, g.ellipsis), label_w)), theme.dim), (format!("  {}", pad_right(&value_text, value_w)), value_style), (delta_text, delta_style)],
+        w,
+        g.ellipsis,
+    )
+}
+
+/// A ranked share as one line: plain label padded to `label_w`, an ASCII bar for `frac` (0.0 to 1.0, `1.0` is
+/// the leader), and the right aligned value in bold, padded to `value_w`. The bar fills the spare width. The
+/// label and the value are text, so the bar is never the only source of the number.
+pub fn bar_line(theme: &Theme, g: &Glyphs, label: &str, label_w: usize, frac: f64, value: &str, value_w: usize, w: usize) -> Line<'static> {
+    let cells = w.saturating_sub(1 + label_w + 2 + 2 + 2 + value_w).max(1);
+    fit(
+        vec![
+            (format!(" {}", pad_right(&truncate(label, label_w, g.ellipsis), label_w)), theme.plain),
+            (format!("  [{}]", bar_cells(cells, frac)), theme.accent),
+            (format!("  {}", pad_left(value, value_w)), theme.bold),
+        ],
+        w,
+        g.ellipsis,
+    )
+}
+
+// ---------------------------------------------------------------------------------------------
 // Tests
 // ---------------------------------------------------------------------------------------------
 
@@ -1063,5 +1174,89 @@ mod tests {
         assert_eq!((row, col), (1, 2));
         assert_eq!(composer_layout("", 0, 10), (vec![String::new()], 0, 0));
         assert_eq!(composer_layout("ab\ncd", 3, 10).1, 1);
+    }
+    #[test]
+    fn stat_and_bar_lines() {
+        let t = Theme::detect(false, Appearance::Dark, None, Some("truecolor"));
+        let up = stat_line(&t, &UNICODE, "Sessions", "128", "+12 vs last week", Tone::Good, 10, 5, 60);
+        assert_eq!(text(&up), " Sessions    128    +12 vs last week");
+        assert_eq!((up.spans[1].style, up.spans[2].style), (t.bold, t.success));
+        assert_eq!(stat_line(&t, &UNICODE, "Tokens", "2.3M", "+41% vs last week", Tone::Bad, 10, 5, 60).spans[2].style, t.error);
+        // A missing value is a dash with the reason beside it, never zero.
+        let none = stat_line(&t, &UNICODE, "Failed calls", "", "No data yet", Tone::Neutral, 10, 5, 60);
+        assert_eq!(text(&none), " Failed ca\u{2026}  -      No data yet");
+        assert_eq!((none.spans[1].style, none.spans[2].style), (t.dim, t.dim));
+        assert_eq!(width(&text(&stat_line(&t, &UNICODE, "Sessions", "128", "+12 vs last week", Tone::Good, 10, 5, 20))), 20);
+
+        let lead = bar_line(&t, &UNICODE, "deepseek-chat", 13, 1.0, "128", 4, 40);
+        assert_eq!(text(&lead), " deepseek-chat  [================]   128");
+        assert_eq!(width(&text(&lead)), 40);
+        assert_eq!(text(&bar_line(&t, &UNICODE, "local-qwen", 13, 0.32, "41", 4, 40)), " local-qwen     [=====>----------]    41");
+        assert_eq!(text(&bar_line(&t, &ASCII, "none", 13, 0.0, "-", 4, 40)), " none           [----------------]     -");
+        assert_eq!(bar_line(&t, &UNICODE, "a", 13, 0.5, "1", 4, 40).spans[1].style, t.accent);
+        for w in [10, 20, 40, 80] {
+            assert!(width(&text(&bar_line(&t, &UNICODE, "provider-b-large", 13, 0.5, "1,204", 6, w))) <= w, "bar_line at {w}");
+        }
+    }
+
+    #[test]
+    fn loading_empty_and_error_states_with_one_action() {
+        let t = Theme::detect(false, Appearance::Dark, None, Some("truecolor"));
+        let load = loading_state(&t, &UNICODE, "sessions", "Esc to cancel", "\u{2839}", 40);
+        assert_eq!(load.iter().map(text).collect::<Vec<_>>(), ["", "  \u{2839} Loading sessions\u{2026}", "", "Esc to cancel", ""]);
+        assert_eq!(load[1].style, t.accent.add_modifier(Modifier::BOLD));
+        assert_eq!(load[3].style, t.dim);
+        // Reduced motion passes the static glyph, so the line does not move.
+        let still = loading_state(&t, &ASCII, "sessions", "", spinner_frame(&ASCII, 800, true), 40);
+        assert_eq!(still.iter().map(text).collect::<Vec<_>>(), ["", "  * Loading sessions...", ""]);
+        // The loading line and the empty title sit on the same row, so the screen does not jump.
+        assert_eq!(empty_state(&t, "No sessions yet", &["Sessions you start are listed here."], 40)[1].spans[0].content.chars().take(2).collect::<String>(), "  ");
+        assert_eq!(width(&text(&loading_state(&t, &UNICODE, "a very long list of things to load", "", "\u{2839}", 20)[1])), 20);
+
+        let row = loading_row(&t, &[(10, Align::Left), (6, Align::Right)]);
+        assert_eq!(text(&row), " ......      ......");
+        assert_eq!(row.style, t.dim);
+
+        let empty = empty_state_action(&t, &UNICODE, "No sessions yet", &["Sessions you start are listed here."], "Enter", "New session", 40);
+        assert_eq!(empty.iter().map(text).collect::<Vec<_>>(), ["", "  No sessions yet", "", "Sessions you start are listed here.", "", "[Enter] New session", ""]);
+        assert_eq!(empty[5].spans[0].style, t.accent.add_modifier(Modifier::BOLD));
+        assert_eq!(empty[5].spans[1].style, t.plain);
+
+        let err = error_state_action(&t, &UNICODE, "Could not load sessions", "The service did not answer.", "R", "Try again", 40);
+        assert_eq!(err.iter().map(text).collect::<Vec<_>>(), ["", "  \u{2717} Could not load sessions", "    The service did not answer.", "", "    [R] Try again", ""]);
+        assert_eq!(err[1].style, t.error.add_modifier(Modifier::BOLD));
+        // Narrow: text hangs under the first word and nothing passes the width.
+        for l in error_state_action(&t, &UNICODE, "Provider request failed with a long reason", "Check the key, then retry.", "R", "Try again", 24) {
+            assert!(width(&text(&l)) <= 24, "{:?}", text(&l));
+        }
+    }
+
+    #[test]
+    fn every_state_reads_under_no_color() {
+        let t = Theme::no_color();
+        for g in [&UNICODE, &ASCII] {
+            let spin = spinner_frame(g, 0, true);
+            let cases: Vec<(&str, Vec<Line<'static>>)> = vec![
+                ("Loading", loading_state(&t, g, "sessions", "Esc to cancel", spin, 40)),
+                ("No sessions yet", empty_state_action(&t, g, "No sessions yet", &["Sessions you start are listed here."], "Enter", "New session", 40)),
+                (g.fail, error_state_action(&t, g, "Could not load sessions", "The service did not answer.", "R", "Try again", 40)),
+                ("-      No data yet", vec![stat_line(&t, g, "Sessions", "", "No data yet", Tone::Neutral, 10, 5, 40)]),
+                ("[=", vec![bar_line(&t, g, "deepseek-chat", 13, 0.5, "128", 4, 40)]),
+                ("......", vec![loading_row(&t, &[(8, Align::Left)])]),
+            ];
+            for (needle, lines) in cases {
+                let all: String = lines.iter().map(text).collect::<Vec<_>>().join("\n");
+                assert!(all.contains(needle), "{needle:?} missing in {all:?}");
+                for l in &lines {
+                    for sp in &l.spans {
+                        assert_eq!(sp.style.fg, None, "color under NO_COLOR in {:?}", sp.content);
+                    }
+                    assert_eq!(l.style.fg, None);
+                }
+                if is_ascii(g) {
+                    assert!(all.is_ascii(), "non-ASCII in plain mode: {all:?}");
+                }
+            }
+        }
     }
 }

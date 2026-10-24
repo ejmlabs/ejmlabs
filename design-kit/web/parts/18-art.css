@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Symbol art and surfaces. See web/ART.md.
+   Art is generated from the symbol (scripts/build-art.mjs) into art/. It is decorative: always aria-hidden or alt="",
+   never the only carrier of meaning, and quiet enough to sit behind or beside text.
+   Images pick their light or dark file with the same --ejm-dk / --ejm-lt switches as the motifs (var(--ejm-dk, X) gives X
+   on a light page, var(--ejm-lt, Y) gives Y on a dark page). Reversed grounds
+   (Sage, Forest, Ink) override the switch locally so lines never vanish into their own ground.
+   Surfaces are CSS gradients in brand colors with an optional grain tile. Their text pairs are verified by
+   scripts/check-art.mjs against the lightest and darkest point of each gradient.
+   Everything animated here uses stroke offset and opacity only, and only without reduced motion.
+   ========================================================================== */
+
+/* ---------- Image art ---------- */
+.ejm-art {
+  --ejm-art-ratio: 16 / 9;
+  display: block; inline-size: 100%; aspect-ratio: var(--ejm-art-ratio); pointer-events: none; user-select: none;
+  background: var(--ejm-art-src, none) center / contain no-repeat;
+}
+.ejm-art--hero { --ejm-art-ratio: 16 / 9; --ejm-art-src: var(--ejm-dk, url('../art/hero-light.svg')) var(--ejm-lt, url('../art/hero-dark.svg')); }
+.ejm-art--flow { --ejm-art-ratio: 1600 / 150; --ejm-art-src: var(--ejm-dk, url('../art/divider-flow-light.svg')) var(--ejm-lt, url('../art/divider-flow-dark.svg')); }
+.ejm-art--ripple { --ejm-art-ratio: 1600 / 140; --ejm-art-src: var(--ejm-dk, url('../art/divider-ripple-light.svg')) var(--ejm-lt, url('../art/divider-ripple-dark.svg')); }
+.ejm-art--start { --ejm-art-ratio: 8 / 5; --ejm-art-src: var(--ejm-dk, url('../art/empty-start-light.svg')) var(--ejm-lt, url('../art/empty-start-dark.svg')); }
+.ejm-art--search { --ejm-art-ratio: 8 / 5; --ejm-art-src: var(--ejm-dk, url('../art/empty-search-light.svg')) var(--ejm-lt, url('../art/empty-search-dark.svg')); }
+.ejm-art--done { --ejm-art-ratio: 8 / 5; --ejm-art-src: var(--ejm-dk, url('../art/empty-done-light.svg')) var(--ejm-lt, url('../art/empty-done-dark.svg')); }
+.ejm-art--lost { --ejm-art-ratio: 8 / 5; --ejm-art-src: var(--ejm-dk, url('../art/error-lost-light.svg')) var(--ejm-lt, url('../art/error-lost-dark.svg')); }
+.ejm-art--fault { --ejm-art-ratio: 8 / 5; --ejm-art-src: var(--ejm-dk, url('../art/error-fault-light.svg')) var(--ejm-lt, url('../art/error-fault-dark.svg')); }
+/* Empty-state and error-page size: a calm picture above a heading, never wider than 28rem. */
+.ejm-art--compact { max-inline-size: 28rem; margin-inline: auto; }
+
+/* A ground that is always light (Sage) or always dark (Forest, Ink), whatever the page theme. */
+.ejm-art--on-light, .ejm-band--sage .ejm-art, .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body .ejm-art, .ejm-project--base .ejm-art, .ejm-surface-gradient--sage .ejm-art {
+  --ejm-dk: initial; --ejm-lt: ; color-scheme: light;
+}
+.ejm-art--on-dark, :is(.ejm-band--forest, .ejm-band--ink, .ejm-surface--forest, .ejm-hero--forest, .ejm-terminal, .ejm-surface-gradient--forest) .ejm-art {
+  --ejm-dk: ; --ejm-lt: initial; color-scheme: dark;
+}
+
+/* ---------- Frame: a panel with art filling the back ----------
+   Put it with a ground, such as ejm-surface-gradient. The art sits behind the content and is cropped, never stretched. */
+.ejm-art-frame { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--ejm-radius-large); }
+.ejm-art-frame > .ejm-art--cover {
+  position: absolute; inset: 0; z-index: -1; inline-size: auto; block-size: auto; aspect-ratio: auto;
+  background-size: auto 100%; background-position: 100% 50%;
+  /* Fixed fade toward the copy side, so lines never run under the words. Not animated. */
+  -webkit-mask-image: linear-gradient(to right, transparent 26%, #000 62%); mask-image: linear-gradient(to right, transparent 26%, #000 62%);
+}
+@media (max-width: 759px) { .ejm-art-frame > .ejm-art--cover { opacity: 0.4; background-size: auto 62%; background-position: 100% 100%; -webkit-mask-image: none; mask-image: none; } }
+
+/* A padded, rounded panel for copy over a surface or art. --large is the hero size: tall, with the copy held to the left. */
+.ejm-art-panel { display: grid; gap: var(--ejm-space-4); align-content: start; padding: clamp(24px, 4vw, 48px); border-radius: var(--ejm-radius-large); min-block-size: 14rem; }
+.ejm-art-panel--large { gap: var(--ejm-space-6); align-content: center; padding: clamp(32px, 7vw, 112px); min-block-size: min(72vh, 36rem); }
+.ejm-art-panel--large > :not(.ejm-art) { max-inline-size: min(100%, 36rem); }
+.ejm-art-panel > * { min-inline-size: 0; }
+
+/* ---------- Inline line art: colors from the theme, ready to draw on ---------- */
+.ejm-art--draw {
+  --ejm-art-line: var(--ejm-forest); --ejm-art-accent: var(--ejm-sage); --ejm-art-fill: var(--ejm-sage);
+  aspect-ratio: auto; block-size: auto; color: var(--ejm-art-line); background: none; overflow: hidden;
+}
+@supports (color: light-dark(white, black)) {
+  .ejm-art--draw { --ejm-art-line: light-dark(var(--ejm-forest), var(--ejm-sage)); --ejm-art-accent: light-dark(var(--ejm-sage), var(--ejm-mist)); }
+}
+.ejm-art--draw .ejm-art__accent { color: var(--ejm-art-accent); }
+.ejm-art--draw .ejm-art__fill { fill: var(--ejm-art-fill); }
+.ejm-art--draw path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* ---------- Draw-on: once, when the art enters view ----------
+   Add ejm-reveal to the inline svg (the files in art/inline/ already have it) and motion.js marks it .is-visible once.
+   Without that script, or with reduced motion, none of this applies and the finished art is shown. About 1.3 seconds in all. */
+@keyframes ejm-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ejm-ink { from { opacity: 0; } to { opacity: 1; } }
+.ejm-art--draw path:nth-child(n+12) { --ejm-i: 11; }
+.ejm-art--draw path:nth-child(2) { --ejm-i: 1; }
+.ejm-art--draw path:nth-child(3) { --ejm-i: 2; }
+.ejm-art--draw path:nth-child(4) { --ejm-i: 3; }
+.ejm-art--draw path:nth-child(5) { --ejm-i: 4; }
+.ejm-art--draw path:nth-child(6) { --ejm-i: 5; }
+.ejm-art--draw path:nth-child(7) { --ejm-i: 6; }
+.ejm-art--draw path:nth-child(8) { --ejm-i: 7; }
+.ejm-art--draw path:nth-child(9) { --ejm-i: 8; }
+.ejm-art--draw path:nth-child(10) { --ejm-i: 9; }
+.ejm-art--draw path:nth-child(11) { --ejm-i: 10; }
+@media (prefers-reduced-motion: no-preference) {
+  html.ejm-js .ejm-art--draw:not(.is-visible) path { stroke-dashoffset: 1; }
+  html.ejm-js .ejm-art--draw:not(.is-visible) .ejm-art__fill { opacity: 0; }
+  html.ejm-js .ejm-art--draw.is-visible path {
+    animation: ejm-draw 880ms var(--ejm-ease-enter) calc(var(--ejm-delay, 0ms) + min(var(--ejm-i, 0), 11) * 40ms) backwards;
+  }
+  html.ejm-js .ejm-art--draw.is-visible .ejm-art__fill { animation: ejm-ink 880ms var(--ejm-ease-enter) 240ms backwards; }
+}
+@media print { html.ejm-js .ejm-art--draw path { stroke-dashoffset: 0 !important; animation: none !important; } }
+
+/* ---------- Surfaces: soft gradients, then optional grain ----------
+   Three grounds. The default follows the theme (Paper to Mist with Sage blooms, or the dark editor tones). The Sage
+   and Forest ones are reversed and keep their colors in both themes. Blooms are corner glows at a fixed opacity, so
+   the lightest and darkest point of each surface is known, and text over it stays at 4.5:1 or better. */
+.ejm-surface-gradient {
+  --ejm-grad-from: var(--ejm-paper);
+  --ejm-grad-to: var(--ejm-mist);
+  --ejm-grad-bloom-a: color-mix(in srgb, var(--ejm-sage) 44%, transparent);
+  --ejm-grad-bloom-b: color-mix(in srgb, var(--ejm-sage) 22%, transparent);
+  --ejm-surface-text: var(--ejm-ink);
+  --ejm-surface-muted: var(--ejm-forest);
+}
+@supports (color: light-dark(white, black)) {
+  .ejm-surface-gradient {
+    --ejm-grad-from: light-dark(var(--ejm-paper), var(--ejm-ui-editor));
+    --ejm-grad-to: light-dark(var(--ejm-mist), var(--ejm-ui-raised));
+    --ejm-grad-bloom-a: light-dark(color-mix(in srgb, var(--ejm-sage) 44%, transparent), color-mix(in srgb, var(--ejm-sage) 8%, transparent));
+    --ejm-grad-bloom-b: light-dark(color-mix(in srgb, var(--ejm-sage) 22%, transparent), color-mix(in srgb, var(--ejm-sage) 5%, transparent));
+    --ejm-surface-text: light-dark(var(--ejm-ink), var(--ejm-ui-text));
+    --ejm-surface-muted: light-dark(var(--ejm-forest), var(--ejm-ui-text-muted));
+  }
+}
+.ejm-surface-gradient--sage {
+  color-scheme: light;
+  --ejm-grad-from: var(--ejm-sage);
+  --ejm-grad-to: var(--ejm-sage);
+  --ejm-grad-bloom-a: color-mix(in srgb, var(--ejm-paper) 70%, transparent);
+  --ejm-grad-bloom-b: color-mix(in srgb, var(--ejm-mist) 50%, transparent);
+  --ejm-surface-text: var(--ejm-ink);
+  --ejm-surface-muted: var(--ejm-ink);
+}
+.ejm-surface-gradient--forest {
+  color-scheme: dark;
+  --ejm-grad-from: var(--ejm-forest);
+  --ejm-grad-to: var(--ejm-ink);
+  --ejm-grad-bloom-a: color-mix(in srgb, var(--ejm-sage) 24%, transparent);
+  --ejm-grad-bloom-b: color-mix(in srgb, var(--ejm-sage) 12%, transparent);
+  --ejm-surface-text: var(--ejm-paper);
+  --ejm-surface-muted: var(--ejm-mist);
+}
+.ejm-surface-gradient {
+  color: var(--ejm-surface-text);
+  background-color: var(--ejm-grad-from);
+  background-image:
+    radial-gradient(ellipse 80% 90% at 100% 0%, var(--ejm-grad-bloom-a), transparent 70%),
+    radial-gradient(ellipse 70% 80% at 0% 100%, var(--ejm-grad-bloom-b), transparent 70%),
+    linear-gradient(155deg, var(--ejm-grad-from), var(--ejm-grad-to));
+  --ejm-ground: var(--ejm-grad-from);
+  --ejm-fg: var(--ejm-surface-text);
+  --ejm-muted: var(--ejm-surface-muted);
+  --ejm-hairline: color-mix(in srgb, var(--ejm-surface-text) 24%, transparent);
+  --ejm-component-ground: var(--ejm-grad-from);
+  --ejm-component-contrast: var(--ejm-surface-text);
+}
+.ejm-surface-gradient--sage { --ejm-btn-bg: var(--ejm-ink); --ejm-btn-fg: var(--ejm-paper); --ejm-btn-bg-hover: var(--ejm-forest); --ejm-btn-fg-hover: var(--ejm-paper); --ejm-btn-ring: var(--ejm-ink); }
+.ejm-surface-gradient--forest { --ejm-btn-bg: var(--ejm-sage); --ejm-btn-fg: var(--ejm-ink); --ejm-btn-bg-hover: var(--ejm-paper); --ejm-btn-fg-hover: var(--ejm-ink); --ejm-btn-ring: var(--ejm-paper); }
+.ejm-surface-gradient--sage ::selection { color: var(--ejm-paper); background: var(--ejm-ink); }
+
+/* Grain: a fine noise tile over the surface, below the content. Alpha tops out at 8%, which the contrast check assumes. */
+.ejm-surface-grain { position: relative; isolation: isolate; --ejm-grain: var(--ejm-dk, url('../art/grain-light.svg')) var(--ejm-lt, url('../art/grain-dark.svg')); }
+.ejm-surface-grain::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: var(--ejm-grain) 0 0 / 160px 160px repeat;
+}
+.ejm-surface-gradient--sage.ejm-surface-grain { --ejm-grain: url('../art/grain-light.svg'); }
+.ejm-surface-gradient--forest.ejm-surface-grain { --ejm-grain: url('../art/grain-dark.svg'); }
+.ejm-surface-gradient.ejm-surface-grain:not(.ejm-surface-gradient--sage, .ejm-surface-gradient--forest) { --ejm-grain: var(--ejm-dk, url('../art/grain-light.svg')) var(--ejm-lt, url('../art/grain-dark.svg')); }

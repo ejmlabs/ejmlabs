@@ -1,0 +1,180 @@
+/* Docs experience: the page shell, reading column, code blocks, language tabs, reference tables, callouts and the
+   previous and next links. See web/DOCS.md. It extends the base ejm-docs, ejm-sidenav, ejm-toc, ejm-callout and
+   ejm-table parts, loads after the open layer and before dark, and reads only brand tokens, the band role variables
+   (--ejm-ground, --ejm-fg, --ejm-muted, --ejm-hairline), the tone variables from 15-open and the --ejm-theme-*
+   names from 20-dark, so both themes follow. Everything works with no script. web/docs.js only adds the copy
+   buttons, the language tabs, the scroll-aware contents and the sidebar filter. */
+
+/* ---------- Page shell: sidebar, reading column of at most 68 characters, contents ---------- */
+.ejm-site .ejm-docs--page { --ejm-docs-measure: 68ch; padding-block: var(--ejm-space-6) clamp(64px, 9vw, 144px); row-gap: var(--ejm-space-3); }
+@media (min-width: 900px) {
+  .ejm-site .ejm-docs--page { padding-block-start: var(--ejm-space-12); }
+}
+@media (min-width: 1240px) {
+  .ejm-site .ejm-docs--page {
+    grid-template-columns: minmax(190px, 230px) minmax(0, var(--ejm-docs-measure)) minmax(170px, 210px);
+    justify-content: space-between; column-gap: clamp(24px, 3vw, 48px);
+  }
+}
+@media (min-width: 1920px) {
+  .ejm-site .ejm-docs--page { grid-template-columns: calc(240px * var(--ejm-scale, 1)) minmax(0, var(--ejm-docs-measure)) calc(220px * var(--ejm-scale, 1)); }
+}
+.ejm-site .ejm-docs__nav, .ejm-site .ejm-docs__toc { align-self: start; }
+.ejm-site .ejm-docs__nav [hidden] { display: none; }
+
+/* Page head: trail, title, lead. */
+.ejm-docs__head { display: grid; gap: var(--ejm-space-4); margin-block-end: clamp(32px, 4vw, 56px); }
+.ejm-docs__title { margin: 0; font: var(--ejm-weight-heading) clamp(34px, 3.2vw + 20px, 52px) / 1.08 var(--ejm-font-sans); letter-spacing: -0.03em; text-wrap: balance; overflow-wrap: break-word; }
+.ejm-docs__lead { margin: 0; max-inline-size: 60ch; font-size: clamp(18px, 0.5vw + 16px, 21px); line-height: 1.55; color: var(--ejm-muted); text-wrap: pretty; }
+.ejm-site .ejm-docs__head .ejm-breadcrumb { margin: 0; }
+.ejm-site .ejm-docs__head .ejm-breadcrumb ol { padding: 0; margin: 0; }
+
+/* Headings in the reading column: clear steps in size, balanced wrapping, room above. */
+.ejm-site .ejm-docs__main :is(h2, h3) { position: relative; text-wrap: balance; overflow-wrap: break-word; }
+.ejm-site .ejm-docs__main h2 { font: var(--ejm-weight-heading) clamp(26px, 1.4vw + 20px, 34px) / 1.15 var(--ejm-font-sans); letter-spacing: -0.025em; }
+.ejm-site .ejm-docs__main h3 { font: var(--ejm-weight-heading) clamp(20px, 0.5vw + 17px, 23px) / 1.25 var(--ejm-font-sans); letter-spacing: -0.015em; }
+.ejm-site .ejm-docs__main h2 + :is(h3, .ejm-callout, .ejm-codeblock, .ejm-tabs, .ejm-table) { margin-block-start: var(--ejm-space-4); }
+.ejm-site .ejm-docs__main :is(p, ul, ol) { max-inline-size: var(--ejm-docs-measure, 68ch); }
+
+/* Permalink added to each heading by docs.js. It only shows where a pointer can hover or a keyboard focuses it. */
+.ejm-docs__anchor { display: none; position: absolute; inset-inline-start: -1.1em; padding-inline-end: 0.2em; color: var(--ejm-muted); text-decoration: none; font-weight: var(--ejm-weight-body); }
+@media (hover: hover) and (pointer: fine) and (min-width: 900px) {
+  .ejm-docs__anchor { display: inline; opacity: 0; }
+  :is(h2, h3):hover > .ejm-docs__anchor, .ejm-docs__anchor:focus-visible { opacity: 1; }
+}
+.ejm-docs__anchor:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: var(--ejm-radius-small); }
+
+/* ---------- Sidebar filter ---------- */
+.ejm-docs__filter { display: grid; gap: var(--ejm-space-2); margin-block-end: var(--ejm-space-6); }
+.ejm-site .ejm-docs__filter .ejm-input { inline-size: 100%; box-sizing: border-box; min-block-size: 44px; padding-block: var(--ejm-space-2); border: 0; border-radius: var(--ejm-radius-pill); background: var(--ejm-tone); color: inherit; font-size: 15px; }
+.ejm-site .ejm-docs__filter .ejm-input:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ejm-docs__count { min-block-size: 20px; margin: 0 0 0 var(--ejm-space-4); font-size: var(--ejm-caption-size); line-height: var(--ejm-caption-leading); color: var(--ejm-muted); }
+.ejm-site .ejm-docs__nav .ejm-sidenav { gap: var(--ejm-space-8); }
+.ejm-site .ejm-docs__nav .ejm-sidenav a { font-size: 15px; line-height: 1.35; }
+.ejm-site .ejm-docs__toc .ejm-toc__title { margin-inline-start: var(--ejm-space-4); }
+.ejm-site .ejm-docs__toc .ejm-toc a { font-size: 14px; line-height: 1.35; padding-block: var(--ejm-space-2); }
+/* Nested lists (h3 under h2) indent. */
+.ejm-site .ejm-docs__toc .ejm-toc ul ul { margin-block-start: 2px; }
+.ejm-site .ejm-docs__toc .ejm-toc ul ul a { padding-inline-start: var(--ejm-space-8); color: var(--ejm-muted); }
+.ejm-site .ejm-docs__toc .ejm-toc a[aria-current='true'] { background: var(--ejm-tone); color: var(--ejm-fg); }
+
+/* ---------- Code blocks: a bar with the language and the copy control, then the code ---------- */
+.ejm-codeblock {
+  --ejm-code-ground: var(--ejm-theme-panel, var(--ejm-mist));
+  --ejm-code-text: var(--ejm-theme-text, var(--ejm-ink));
+  --ejm-code-faint: var(--ejm-theme-muted, var(--ejm-muted));
+  --ejm-tok-comment: light-dark(color-mix(in srgb, var(--ejm-ui-syn-comment) 78%, var(--ejm-ink)), var(--ejm-ui-syn-comment));
+  --ejm-tok-keyword: light-dark(color-mix(in srgb, var(--ejm-ui-syn-keyword) 88%, var(--ejm-ink)), var(--ejm-ui-syn-keyword));
+  --ejm-tok-string: light-dark(color-mix(in srgb, var(--ejm-ui-syn-string) 76%, var(--ejm-ink)), var(--ejm-ui-syn-string));
+  --ejm-tok-number: light-dark(color-mix(in srgb, var(--ejm-ui-syn-number) 90%, var(--ejm-ink)), var(--ejm-ui-syn-number));
+  --ejm-tok-type: light-dark(color-mix(in srgb, var(--ejm-ui-syn-type) 90%, var(--ejm-ink)), var(--ejm-ui-syn-type));
+  --ejm-tok-function: light-dark(color-mix(in srgb, var(--ejm-ui-syn-function) 90%, var(--ejm-ink)), var(--ejm-ui-syn-function));
+  --ejm-tok-property: light-dark(color-mix(in srgb, var(--ejm-ui-syn-property) 82%, var(--ejm-ink)), var(--ejm-ui-syn-property));
+  display: grid; grid-template-rows: auto minmax(0, 1fr); min-inline-size: 0; max-inline-size: 100%;
+  overflow: hidden; border-radius: var(--ejm-radius-medium); background: var(--ejm-code-ground); color: var(--ejm-code-text);
+}
+.ejm-codeblock__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--ejm-space-3); min-block-size: 44px; padding-inline: var(--ejm-space-6) var(--ejm-space-2); }
+.ejm-codeblock__lang { margin: 0; font: var(--ejm-weight-technical) var(--ejm-technical-size) / var(--ejm-technical-leading) var(--ejm-font-mono); color: var(--ejm-code-faint); }
+.ejm-codeblock__copy {
+  display: inline-flex; align-items: center; justify-content: center; min-inline-size: 64px; min-block-size: 36px; padding-inline: var(--ejm-space-4);
+  border: 0; border-radius: var(--ejm-radius-pill); background: transparent; color: var(--ejm-code-text); cursor: pointer;
+  font: var(--ejm-weight-heading) 13px / 1 var(--ejm-font-sans);
+  transition: background-color var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-codeblock__copy:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+.ejm-codeblock__copy:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ejm-codeblock__copy[data-state='done'] { background: color-mix(in srgb, var(--ejm-sage) 38%, transparent); }
+.ejm-site .ejm-codeblock .ejm-code {
+  margin: 0; padding: var(--ejm-space-1) var(--ejm-space-6) var(--ejm-space-6); border-radius: 0; background: transparent; color: var(--ejm-code-text);
+  font-size: 14px; line-height: 1.75; scrollbar-color: color-mix(in srgb, currentColor 40%, transparent) transparent; scrollbar-width: thin;
+}
+.ejm-site .ejm-codeblock .ejm-code:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; border-radius: var(--ejm-radius-medium); }
+.ejm-codeblock .ejm-tok-comment { color: var(--ejm-tok-comment); font-style: italic; }
+.ejm-codeblock .ejm-tok-keyword { color: var(--ejm-tok-keyword); }
+.ejm-codeblock .ejm-tok-string { color: var(--ejm-tok-string); }
+.ejm-codeblock .ejm-tok-number { color: var(--ejm-tok-number); }
+.ejm-codeblock .ejm-tok-type { color: var(--ejm-tok-type); }
+.ejm-codeblock .ejm-tok-function { color: var(--ejm-tok-function); }
+.ejm-codeblock .ejm-tok-property { color: var(--ejm-tok-property); }
+
+/* Margins: the prose rules for figures and paragraphs are more specific than a single class, so these match them. */
+.ejm-site figure.ejm-codeblock { margin-block: var(--ejm-space-6); }
+.ejm-site .ejm-codeblock .ejm-codeblock__lang { margin: 0; }
+
+/* ---------- Language tabs ---------- */
+/* With no script every panel is shown, stacked, under its own label. docs.js builds the tab list and hides the labels. */
+.ejm-site .ejm-tabs { display: grid; gap: var(--ejm-space-3); min-inline-size: 0; margin-block: var(--ejm-space-6); }
+.ejm-tabs__panel { display: grid; gap: var(--ejm-space-2); min-inline-size: 0; margin-block-end: var(--ejm-space-4); }
+.ejm-tabs__panel[hidden] { display: none; }
+.ejm-tabs.is-enhanced .ejm-tabs__panel { margin-block-end: 0; }
+.ejm-site .ejm-tabs .ejm-tabs__label { margin: 0; font: var(--ejm-weight-heading) var(--ejm-caption-size) / var(--ejm-caption-leading) var(--ejm-font-sans); color: var(--ejm-muted); }
+.ejm-site .ejm-tabs figure.ejm-codeblock { margin: 0; }
+.ejm-tabs__list {
+  display: flex; gap: var(--ejm-space-1); inline-size: fit-content; max-inline-size: 100%; padding: var(--ejm-space-1); overflow-x: auto;
+  border-radius: var(--ejm-radius-pill); background: var(--ejm-tone); scrollbar-width: none;
+}
+.ejm-tabs__list::-webkit-scrollbar { display: none; }
+.ejm-tabs__tab {
+  flex: none; min-block-size: 36px; padding-inline: var(--ejm-space-4); border: 0; border-radius: var(--ejm-radius-pill); background: transparent; color: var(--ejm-muted); cursor: pointer;
+  font: var(--ejm-weight-heading) 14px / 1 var(--ejm-font-sans);
+  transition: background-color var(--ejm-duration-interface) var(--ejm-ease-interface), color var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-tabs__tab:hover { color: var(--ejm-fg); }
+.ejm-tabs__tab[aria-selected='true'] { background: var(--ejm-theme-raised, var(--ejm-paper)); color: var(--ejm-fg); }
+.ejm-tabs__tab:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
+.ejm-tabs__panel:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: var(--ejm-radius-medium); }
+
+/* ---------- Callouts: the first word is the label ("Note", "Tip", "Warning"), so meaning never rests on color ---------- */
+.ejm-site .ejm-docs__main .ejm-callout { margin-block: var(--ejm-space-8); max-inline-size: none; }
+.ejm-site .ejm-docs__main .ejm-callout > p { margin: 0; }
+.ejm-site .ejm-docs__main .ejm-callout .ejm-callout__label { font-size: 15px; font-weight: 700; color: var(--ejm-fg); }
+
+/* ---------- Reference tables: mono names, tabular figures, a box that scrolls on its own ---------- */
+.ejm-site .ejm-table--ref { margin-block: var(--ejm-space-8); }
+.ejm-site .ejm-table--ref table { min-inline-size: 38rem; font-size: 15px; line-height: 1.5; }
+.ejm-site .ejm-table--ref :where(th, td) { padding-block: var(--ejm-space-3); }
+.ejm-site .ejm-table--ref tbody th[scope='row'], .ejm-site .ejm-table--ref .ejm-table__code { font: var(--ejm-weight-technical) 13.5px / 1.5 var(--ejm-font-mono); font-variant-numeric: tabular-nums; }
+.ejm-site .ejm-table--ref tbody th[scope='row'] { white-space: nowrap; }
+.ejm-site .ejm-table--ref .ejm-table__code { color: var(--ejm-muted); white-space: nowrap; }
+.ejm-site .ejm-table--ref td:last-child { min-inline-size: 16rem; }
+
+/* ---------- Previous and next ---------- */
+.ejm-docs__pager { display: grid; gap: var(--ejm-space-4); margin-block-start: clamp(56px, 7vw, 96px); }
+@container (min-width: 36rem) { .ejm-docs__pager { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ejm-docs__pager-link {
+  display: grid; gap: var(--ejm-space-1); align-content: center; min-block-size: 88px; padding: var(--ejm-space-4) var(--ejm-space-6); border-radius: var(--ejm-radius-large);
+  background: var(--ejm-tone); color: inherit; text-decoration: none;
+  transition: background-color var(--ejm-duration-interface) var(--ejm-ease-interface);
+}
+.ejm-docs__pager-link:only-child { grid-column: 1 / -1; }
+.ejm-docs__pager-link--next { text-align: end; }
+.ejm-docs__pager-link:hover { background: color-mix(in srgb, currentColor 10%, var(--ejm-tone)); }
+.ejm-docs__pager-link:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ejm-docs__pager-dir { display: inline-flex; align-items: center; gap: var(--ejm-space-2); font-size: var(--ejm-caption-size); line-height: var(--ejm-caption-leading); color: var(--ejm-muted); }
+.ejm-docs__pager-link--next .ejm-docs__pager-dir { justify-content: flex-end; }
+.ejm-docs__pager-link[rel~='prev'] .ejm-docs__pager-dir::before, .ejm-docs__pager-link[rel~='next'] .ejm-docs__pager-dir::after {
+  content: ''; inline-size: 18px; block-size: 18px; background-color: currentColor;
+  -webkit-mask: url('../icons/arrow-right.svg') center / contain no-repeat; mask: url('../icons/arrow-right.svg') center / contain no-repeat;
+}
+.ejm-docs__pager-link[rel~='prev'] .ejm-docs__pager-dir::before { transform: scaleX(-1); }
+.ejm-docs__pager-name { font: var(--ejm-weight-heading) clamp(18px, 0.6vw + 15px, 21px) / 1.25 var(--ejm-font-sans); letter-spacing: -0.01em; overflow-wrap: break-word; }
+
+/* ---------- Touch, forced colors and print ---------- */
+@media (pointer: coarse), (max-width: 759px) {
+  .ejm-site .ejm-docs__head .ejm-breadcrumb a { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 44px; min-block-size: 44px; }
+}
+@media (pointer: coarse) {
+  .ejm-codeblock__copy, .ejm-tabs__tab { min-block-size: 44px; }
+  .ejm-codeblock__copy { min-inline-size: 72px; }
+  .ejm-codeblock__bar { padding-inline-end: var(--ejm-space-1); }
+  .ejm-site .ejm-docs__toc .ejm-toc a { padding-block: var(--ejm-space-3); }
+}
+@media (forced-colors: active) {
+  .ejm-tabs__tab[aria-selected='true'] { border: 2px solid Highlight; }
+  .ejm-codeblock { border: 1px solid CanvasText; }
+  .ejm-docs__pager-link { border: 1px solid CanvasText; }
+}
+@media print {
+  .ejm-docs__nav, .ejm-docs__toc, .ejm-docs__pager, .ejm-codeblock__copy { display: none; }
+  .ejm-docs--page { display: block; }
+}

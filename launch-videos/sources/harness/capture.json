@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "capturedAt": "2026-10-19T19:18:55.112Z",
+  "story": "Useful work remains available after a normal JavaScript worker close and a fresh Python readback.",
+  "sourceIdentity": "source-identity.json",
+  "previousTake": "../../raw/harness-earlier/",
+  "method": "Public @ejm/shots/recording records actual public SDK output through a PTY, then renders its terminal bytes.",
+  "runtime": {
+    "node": "24.19.0",
+    "provider": "fixed local replay",
+    "nativeWorkerAndSDKs": "Unchanged; all five saved source hashes verified."
+  },
+  "limits": {
+    "columns": 100,
+    "rows": 24,
+    "timeoutMs": 35000,
+    "maxDurationMs": 40000,
+    "maxOutputBytes": 1048576,
+    "sampleFps": 10,
+    "editorialHoldMs": 19400,
+    "encodeThreads": 2
+  },
+  "recordingDurationMs": 19833,
+  "rawMaster": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1880,
+        "height": 1040,
+        "r_frame_rate": "30/1",
+        "nb_frames": "595"
+      }
+    ],
+    "format": {
+      "duration": "19.833008",
+      "size": "267937"
+    }
+  },
+  "scenes": [
+    {
+      "atMs": 44,
+      "label": "JavaScript runs the order fix."
+    },
+    {
+      "atMs": 5501,
+      "label": "JavaScript reads the completed session."
+    },
+    {
+      "atMs": 10305,
+      "label": "Close the JavaScript worker."
+    },
+    {
+      "atMs": 11606,
+      "label": "Python reads the saved work."
+    }
+  ],
+  "cues": [
+    {
+      "visibleAtMs": 100,
+      "label": "JavaScript setup and task",
+      "frame": "../../raw/harness/terminal/frame-00001.png"
+    },
+    {
+      "visibleAtMs": 2000,
+      "label": "Actual initial quantity test failure",
+      "frame": "../../raw/harness/terminal/frame-00002.png"
+    },
+    {
+      "visibleAtMs": 3000,
+      "label": "Actual file read",
+      "frame": "../../raw/harness/terminal/frame-00003.png"
+    },
+    {
+      "visibleAtMs": 3500,
+      "label": "Actual checked patch",
+      "frame": "../../raw/harness/terminal/frame-00004.png"
+    },
+    {
+      "visibleAtMs": 4300,
+      "label": "Actual passing quantity test",
+      "frame": "../../raw/harness/terminal/frame-00005.png"
+    },
+    {
+      "visibleAtMs": 5600,
+      "label": "JavaScript saved completion and tool result",
+      "frame": "../../raw/harness/terminal/frame-00006.png"
+    },
+    {
+      "visibleAtMs": 10400,
+      "label": "Normal JavaScript worker close",
+      "frame": "../../raw/harness/terminal/frame-00007.png"
+    },
+    {
+      "visibleAtMs": 11700,
+      "label": "Fresh Python process calls the SDK",
+      "frame": "../../raw/harness/terminal/frame-00008.png"
+    },
+    {
+      "visibleAtMs": 12700,
+      "label": "Python displays the same saved completion and tool result",
+      "frame": "../../raw/harness/terminal/frame-00009.png"
+    }
+  ],
+  "proof": {
+    "sessionId": "b2bb1ad7-1790-4283-b095-d2582639d2cd",
+    "runId": "b30d209b-7cb8-401f-adac-84e2a6ba301c",
+    "jsPid": 19274,
+    "pythonPid": 19417,
+    "toolResults": 4,
+    "journalEvents": 25,
+    "initialTestExit": 1,
+    "finalTestExit": 0,
+    "fullJournalMatches": true,
+    "selectedReadbackMatches": true,
+    "summaryText": "Order totals now include every quantity. All three tests pass.",
+    "savedTestLine": "\u2714 counts each quantity (0.351083ms)",
+    "savedToolSequence": 21,
+    "savedCompletionSequence": 25,
+    "exactWorkspacePatchVerified": true
+  },
+  "checks": [
+    "JavaScript and Python syntax",
+    "No-hold preflight in isolated scratch state",
+    "Four real native tool results",
+    "Exact file change and real test exits",
+    "Public SDK journal and selected readback equality",
+    "Fresh Python process identity",
+    "All five native worker and public SDK source hashes",
+    "Full raw-master decode",
+    "Visual inspection of final work, both saved payloads and normal close"
+  ],
+  "notes": [
+    "Replay supplies the completion sentence; the saved passing tool result comes from the real Node test command.",
+    "Normal close and readback; no resumed execution or crash recovery is shown.",
+    "Scene text joins actual PTY chunks at clear-screen markers; byte arrival and rendered sample times differ by up to one 100ms sample.",
+    "The first headless Chrome startup stopped in the restricted process sandbox. The same existing renderer succeeded with process escalation and an isolated profile.",
+    "This source master has no audio. Final story cards, music and export verification belong to the film assembly."
+  ],
+  "files": {
+    "../../capture/harness-session.mjs": {
+      "sha256": "17a9deb4bbcdf374a5090cea3c18dfd3cd160129148cede7449d8953aa912d6a",
+      "bytes": 11337
+    },
+    "../../capture/harness-restore.py": {
+      "sha256": "2372088daea7e26b592d4f256a178f07b11c229e721150e7693f9d4b6ca67683",
+      "bytes": 3447
+    },
+    "README.md": {
+      "sha256": "85157fc4dd6e9ecd2b8f671e7a3da14aeac23994ae10ee386313f43ac72226b0",
+      "bytes": 8045
+    },
+    "source-identity.json": {
+      "sha256": "cbc5df6d8563962ecfd13594c9abd903c6427f470b8b459b7d4ea0eac54775bd",
+      "bytes": 989
+    },
+    "../../raw/harness/recording.json": {
+      "sha256": "9e7f1646f548d5880aeb02cce3457ccadb8baea9a3094d13b15b982609795e24",
+      "bytes": 4723
+    },
+    "../../raw/harness/scenes.json": {
+      "sha256": "8f0af00dfc838b3e4cb37d45da2c2564064034a421c4bcf21cb29b0c4f096418",
+      "bytes": 1885
+    },
+    "../../raw/harness/terminal/frames.json": {
+      "sha256": "a0a9997a29ed915a0bfe9813eb2d4587cf1b72e215c9f57afe39e2540dd9ea12",
+      "bytes": 1866
+    },
+    "../../raw/harness/master.mp4": {
+      "sha256": "d25bd8480029ba4548de387630df3dc98fe86043fec2974e9fe4537f6587364c",
+      "bytes": 267937
+    },
+    "../../raw/harness/evidence/journal.json": {
+      "sha256": "b5c15fa766329ac417f6ba23e0f7f764a9cb5b994117c4f162190df86d6dd302",
+      "bytes": 10972
+    },
+    "../../raw/harness/evidence/summary.json": {
+      "sha256": "6ab9f8f60978c6f12ab80a9931446633a93ac285f8cb04e2f2080783fdce2b1f",
+      "bytes": 251
+    },
+    "../../raw/harness/evidence/js-readback.json": {
+      "sha256": "d20c68f657bae3f2ca8275d4108f7e21f079313969ef69a6a8be85f0bcc467f5",
+      "bytes": 1901
+    },
+    "../../raw/harness/evidence/python-restore.json": {
+      "sha256": "4870a7800de787c7454592f5a86ffec8ccbd64911f979ec22512a56424ebcb98",
+      "bytes": 2261
+    },
+    "../../raw/harness/evidence/python-restore.txt": {
+      "sha256": "4befa6eaf15e70d888b5eb3293abd90d679a4a5c15b50270307b858144a4b012",
+      "bytes": 271
+    },
+    "../../raw/harness/evidence/workspace.diff": {
+      "sha256": "242131b3afb4ab93f185883311be04cb96232dacd57042927281411662a35a13",
+      "bytes": 226
+    },
+    "../../raw/harness/evidence/capture-receipt.json": {
+      "sha256": "9f7a7eb3758861b28012f0f9cdfcb2707cfbba224654ee184ab3f90e3f3ec1cc",
+      "bytes": 1230
+    }
+  }
+}

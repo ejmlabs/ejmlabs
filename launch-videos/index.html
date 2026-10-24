@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ejmlabs / Launch films</title>
+<style>
+@font-face{font-family:Manrope;src:url('./assets/fonts/Manrope-Variable.ttf')}
+*{box-sizing:border-box}body{margin:0;background:#202721;color:#F6F5EF;font-family:Manrope,system-ui,sans-serif}
+main{max-width:1440px;margin:auto;padding:32px 40px 56px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+header img{width:155px;height:auto}header span{font-size:13px;color:#8A9A7B}h1{font-size:clamp(28px,4vw,46px);font-weight:500;letter-spacing:-.045em;margin:0 0 14px}
+p{color:#bac5b4;font-size:15px;line-height:1.7;margin:0 0 24px}nav{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+button,a{font:inherit;color:inherit}button{background:none;border:1px solid #8A9A7B;border-radius:99px;padding:11px 20px;cursor:pointer;transition:background .2s,color .2s}button[aria-pressed=true]{background:#E8EDE3;color:#202721}button:focus-visible,a:focus-visible{outline:2px solid #F6F5EF;outline-offset:5px}
+video{display:block;width:100%;aspect-ratio:16/9;background:#202721}footer{display:flex;justify-content:space-between;gap:24px;align-items:baseline;padding-top:20px}footer p{font-size:13px;margin:0}footer a{font-size:14px;text-underline-offset:4px}#watched{font-size:12px;color:#8A9A7B;margin-top:24px}.source{margin-top:36px;max-width:800px;font-size:13px}a{color:#F6F5EF} @media(max-width:640px){main{padding:24px 18px}header{margin-bottom:28px}footer{display:block}footer a{display:inline-block;margin-top:14px}}
+</style>
+<main>
+<header><img src="./assets/logos/ejmlabs-paper.svg" alt="ejmlabs"><span>OPEN SOURCE / MIT</span></header>
+<h1>Three projects. Three short films.</h1>
+<p>Stop at the time limit. Follow shared code. Keep the saved work.</p>
+<nav aria-label="Choose a film">
+<button data-project="cli" aria-pressed="true">Play ejm-cli</button>
+<button data-project="ide" aria-pressed="false">Play ejm-ide</button>
+<button data-project="harness" aria-pressed="false">Play ejm-harness</button>
+</nav>
+<video id="film" controls playsinline preload="metadata" src="./exports/ejm-cli-launch.mp4?v=4" poster="./exports/ejm-cli-poster.png?v=4" aria-label="ejm-cli launch film"></video>
+<footer><p id="status" role="status">Ready to play ejm-cli.</p><a id="download" href="./exports/ejm-cli-launch.mp4" download>Download MP4</a></footer>
+<div id="watched" aria-live="polite">Playback review: none yet.</div>
+<p class="source">Native products and public SDKs. CLI and harness use local replay with real tool effects; IDE shows native code navigation. Energetic Hip Hop | Fresh by Alex-Productions | Music promoted by <a href="https://onsound.eu/">https://onsound.eu/</a>. <a href="./README.md">Source and credits</a>. <a href="./STORIES.md">The three stories</a>. <a href="./PUBLISHING.md">Film captions</a>. <a href="./REFERENCE-REVIEW.md">Reference review</a>.</p>
+</main>
+<script type="module">
+const video=document.querySelector('#film');
+const status=document.querySelector('#status');
+const watched=document.querySelector('#watched');
+const download=document.querySelector('#download');
+let project='cli';
+const completed=new Set();
+document.querySelectorAll('button[data-project]').forEach(button=>button.addEventListener('click',async()=>{
+  project=button.dataset.project;
+  document.querySelectorAll('button[data-project]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+  video.src=`./exports/ejm-${project}-launch.mp4?v=4`;
+  video.poster=`./exports/ejm-${project}-poster.png?v=4`;
+  video.setAttribute('aria-label',`ejm-${project} launch film`);
+  download.href=video.src;
+  status.textContent=`Loading ejm-${project}.`;
+  try{await video.play()}catch(error){status.textContent=`Playback needs a click: ${error.message}`}
+}));
+video.addEventListener('timeupdate',()=>status.textContent=`ejm-${project} / ${video.paused?'Paused':'Playing'} / ${video.currentTime.toFixed(1)} of ${Number.isFinite(video.duration)?video.duration.toFixed(1):'...'} seconds`);
+video.addEventListener('ended',()=>{
+  completed.add(project);
+  status.textContent=`ejm-${project} / Played to the end.`;
+  watched.textContent=`Playback review: ${[...completed].map(p=>`ejm-${p} complete`).join(', ')}.`;
+});
+video.addEventListener('error',()=>status.textContent=`ejm-${project} / Playback error ${video.error?.code}.`);
+</script>
+</html>

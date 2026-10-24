@@ -23,7 +23,7 @@ const css = ['components/brand-components.css', 'web/site.css', 'ui/app.css'].ma
 const defined = new Set([...css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/\.(ejm-[a-z0-9]+(?:-[a-z0-9]+)*)/g)].map(m => m[1]));
 
 const STYLES = ['/design-kit/tokens/brand.css', '/design-kit/components/brand-components.css', '/design-kit/web/site.css'];
-const SCRIPTS = new Set(['theme.js', 'motion.js', 'analytics.js', 'demo.js', 'gallery.js']);
+const SCRIPTS = new Set(['theme.js', 'motion.js', 'analytics.js', 'demo.js', 'gallery.js', 'docs.js']);
 const REQUIRED_SCRIPTS = ['theme.js', 'motion.js', 'analytics.js'];
 
 function files(target) {
@@ -77,6 +77,8 @@ function check(file) {
   need(/<script src="\/design-kit\/web\/analytics\.js" defer><\/script>/.test(head), 'analytics.js must be <script src="/design-kit/web/analytics.js" defer> in <head>');
   const hasDemo = /\sdata-ejm-demo="(cli|ide|harness)"/.test(html);
   if (hasDemo) need(loaded.has('demo.js'), 'a page with a demo must load demo.js');
+  // Honest visuals: a static product window must say it is simulated, in visible text.
+  if (/\sclass="[^"]*\bejm-product\b/.test(html)) need(/class="[^"]*\bejm-product__label\b[^"]*"[^>]*>[^<]*simulated/i.test(html), 'a page with an ejm-product window needs a visible label (ejm-product__label) that says it is simulated');
   if (requires.has('demo')) need(hasDemo, 'this page needs an interactive demo (data-ejm-demo)');
 
   // Classes: every ejm- class exists in the kit.

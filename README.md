@@ -49,6 +49,8 @@ Use OpenSpec for feature and bugfix work. Keep the source pin and build lock tog
 
 ## Documentation
 
+- [OpenSpec handoff and remaining work](openspec/HANDOFF.md)
+- [Product launch film sources and review status](launch-videos/README.md)
 - [Studio development and publication](site/README.md)
 - [Hosting and recovery](site/SECURITY-OPERATIONS.md)
 - [Releases](RELEASING.md)

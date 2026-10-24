@@ -1,0 +1,105 @@
+{
+  "verifiedAt": "2026-10-19T19:23:51.211192+00:00",
+  "relationships": [
+    {
+      "from": "calculate_total",
+      "to": "LineItem::total",
+      "evidence": "inferred"
+    },
+    {
+      "from": "calculate_total",
+      "to": "apply_discount",
+      "evidence": "inferred"
+    },
+    {
+      "from": "quote_order",
+      "to": "calculate_total",
+      "evidence": "inferred"
+    },
+    {
+      "from": "settle_order",
+      "to": "calculate_total",
+      "evidence": "inferred"
+    }
+  ],
+  "sourceVersionChecks": [
+    {
+      "symbol": "calculate_total",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "nodeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "edgeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "documentVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "contentSha256": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "matches": true
+    },
+    {
+      "symbol": "LineItem::total",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "nodeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "edgeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "documentVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "contentSha256": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "matches": true
+    },
+    {
+      "symbol": "settle_order",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "nodeVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "edgeVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "documentVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "contentSha256": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "matches": true
+    },
+    {
+      "symbol": "calculate_total",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "nodeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "edgeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "documentVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "contentSha256": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "matches": true
+    },
+    {
+      "symbol": "calculate_total",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "nodeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "edgeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "documentVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "contentSha256": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "matches": true
+    },
+    {
+      "symbol": "apply_discount",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "nodeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "edgeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "documentVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "contentSha256": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "matches": true
+    },
+    {
+      "symbol": "quote_order",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "nodeVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "edgeVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "documentVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "contentSha256": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "matches": true
+    },
+    {
+      "symbol": "calculate_total",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "nodeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "edgeVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "documentVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "contentSha256": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "matches": true
+    }
+  ],
+  "allVersionsMatch": true,
+  "savedFilesOnly": true,
+  "runtimeImpactVerified": false,
+  "wholeProgramCoverageClaimed": false,
+  "workspaceStatusBeforeRecording": "",
+  "checks": "Native public index_search/index_traverse/workspace_read plus unchanged UI source navigation. No model, edits, or tests in this take."
+}

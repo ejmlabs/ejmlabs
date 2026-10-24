@@ -1,10 +1,11 @@
+<!-- Retained historical source. Asset paths and kit instructions describe an earlier snapshot. This file is not a standalone current gallery or a published product. See design-kit/README.md. -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Page name, ejmlabs</title>
-  <meta name="description" content="One sentence that says what this page is for.">
+  <title>Small experiments, useful things, ejmlabs</title>
+  <meta name="description" content="ejmlabs is an independent studio for small experiments, useful software, and open source tools.">
   <meta name="theme-color" content="#F6F5EF">
   <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
   <script src="/design-kit/web/theme.js"></script>
@@ -13,8 +14,8 @@
   <script src="/design-kit/web/analytics.js" defer></script>
   <link rel="canonical" href="https://YOUR-DOMAIN/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Page name">
-  <meta property="og:description" content="One sentence that says what this page is for.">
+  <meta property="og:title" content="Small experiments, useful things">
+  <meta property="og:description" content="ejmlabs is an independent studio for small experiments, useful software, and open source tools.">
   <meta property="og:url" content="https://YOUR-DOMAIN/">
   <meta property="og:image" content="https://YOUR-DOMAIN/design-kit/social/social-card.png">
   <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
@@ -29,7 +30,8 @@
 <body class="ejm-site">
   <a class="ejm-skip" href="#main">Skip to content</a>
 
-  <!-- Hero: a Sage panel on the page, with the header above it. One h1, one lead, at most two buttons. -->
+  <!-- Hero: display type on the page ground. No panel. One h1, one lead, at most two buttons.
+       To show product windows beside the copy, add an ejm-hero__visual child: the body then becomes two columns. -->
   <div class="ejm-hero">
     <header class="ejm-header ejm-page">
       <a class="ejm-header__logo" href="/" aria-label="Home"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
@@ -37,77 +39,127 @@
         <details class="ejm-menu">
           <summary><span class="ejm-menu__label">Menu</span></summary>
           <nav class="ejm-nav" aria-label="Main">
-            <a href="#first">First section</a>
-            <a href="#second">Second section</a>
+            <a href="#projects">Projects</a>
+            <a href="#approach">Approach</a>
+            <a href="#contact">Contact</a>
           </nav>
         </details>
         <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
       </div>
     </header>
-    <div class="ejm-hero__body ejm-page">
-      <p class="ejm-eyebrow">label</p>
-      <h1 class="ejm-display">The main point. <span class="ejm-display__quiet">The second beat.</span></h1>
-      <p class="ejm-lead">One or two sentences that say what this is and who it is for.</p>
+    <div class="ejm-hero__body ejm-page ejm-enter">
+      <p class="ejm-eyebrow">independent studio</p>
+      <h1 class="ejm-display">Small experiments. <span class="ejm-display__quiet">Useful things.</span></h1>
+      <p class="ejm-lead">ejmlabs is an independent studio for small experiments, useful software, and open source tools.</p>
       <div class="ejm-cluster">
-        <a class="ejm-button" href="#first">Primary action</a>
-        <a class="ejm-button ejm-button--secondary" href="#second">Secondary action</a>
+        <a class="ejm-button" href="#projects">See the projects</a>
+        <a class="ejm-button ejm-button--secondary" href="#approach">How we work</a>
       </div>
+      <nav class="ejm-hero__index ejm-eyebrow" aria-label="Open source projects">
+        <span>open source</span>
+        <a href="https://harness.ejmlabs.com/" rel="external">ejm-harness</a>
+        <a href="https://cli.ejmlabs.com/" rel="external">ejm-cli</a>
+        <a href="https://ide.ejmlabs.com/" rel="external">ejm-ide</a>
+      </nav>
     </div>
   </div>
 
   <main id="main">
-    <!-- Band: Mist. Head with label, h2 and supporting text, then one kind of content. -->
-    <section class="ejm-band ejm-band--mist" id="first" aria-labelledby="first-title">
+    <!-- Band: Paper. A section head (kicker, heading, supporting copy), then hairline rows. A link in the title stretches over the row. -->
+    <section class="ejm-band ejm-band--paper" id="projects" aria-labelledby="projects-title">
       <div class="ejm-page">
         <div class="ejm-head">
           <div class="ejm-head__title">
-            <p class="ejm-eyebrow">label</p>
-            <h2 class="ejm-h2" id="first-title">A heading that states the point.</h2>
+            <p class="ejm-eyebrow">projects</p>
+            <h2 class="ejm-h2" id="projects-title">A coding agent engine, and two ways to use it.</h2>
           </div>
-          <p class="ejm-head__text">Supporting text that explains the heading. Keep it to two or three sentences.</p>
+          <p class="ejm-head__text">ejm-harness is the engine. ejm-cli and ejm-ide are separate apps built on it. All three are open source under the MIT license.</p>
         </div>
-        <div class="ejm-projects">
-          <article class="ejm-project">
-            <div class="ejm-project__meta"><span class="ejm-tag ejm-tag--quiet">Tag</span></div>
-            <h3 class="ejm-project__name">Object name</h3>
-            <p class="ejm-project__summary">One line that says what it is.</p>
-            <p class="ejm-project__text">Two sentences of detail. Describe what exists today.</p>
-          </article>
-        </div>
+        <ul class="ejm-rows">
+          <li class="ejm-row">
+            <h3 class="ejm-row__title"><a href="https://cli.ejmlabs.com/" rel="external">ejm-cli</a></h3>
+            <p class="ejm-row__text">A coding agent for your terminal. It streams the conversation, saves sessions, and lets you steer a running turn.</p>
+            <p class="ejm-row__meta ejm-tags"><span class="ejm-tag">Terminal</span><span class="ejm-tag">Rust</span><span class="ejm-tag">MIT</span></p>
+          </li>
+          <li class="ejm-row">
+            <h3 class="ejm-row__title"><a href="https://ide.ejmlabs.com/" rel="external">ejm-ide</a></h3>
+            <p class="ejm-row__text">A desktop IDE with an agent beside the editor. Each tool call and the diff it made stay in view.</p>
+            <p class="ejm-row__meta ejm-tags"><span class="ejm-tag">Desktop</span><span class="ejm-tag">Tauri</span><span class="ejm-tag">Rust</span></p>
+          </li>
+          <li class="ejm-row">
+            <h3 class="ejm-row__title"><a href="https://harness.ejmlabs.com/" rel="external">ejm-harness</a></h3>
+            <p class="ejm-row__text">A reusable Rust engine for coding agents, with typed TypeScript and Python APIs. It powers the other two.</p>
+            <p class="ejm-row__meta ejm-tags"><span class="ejm-tag">Engine</span><span class="ejm-tag">Rust</span><span class="ejm-tag">Python</span></p>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- Band: Paper. Use ejm-band--flow for the Flow motif behind a short band. -->
-    <section class="ejm-band" id="second" aria-labelledby="second-title">
-      <div class="ejm-page">
-        <div class="ejm-head ejm-head--flush">
-          <div class="ejm-head__title">
-            <p class="ejm-eyebrow">label</p>
-            <h2 class="ejm-h2" id="second-title">Another heading.</h2>
-          </div>
-          <div class="ejm-head__text">
-            <p>Text that belongs under this heading.</p>
-            <dl class="ejm-status"><div><dt>project</dt><dd>name</dd></div><div><dt>status</dt><dd>exploring</dd></div></dl>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Closing band: Sage, with numbered principles or one call to action. Forest or Ink only for the one reversed moment. -->
-    <section class="ejm-band ejm-band--sage" aria-labelledby="close-title">
+    <!-- Band: Sage. The lead color, full width, with Ink type. A statement, then stat figures with no boxes. -->
+    <section class="ejm-band ejm-band--sage" id="approach" aria-labelledby="approach-title">
       <div class="ejm-page">
         <div class="ejm-head">
-          <div class="ejm-head__title"><h2 class="ejm-h2" id="close-title">A closing heading.</h2></div>
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">approach</p>
+            <h2 class="ejm-statement" id="approach-title">Each project starts as a question and ends as something you can use.</h2>
+          </div>
+          <p class="ejm-head__text">We keep experiments small so they can be built, tried and judged quickly. What we build for ourselves, we release as open source.</p>
         </div>
+        <dl class="ejm-stats">
+          <div class="ejm-stat"><dt class="ejm-stat__label">open source projects</dt><dd class="ejm-stat__value">3</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">engine under both apps</dt><dd class="ejm-stat__value">1</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">languages in the engine and its SDKs</dt><dd class="ejm-stat__value">3</dd></div>
+          <div class="ejm-stat"><dt class="ejm-stat__label">files changed before you grant write access</dt><dd class="ejm-stat__value">0</dd></div>
+        </dl>
         <ol class="ejm-principles">
-          <li class="ejm-principle"><h3>First.</h3><p>One sentence.</p></li>
-          <li class="ejm-principle"><h3>Second.</h3><p>One sentence.</p></li>
-          <li class="ejm-principle"><h3>Third.</h3><p>One sentence.</p></li>
+          <li class="ejm-principle"><h3>Start small.</h3><p>Each experiment answers one question, so it can be built, tried and judged quickly.</p></li>
+          <li class="ejm-principle"><h3>Make it useful.</h3><p>A project is finished when someone can use it, not when it is clever.</p></li>
+          <li class="ejm-principle"><h3>Share the tools.</h3><p>What we build for ourselves, we release as open source so others can build on it.</p></li>
         </ol>
+      </div>
+    </section>
+
+    <!-- Band: Mist. Two columns: a callout and definition rows, and a form. Controls keep their pill shapes. -->
+    <section class="ejm-band ejm-band--mist" id="contact" aria-labelledby="contact-title">
+      <div class="ejm-page">
+        <div class="ejm-split">
+          <div class="ejm-stack">
+            <div class="ejm-head__title">
+              <p class="ejm-eyebrow">contact</p>
+              <h2 class="ejm-h2" id="contact-title">Questions are welcome.</h2>
+            </div>
+            <p class="ejm-lead">Tell us what you are building, or what you would like to see. We read everything.</p>
+            <aside class="ejm-callout">
+              <p class="ejm-callout__label">note</p>
+              <p>ejm-cli can read your project right away. It cannot change a file until you grant write access, and the grants stay visible on screen.</p>
+            </aside>
+            <dl class="ejm-status">
+              <div><dt>project</dt><dd>ejmlabs</dd></div>
+              <div><dt>status</dt><dd>exploring</dd></div>
+              <div><dt>license</dt><dd>MIT</dd></div>
+            </dl>
+          </div>
+          <form class="ejm-stack" action="#contact" method="post">
+            <div class="ejm-field">
+              <label class="ejm-field__label" for="contact-email">Email</label>
+              <input class="ejm-input" id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+              <p class="ejm-field__hint">Only used to reply to you.</p>
+            </div>
+            <div class="ejm-field">
+              <label class="ejm-field__label" for="contact-message">Message</label>
+              <textarea class="ejm-input" id="contact-message" name="message" rows="5" placeholder="What are you working on?"></textarea>
+            </div>
+            <div class="ejm-cluster">
+              <button class="ejm-button" type="submit">Send message</button>
+              <button class="ejm-button ejm-button--secondary" type="reset">Clear</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer: an Ink band. The signature in large type, then link columns, then the legal line. -->
   <footer class="ejm-band ejm-band--ink ejm-footer">
     <div class="ejm-page">
       <div class="ejm-footer__grid">
@@ -116,10 +168,25 @@
           <p class="ejm-footer__signature">Small experiments. Useful things.</p>
         </div>
         <div class="ejm-footer__groups">
-          <div><h2>group</h2><ul><li><a href="#first">Link</a></li></ul></div>
+          <div>
+            <h2>projects</h2>
+            <ul>
+              <li><a href="https://harness.ejmlabs.com/" rel="external">ejm-harness</a></li>
+              <li><a href="https://cli.ejmlabs.com/" rel="external">ejm-cli</a></li>
+              <li><a href="https://ide.ejmlabs.com/" rel="external">ejm-ide</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>studio</h2>
+            <ul>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#approach">Approach</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs. Open source under the MIT license.</p>
     </div>
   </footer>
 </body>

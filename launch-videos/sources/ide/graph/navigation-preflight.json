@@ -1,0 +1,718 @@
+{
+  "state": "complete",
+  "log": [
+    {
+      "label": "opened quote_order",
+      "at": "2026-10-19T19:21:32.696Z",
+      "breadcrumbs": "",
+      "heading": "quote_order\n0 callers \u00b7 1 callees\n",
+      "graph": "quote_order\n0 callers \u00b7 1 callees\n\n\n\n\n4 symbols \u00b7 3 links\n2 branches to explore \u00b7 +20 per click\n\n\nquote_order\norders.rs:20\n\n\ncalculate_total\nmoney.rs:18\n\n\nLineItem::total\nmoney.rs:12\n\n\nCallees\n\u2026\n\napply_discount\nmoney.rs:26\n\n\nCallees\n\u2026\n\n\n\nIndex \u00b7 Dashed links are inferred \u00b7 Drag to pan\n",
+      "editor": "\u00a0\u00a0\u00a0\u00a0let\u00a0receipt\u00a0=\u00a0charge(order,\u00a0total)?;\u00a0\u00a0\u00a0\u00a0store.save_receipt(&receipt)?;\u00a0\u00a0\u00a0\u00a0Ok(receipt)}///\u00a0Preview\u00a0the\u00a0amount\u00a0before\u00a0collecting\u00a0payment.pub\u00a0fn\u00a0quote_order(order:\u00a0&Order)\u00a0->\u00a0Money\u00a0{\u00a0\u00a0\u00a0\u00a0calculate_total(&order.items)}",
+      "tabs": [
+        "orders.rs\n"
+      ]
+    },
+    {
+      "label": "opened settle_order",
+      "at": "2026-10-19T19:21:35.010Z",
+      "breadcrumbs": "",
+      "heading": "settle_order\n0 callers \u00b7 2 callees\n",
+      "graph": "settle_order\n0 callers \u00b7 2 callees\n\n\n\n\n6 symbols \u00b7 5 links\n3 branches to explore \u00b7 +20 per click\n\n\nsettle_order\norders.rs:8\n\n\ncharge\npayments.rs:6\n\n\ncalculate_total\nmoney.rs:18\n\n\nError\nlib.rs:19\n\n\nCallees\n\u2026\n\nLineItem::total\nmoney.rs:12\n\n\nCallees\n\u2026\n\napply_discount\nmoney.rs:26\n\n\nCallees\n\u2026\n\n\n\nIndex \u00b7 Dashed links are inferred \u00b7 Drag to pan\n",
+      "editor": "\u00a0\u00a0\u00a0\u00a0let\u00a0receipt\u00a0=\u00a0charge(order,\u00a0total)?;\u00a0\u00a0\u00a0\u00a0store.save_receipt(&receipt)?;\u00a0\u00a0\u00a0\u00a0Ok(receipt)}///\u00a0Preview\u00a0the\u00a0amount\u00a0before\u00a0collecting\u00a0payment.pub\u00a0fn\u00a0quote_order(order:\u00a0&Order)\u00a0->\u00a0Money\u00a0{\u00a0\u00a0\u00a0\u00a0calculate_total(&order.items)}",
+      "tabs": [
+        "orders.rs\n"
+      ]
+    },
+    {
+      "label": "opened apply_discount",
+      "at": "2026-10-19T19:21:37.320Z",
+      "breadcrumbs": "",
+      "heading": "apply_discount\n1 callers \u00b7 0 callees\n",
+      "graph": "apply_discount\n1 callers \u00b7 0 callees\n\n\n\n\n4 symbols \u00b7 3 links\n2 branches to explore \u00b7 +20 per click\n\n\napply_discount\nmoney.rs:26\n\n\ncalculate_total\nmoney.rs:18\n\n\nsettle_order\norders.rs:8\n\n\nCallers\n\u2026\n\nquote_order\norders.rs:20\n\n\nCallers\n\u2026\n\n\n\nIndex \u00b7 Dashed links are inferred \u00b7 Drag to pan\n",
+      "editor": "\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.map(|item|\u00a0apply_discount(item.total(),\u00a0item.discount_percent))\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.sum()}///\u00a0Apply\u00a0a\u00a0percentage\u00a0discount\u00a0using\u00a0integer\u00a0cents.pub\u00a0fn\u00a0apply_discount(amount:\u00a0Money,\u00a0percent:\u00a0u8)\u00a0->\u00a0Money\u00a0{\u00a0\u00a0\u00a0\u00a0amount\u00a0*\u00a0i64::from(100\u00a0-\u00a0percent.min(100))\u00a0/\u00a0100}#[cfg(test)]",
+      "tabs": [
+        "money.rs\n"
+      ]
+    }
+  ],
+  "hits": [
+    {
+      "id": "27d7bbe3ee535fa45c592918064be4c4b1116c493f9072f2435cdc9abfa2917e",
+      "kind": "symbol",
+      "symbolKind": "method",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "range": {
+        "start": {
+          "line": 5,
+          "character": 2
+        },
+        "end": {
+          "line": 7,
+          "character": 5
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 5,
+          "character": 11
+        },
+        "end": {
+          "line": 5,
+          "character": 26
+        }
+      },
+      "name": "calculate_total",
+      "qualifiedName": "Harbor::calculate_total",
+      "content": "def self.calculate_total(amounts)\n    amounts.sum\n  end",
+      "version": "9d78ca9c854f405eb8904a3359ed59845800773dfdfa7b6d25c88862e389822c",
+      "score": 0.07704918032786885,
+      "reasons": [
+        "Exact symbol",
+        "Text match",
+        "Path or symbol match"
+      ]
+    },
+    {
+      "id": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+      "kind": "symbol",
+      "symbolKind": "function",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "range": {
+        "start": {
+          "line": 17,
+          "character": 0
+        },
+        "end": {
+          "line": 22,
+          "character": 1
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 17,
+          "character": 7
+        },
+        "end": {
+          "line": 17,
+          "character": 22
+        }
+      },
+      "name": "calculate_total",
+      "qualifiedName": "calculate_total",
+      "content": "pub fn calculate_total(items: &[LineItem]) -> Money {\n    items\n        .iter()\n        .map(|item| apply_discount(item.total(), item.discount_percent))\n        .sum()\n}",
+      "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "score": 0.07580645161290323,
+      "reasons": [
+        "Exact symbol",
+        "Text match",
+        "Path or symbol match"
+      ]
+    },
+    {
+      "id": "3a7fc8be2238a71f913c2058c71ea280dcf846f92f3db3432808ac5547409664",
+      "kind": "symbol",
+      "symbolKind": "module",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "range": {
+        "start": {
+          "line": 3,
+          "character": 0
+        },
+        "end": {
+          "line": 12,
+          "character": 3
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 3,
+          "character": 7
+        },
+        "end": {
+          "line": 3,
+          "character": 13
+        }
+      },
+      "name": "Harbor",
+      "qualifiedName": "Harbor",
+      "content": "module Harbor\n  # Adds the amounts for every line item.\n  def self.calculate_total(amounts)\n    amounts.sum\n  end\n\n  def self.settle_order(amounts)\n    calculate_total(amounts)\n  end\nend",
+      "version": "9d78ca9c854f405eb8904a3359ed59845800773dfdfa7b6d25c88862e389822c",
+      "score": 0.015873015873015872,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "8971e40e9bfc69cb5a3625dcd8313f6574cfaa72d21624f71486fd80c61a24b2",
+      "kind": "chunk",
+      "symbolKind": null,
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 13,
+          "character": 0
+        }
+      },
+      "selectionRange": null,
+      "name": null,
+      "qualifiedName": null,
+      "content": "# frozen_string_literal: true\n\n# Order totals expressed in integer cents.\nmodule Harbor\n  # Adds the amounts for every line item.\n  def self.calculate_total(amounts)\n    amounts.sum\n  end\n\n  def self.settle_order(amounts)\n    calculate_total(amounts)\n  end\nend\n",
+      "version": "9d78ca9c854f405eb8904a3359ed59845800773dfdfa7b6d25c88862e389822c",
+      "score": 0.015625,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "bd43a0800b0d3e9dee080ab24b649f41673a47cfdaf8e2d81f926a672732b8b7",
+      "kind": "symbol",
+      "symbolKind": "method",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/lib/orders.rb",
+      "range": {
+        "start": {
+          "line": 9,
+          "character": 2
+        },
+        "end": {
+          "line": 11,
+          "character": 5
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 9,
+          "character": 11
+        },
+        "end": {
+          "line": 9,
+          "character": 23
+        }
+      },
+      "name": "settle_order",
+      "qualifiedName": "Harbor::settle_order",
+      "content": "def self.settle_order(amounts)\n    calculate_total(amounts)\n  end",
+      "version": "9d78ca9c854f405eb8904a3359ed59845800773dfdfa7b6d25c88862e389822c",
+      "score": 0.015384615384615385,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "2ae9a07ae3c511a31b30234d9ce1314f0f5fc4fdf403ac9b710541a0e9c40e4d",
+      "kind": "symbol",
+      "symbolKind": "function",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "range": {
+        "start": {
+          "line": 19,
+          "character": 0
+        },
+        "end": {
+          "line": 21,
+          "character": 1
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 19,
+          "character": 7
+        },
+        "end": {
+          "line": 19,
+          "character": 18
+        }
+      },
+      "name": "quote_order",
+      "qualifiedName": "quote_order",
+      "content": "pub fn quote_order(order: &Order) -> Money {\n    calculate_total(&order.items)\n}",
+      "version": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "score": 0.015151515151515152,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "e20843270c1f7bc96fafa36750f3b8c72edfac8f62c22967a5ddeb2538fdc23d",
+      "kind": "chunk",
+      "symbolKind": null,
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 22,
+          "character": 0
+        }
+      },
+      "selectionRange": null,
+      "name": null,
+      "qualifiedName": null,
+      "content": "use crate::money::{Money, calculate_total};\nuse crate::payments::charge;\nuse crate::{Error, Order, Receipt, Store};\n\n/// Settle an order after a successful payment.\n///\n/// The order key also identifies the payment, so a retry is safe.\npub fn settle_order(order: &Order, store: &impl Store) -> Result<Receipt, Error> {\n    if let Some(receipt) = store.find_receipt(&order.key)? {\n        return Ok(receipt);\n    }\n\n    let total = calculate_total(&order.items);\n    let receipt = charge(order, total)?;\n    store.save_receipt(&receipt)?;\n    Ok(receipt)\n}\n\n/// Preview the amount before collecting payment.\npub fn quote_order(order: &Order) -> Money {\n    calculate_total(&order.items)\n}\n",
+      "version": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "score": 0.014925373134328358,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "792ec9f101234e719db1d66dc9439b1c2f37d1050945354691a86ff2557e976e",
+      "kind": "symbol",
+      "symbolKind": "module",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "range": {
+        "start": {
+          "line": 30,
+          "character": 0
+        },
+        "end": {
+          "line": 42,
+          "character": 1
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 30,
+          "character": 4
+        },
+        "end": {
+          "line": 30,
+          "character": 9
+        }
+      },
+      "name": "tests",
+      "qualifiedName": "tests",
+      "content": "mod tests {\n    use super::*;\n\n    #[test]\n    fn totals_include_quantity_and_discount() {\n        let items = [LineItem {\n            unit_price: 1200,\n            quantity: 2,\n            discount_percent: 10,\n        }];\n        assert_eq!(calculate_total(&items), 2160);\n    }\n}",
+      "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "score": 0.014705882352941176,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "e43590f3257de3ccaa8ab52db9fe5ce635f3cde53bf679a2d999f7a066a346d6",
+      "kind": "symbol",
+      "symbolKind": "function",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "range": {
+        "start": {
+          "line": 34,
+          "character": 4
+        },
+        "end": {
+          "line": 41,
+          "character": 5
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 34,
+          "character": 7
+        },
+        "end": {
+          "line": 34,
+          "character": 43
+        }
+      },
+      "name": "totals_include_quantity_and_discount",
+      "qualifiedName": "tests::totals_include_quantity_and_discount",
+      "content": "fn totals_include_quantity_and_discount() {\n        let items = [LineItem {\n            unit_price: 1200,\n            quantity: 2,\n            discount_percent: 10,\n        }];\n        assert_eq!(calculate_total(&items), 2160);\n    }",
+      "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "score": 0.014492753623188406,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "66c4f451f05c3111ab5e6ee2cd106405205699cc50139ac8449eb51ae0cecde1",
+      "kind": "symbol",
+      "symbolKind": "function",
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "range": {
+        "start": {
+          "line": 7,
+          "character": 0
+        },
+        "end": {
+          "line": 16,
+          "character": 1
+        }
+      },
+      "selectionRange": {
+        "start": {
+          "line": 7,
+          "character": 7
+        },
+        "end": {
+          "line": 7,
+          "character": 19
+        }
+      },
+      "name": "settle_order",
+      "qualifiedName": "settle_order",
+      "content": "pub fn settle_order(order: &Order, store: &impl Store) -> Result<Receipt, Error> {\n    if let Some(receipt) = store.find_receipt(&order.key)? {\n        return Ok(receipt);\n    }\n\n    let total = calculate_total(&order.items);\n    let receipt = charge(order, total)?;\n    store.save_receipt(&receipt)?;\n    Ok(receipt)\n}",
+      "version": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+      "score": 0.014285714285714285,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "6c00bb3816839d424d5897ca51783e8a88674a829024ba772b1a53758730ed0c",
+      "kind": "chunk",
+      "symbolKind": null,
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 43,
+          "character": 0
+        }
+      },
+      "selectionRange": null,
+      "name": null,
+      "qualifiedName": null,
+      "content": "pub type Money = i64;\n\n#[derive(Clone, Debug)]\npub struct LineItem {\n    pub unit_price: Money,\n    pub quantity: u32,\n    pub discount_percent: u8,\n}\n\nimpl LineItem {\n    /// The line amount in cents, before discounts.\n    pub fn total(&self) -> Money {\n        self.unit_price * i64::from(self.quantity)\n    }\n}\n\n/// Sum line totals after discounts.\npub fn calculate_total(items: &[LineItem]) -> Money {\n    items\n        .iter()\n        .map(|item| apply_discount(item.total(), item.discount_percent))\n        .sum()\n}\n\n/// Apply a percentage discount using integer cents.\npub fn apply_discount(amount: Money, percent: u8) -> Money {\n    amount * i64::from(100 - percent.min(100)) / 100\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n\n    #[test]\n    fn totals_include_quantity_and_discount() {\n        let items = [LineItem {\n            unit_price: 1200,\n            quantity: 2,\n            discount_percent: 10,\n        }];\n        assert_eq!(calculate_total(&items), 2160);\n    }\n}\n",
+      "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+      "score": 0.014084507042253521,
+      "reasons": [
+        "Text match"
+      ]
+    },
+    {
+      "id": "a161cfbb39b810ab3127b7c2592c17302cc5def7b23fe4f7eda793c0ee2217b0",
+      "kind": "chunk",
+      "symbolKind": null,
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/README.md",
+      "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/README.md",
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 11,
+          "character": 0
+        }
+      },
+      "selectionRange": null,
+      "name": null,
+      "qualifiedName": null,
+      "content": "# Harbor\n\nA sample workspace for ejm-ide. Explore `calculate_total` in Rust or Ruby,\n`total_received` in Python, and `calculateTotal` in TypeScript or Go.\n\nUse Go to Definition, Find References, or Call Hierarchy from the editor menu.\nSelect code and press Cmd+L to attach it to chat. These files are local and editable.\n\nRuby LSP provides definition and reference lookup. It does not provide semantic\ncall hierarchy. See [language setup](../../docs/languages.md) for the required\ntools and Ruby formatter configuration.\n",
+      "version": "c03b575761f63fe4e62b35f2823905d68c8142bc78d7294fe565eb3ddc780373",
+      "score": 0.013888888888888888,
+      "reasons": [
+        "Text match"
+      ]
+    }
+  ],
+  "root": {
+    "id": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+    "kind": "symbol",
+    "symbolKind": "function",
+    "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+    "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+    "range": {
+      "start": {
+        "line": 17,
+        "character": 0
+      },
+      "end": {
+        "line": 22,
+        "character": 1
+      }
+    },
+    "selectionRange": {
+      "start": {
+        "line": 17,
+        "character": 7
+      },
+      "end": {
+        "line": 17,
+        "character": 22
+      }
+    },
+    "name": "calculate_total",
+    "qualifiedName": "calculate_total",
+    "content": "pub fn calculate_total(items: &[LineItem]) -> Money {\n    items\n        .iter()\n        .map(|item| apply_discount(item.total(), item.discount_percent))\n        .sum()\n}",
+    "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+    "score": 0.07580645161290323,
+    "reasons": [
+      "Exact symbol",
+      "Text match",
+      "Path or symbol match"
+    ]
+  },
+  "page": {
+    "nodes": [
+      {
+        "id": "2ae9a07ae3c511a31b30234d9ce1314f0f5fc4fdf403ac9b710541a0e9c40e4d",
+        "name": "quote_order",
+        "qualifiedName": "quote_order",
+        "kind": "function",
+        "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+        "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+        "range": {
+          "start": {
+            "line": 19,
+            "character": 0
+          },
+          "end": {
+            "line": 21,
+            "character": 1
+          }
+        },
+        "selectionRange": {
+          "start": {
+            "line": 19,
+            "character": 7
+          },
+          "end": {
+            "line": 19,
+            "character": 18
+          }
+        },
+        "version": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef"
+      },
+      {
+        "id": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+        "name": "calculate_total",
+        "qualifiedName": "calculate_total",
+        "kind": "function",
+        "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+        "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+        "range": {
+          "start": {
+            "line": 17,
+            "character": 0
+          },
+          "end": {
+            "line": 22,
+            "character": 1
+          }
+        },
+        "selectionRange": {
+          "start": {
+            "line": 17,
+            "character": 7
+          },
+          "end": {
+            "line": 17,
+            "character": 22
+          }
+        },
+        "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      },
+      {
+        "id": "66c4f451f05c3111ab5e6ee2cd106405205699cc50139ac8449eb51ae0cecde1",
+        "name": "settle_order",
+        "qualifiedName": "settle_order",
+        "kind": "function",
+        "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+        "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 0
+          },
+          "end": {
+            "line": 16,
+            "character": 1
+          }
+        },
+        "selectionRange": {
+          "start": {
+            "line": 7,
+            "character": 7
+          },
+          "end": {
+            "line": 7,
+            "character": 19
+          }
+        },
+        "version": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef"
+      },
+      {
+        "id": "83339d4fffa9ae4c222261a3981eb0d76c37c22f50a1a225ee442837efd0d2e7",
+        "name": "total",
+        "qualifiedName": "LineItem::total",
+        "kind": "function",
+        "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+        "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 4
+          },
+          "end": {
+            "line": 13,
+            "character": 5
+          }
+        },
+        "selectionRange": {
+          "start": {
+            "line": 11,
+            "character": 11
+          },
+          "end": {
+            "line": 11,
+            "character": 16
+          }
+        },
+        "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      },
+      {
+        "id": "ec31d2b4e96fd64c616a9ce23c97b3d76b52d96f539b1720adb5782a965cd21b",
+        "name": "apply_discount",
+        "qualifiedName": "apply_discount",
+        "kind": "function",
+        "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+        "uri": "file:///private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+        "range": {
+          "start": {
+            "line": 25,
+            "character": 0
+          },
+          "end": {
+            "line": 27,
+            "character": 1
+          }
+        },
+        "selectionRange": {
+          "start": {
+            "line": 25,
+            "character": 7
+          },
+          "end": {
+            "line": 25,
+            "character": 21
+          }
+        },
+        "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      }
+    ],
+    "edges": [
+      {
+        "id": "7440131e2d29f59a4f08bcf24f9d3b3108bb0fd27603fd4340c53954056b866a",
+        "from": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+        "to": "83339d4fffa9ae4c222261a3981eb0d76c37c22f50a1a225ee442837efd0d2e7",
+        "kind": "call",
+        "evidence": "inferred",
+        "ranges": [
+          {
+            "start": {
+              "line": 20,
+              "character": 40
+            },
+            "end": {
+              "line": 20,
+              "character": 45
+            }
+          }
+        ],
+        "sourceVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+        "targetVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      },
+      {
+        "id": "8c284433a36365e4e274051d8ec5f4bb84bfe3b34029a38e822ba60c58d8d457",
+        "from": "66c4f451f05c3111ab5e6ee2cd106405205699cc50139ac8449eb51ae0cecde1",
+        "to": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+        "kind": "call",
+        "evidence": "inferred",
+        "ranges": [
+          {
+            "start": {
+              "line": 12,
+              "character": 16
+            },
+            "end": {
+              "line": 12,
+              "character": 31
+            }
+          }
+        ],
+        "sourceVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+        "targetVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      },
+      {
+        "id": "c41be1d5e8e4d404ee4f450737a144e6167712565e2c4b2ed7b2cf1076cb1587",
+        "from": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+        "to": "ec31d2b4e96fd64c616a9ce23c97b3d76b52d96f539b1720adb5782a965cd21b",
+        "kind": "call",
+        "evidence": "inferred",
+        "ranges": [
+          {
+            "start": {
+              "line": 20,
+              "character": 20
+            },
+            "end": {
+              "line": 20,
+              "character": 34
+            }
+          }
+        ],
+        "sourceVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f",
+        "targetVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      },
+      {
+        "id": "eecba26eb260d570d4a6ee355218244ffe516fa85cf5a1209bfca837bff14ff6",
+        "from": "2ae9a07ae3c511a31b30234d9ce1314f0f5fc4fdf403ac9b710541a0e9c40e4d",
+        "to": "45f50822601736a3232cb6cbe785aa9f67e2aa3fde8587c3da180202821efef7",
+        "kind": "call",
+        "evidence": "inferred",
+        "ranges": [
+          {
+            "start": {
+              "line": 20,
+              "character": 4
+            },
+            "end": {
+              "line": 20,
+              "character": 19
+            }
+          }
+        ],
+        "sourceVersion": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef",
+        "targetVersion": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+      }
+    ],
+    "generation": 4,
+    "nextCursor": null,
+    "traversalComplete": true,
+    "indexLimited": false,
+    "stale": false,
+    "skippedStale": 0
+  },
+  "sources": {
+    "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs": {
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/orders.rs",
+      "content": "use crate::money::{Money, calculate_total};\nuse crate::payments::charge;\nuse crate::{Error, Order, Receipt, Store};\n\n/// Settle an order after a successful payment.\n///\n/// The order key also identifies the payment, so a retry is safe.\npub fn settle_order(order: &Order, store: &impl Store) -> Result<Receipt, Error> {\n    if let Some(receipt) = store.find_receipt(&order.key)? {\n        return Ok(receipt);\n    }\n\n    let total = calculate_total(&order.items);\n    let receipt = charge(order, total)?;\n    store.save_receipt(&receipt)?;\n    Ok(receipt)\n}\n\n/// Preview the amount before collecting payment.\npub fn quote_order(order: &Order) -> Money {\n    calculate_total(&order.items)\n}\n",
+      "version": "55e27fc268be3895624fe7d775a6fcc0dd79565471d441e4329f810a8a18b9ef"
+    },
+    "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs": {
+      "path": "/private/tmp/ejm-ide-launch-film-20261019/graph-capture/harbor/src/money.rs",
+      "content": "pub type Money = i64;\n\n#[derive(Clone, Debug)]\npub struct LineItem {\n    pub unit_price: Money,\n    pub quantity: u32,\n    pub discount_percent: u8,\n}\n\nimpl LineItem {\n    /// The line amount in cents, before discounts.\n    pub fn total(&self) -> Money {\n        self.unit_price * i64::from(self.quantity)\n    }\n}\n\n/// Sum line totals after discounts.\npub fn calculate_total(items: &[LineItem]) -> Money {\n    items\n        .iter()\n        .map(|item| apply_discount(item.total(), item.discount_percent))\n        .sum()\n}\n\n/// Apply a percentage discount using integer cents.\npub fn apply_discount(amount: Money, percent: u8) -> Money {\n    amount * i64::from(100 - percent.min(100)) / 100\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n\n    #[test]\n    fn totals_include_quantity_and_discount() {\n        let items = [LineItem {\n            unit_price: 1200,\n            quantity: 2,\n            discount_percent: 10,\n        }];\n        assert_eq!(calculate_total(&items), 2160);\n    }\n}\n",
+      "version": "48cdb1137fdbae0af84d08e041d1fd12fdda58310962a865ac7014c26b33b59f"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "kCGWindowAlpha" : 1,
+    "kCGWindowBounds" : {
+      "Height" : 820,
+      "Width" : 1280,
+      "X" : 260,
+      "Y" : 117
+    },
+    "kCGWindowIsOnscreen" : true,
+    "kCGWindowLayer" : 0,
+    "kCGWindowMemoryUsage" : 2368,
+    "kCGWindowName" : "ejm-ide",
+    "kCGWindowNumber" : 67570,
+    "kCGWindowOwnerName" : "ejm-ide",
+    "kCGWindowOwnerPID" : 79295,
+    "kCGWindowSharingState" : 1,
+    "kCGWindowStoreType" : 1
+  }
+]

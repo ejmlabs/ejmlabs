@@ -1,0 +1,283 @@
+<!-- Retained historical source. Asset paths and kit instructions describe an earlier snapshot. This file is not a standalone current gallery or a published product. See design-kit/README.md. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Build with the kit, ejmlabs docs</title>
+  <meta name="description" content="How to build a page, choose parts, read the tokens and theme a project with the ejmlabs design kit. The flagship example of the docs layout.">
+  <meta name="theme-color" content="#F6F5EF">
+  <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
+  <script src="/design-kit/web/theme.js"></script>
+  <script src="/design-kit/web/motion.js"></script>
+  <script src="/design-kit/web/analytics.js" defer></script>
+  <script src="/design-kit/web/docs.js" defer></script>
+  <link rel="canonical" href="https://ejmlabs.com/design-kit/web/docs.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Build with the kit">
+  <meta property="og:description" content="How to build a page, choose parts, read the tokens and theme a project with the ejmlabs design kit.">
+  <meta property="og:url" content="https://ejmlabs.com/design-kit/web/docs.html">
+  <meta property="og:image" content="https://ejmlabs.com/design-kit/social/social-card.png">
+  <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/design-kit/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/design-kit/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/design-kit/favicon/site.webmanifest">
+  <link rel="preload" href="/design-kit/fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/design-kit/tokens/brand.css">
+  <link rel="stylesheet" href="/design-kit/components/brand-components.css">
+  <link rel="stylesheet" href="/design-kit/web/site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <header class="ejm-header ejm-header--sticky ejm-header--paper">
+    <a class="ejm-header__logo" href="/design-kit/index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+    <div class="ejm-header__tools">
+      <details class="ejm-menu">
+        <summary><span class="ejm-menu__label">Menu</span></summary>
+        <nav class="ejm-nav" aria-label="Main">
+          <a href="/design-kit/index.html">Design kit</a>
+          <a href="/design-kit/web/starter.html">Starter</a>
+          <a href="/design-kit/web/patterns.html">Patterns</a>
+          <a href="/design-kit/web/docs.html" aria-current="page">Docs</a>
+          <a href="/design-kit/web/theme.html">Theme</a>
+        </nav>
+      </details>
+      <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="ejm-page ejm-docs ejm-docs--page">
+      <details class="ejm-collapse ejm-docs__nav">
+        <summary>Documentation</summary>
+        <div class="ejm-docs__filter" hidden>
+          <label class="ejm-sr" for="docs-filter">Filter pages</label>
+          <input class="ejm-input" id="docs-filter" type="search" placeholder="Filter pages" autocomplete="off" spellcheck="false">
+          <p class="ejm-docs__count" role="status"></p>
+        </div>
+        <nav class="ejm-sidenav" aria-label="Documentation">
+          <div>
+            <p class="ejm-sidenav__title">Start</p>
+            <ul>
+              <li><a href="/design-kit/web/starter.html">Page starter</a></li>
+              <li><a href="/design-kit/web/docs.html" aria-current="page">Build with the kit</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="ejm-sidenav__title">Reference</p>
+            <ul>
+              <li><a href="/design-kit/web/patterns.html">Pattern catalog</a></li>
+              <li><a href="/design-kit/web/theme.html">Site theme</a></li>
+              <li><a href="/design-kit/web/responsive.html">Screen sizes</a></li>
+              <li><a href="/design-kit/web/motion.html">Motion</a></li>
+              <li><a href="/design-kit/web/demos.html">Product demos</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="ejm-sidenav__title">Application kit</p>
+            <ul>
+              <li><a href="/design-kit/ui/index.html">Application components</a></li>
+              <li><a href="/design-kit/ui/tui.html">Terminal apps</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="ejm-sidenav__title">Brand</p>
+            <ul>
+              <li><a href="/design-kit/index.html">Brand gallery</a></li>
+              <li><a href="/design-kit/components/index.html">Web components</a></li>
+            </ul>
+          </div>
+        </nav>
+      </details>
+
+      <details class="ejm-collapse ejm-docs__toc">
+        <summary>On this page</summary>
+        <nav class="ejm-toc" aria-label="On this page">
+          <ul>
+            <li><a href="#start">Getting started</a>
+              <ul>
+                <li><a href="#load">Load the kit</a></li>
+                <li><a href="#head">Add the head scripts</a></li>
+              </ul>
+            </li>
+            <li><a href="#tokens">Design tokens</a></li>
+            <li><a href="#components">Using components</a></li>
+            <li><a href="#theming">Theming</a>
+              <ul>
+                <li><a href="#roles">Read a theme role</a></li>
+              </ul>
+            </li>
+            <li><a href="#check">Checking your page</a></li>
+          </ul>
+        </nav>
+      </details>
+
+      <div class="ejm-docs__main ejm-prose">
+        <header class="ejm-docs__head">
+          <nav class="ejm-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/design-kit/index.html">Design kit</a></li><li><a href="/design-kit/web/patterns.html">Web</a></li><li aria-current="page">Build with the kit</li></ol></nav>
+          <h1 class="ejm-docs__title">Build with the kit</h1>
+          <p class="ejm-docs__lead">Copy the kit, load three style sheets, and build pages from named parts. You write no CSS, and the same parts follow the light and dark theme on their own.</p>
+        </header>
+
+        <h2 id="start">Getting started</h2>
+        <p>The kit is a folder. There is no package to install and no build step to run for a site. Copy <code>design-kit</code> into your project, keep its files together, and open <code>web/starter.html</code> to see a whole page built from the parts.</p>
+        <figure class="ejm-codeblock">
+          <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">Shell</p></div>
+          <pre class="ejm-code" tabindex="0" role="group" aria-label="Copy the kit into a project"><code><span class="ejm-tok-comment"># Copy the kit next to your pages</span>
+<span class="ejm-tok-function">cp</span> -R design-kit ../your-site/design-kit
+
+<span class="ejm-tok-comment"># Start a page from the starter</span>
+<span class="ejm-tok-function">cp</span> design-kit/web/starter.html ../your-site/index.html</code></pre>
+        </figure>
+        <div class="ejm-callout" role="note">
+          <p class="ejm-callout__label">Note</p>
+          <p>Each project repository carries its own copy of the kit. Re-copy the folder when the kit changes, then run the page checker again.</p>
+        </div>
+
+        <h3 id="load">Load the kit</h3>
+        <p>A page uses exactly three style sheets, in this order. The page carries no <code>&lt;style&gt;</code> block and no inline styles.</p>
+        <figure class="ejm-codeblock">
+          <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">HTML</p></div>
+          <pre class="ejm-code" tabindex="0" role="group" aria-label="The three kit style sheets"><code>&lt;<span class="ejm-tok-keyword">link</span> <span class="ejm-tok-property">rel</span>=<span class="ejm-tok-string">"stylesheet"</span> <span class="ejm-tok-property">href</span>=<span class="ejm-tok-string">"/design-kit/tokens/brand.css"</span>&gt;
+&lt;<span class="ejm-tok-keyword">link</span> <span class="ejm-tok-property">rel</span>=<span class="ejm-tok-string">"stylesheet"</span> <span class="ejm-tok-property">href</span>=<span class="ejm-tok-string">"/design-kit/components/brand-components.css"</span>&gt;
+&lt;<span class="ejm-tok-keyword">link</span> <span class="ejm-tok-property">rel</span>=<span class="ejm-tok-string">"stylesheet"</span> <span class="ejm-tok-property">href</span>=<span class="ejm-tok-string">"/design-kit/web/site.css"</span>&gt;</code></pre>
+        </figure>
+
+        <h3 id="head">Add the head scripts</h3>
+        <p>The theme script is synchronous on purpose: it sets the saved theme before the first paint, so the page never flashes the wrong one. The docs script is deferred and only adds behavior on top of a page that already works.</p>
+        <figure class="ejm-codeblock">
+          <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">HTML</p></div>
+          <pre class="ejm-code" tabindex="0" role="group" aria-label="The kit scripts in the head"><code>&lt;<span class="ejm-tok-keyword">script</span> <span class="ejm-tok-property">src</span>=<span class="ejm-tok-string">"/design-kit/web/theme.js"</span>&gt;&lt;/<span class="ejm-tok-keyword">script</span>&gt;
+&lt;<span class="ejm-tok-keyword">script</span> <span class="ejm-tok-property">src</span>=<span class="ejm-tok-string">"/design-kit/web/motion.js"</span>&gt;&lt;/<span class="ejm-tok-keyword">script</span>&gt;
+&lt;<span class="ejm-tok-keyword">script</span> <span class="ejm-tok-property">src</span>=<span class="ejm-tok-string">"/design-kit/web/analytics.js"</span> <span class="ejm-tok-property">defer</span>&gt;&lt;/<span class="ejm-tok-keyword">script</span>&gt;
+&lt;<span class="ejm-tok-keyword">script</span> <span class="ejm-tok-property">src</span>=<span class="ejm-tok-string">"/design-kit/web/docs.js"</span> <span class="ejm-tok-property">defer</span>&gt;&lt;/<span class="ejm-tok-keyword">script</span>&gt;</code></pre>
+        </figure>
+
+        <h2 id="tokens">Design tokens</h2>
+        <p>Tokens are CSS custom properties from <code>tokens/brand.css</code>. The parts read them, so a site uses them by choosing a part, not by writing a value. Spacing runs on a 4px base and an 8px grid.</p>
+        <div class="ejm-table ejm-table--ref" role="region" aria-label="Spacing and radius tokens" tabindex="0">
+          <table>
+            <caption>Spacing and radius tokens</caption>
+            <thead><tr><th scope="col">Token</th><th scope="col" class="ejm-table__num">Value</th><th scope="col">Use it for</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">--ejm-space-2</th><td class="ejm-table__num ejm-table__code">8px</td><td>The smallest gap between related items.</td></tr>
+              <tr><th scope="row">--ejm-space-4</th><td class="ejm-table__num ejm-table__code">16px</td><td>The gap inside a control or a small group.</td></tr>
+              <tr><th scope="row">--ejm-space-6</th><td class="ejm-table__num ejm-table__code">24px</td><td>The gap between paragraphs and blocks.</td></tr>
+              <tr><th scope="row">--ejm-space-12</th><td class="ejm-table__num ejm-table__code">48px</td><td>The gap between groups on a page.</td></tr>
+              <tr><th scope="row">--ejm-radius-medium</th><td class="ejm-table__num ejm-table__code">12px</td><td>Inputs and code blocks.</td></tr>
+              <tr><th scope="row">--ejm-radius-large</th><td class="ejm-table__num ejm-table__code">24px</td><td>Panels, cards, callouts and terminals.</td></tr>
+              <tr><th scope="row">--ejm-radius-pill</th><td class="ejm-table__num ejm-table__code">999px</td><td>Buttons, tags and the menu.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Type uses two families. Manrope sets text. IBM Plex Mono sets names, code and values, such as token names and file paths.</p>
+
+        <h2 id="components">Using components</h2>
+        <p>Start from the need, not the class. <code>web/patterns.html</code> shows every part live next to the line that says when to use it and the exact markup. Copy the markup and change the words.</p>
+        <ul>
+          <li>Build a page from bands. Each band holds one heading and one kind of content.</li>
+          <li>Use tone and space to separate groups. Do not put a border around a card or a callout.</li>
+          <li>Keep at most three items in a row. Four settle into two by two.</li>
+        </ul>
+        <div class="ejm-callout ejm-callout--tip" role="note">
+          <p class="ejm-callout__label">Tip</p>
+          <p>Every callout begins with its label written out: Note, Tip or Warning. Meaning never depends on the fill alone.</p>
+        </div>
+        <p>A warning callout looks like this in markup. The label comes first, then the sentence the reader must not miss.</p>
+        <figure class="ejm-codeblock">
+          <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">HTML</p></div>
+          <pre class="ejm-code" tabindex="0" role="group" aria-label="A warning callout"><code>&lt;<span class="ejm-tok-keyword">div</span> <span class="ejm-tok-property">class</span>=<span class="ejm-tok-string">"ejm-callout ejm-callout--warning"</span> <span class="ejm-tok-property">role</span>=<span class="ejm-tok-string">"note"</span>&gt;
+  &lt;<span class="ejm-tok-keyword">p</span> <span class="ejm-tok-property">class</span>=<span class="ejm-tok-string">"ejm-callout__label"</span>&gt;Warning&lt;/<span class="ejm-tok-keyword">p</span>&gt;
+  &lt;<span class="ejm-tok-keyword">p</span>&gt;What the reader must know.&lt;/<span class="ejm-tok-keyword">p</span>&gt;
+&lt;/<span class="ejm-tok-keyword">div</span>&gt;</code></pre>
+        </figure>
+
+        <h2 id="theming">Theming</h2>
+        <p>Dark is the default for applications, and light mirrors it. Both start from the brand palette, with Sage leading. Colors are defined once, in <code>ui/theme.json</code>, and generated into every target.</p>
+        <div class="ejm-callout ejm-callout--warning" role="note">
+          <p class="ejm-callout__label">Warning</p>
+          <p>Never edit a generated file by hand. Change <code>ui/theme.json</code> and run <code>node scripts/build-ui.mjs</code>. For the site style sheet, edit a part in <code>web/parts/</code> and run <code>node scripts/build-web.mjs</code>.</p>
+        </div>
+
+        <h3 id="roles">Read a theme role</h3>
+        <p>Use a role by name and never a literal color. The same role exists for the web, for editors and for terminal apps.</p>
+        <div class="ejm-tabs" data-ejm-tabs data-tabs-label="Language">
+          <div class="ejm-tabs__panel">
+            <p class="ejm-tabs__label">CSS</p>
+            <figure class="ejm-codeblock">
+              <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">CSS</p></div>
+              <pre class="ejm-code" tabindex="0" role="group" aria-label="Use a role in CSS"><code><span class="ejm-tok-type">.panel</span> {
+  <span class="ejm-tok-property">background</span>: <span class="ejm-tok-function">var</span>(--ejm-ui-panel);
+  <span class="ejm-tok-property">color</span>: <span class="ejm-tok-function">var</span>(--ejm-ui-text);
+}</code></pre>
+            </figure>
+          </div>
+          <div class="ejm-tabs__panel">
+            <p class="ejm-tabs__label">TypeScript</p>
+            <figure class="ejm-codeblock">
+              <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">TypeScript</p></div>
+              <pre class="ejm-code" tabindex="0" role="group" aria-label="Load the editor themes in TypeScript"><code><span class="ejm-tok-keyword">import</span> dark <span class="ejm-tok-keyword">from</span> <span class="ejm-tok-string">'./design-kit/ui/monaco/ejmlabs-dark.json'</span>;
+<span class="ejm-tok-keyword">import</span> light <span class="ejm-tok-keyword">from</span> <span class="ejm-tok-string">'./design-kit/ui/monaco/ejmlabs-light.json'</span>;
+
+monaco.editor.<span class="ejm-tok-function">defineTheme</span>(<span class="ejm-tok-string">'ejmlabs-dark'</span>, dark);
+monaco.editor.<span class="ejm-tok-function">defineTheme</span>(<span class="ejm-tok-string">'ejmlabs-light'</span>, light);</code></pre>
+            </figure>
+          </div>
+          <div class="ejm-tabs__panel">
+            <p class="ejm-tabs__label">Rust</p>
+            <figure class="ejm-codeblock">
+              <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">Rust</p></div>
+              <pre class="ejm-code" tabindex="0" role="group" aria-label="Use a palette in Rust"><code><span class="ejm-tok-keyword">mod</span> ejm_theme;
+
+<span class="ejm-tok-comment">// Pick DARK or LIGHT from the terminal's appearance.</span>
+<span class="ejm-tok-keyword">let</span> palette = ejm_theme::DARK;
+<span class="ejm-tok-keyword">let</span> accent = palette.accent;</code></pre>
+            </figure>
+          </div>
+        </div>
+
+        <h2 id="check">Checking your page</h2>
+        <p>Two scripts keep a page honest. The page checker verifies that a page uses the kit properly. The screenshot script shoots a page at every size in the device matrix, from a 320px phone to a 5120px super ultrawide, and reports horizontal overflow.</p>
+        <figure class="ejm-codeblock">
+          <div class="ejm-codeblock__bar"><p class="ejm-codeblock__lang">Shell</p></div>
+          <pre class="ejm-code" tabindex="0" role="group" aria-label="Run the page checker and the screenshot script"><code>node design-kit/scripts/check-site.mjs index.html
+node design-kit/scripts/shoot.mjs http://localhost:4844/index.html --theme dark</code></pre>
+        </figure>
+        <div class="ejm-table ejm-table--ref" role="region" aria-label="Options of shoot.mjs" tabindex="0">
+          <table>
+            <caption>Options of <span class="ejm-mono">shoot.mjs</span></caption>
+            <thead><tr><th scope="col">Option</th><th scope="col">Value</th><th scope="col">Default</th><th scope="col">What it does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">--out</th><td class="ejm-table__code">dir</td><td class="ejm-table__code">temp folder</td><td>Where the PNG files go.</td></tr>
+              <tr><th scope="row">--only</th><td class="ejm-table__code">a,b</td><td class="ejm-table__code">every size</td><td>Runs only these names from the matrix, such as <code>laptop,iphone-mini</code>.</td></tr>
+              <tr><th scope="row">--theme</th><td class="ejm-table__code">dark | light</td><td class="ejm-table__code">system</td><td>Sets the theme and emulates the matching color scheme.</td></tr>
+              <tr><th scope="row">--full</th><td class="ejm-table__code">flag</td><td class="ejm-table__code">off</td><td>Saves the whole page as strips of up to 2400 CSS px.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="ejm-docs__pager" aria-label="Previous and next pages">
+          <a class="ejm-docs__pager-link" rel="prev" href="/design-kit/web/starter.html"><span class="ejm-docs__pager-dir">Previous</span><span class="ejm-docs__pager-name">Page starter</span></a>
+          <a class="ejm-docs__pager-link ejm-docs__pager-link--next" rel="next" href="/design-kit/web/patterns.html"><span class="ejm-docs__pager-dir">Next</span><span class="ejm-docs__pager-name">Pattern catalog</span></a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>kit</h2><ul><li><a href="/design-kit/index.html">Design kit</a></li><li><a href="/design-kit/web/patterns.html">Patterns</a></li><li><a href="/design-kit/web/starter.html">Site starter</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>

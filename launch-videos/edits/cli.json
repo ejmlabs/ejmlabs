@@ -1,0 +1,46 @@
+{
+  "musicStart": 0,
+  "problemSeconds": 3,
+  "outcomeSeconds": 3.6,
+  "posterTime": 21,
+  "cuts": [
+    {
+      "source": "raw/cli/master.mp4",
+      "start": 0.7,
+      "end": 3.4
+    },
+    {
+      "source": "raw/cli/master.mp4",
+      "start": 3.4,
+      "end": 7.8,
+      "crop": {
+        "x": 24,
+        "y": 0,
+        "width": 1408,
+        "height": 792
+      }
+    },
+    {
+      "source": "raw/cli/master.mp4",
+      "start": 11.3,
+      "end": 16.7,
+      "crop": {
+        "x": 24,
+        "y": 0,
+        "width": 1408,
+        "height": 792
+      }
+    },
+    {
+      "source": "raw/cli/master.mp4",
+      "start": 18.7,
+      "end": 25.5,
+      "crop": {
+        "x": 24,
+        "y": 0,
+        "width": 1408,
+        "height": 792
+      }
+    }
+  ]
+}

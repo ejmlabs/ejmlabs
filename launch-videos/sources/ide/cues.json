@@ -1,0 +1,28 @@
+{
+  "units": "seconds from the source movie start",
+  "native-edit.mov": {
+    "path": "raw/ide/native-edit.mov",
+    "duration": 55.028333,
+    "cues": [
+      { "from": 1.5, "to": 6.3, "action": "Native composer types the task and sends it." },
+      { "from": 6.3, "to": 8.5, "action": "Edi reads the saved order source." },
+      { "from": 8.5, "to": 12.9, "action": "The real open_file and highlight_code tools reveal the quote calculation." },
+      { "from": 12.9, "to": 15.1, "action": "Edi reads the quantity and discount implementation." },
+      { "from": 15.1, "to": 19.8, "action": "Edi proposes the regression test, native automatic review approves it and write_file applies it." },
+      { "from": 19.8, "to": 23.0, "action": "The native recorded diff and honest completion summary appear." },
+      { "from": 23.0, "to": 54.9, "action": "Hold on the real applied diff and saved source." }
+    ],
+    "recommendedCuts": [
+      { "from": 3.5, "to": 9.5, "focus": "Prompt and first read." },
+      { "from": 9.5, "to": 16.0, "focus": "Source navigation, highlight and the second real read." },
+      { "from": 16.0, "to": 22.5, "focus": "Real write, automatic review and recorded diff." }
+    ]
+  },
+  "native-diff.mov": {
+    "path": "raw/ide/native-diff.mov",
+    "action": "The same successful recorded edit, restored through normal native startup, scrolls to the new test assertion.",
+    "recommendedCut": { "from": 3.5, "to": 9.5, "focus": "Applied status, native +19-line diff and the real 2160-cent assertion." },
+    "cropNote": "Focus on the first write tool and its diff. The optional later conversation lies below it and is not part of this story."
+  },
+  "timingEvidence": "The movie creation timestamp, actual provider request timestamps and representative decoded frames establish these editing intervals."
+}

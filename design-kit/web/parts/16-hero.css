@@ -1,0 +1,177 @@
+/* Depth and product composition. See web/PRODUCT.md.
+   Three elevation tokens (rest, raised, float) give floating surfaces depth, and are used only by product windows,
+   menus and overlays: no card, tag, callout or panel casts a shadow. Product windows are static, simulated screens of
+   ejm-cli, ejm-ide and ejm-harness, drawn from the same scenario data as the demos and labelled as simulated.
+   Window colors are the --ejm-ui-* roles from ui/theme.css, so a window follows the page theme. Everything else reads
+   the band roles (--ejm-ground, --ejm-fg, --ejm-muted) and brand tokens. The layered stage measures its own width
+   (container query), not the viewport: below 30rem windows stack with an offset, above it they overlap on a fixed
+   48 by 54 em canvas that scales with the stage. Motion is the hero entrance only, transform and opacity. */
+
+/* ---------- Elevation tokens ----------
+   Each level is a stack of soft shadows, near to far. The dark values are deeper and add a faint top edge of light,
+   so a window still separates from a dark ground. The first block is the light fallback; the second uses light-dark(). */
+:root {
+  --ejm-elevation-rest: 0 1px 2px color-mix(in srgb, var(--ejm-ink) 10%, transparent), 0 8px 16px -8px color-mix(in srgb, var(--ejm-ink) 18%, transparent);
+  --ejm-elevation-raised: 0 2px 4px color-mix(in srgb, var(--ejm-ink) 8%, transparent), 0 12px 24px -8px color-mix(in srgb, var(--ejm-ink) 18%, transparent), 0 24px 48px -24px color-mix(in srgb, var(--ejm-ink) 24%, transparent);
+  --ejm-elevation-float: 0 4px 8px color-mix(in srgb, var(--ejm-ink) 8%, transparent), 0 24px 48px -12px color-mix(in srgb, var(--ejm-ink) 22%, transparent), 0 48px 96px -32px color-mix(in srgb, var(--ejm-ink) 34%, transparent);
+}
+@supports (color: light-dark(white, black)) {
+  :root {
+    --ejm-elevation-rest:
+      inset 0 1px 0 light-dark(transparent, color-mix(in srgb, var(--ejm-paper) 6%, transparent)),
+      0 1px 2px light-dark(color-mix(in srgb, var(--ejm-ink) 10%, transparent), color-mix(in srgb, black 40%, transparent)),
+      0 8px 16px -8px light-dark(color-mix(in srgb, var(--ejm-ink) 18%, transparent), color-mix(in srgb, black 55%, transparent));
+    --ejm-elevation-raised:
+      inset 0 1px 0 light-dark(transparent, color-mix(in srgb, var(--ejm-paper) 8%, transparent)),
+      0 2px 4px light-dark(color-mix(in srgb, var(--ejm-ink) 8%, transparent), color-mix(in srgb, black 35%, transparent)),
+      0 12px 24px -8px light-dark(color-mix(in srgb, var(--ejm-ink) 18%, transparent), color-mix(in srgb, black 55%, transparent)),
+      0 24px 48px -24px light-dark(color-mix(in srgb, var(--ejm-ink) 24%, transparent), color-mix(in srgb, black 65%, transparent));
+    --ejm-elevation-float:
+      inset 0 1px 0 light-dark(transparent, color-mix(in srgb, var(--ejm-paper) 10%, transparent)),
+      0 4px 8px light-dark(color-mix(in srgb, var(--ejm-ink) 8%, transparent), color-mix(in srgb, black 35%, transparent)),
+      0 24px 48px -12px light-dark(color-mix(in srgb, var(--ejm-ink) 22%, transparent), color-mix(in srgb, black 60%, transparent)),
+      0 48px 96px -32px light-dark(color-mix(in srgb, var(--ejm-ink) 34%, transparent), color-mix(in srgb, black 70%, transparent));
+  }
+}
+
+/* ---------- Product: the figure that holds a stage and its label ---------- */
+.ejm-product { container: ejm-product / inline-size; display: grid; gap: var(--ejm-space-4); margin: 0; min-inline-size: 0; }
+.ejm-product__label {
+  justify-self: start; box-sizing: border-box; display: inline-flex; align-items: center; gap: var(--ejm-space-2);
+  min-block-size: 32px; padding: 6px var(--ejm-space-4); border-radius: 16px;
+  font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.3 var(--ejm-font-sans); color: var(--ejm-fg);
+  background: color-mix(in srgb, currentColor 7%, transparent);
+}
+.ejm-product__label::before { content: ''; flex: none; inline-size: 8px; block-size: 8px; border-radius: var(--ejm-radius-pill); background: var(--ejm-sage); }
+
+/* ---------- Stage: windows layered on one canvas ---------- */
+.ejm-product__stage { position: relative; isolation: isolate; display: grid; gap: var(--ejm-space-4); }
+
+/* ---------- Window frame: title bar with dots and name, then a body ---------- */
+.ejm-product__window {
+  position: relative; box-sizing: border-box; display: grid; grid-template-rows: auto minmax(0, 1fr); min-inline-size: 0; overflow: hidden;
+  font: var(--ejm-weight-body) 12px / 1.55 var(--ejm-font-sans); font-variant-ligatures: none;
+  color: var(--ejm-ui-text); background: var(--ejm-ui-raised); border-radius: 16px;
+  box-shadow: var(--ejm-elevation-float);
+  user-select: none; pointer-events: none;
+}
+.ejm-product__window[data-elevation='rest'] { box-shadow: var(--ejm-elevation-rest); }
+.ejm-product__window[data-elevation='raised'] { box-shadow: var(--ejm-elevation-raised); }
+.ejm-product__window[data-elevation='float'] { box-shadow: var(--ejm-elevation-float); }
+.ejm-product__bar { display: flex; align-items: center; gap: 1em; min-block-size: 2.7em; padding-inline: 1.1em; background: var(--ejm-ui-overlay); }
+.ejm-product__dots { flex: none; inline-size: 0.7em; block-size: 0.7em; margin-inline-end: 2.6em; border-radius: 50%; background: var(--ejm-ui-text-subtle); opacity: 0.55; box-shadow: 1.2em 0 0 var(--ejm-ui-text-subtle), 2.4em 0 0 var(--ejm-ui-text-subtle); }
+.ejm-product__title { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: var(--ejm-weight-heading) 1em / 1.3 var(--ejm-font-sans); color: var(--ejm-ui-text-strong); }
+.ejm-product__meta { flex: none; font: var(--ejm-weight-technical) 0.92em / 1.3 var(--ejm-font-mono); color: var(--ejm-ui-text-muted); }
+.ejm-product__body { display: grid; min-block-size: 0; min-inline-size: 0; overflow: hidden; }
+
+/* Window content: a line of mono text, a small caption, a pane. Color roles are attributes, never color alone:
+   each carries a glyph or a word. */
+.ejm-product__line { display: block; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: pre; font: var(--ejm-weight-technical) 1em / 1.6 var(--ejm-font-mono); color: var(--ejm-ui-text); }
+.ejm-product__line[data-tone='dim'] { color: var(--ejm-ui-text-muted); }
+.ejm-product__line[data-tone='accent'] { color: var(--ejm-ui-accent); font-weight: 600; }
+.ejm-product__line[data-tone='err'] { color: var(--ejm-ui-error); }
+.ejm-product__line[data-tone='warn'] { color: var(--ejm-ui-warning); }
+.ejm-product__line[data-tone='add'] { color: var(--ejm-ui-diff-add); background: var(--ejm-ui-diff-add-bg); }
+.ejm-product__line[data-tone='del'] { color: var(--ejm-ui-diff-del); background: var(--ejm-ui-diff-del-bg); }
+.ejm-product__line[data-tone='mark'] { background: var(--ejm-ui-tint-1); }
+.ejm-product__line[data-wrap] { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ejm-product__cap { margin: 0; font: var(--ejm-weight-heading) 0.92em / 1.4 var(--ejm-font-sans); color: var(--ejm-ui-text-muted); }
+.ejm-product [data-syn='kw'] { color: var(--ejm-ui-syn-keyword); }
+.ejm-product [data-syn='ty'] { color: var(--ejm-ui-syn-type); }
+.ejm-product [data-syn='fn'] { color: var(--ejm-ui-syn-function); }
+.ejm-product [data-syn='cm'] { color: var(--ejm-ui-syn-comment); font-style: italic; }
+
+/* ejm-cli: a terminal screen. Header, transcript, composer, hints. */
+.ejm-product__term { align-content: start; gap: 0.15em; padding: 1.1em 1.3em 1.2em; background: var(--ejm-ui-ground); }
+.ejm-product__term > .ejm-product__line + .ejm-product__line[data-tone='accent'] { margin-block-start: 0.8em; }
+.ejm-product__composer { display: flex; align-items: center; gap: 0.8em; margin-block: 1em 0.5em; padding: 0.7em 1em; border-radius: var(--ejm-radius-pill); background: var(--ejm-ui-tint-1); font: var(--ejm-weight-technical) 1em / 1.5 var(--ejm-font-mono); color: var(--ejm-ui-text-muted); }
+.ejm-product__composer::before { content: '\203A'; color: var(--ejm-ui-accent); font-weight: 700; }
+
+/* ejm-ide: editor and agent chat side by side. */
+.ejm-product__ide { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); }
+.ejm-product__pane { display: grid; align-content: start; gap: 0.15em; min-inline-size: 0; padding: 0 0 1em; background: var(--ejm-ui-ground); }
+.ejm-product__pane + .ejm-product__pane { background: var(--ejm-ui-panel); }
+.ejm-product__tabs { display: flex; gap: 0.2em; padding: 0.7em 1em 0; margin-block-end: 0.7em; }
+.ejm-product__tab { padding: 0.35em 1em; border-radius: 999px; font: var(--ejm-weight-technical) 0.95em / 1.4 var(--ejm-font-mono); color: var(--ejm-ui-text-muted); }
+.ejm-product__tab[data-selected='true'] { color: var(--ejm-ui-text-strong); background: var(--ejm-ui-tint-1); }
+.ejm-product__code { counter-reset: ejm-product-ln; padding-inline: 0.4em 0.8em; }
+.ejm-product__code .ejm-product__line { counter-increment: ejm-product-ln; padding-inline: 0.8em; border-radius: 4px; }
+.ejm-product__code .ejm-product__line::before { content: counter(ejm-product-ln); display: inline-block; inline-size: 2.2em; margin-inline-end: 0.8em; text-align: end; color: var(--ejm-ui-text-subtle); }
+.ejm-product__msg { display: grid; gap: 0.2em; margin-inline: 1em; padding: 0.6em 0.9em; border-radius: 12px; }
+.ejm-product__msg[data-from='you'] { background: var(--ejm-ui-tint-1); }
+.ejm-product__who { font: var(--ejm-weight-heading) 0.92em / 1.3 var(--ejm-font-sans); color: var(--ejm-ui-accent); }
+.ejm-product__text { margin: 0; color: var(--ejm-ui-text); }
+.ejm-product__tool { display: grid; gap: 0.6em; margin: 0.4em 1em 0; padding: 0.8em 0.9em; border-radius: 12px; background: var(--ejm-ui-block, var(--ejm-ui-tint-1)); }
+.ejm-product__tool-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2em 0.8em; font: var(--ejm-weight-technical) 0.95em / 1.4 var(--ejm-font-mono); color: var(--ejm-ui-text-strong); }
+.ejm-product__tool-head > span:last-child { margin-inline-start: auto; font-family: var(--ejm-font-sans); font-weight: 600; color: var(--ejm-ui-accent); }
+.ejm-product__diff { display: grid; padding-block: 0.4em; border-radius: 8px; background: var(--ejm-ui-ground); overflow: hidden; }
+.ejm-product__diff .ejm-product__line { padding-inline: 0.8em; font-size: 0.95em; }
+
+/* ejm-harness: governor limits and the event journal. */
+.ejm-product__gov { align-content: start; gap: 0.9em; padding: 1.1em 1.3em 1.3em; background: var(--ejm-ui-ground); }
+.ejm-product__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8em; margin: 0; padding: 0; list-style: none; }
+.ejm-product__stat { display: grid; gap: 0.1em; padding: 0.7em 0.9em; border-radius: 12px; background: var(--ejm-ui-tint-1); min-inline-size: 0; }
+.ejm-product__stat b { font: var(--ejm-weight-heading) 2.1em / 1.1 var(--ejm-font-sans); letter-spacing: -0.03em; color: var(--ejm-ui-text-strong); font-variant-numeric: tabular-nums; }
+.ejm-product__stat span { font: var(--ejm-weight-body) 0.92em / 1.3 var(--ejm-font-sans); color: var(--ejm-ui-text-muted); }
+
+/* ---------- Layered stage, wide: windows overlap on a 48 by 54 em canvas that scales with the stage ---------- */
+@container ejm-product (min-width: 30rem) {
+  .ejm-product__stage { display: block; aspect-ratio: 48 / 54; }
+  .ejm-product__window { position: absolute; font-size: clamp(10px, 2.0833cqw, 26px); }
+  .ejm-product__window--ide { inset: 0 0 auto auto; inline-size: 86%; block-size: 58%; }
+  .ejm-product__window--cli { inset: auto auto 0 0; inline-size: 55%; block-size: 58%; }
+  .ejm-product__window--harness { inset: auto 0 0 auto; inline-size: 48%; block-size: 44%; }
+  /* A stage with one or two windows spreads them: a lone window fills the canvas. */
+  .ejm-product__stage > .ejm-product__window:only-child { inset: 0; inline-size: auto; block-size: auto; }
+}
+
+/* ---------- Layered stage, narrow: windows stack, each one offset and tucked under the next ---------- */
+@container ejm-product (max-width: 29.99rem) {
+  .ejm-product__stage { gap: 0; }
+  .ejm-product__window + .ejm-product__window { margin-block-start: -2.4em; }
+  .ejm-product__window:nth-child(odd) { margin-inline-end: 5%; }
+  .ejm-product__window:nth-child(even) { margin-inline-start: 5%; }
+  .ejm-product__stage > .ejm-product__window:only-child { margin-inline: 0; }
+  .ejm-product__ide { grid-template-columns: minmax(0, 1fr); }
+  .ejm-product__ide > .ejm-product__pane:first-child { display: none; }
+  .ejm-product__window--cli .ejm-product__line:nth-child(n+11) { display: none; }
+}
+
+/* Very narrow stages (a 320 px phone): the three limits become rows. */
+@container ejm-product (max-width: 17rem) {
+  .ejm-product__stats { grid-template-columns: minmax(0, 1fr); }
+  .ejm-product__stat { grid-template-columns: auto 1fr; align-items: baseline; gap: 0.8em; }
+}
+
+/* ---------- Product hero: copy first, then the layered windows, on the Sage panel ---------- */
+.ejm-product-hero__copy { display: grid; align-content: center; gap: var(--ejm-space-6); min-inline-size: 0; }
+.ejm-product-hero__copy > * { min-inline-size: 0; }
+.ejm-product-hero .ejm-product { --ejm-fg: var(--ejm-ink); }
+.ejm-product-hero .ejm-product__label { color: var(--ejm-ink); background: color-mix(in srgb, var(--ejm-paper) 40%, transparent); }
+.ejm-product-hero .ejm-product__stage { padding-block-end: var(--ejm-space-2); }
+.ejm-product-hero .ejm-product-hero__copy .ejm-display { max-inline-size: none; }
+
+@media (min-width: 900px) {
+  .ejm-site .ejm-hero.ejm-product-hero:not(.ejm-hero--paper) .ejm-hero__body { grid-template-columns: minmax(0, 4.5fr) minmax(0, 7.5fr); align-items: center; column-gap: clamp(32px, 3vw, 72px); padding-inline: calc(clamp(24px, 3.6vw, 72px) * var(--ejm-scale, 1)); }
+  .ejm-product-hero .ejm-product-hero__copy .ejm-display { font-size: clamp(36px, 3.4vw, calc(56px * var(--ejm-scale, 1))); }
+}
+
+/* Staged entrance: the copy rises first (the kit's ejm-enter), then each window follows. Only transform and opacity,
+   0.32 s to 1.02 s in total. Without the media query (reduced motion) or without CSS animation, the hero is the final layout. */
+@media (prefers-reduced-motion: no-preference) {
+  .ejm-product-hero .ejm-product__window {
+    --ejm-enter-rise: var(--ejm-distance-large);
+    animation: ejm-enter var(--ejm-duration-slow) var(--ejm-ease-emphasis) calc(320ms + var(--ejm-product-i, 0) * 120ms) backwards;
+  }
+  .ejm-product-hero .ejm-product__window:nth-child(2) { --ejm-product-i: 1; }
+  .ejm-product-hero .ejm-product__window:nth-child(3) { --ejm-product-i: 2; }
+  .ejm-product-hero .ejm-product__label { animation: ejm-fade var(--ejm-duration-slow) var(--ejm-ease-enter) 600ms backwards; }
+}
+
+@media (forced-colors: active) {
+  .ejm-product__window { border: 1px solid CanvasText; background: Canvas; color: CanvasText; forced-color-adjust: auto; }
+  .ejm-product__label { border: 1px solid CanvasText; }
+}
+@media print {
+  .ejm-product__window { box-shadow: none; border: 1px solid; }
+}

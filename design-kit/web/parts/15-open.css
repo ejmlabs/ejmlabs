@@ -1,312 +1,201 @@
-/* Open, modern visual language for the site kit. See web/OPEN.md for the principles and the before and after table.
-   This layer loads after 11-balance and before 20-dark. It restyles the patterns with space and tone instead of
-   outlines and boxes, and it never sets a literal color: every color is a brand token, a band role variable
-   (--ejm-ground, --ejm-fg, --ejm-muted, --ejm-hairline) or the tone variables below, so dark mode follows.
-   Rules are written as ".ejm-site .ejm-x" on purpose: later parts (40-responsive) set some of the same properties
-   with lower specificity and must not undo the open layout. */
+/* Content patterns, containerless. Rows, stat figures, columns of text, a callout rule, definition rows, quotes, lists and tables.
+   Nothing here draws a box: no fill, no outline, no radius, no shadow. Groups are made of type, space and 1px hairlines
+   between related rows. Every color is a role variable (--ejm-fg, --ejm-muted, --ejm-hairline, --ejm-wash), so a pattern
+   reads correctly on Paper, Mist, Sage and Ink bands, and in dark. Patterns adapt to their column with container queries. */
 
-/* ---------- Tokens: space, body type and tone ----------
-   --ejm-tone is the fill for a surface that sits on the current ground: Mist on Paper, Paper on Mist, a pale Sage
-   mix on Forest and Ink. --ejm-tone-alt is the opposite one, used one level deeper (a card inside a demo ground).
-   The --ejm-theme-* names come from the dark part; the brand token after each is the light fallback. */
-.ejm-site {
-  --ejm-open-section: calc(clamp(72px, 11vw, 176px) * var(--ejm-scale, 1));
-  --ejm-open-gap: clamp(32px, 4vw, 64px);
-  --ejm-body-size: clamp(17px, 0.3vw + 16px, 18px);
-  --ejm-body-leading: 1.65;
-  --ejm-tone: var(--ejm-theme-panel, var(--ejm-mist));
-  --ejm-tone-alt: var(--ejm-theme-raised, var(--ejm-paper));
+/* ---------- Rows: the list pattern. Title, description, mono meta, arrow ----------
+   <ul class="ejm-rows"><li class="ejm-row">
+     <h3 class="ejm-row__title"><a href="...">Name</a></h3><p class="ejm-row__text">...</p><p class="ejm-row__meta">...</p>
+   </li></ul>
+   A link inside the title stretches over the whole row. On hover the row takes a faint wash and the arrow slides. */
+.ejm-rows { --ejm-row-bleed: calc(var(--ejm-page-gutter, 1.5rem) * 0.5); border-block-start: 1px solid var(--ejm-hairline); }
+.ejm-row {
+  position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'title arrow' 'text text' 'meta meta';
+  align-items: baseline; gap: var(--ejm-space-3) var(--ejm-space-6); padding-block: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  border-block-end: 1px solid var(--ejm-hairline);
 }
-.ejm-band--mist {
-  --ejm-tone: var(--ejm-theme-raised, var(--ejm-paper));
-  --ejm-tone-alt: var(--ejm-theme-panel, var(--ejm-mist));
+.ejm-row::before { content: ''; position: absolute; z-index: -1; inset-block: 0; inset-inline: calc(var(--ejm-row-bleed) * -1); background: var(--ejm-wash); opacity: 0; pointer-events: none; transition: opacity var(--ejm-duration-interface) var(--ejm-ease-interface); }
+.ejm-row__title { grid-area: title; font: var(--ejm-weight-heading) var(--ejm-t-row) / 1.1 var(--ejm-font-sans); letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.ejm-row__title a { color: inherit; text-decoration: none; }
+.ejm-row__title a::after { content: ''; position: absolute; inset: 0; }
+.ejm-row__title a:focus-visible { outline: none; }
+.ejm-row__text { grid-area: text; max-inline-size: 46ch; color: var(--ejm-muted); text-wrap: pretty; }
+.ejm-row__meta { grid-area: meta; font: var(--ejm-weight-technical) 0.8125rem / 1.5 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-row:has(.ejm-row__title a)::after {
+  content: ''; grid-area: arrow; align-self: center; inline-size: 1.75rem; block-size: 1.75rem; background-color: currentColor;
+  -webkit-mask: url('../icons/arrow-right.svg') center / contain no-repeat; mask: url('../icons/arrow-right.svg') center / contain no-repeat;
+  transition: transform var(--ejm-duration-interface) var(--ejm-ease-interface);
 }
-.ejm-band--sage, .ejm-project--base {
-  --ejm-tone: var(--ejm-paper);
-  --ejm-tone-alt: color-mix(in srgb, var(--ejm-paper) 45%, var(--ejm-sage));
+.ejm-row:has(.ejm-row__title a[rel~='external'])::after { -webkit-mask-image: url('../icons/arrow-up-right.svg'); mask-image: url('../icons/arrow-up-right.svg'); }
+.ejm-row:has(a:focus-visible) { outline: 2px solid currentColor; outline-offset: -2px; }
+@media (hover: hover) {
+  .ejm-row:has(.ejm-row__title a):hover::before { opacity: 1; }
+  .ejm-row:has(.ejm-row__title a):hover::after { transform: translateX(0.5rem); }
+  .ejm-row:has(.ejm-row__title a[rel~='external']):hover::after { transform: translate(0.35rem, -0.35rem); }
 }
-.ejm-band--forest, .ejm-band--ink, .ejm-surface--forest, .ejm-header--forest {
-  --ejm-tone: color-mix(in srgb, var(--ejm-paper) 10%, var(--ejm-ground));
-  --ejm-tone-alt: color-mix(in srgb, var(--ejm-paper) 18%, var(--ejm-ground));
+@container (min-width: 760px) {
+  .ejm-row { grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) minmax(0, 3fr) 2.5rem; grid-template-areas: 'title text meta arrow'; column-gap: clamp(1.5rem, 3vw, 4rem); }
+  .ejm-row__meta { justify-self: end; justify-content: flex-end; text-align: end; }
+  .ejm-row__text { padding-block-start: 0.2em; }
 }
+.ejm-rows--compact .ejm-row { padding-block: var(--ejm-space-4); }
+.ejm-rows--compact .ejm-row__title { font-size: var(--ejm-t-h3); }
 
-/* Containers: patterns below adapt to the width of the column they sit in (the page column, the docs main
-   column, a sidebar layout main column, a demo frame), not to the viewport. */
-.ejm-site :is(.ejm-page, .ejm-docs__main, .ejm-sidebar-layout__main, .ejm-showcase__demo, .ejm-pattern__demo) { container-type: inline-size; }
+/* ---------- Stat figures: large numerals over a mono label. No box, one hairline above each ---------- */
+.ejm-stats { display: grid; gap: var(--ejm-space-12) clamp(2rem, 4vw, 5rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+.ejm-stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--ejm-space-3); padding-block-start: var(--ejm-space-4); border-block-start: 1px solid var(--ejm-hairline); min-inline-size: 0; }
+.ejm-stat__value { font: var(--ejm-weight-heading) var(--ejm-t-stat) / 0.95 var(--ejm-font-sans); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.ejm-stat__label { max-inline-size: 28ch; font: var(--ejm-weight-technical) 0.8125rem / 1.5 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
 
-/* ---------- Type: calm and a little larger ---------- */
-.ejm-site .ejm-eyebrow {
-  font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans);
-  letter-spacing: 0; text-transform: none; color: var(--ejm-muted);
+/* ---------- Columns of text under a hairline: features, principles, steps ---------- */
+.ejm-features, .ejm-principles, .ejm-steps { display: grid; gap: var(--ejm-space-12) clamp(2rem, 4vw, 5rem); grid-template-columns: minmax(0, 1fr); counter-reset: ejm-n; }
+.ejm-feature, .ejm-principle, .ejm-step { display: grid; gap: var(--ejm-space-3); align-content: start; min-inline-size: 0; padding-block-start: var(--ejm-space-6); border-block-start: 1px solid var(--ejm-hairline); counter-increment: ejm-n; }
+.ejm-principle::before, .ejm-step::before { content: counter(ejm-n, decimal-leading-zero); font: var(--ejm-weight-technical) 0.8125rem / 1.4 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-feature__icon { display: block; inline-size: 2rem; block-size: 2rem; margin-block-end: var(--ejm-space-3); color: var(--ejm-fg); }
+.ejm-feature__icon img { display: block; inline-size: 100%; block-size: 100%; }
+.ejm-feature__title, .ejm-step__title, .ejm-principle :is(h2, h3, h4) { font: var(--ejm-weight-heading) var(--ejm-t-h3) / 1.15 var(--ejm-font-sans); letter-spacing: -0.03em; text-wrap: balance; }
+.ejm-feature__text, .ejm-step__text, .ejm-principle p { max-inline-size: 36ch; color: var(--ejm-muted); }
+@container (min-width: 560px) { .ejm-features, .ejm-principles, .ejm-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 880px) { .ejm-features, .ejm-principles, .ejm-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container (min-width: 560px) { :is(.ejm-features, .ejm-steps):has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 1100px) { :is(.ejm-features, .ejm-steps):has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* A second group under the first gets a full section step of space. */
+:is(.ejm-stats, .ejm-rows, .ejm-features, .ejm-steps) + :is(.ejm-stats, .ejm-rows, .ejm-features, .ejm-principles, .ejm-steps) { margin-block-start: clamp(4rem, 2rem + 7vw, 8rem); }
+
+/* ---------- Timeline: dated entries down a hairline ---------- */
+.ejm-timeline { margin-inline-start: 5px; border-inline-start: 1px solid var(--ejm-hairline); }
+.ejm-timeline__item { position: relative; display: grid; gap: var(--ejm-space-2); padding: 0 0 var(--ejm-space-12) var(--ejm-space-8); }
+.ejm-timeline__item:last-child { padding-block-end: 0; }
+.ejm-timeline__item::before { content: ''; position: absolute; inset-inline-start: -5px; inset-block-start: 0.5rem; inline-size: 9px; block-size: 9px; border-radius: var(--ejm-radius-pill); background: var(--ejm-fg); }
+.ejm-timeline__date { font: var(--ejm-weight-technical) 0.8125rem / 1.4 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-timeline__title { font: var(--ejm-weight-heading) var(--ejm-t-h3) / 1.15 var(--ejm-font-sans); letter-spacing: -0.03em; }
+.ejm-timeline__text { max-inline-size: 56ch; color: var(--ejm-muted); }
+
+/* ---------- Quote: large type and a mono credit ---------- */
+.ejm-quote { display: grid; gap: var(--ejm-space-6); max-inline-size: 26em; }
+.ejm-quote blockquote { margin: 0; font: var(--ejm-weight-heading) calc(var(--ejm-t-h2) * 0.8) / 1.12 var(--ejm-font-sans); letter-spacing: -0.035em; text-wrap: balance; }
+.ejm-quote figcaption { font: var(--ejm-weight-technical) 0.8125rem / 1.5 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-quote figcaption::before { content: '/'; margin-inline-end: 0.75ch; }
+.ejm-quote--center { margin-inline: auto; justify-items: center; text-align: center; }
+
+/* ---------- Callout: a left rule and a mono label. The label carries the meaning; the rule backs it up ---------- */
+.ejm-callout { display: grid; gap: var(--ejm-space-2); padding-inline-start: var(--ejm-space-6); border-inline-start: 2px solid var(--ejm-fg); }
+.ejm-callout__label { font: var(--ejm-weight-technical) 0.8125rem / 1.4 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-fg); }
+.ejm-callout > :not(.ejm-callout__label) { max-inline-size: 64ch; }
+.ejm-callout--tip { border-inline-start-width: 4px; padding-inline-start: calc(var(--ejm-space-6) - 2px); }
+.ejm-callout--warning { border-inline-start-style: double; border-inline-start-width: 6px; padding-inline-start: calc(var(--ejm-space-6) - 4px); }
+
+/* ---------- Status: definition rows. A mono term, a value, a hairline between ---------- */
+.ejm-status { max-inline-size: 36rem; border-block-start: 1px solid var(--ejm-hairline); }
+.ejm-status > div { display: grid; grid-template-columns: minmax(6rem, 1fr) minmax(0, 3fr); gap: var(--ejm-space-4); padding-block: var(--ejm-space-3); border-block-end: 1px solid var(--ejm-hairline); }
+.ejm-status dt { font: var(--ejm-weight-technical) 0.8125rem / 1.6 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-status dd { overflow-wrap: anywhere; }
+
+/* ---------- Call to action: closes a page, on a band ---------- */
+.ejm-cta__body { display: grid; gap: var(--ejm-space-8); align-content: center; }
+.ejm-cta__text { display: grid; gap: var(--ejm-space-4); }
+.ejm-cta--center .ejm-cta__body { justify-items: center; text-align: center; }
+.ejm-cta--center :is(.ejm-h2, .ejm-lead, .ejm-statement) { margin-inline: auto; }
+.ejm-cta--center .ejm-cluster { justify-content: center; }
+@media (min-width: 800px) { .ejm-cta--split .ejm-cta__body { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--ejm-space-16); align-items: end; } }
+
+/* ---------- FAQ and links: hairline rows ---------- */
+.ejm-faq { max-inline-size: 72ch; border-block-start: 1px solid var(--ejm-hairline); }
+.ejm-faq__item { border-block-end: 1px solid var(--ejm-hairline); }
+.ejm-faq__item > summary { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--ejm-space-4); min-block-size: 64px; padding-block: var(--ejm-space-3); cursor: pointer; list-style: none; font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem); font-weight: var(--ejm-weight-heading); letter-spacing: -0.015em; }
+.ejm-faq__item > summary::-webkit-details-marker { display: none; }
+.ejm-faq__item > summary:hover { text-decoration: underline; text-underline-offset: 0.25em; }
+.ejm-faq__item > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ejm-faq__item > summary::after { content: ''; flex: none; inline-size: 24px; block-size: 24px; background-color: currentColor; -webkit-mask: url('../icons/plus.svg') center / contain no-repeat; mask: url('../icons/plus.svg') center / contain no-repeat; transition: transform var(--ejm-duration-interface) var(--ejm-ease-interface); }
+.ejm-faq__item[open] > summary::after { transform: rotate(45deg); }
+.ejm-faq__answer { max-inline-size: 60ch; padding-block-end: var(--ejm-space-6); color: var(--ejm-muted); }
+.ejm-faq__answer > * + * { margin-block-start: var(--ejm-space-3); }
+
+.ejm-links { border-block-start: 1px solid var(--ejm-hairline); }
+.ejm-links li { border-block-end: 1px solid var(--ejm-hairline); }
+.ejm-links a { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--ejm-space-4); min-block-size: 64px; padding-block: var(--ejm-space-3); color: inherit; font-weight: var(--ejm-weight-heading); text-decoration: none; }
+.ejm-links a:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
+.ejm-links a::after { content: ''; flex: none; inline-size: 24px; block-size: 24px; background-color: currentColor; -webkit-mask: url('../icons/arrow-right.svg') center / contain no-repeat; mask: url('../icons/arrow-right.svg') center / contain no-repeat; transition: transform var(--ejm-duration-interface) var(--ejm-ease-interface); }
+.ejm-links a[rel~='external']::after { -webkit-mask-image: url('../icons/arrow-up-right.svg'); mask-image: url('../icons/arrow-up-right.svg'); }
+.ejm-links a:hover::after { transform: translateX(4px); }
+.ejm-links a[rel~='external']:hover::after { transform: translate(3px, -3px); }
+.ejm-links__text { display: grid; gap: var(--ejm-space-1); min-inline-size: 0; }
+.ejm-links a:hover .ejm-links__title { text-decoration: underline; text-underline-offset: 0.25em; }
+.ejm-links__meta { color: var(--ejm-muted); font-size: var(--ejm-caption-size); font-weight: var(--ejm-weight-body); line-height: var(--ejm-caption-leading); }
+/* Compact links: a plain line of text links, no rows. */
+.ejm-links--compact { display: flex; flex-wrap: wrap; gap: 0 var(--ejm-space-6); border: 0; }
+.ejm-links--compact li { border: 0; }
+.ejm-links--compact a { min-block-size: 44px; padding-block: 0; font-size: var(--ejm-caption-size); }
+
+/* ---------- Tags: plain mono text in a line, a slash between them. Not boxes ---------- */
+.ejm-tag { padding: 0; border-radius: 0; color: var(--ejm-muted); background: none; font: var(--ejm-weight-technical) 0.8125rem / 1.5 var(--ejm-font-mono); letter-spacing: 0.02em; }
+.ejm-tag--quiet { color: var(--ejm-muted); }
+.ejm-tag--solid { color: var(--ejm-fg); }
+.ejm-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.25ch; }
+.ejm-tags > .ejm-tag + .ejm-tag::before { content: '/'; margin-inline-end: 1.25ch; text-decoration: none; }
+.ejm-tags a.ejm-tag { box-sizing: border-box; min-block-size: 44px; text-decoration: none; transition: color var(--ejm-duration-interface) var(--ejm-ease-interface); }
+.ejm-tags a.ejm-tag:hover { color: var(--ejm-fg); text-decoration: underline; text-underline-offset: 0.25em; }
+.ejm-tags a.ejm-tag:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* ---------- Table: hairlines only, mono column labels ---------- */
+.ejm-table { max-inline-size: 100%; overflow: auto; }
+.ejm-table table { inline-size: 100%; min-inline-size: 560px; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; }
+.ejm-table caption { padding: 0 0 var(--ejm-space-4); text-align: start; font-size: var(--ejm-caption-size); line-height: var(--ejm-caption-leading); color: var(--ejm-muted); }
+.ejm-table :where(th, td) { padding: var(--ejm-space-4) var(--ejm-space-6); text-align: start; vertical-align: top; border-block-end: 1px solid var(--ejm-hairline); }
+.ejm-table :where(th, td):first-child { padding-inline-start: 0; }
+.ejm-table :where(th, td):last-child { padding-inline-end: 0; }
+.ejm-table thead th { background: var(--ejm-ground); font: var(--ejm-weight-technical) 0.8125rem / 1.4 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); border-block-end-color: currentColor; }
+.ejm-table tbody th { font-weight: var(--ejm-weight-heading); }
+.ejm-table tbody tr:last-child > * { border-block-end: 0; }
+.ejm-table .ejm-table__num { text-align: end; }
+.ejm-table .ejm-table__hash { display: block; max-inline-size: 36ch; font-family: var(--ejm-font-mono); font-size: var(--ejm-caption-size); line-height: var(--ejm-caption-leading); color: var(--ejm-muted); overflow-wrap: anywhere; }
+.ejm-table--sticky { max-block-size: min(70vh, 480px); }
+.ejm-table--sticky thead th { position: sticky; inset-block-start: 0; z-index: 1; }
+.ejm-table:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* ---------- Objects: code, terminal, figure. A flat ground is allowed because they are things, not groups ---------- */
+.ejm-code { padding: var(--ejm-space-6) var(--ejm-space-8); border-radius: var(--ejm-radius-small); }
+.ejm-terminal { margin: 0; overflow: hidden; border-radius: var(--ejm-radius-small); color: var(--ejm-fg); background: var(--ejm-ground); }
+.ejm-terminal__bar { display: flex; justify-content: space-between; gap: var(--ejm-space-4); padding: var(--ejm-space-4) var(--ejm-space-6) 0; font: var(--ejm-weight-technical) var(--ejm-technical-size) / var(--ejm-technical-leading) var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-terminal__body { margin: 0; padding: var(--ejm-space-4) var(--ejm-space-6) var(--ejm-space-6); overflow: auto; font: var(--ejm-weight-technical) 14px / 1.7 var(--ejm-font-mono); tab-size: 2; scrollbar-color: var(--ejm-sage) var(--ejm-ground); }
+.ejm-terminal__body code { font: inherit; }
+.ejm-terminal__prompt { color: var(--ejm-fg); user-select: none; }
+.ejm-terminal__body:focus-visible, .ejm-code:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ejm-figure { display: grid; gap: var(--ejm-space-3); }
+.ejm-figure img { display: block; inline-size: 100%; block-size: auto; }
+.ejm-figure figcaption { max-inline-size: 68ch; font: var(--ejm-weight-technical) 0.8125rem / 1.5 var(--ejm-font-mono); letter-spacing: 0.02em; color: var(--ejm-muted); }
+.ejm-logo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ejm-space-2) var(--ejm-space-12); }
+.ejm-logo-row li { display: inline-flex; align-items: center; min-block-size: 44px; font: var(--ejm-weight-technical) var(--ejm-body-size) / 1 var(--ejm-font-mono); }
+.ejm-logo-row img { display: block; block-size: 28px; inline-size: auto; max-inline-size: 100%; }
+
+/* ---------- Specimen helpers: a title, one sentence, a live example on a flat ground, markup behind a disclosure ---------- */
+.ejm-pattern { display: grid; gap: var(--ejm-space-6); min-inline-size: 0; }
+.ejm-pattern + .ejm-pattern { margin-block-start: clamp(4rem, 8vw, 7rem); }
+.ejm-pattern__head { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-3); max-inline-size: 64ch; }
+.ejm-pattern__head > .ejm-stack { gap: var(--ejm-space-2); }
+.ejm-pattern__name { font: var(--ejm-weight-technical) clamp(1.375rem, 1rem + 1.2vw, 1.875rem) / 1.25 var(--ejm-font-mono); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.ejm-pattern__mods { font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.5 var(--ejm-font-mono); color: var(--ejm-muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+.ejm-pattern__use { max-inline-size: 64ch; }
+.ejm-pattern__use strong { margin-inline-end: var(--ejm-space-2); font-weight: var(--ejm-weight-heading); }
+.ejm-pattern__use code { font: var(--ejm-weight-technical) 0.875em / 1 var(--ejm-font-mono); overflow-wrap: anywhere; }
+.ejm-pattern__demo { --ejm-ground: var(--ejm-tone); min-inline-size: 0; overflow: clip; color: var(--ejm-fg); background: var(--ejm-ground); }
+.ejm-pattern__demo--pad { padding: clamp(1.75rem, 5vw, 5rem); }
+.ejm-pattern__demo > :is(.ejm-hero, .ejm-band) { position: relative; }
+.ejm-pattern__demo .ejm-band { padding-block: clamp(3rem, 7vw, 6rem); }
+.ejm-pattern__demo .ejm-header--sticky { position: relative; }
+.ejm-pattern__cells { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.ejm-pattern__demo .ejm-pattern__cells > .ejm-band { min-block-size: 160px; padding: var(--ejm-space-8); }
+.ejm-pattern__markup > summary { inline-size: auto; justify-content: flex-start; min-block-size: 44px; padding: 0; border: 0; border-radius: 0; color: var(--ejm-muted); font-size: var(--ejm-caption-size); font-weight: var(--ejm-weight-heading); }
+.ejm-pattern__markup > summary:hover { color: var(--ejm-fg); text-decoration: underline; text-underline-offset: 0.25em; }
+.ejm-pattern__markup .ejm-code { max-block-size: 420px; }
+.ejm-placeholder { display: grid; place-items: center; min-block-size: clamp(72px, 10vw, 120px); padding: var(--ejm-space-6); background: var(--ejm-wash); color: var(--ejm-muted); font: var(--ejm-weight-body) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ejm-row::before, .ejm-row::after, .ejm-links a::after, .ejm-faq__item > summary::after, .ejm-tags a.ejm-tag { transition: none; }
 }
-.ejm-site .ejm-head__title > .ejm-eyebrow { display: flex; align-items: center; gap: 10px; }
-.ejm-site .ejm-head__title > .ejm-eyebrow::before { content: ''; flex: none; inline-size: 8px; block-size: 8px; border-radius: var(--ejm-radius-pill); background: var(--ejm-sage); }
-.ejm-site .ejm-lead { font-size: clamp(18px, 0.9vw + 14px, calc(24px * var(--ejm-scale, 1))); line-height: 1.55; }
-.ejm-site .ejm-head__text { font-size: var(--ejm-body-size); line-height: var(--ejm-body-leading); }
-.ejm-site .ejm-prose { font-size: var(--ejm-body-size); line-height: var(--ejm-body-leading); }
-.ejm-site .ejm-prose h2 { margin-block: clamp(48px, 6vw, 72px) var(--ejm-space-4); }
-.ejm-site .ejm-prose h3 { margin-block: clamp(32px, 4vw, 48px) var(--ejm-space-3); }
-.ejm-site .ejm-prose > :first-child { margin-block-start: 0; }
-.ejm-site .ejm-prose :where(p, ul, ol) { margin-block-end: var(--ejm-space-6); }
-.ejm-site .ejm-prose :not(pre) > code { border-radius: var(--ejm-radius-small); }
-.ejm-site .ejm-prose blockquote { padding: var(--ejm-space-6) var(--ejm-space-8); border: 0; border-radius: var(--ejm-radius-large); background: var(--ejm-tone); }
-.ejm-site .ejm-prose blockquote > :last-child { margin-block-end: 0; }
-.ejm-site .ejm-prose figure { margin-block: var(--ejm-space-12); }
-
-/* ---------- Page rhythm: bands, heads, footer ---------- */
-.ejm-site .ejm-band { padding-block: var(--ejm-open-section); }
-.ejm-site .ejm-band:not([class*='ejm-band--']) + .ejm-band:not([class*='ejm-band--']) { padding-block-start: calc(var(--ejm-open-section) * 0.4); }
-.ejm-site .ejm-head { gap: var(--ejm-space-6) clamp(40px, 6vw, 96px); margin-block-end: clamp(48px, 7vw, 104px); }
-.ejm-site .ejm-head--flush { margin-block-end: 0; }
-.ejm-site .ejm-head__title { gap: var(--ejm-space-4); }
-@media (min-width: 900px) { .ejm-site .ejm-head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
-@media (max-height: 500px) { .ejm-site .ejm-band { padding-block: var(--ejm-space-12); } .ejm-site .ejm-footer { padding-block-start: var(--ejm-space-12); } }
-
-.ejm-site .ejm-footer { padding-block: clamp(72px, 9vw, 136px) calc(var(--ejm-space-12) + env(safe-area-inset-bottom, 0px)); }
-.ejm-site .ejm-footer__grid { gap: var(--ejm-space-12) clamp(48px, 8vw, 128px); }
-@media (min-width: 900px) { .ejm-site .ejm-footer__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
-.ejm-site .ejm-footer__groups { gap: var(--ejm-space-8) var(--ejm-space-12); }
-.ejm-site .ejm-footer h2 { margin-block-end: var(--ejm-space-3); font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; color: var(--ejm-muted); }
-.ejm-site .ejm-footer__legal { margin-block-start: clamp(56px, 8vw, 104px); padding-block-start: 0; border: 0; }
-
-/* ---------- Header and navigation: light chrome ---------- */
-.ejm-site .ejm-header--paper, .ejm-site .ejm-header--forest { border-block-end: 0; }
-.ejm-site .ejm-nav { gap: var(--ejm-space-1) clamp(24px, 3vw, 40px); }
-.ejm-site .ejm-nav a { font-weight: var(--ejm-weight-body); }
-.ejm-site .ejm-nav a[aria-current] { font-weight: var(--ejm-weight-heading); }
-/* The sticky bar gets a soft bottom edge only once the page has scrolled, where scroll-driven animation exists. */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .ejm-header--sticky::after {
-      content: ''; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 1px; pointer-events: none;
-      background: var(--ejm-hairline); opacity: 0;
-      animation: ejm-hairline linear both; animation-timeline: scroll(root block); animation-range: 0px 96px;
-    }
-  }
-}
-
-/* Menu and collapse buttons are tonal pills, not outlined boxes. */
-.ejm-site :is(.ejm-collapse, .ejm-menu) > summary { border: 0; border-radius: var(--ejm-radius-pill); background: var(--ejm-tone); padding-inline: var(--ejm-space-6); }
-.ejm-site .ejm-menu > summary { padding-inline: var(--ejm-space-4); }
-@media (max-width: 639px) {
-  .ejm-site .ejm-theme-toggle { border-color: transparent; border-radius: var(--ejm-radius-pill); background: var(--ejm-tone); }
-  .ejm-site .ejm-menu .ejm-nav {
-    padding-block: var(--ejm-space-2) var(--ejm-space-8); border: 0; border-radius: 0 0 var(--ejm-radius-large) var(--ejm-radius-large);
-    box-shadow: 0 24px 40px -24px color-mix(in srgb, var(--ejm-fg) 30%, transparent);
-  }
-  .ejm-site .ejm-menu .ejm-nav a { min-block-size: 56px; border-block-end: 0; font-size: 20px; font-weight: var(--ejm-weight-heading); }
-  .ejm-site .ejm-menu .ejm-nav a + a { border-block-start: 1px solid var(--ejm-hairline); }
-}
-
-/* Subnav: quiet text, the current page is a tonal pill. */
-.ejm-site .ejm-header .ejm-subnav { border: 0; }
-.ejm-site .ejm-subnav { gap: var(--ejm-space-1); }
-.ejm-site .ejm-subnav a { padding-inline: var(--ejm-space-4); border: 0; border-radius: var(--ejm-radius-pill); font-weight: var(--ejm-weight-heading); }
-.ejm-site .ejm-subnav a:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
-.ejm-site .ejm-subnav a[aria-current] { background: var(--ejm-tone); font-weight: var(--ejm-weight-heading); }
-
-/* Breadcrumb: muted text with a faint underline. */
-.ejm-site .ejm-breadcrumb { color: var(--ejm-muted); }
-.ejm-site .ejm-breadcrumb a { text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
-.ejm-site .ejm-breadcrumb a:hover { text-decoration-color: currentColor; }
-.ejm-site .ejm-breadcrumb [aria-current] { color: var(--ejm-fg); }
-.ejm-site .ejm-breadcrumb li + li::before { color: var(--ejm-muted); }
-
-/* Pagination: pills. The current page is solid, the rest are tonal. */
-.ejm-site .ejm-pagination ul { gap: var(--ejm-space-2); }
-.ejm-site .ejm-pagination :is(a, .ejm-pagination__gap, [aria-disabled]) { border: 0; border-radius: var(--ejm-radius-pill); background: var(--ejm-tone); font-family: var(--ejm-font-sans); font-weight: var(--ejm-weight-heading); padding-inline: var(--ejm-space-4); }
-.ejm-site .ejm-pagination a:hover { background: color-mix(in srgb, currentColor 12%, var(--ejm-tone)); }
-.ejm-site .ejm-pagination a[aria-current] { color: var(--ejm-ground); background: var(--ejm-fg); }
-.ejm-site .ejm-pagination .ejm-pagination__gap { background: none; }
-.ejm-site .ejm-pagination [aria-disabled] { opacity: 0.5; }
-
-/* Side navigation and contents: a list of text links, the current one in a tonal pill. No rail. */
-.ejm-site :is(.ejm-sidenav, .ejm-toc) ul { border: 0; display: grid; gap: 2px; }
-.ejm-site :is(.ejm-sidenav, .ejm-toc) a { margin: 0; border: 0; border-radius: var(--ejm-radius-pill); padding-inline: var(--ejm-space-4); }
-.ejm-site :is(.ejm-sidenav, .ejm-toc) a[aria-current] { background: var(--ejm-tone); }
-.ejm-site :is(.ejm-sidenav__title, .ejm-toc__title) { margin: 0 0 var(--ejm-space-2) var(--ejm-space-4); font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; }
-
-/* ---------- Buttons and fields ---------- */
-.ejm-site .ejm-button { border-radius: var(--ejm-radius-pill); padding: var(--ejm-space-3) var(--ejm-space-8); line-height: 1.35; font-size: calc(16px * var(--ejm-scale, 1)); }
-.ejm-site .ejm-button.ejm-button--secondary { border-color: transparent; background: color-mix(in srgb, var(--ejm-fg) 9%, transparent); }
-.ejm-site .ejm-button.ejm-button--secondary:hover { border-color: transparent; background: color-mix(in srgb, var(--ejm-fg) 16%, transparent); }
-.ejm-site .ejm-input { border-radius: var(--ejm-radius-medium); }
-.ejm-site .ejm-cluster { gap: var(--ejm-space-3) var(--ejm-space-4); }
-
-/* ---------- Tags, status, callout ---------- */
-.ejm-site .ejm-tag { padding: var(--ejm-space-1) var(--ejm-space-3); border-radius: var(--ejm-radius-pill); }
-.ejm-site .ejm-tag--quiet { color: var(--ejm-muted); background: color-mix(in srgb, var(--ejm-sage) 32%, transparent); }
-.ejm-site .ejm-project--base .ejm-tag--quiet { color: var(--ejm-ink); background: color-mix(in srgb, var(--ejm-ink) 10%, transparent); }
-.ejm-site .ejm-tags { gap: var(--ejm-space-2) var(--ejm-space-2); }
-.ejm-site .ejm-tags a.ejm-tag { padding-inline: var(--ejm-space-6); }
-.ejm-site .ejm-status { padding: var(--ejm-space-4) var(--ejm-space-8); border: 0; border-radius: var(--ejm-radius-large); color: var(--ejm-muted); background: var(--ejm-tone); }
-
-.ejm-site .ejm-callout { gap: var(--ejm-space-2); padding: var(--ejm-space-6) var(--ejm-space-8); border: 0; border-radius: var(--ejm-radius-large); background: color-mix(in srgb, var(--ejm-sage) 20%, var(--ejm-ground)); }
-.ejm-site .ejm-callout--tip { padding-inline: var(--ejm-space-8); background: color-mix(in srgb, var(--ejm-sage) 32%, var(--ejm-ground)); }
-.ejm-site .ejm-callout--warning { padding-inline: var(--ejm-space-8); background: color-mix(in srgb, var(--ejm-sage) 52%, var(--ejm-ground)); }
-.ejm-site .ejm-callout__label { font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; }
-
-/* ---------- Cards and projects: for objects only, tonal and soft ---------- */
-.ejm-site :is(.ejm-card, .ejm-project) { gap: var(--ejm-space-4); padding: clamp(28px, 3.4vw, 48px); border: 0; border-radius: var(--ejm-radius-large); background: var(--ejm-tone); }
-.ejm-site .ejm-project--base { background: var(--ejm-sage); }
-.ejm-site .ejm-project__relation { padding-block-start: var(--ejm-space-2); border: 0; }
-.ejm-site .ejm-parts dt { font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; }
-.ejm-site .ejm-project__meta { gap: var(--ejm-space-2); }
-.ejm-site .ejm-projects, .ejm-site .ejm-cards { gap: var(--ejm-space-6); }
-
-/* ---------- Open grids, container aware ---------- */
-.ejm-site .ejm-features { grid-template-columns: minmax(0, 1fr); gap: clamp(40px, 5vw, 72px) clamp(32px, 4vw, 64px); }
-.ejm-site .ejm-stats { grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-12) var(--ejm-space-8); }
-.ejm-site .ejm-steps { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; grid-auto-columns: auto; gap: var(--ejm-space-12) var(--ejm-space-8); }
-.ejm-site .ejm-cards { grid-template-columns: minmax(0, 1fr); }
-.ejm-site .ejm-projects { grid-template-columns: minmax(0, 1fr); }
-.ejm-site .ejm-project--base { grid-template-columns: minmax(0, 1fr); }
-.ejm-site .ejm-project--base > :not(.ejm-parts) { grid-column: auto; }
-.ejm-site .ejm-project--base .ejm-parts { grid-column: auto; grid-row: auto; padding-block-start: var(--ejm-space-4); }
-.ejm-site .ejm-principles { grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-12) var(--ejm-space-8); }
-@container (min-width: 520px) {
-  .ejm-site .ejm-features, .ejm-site .ejm-stats, .ejm-site .ejm-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@container (min-width: 640px) {
-  .ejm-site .ejm-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@container (min-width: 720px) {
-  .ejm-site .ejm-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ejm-site .ejm-project--base { grid-column: 1 / -1; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(40px, 6vw, 96px); }
-  .ejm-site .ejm-project--base > :not(.ejm-parts) { grid-column: 1; }
-  .ejm-site .ejm-project--base .ejm-parts { grid-column: 2; grid-row: 1 / span 5; padding-block-start: 0; align-content: start; }
-  .ejm-site .ejm-principles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ejm-space-12) clamp(32px, 4vw, 64px); }
-}
-@container (min-width: 820px) {
-  .ejm-site .ejm-features, .ejm-site .ejm-stats, .ejm-site .ejm-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@container (min-width: 960px) {
-  .ejm-site .ejm-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-/* Four items settle into two by two, never three and one. */
-@container (min-width: 520px) {
-  .ejm-site :is(.ejm-features, .ejm-stats, .ejm-cards, .ejm-steps):has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-/* Cols and splits: at most three across, with air between. Four items settle into two by two. */
-.ejm-site .ejm-cols { gap: var(--ejm-space-12) var(--ejm-space-8); grid-template-columns: repeat(auto-fit, minmax(min(100%, max(240px, calc((100% - 2 * var(--ejm-space-8)) / 3))), 1fr)); }
-.ejm-site :is(.ejm-cols--2, .ejm-cols--3, .ejm-cols--4) { grid-template-columns: minmax(0, 1fr); }
-@container (min-width: 560px) { .ejm-site :is(.ejm-cols--2, .ejm-cols--3, .ejm-cols--4) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@container (min-width: 900px) { .ejm-site .ejm-cols--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.ejm-site .ejm-split { gap: var(--ejm-space-8) clamp(48px, 7vw, 112px); }
-.ejm-site .ejm-showcase { gap: var(--ejm-space-12) clamp(48px, 7vw, 112px); }
-.ejm-site .ejm-sidebar-layout { gap: var(--ejm-space-8) clamp(40px, 6vw, 96px); }
-.ejm-site .ejm-docs { gap: var(--ejm-space-6) clamp(40px, 6vw, 96px); }
-
-/* Hero: a large, generous Sage panel. */
-.ejm-site .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body {
-  padding: calc(clamp(48px, 8vw, 128px) * var(--ejm-scale, 1)) calc(clamp(28px, 6vw, 112px) * var(--ejm-scale, 1));
-  gap: var(--ejm-space-8);
-}
-.ejm-site .ejm-hero__index { gap: var(--ejm-space-2); padding-block-start: var(--ejm-space-4); border: 0; }
-.ejm-site .ejm-hero__index a { padding-inline: var(--ejm-space-4); border-radius: var(--ejm-radius-pill); background: color-mix(in srgb, currentColor 9%, transparent); }
-.ejm-site .ejm-hero__index a:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
-.ejm-site .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__index a { text-decoration: none; }
-@media (max-width: 759px) { .ejm-site .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { border-radius: var(--ejm-radius-large); } }
-@media (max-height: 500px) { .ejm-site .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { padding: var(--ejm-space-6) var(--ejm-space-8); } }
-
-/* ---------- Open content: features, stats, steps, timeline, quote, principles ---------- */
-.ejm-site .ejm-feature { gap: var(--ejm-space-3); }
-.ejm-site .ejm-feature__icon { inline-size: calc(56px * var(--ejm-scale, 1)); block-size: calc(56px * var(--ejm-scale, 1)); margin-block-end: var(--ejm-space-3); border: 0; border-radius: var(--ejm-radius-pill); color: var(--ejm-fg); background: color-mix(in srgb, var(--ejm-sage) 55%, transparent); }
-.ejm-site .ejm-feature__title, .ejm-site .ejm-step__title, .ejm-site .ejm-timeline__title { font-size: clamp(20px, 0.5vw + 18px, 24px); }
-
-.ejm-site .ejm-stat { padding-block-start: 0; border: 0; gap: var(--ejm-space-3); }
-.ejm-site .ejm-stat__value { font-size: clamp(48px, 7vw, calc(88px * var(--ejm-scale, 1))); line-height: 1; letter-spacing: -0.04em; }
-.ejm-site .ejm-stat__label { font-size: var(--ejm-body-size); }
-
-.ejm-site .ejm-step { padding: 0; border: 0; gap: var(--ejm-space-3); }
-.ejm-site .ejm-step::after { display: none; }
-.ejm-site .ejm-step::before { display: grid; place-items: center; inline-size: calc(48px * var(--ejm-scale, 1)); block-size: calc(48px * var(--ejm-scale, 1)); margin-block-end: var(--ejm-space-3); border-radius: var(--ejm-radius-pill); color: var(--ejm-ink); background: var(--ejm-sage); font: var(--ejm-weight-heading) var(--ejm-body-size) / 1 var(--ejm-font-sans); letter-spacing: 0; }
-.ejm-site .ejm-step__text { max-inline-size: 36ch; }
-
-.ejm-site .ejm-timeline { margin-inline-start: 6px; }
-.ejm-site .ejm-timeline__item::before { inset-inline-start: -6px; inset-block-start: 6px; inline-size: 11px; block-size: 11px; border: 0; background: var(--ejm-sage); }
-.ejm-site .ejm-timeline__date { font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; }
-
-.ejm-site .ejm-quote { max-inline-size: 44ch; padding: 0; border: 0; gap: var(--ejm-space-6); }
-.ejm-site .ejm-quote::before { content: ''; inline-size: 48px; block-size: 6px; border-radius: var(--ejm-radius-pill); background: var(--ejm-sage); }
-.ejm-site .ejm-quote blockquote { font-size: clamp(26px, 3.6vw, 44px); line-height: 1.25; }
-.ejm-site .ejm-quote figcaption { font: var(--ejm-weight-body) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; }
-.ejm-site .ejm-quote--center { padding: 0; border: 0; justify-items: center; }
-
-.ejm-site .ejm-principle { padding-block-start: 0; border: 0; gap: var(--ejm-space-3); }
-.ejm-site .ejm-principle::before { display: grid; place-items: center; inline-size: calc(40px * var(--ejm-scale, 1)); block-size: calc(40px * var(--ejm-scale, 1)); margin-block-end: var(--ejm-space-3); border-radius: var(--ejm-radius-pill); background: color-mix(in srgb, var(--ejm-fg) 12%, transparent); color: var(--ejm-fg); font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1 var(--ejm-font-sans); letter-spacing: 0; }
-.ejm-site .ejm-principle :is(h2, h3, h4) { font: var(--ejm-weight-heading) clamp(22px, 1vw + 18px, 28px) / 1.25 var(--ejm-font-sans); letter-spacing: -0.02em; }
-.ejm-site .ejm-principle p { max-inline-size: 40ch; }
-
-/* ---------- Lists: dividers between items are fine, boxes around lists are not ---------- */
-.ejm-site .ejm-faq { border-block-start: 0; }
-.ejm-site .ejm-faq__item > summary { min-block-size: 64px; font-size: clamp(18px, 0.4vw + 16px, 20px); }
-.ejm-site .ejm-links { border-block-start: 0; }
-.ejm-site .ejm-links a { min-block-size: 64px; }
-/* Compact links are a pill list. On phones it is one row that scrolls sideways. */
-.ejm-site .ejm-links--compact { display: flex; flex-wrap: wrap; gap: var(--ejm-space-2); }
-.ejm-site .ejm-links--compact li { border: 0; }
-.ejm-site .ejm-links--compact a { display: inline-flex; min-block-size: 44px; padding: var(--ejm-space-2) var(--ejm-space-4); border-radius: var(--ejm-radius-pill); background: var(--ejm-tone); font-weight: var(--ejm-weight-heading); }
-.ejm-site .ejm-links--compact a::after { display: none; }
-.ejm-site .ejm-links--compact a:hover { background: color-mix(in srgb, currentColor 10%, var(--ejm-tone)); }
-@media (max-width: 759px) {
-  .ejm-site .ejm-links--compact { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; padding-block-end: var(--ejm-space-1); }
-  .ejm-site .ejm-links--compact::-webkit-scrollbar { display: none; }
-  .ejm-site .ejm-links--compact li { flex: none; }
-}
-
-/* ---------- Tables, code, terminals, figures ---------- */
-.ejm-site .ejm-table { border: 0; border-radius: 0; }
-.ejm-site .ejm-table caption { padding: 0 0 var(--ejm-space-4); font-size: var(--ejm-caption-size); }
-.ejm-site .ejm-table :where(th, td) { padding: var(--ejm-space-4) var(--ejm-space-6); }
-.ejm-site .ejm-table :where(th, td):first-child { padding-inline-start: 0; }
-.ejm-site .ejm-table :where(th, td):last-child { padding-inline-end: 0; }
-.ejm-site .ejm-table thead th { font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); letter-spacing: 0; }
-.ejm-site .ejm-code { padding: var(--ejm-space-6) var(--ejm-space-8); border-radius: var(--ejm-radius-medium); }
-.ejm-site .ejm-terminal { border: 0; border-radius: var(--ejm-radius-large); }
-.ejm-site .ejm-terminal__bar { padding: var(--ejm-space-4) var(--ejm-space-6) 0; border: 0; letter-spacing: 0; }
-.ejm-site .ejm-terminal__body { padding: var(--ejm-space-4) var(--ejm-space-6) var(--ejm-space-6); }
-.ejm-site .ejm-figure__frame { border: 0; border-radius: var(--ejm-radius-large); background: var(--ejm-tone); }
-.ejm-site .ejm-figure figcaption { padding-inline: var(--ejm-space-2); }
-.ejm-site .ejm-article__header { padding-block-end: 0; border: 0; margin-block-end: var(--ejm-space-16); }
-.ejm-site .ejm-article__meta.ejm-eyebrow { color: var(--ejm-muted); }
-
-/* ---------- Specimen helpers: a title, one calm sentence, a large live example, markup behind a quiet disclosure ---------- */
-.ejm-site .ejm-pattern { --ejm-demo-bg: var(--ejm-tone); --ejm-demo-alt: var(--ejm-tone-alt); display: grid; gap: var(--ejm-space-6); min-inline-size: 0; }
-.ejm-site .ejm-pattern + .ejm-pattern { margin-block-start: clamp(64px, 7vw, 112px); }
-.ejm-site .ejm-pattern__head { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ejm-space-3); max-inline-size: 64ch; }
-.ejm-site .ejm-pattern__head > .ejm-stack { gap: var(--ejm-space-2); }
-.ejm-site .ejm-pattern__name { font: var(--ejm-weight-technical) clamp(22px, 1.6vw + 14px, 30px) / 1.25 var(--ejm-font-mono); letter-spacing: -0.01em; overflow-wrap: anywhere; }
-.ejm-site .ejm-pattern__mods { font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.5 var(--ejm-font-mono); color: var(--ejm-muted); white-space: pre-wrap; overflow-wrap: anywhere; }
-.ejm-site .ejm-pattern__use { max-inline-size: 64ch; }
-.ejm-site .ejm-pattern__use strong { margin-inline-end: var(--ejm-space-2); font: inherit; font-weight: var(--ejm-weight-heading); letter-spacing: 0; }
-.ejm-site .ejm-pattern__use code { font: var(--ejm-weight-technical) 0.875em / 1 var(--ejm-font-mono); overflow-wrap: anywhere; }
-.ejm-site .ejm-pattern__demo {
-  --ejm-ground: var(--ejm-demo-bg); --ejm-tone: var(--ejm-demo-alt); --ejm-tone-alt: var(--ejm-demo-bg);
-  min-inline-size: 0; overflow: clip; border: 0; border-radius: var(--ejm-radius-large); background: var(--ejm-demo-bg);
-}
-.ejm-site .ejm-pattern__demo--pad { padding: clamp(28px, 5vw, 80px); }
-.ejm-site .ejm-pattern__demo > :is(.ejm-hero, .ejm-band) { position: relative; }
-.ejm-site .ejm-pattern__demo .ejm-band { padding-block: clamp(48px, 7vw, 96px); }
-.ejm-site .ejm-pattern__demo .ejm-hero__body { padding-block: clamp(48px, 7vw, 96px); }
-.ejm-site .ejm-pattern__demo .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { padding: clamp(32px, 5vw, 72px); }
-.ejm-site .ejm-pattern__demo .ejm-hero:not(.ejm-hero--paper, .ejm-hero--forest) .ejm-hero__body { inline-size: 100%; max-inline-size: none; border-radius: 0; }
-.ejm-site .ejm-pattern__demo .ejm-header--sticky { position: relative; }
-.ejm-site .ejm-pattern__cells { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
-.ejm-site .ejm-pattern__demo .ejm-pattern__cells > .ejm-band { min-block-size: 160px; padding: var(--ejm-space-8); }
-.ejm-site .ejm-pattern__markup > summary { inline-size: auto; justify-content: flex-start; min-block-size: 44px; padding: 0; border-radius: 0; background: none; color: var(--ejm-muted); font-size: var(--ejm-caption-size); font-weight: var(--ejm-weight-heading); }
-.ejm-site .ejm-pattern__markup > summary:hover { color: var(--ejm-fg); text-decoration: underline; text-underline-offset: 0.25em; }
-.ejm-site .ejm-pattern__markup > summary::after { inline-size: 20px; block-size: 20px; }
-.ejm-site .ejm-pattern__markup .ejm-code { max-block-size: 420px; }
-/* A placeholder is a plain tonal block, never a dashed box. */
-.ejm-site .ejm-placeholder { display: grid; place-items: center; min-block-size: clamp(72px, 10vw, 120px); padding: var(--ejm-space-6); border: 0; border-radius: var(--ejm-radius-large); background: var(--ejm-tone); color: var(--ejm-muted); font: var(--ejm-weight-body) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); text-align: center; }
-
-/* ---------- Forced colors: tone and whitespace are gone, so the shapes get real edges back ---------- */
 @media (forced-colors: active) {
-  .ejm-site :is(.ejm-card, .ejm-project, .ejm-callout, .ejm-status, .ejm-terminal, .ejm-figure__frame, .ejm-pattern__demo, .ejm-placeholder, .ejm-prose blockquote, .ejm-tag, .ejm-links--compact a, .ejm-pagination a, .ejm-pagination [aria-disabled], .ejm-collapse > summary, .ejm-menu > summary) { border: 1px solid CanvasText; }
-  .ejm-site :is(.ejm-header--paper, .ejm-header--forest) { border-block-end: 1px solid CanvasText; }
-  .ejm-site .ejm-feature__icon, .ejm-site .ejm-step::before { border: 1px solid CanvasText; }
-  .ejm-site .ejm-button.ejm-button--secondary { border-color: CanvasText; }
+  .ejm-row:has(.ejm-row__title a)::after, .ejm-links a::after, .ejm-faq__item > summary::after { forced-color-adjust: none; background-color: CanvasText; }
+  .ejm-callout, .ejm-status { border-color: CanvasText; }
+  .ejm-terminal, .ejm-code, .ejm-pattern__demo { border: 1px solid CanvasText; }
 }

@@ -1,0 +1,2009 @@
+{
+  "live": {
+    "verified_at_utc": "2026-10-21T02:29:41.875118+00:00",
+    "origin": "https://ejmlabs.com",
+    "version": "d4af526b-2c43-477d-83ae-0aaafb812588",
+    "files_checked": 224,
+    "matches_build": true,
+    "files": [
+      {
+        "path": "/404",
+        "status": 200,
+        "sha256": "3b173d9747b7a9dab6d62fad1e02be1c152ec3aae83d264770b3972ba4b26706",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-browser-detection",
+          "provider-analytics"
+        ]
+      },
+      {
+        "path": "/about/",
+        "status": 200,
+        "sha256": "364b3683ae98a9fa2058085b268ada61908751a8ddaafbd9964b8bad9e3b92d8",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-browser-detection",
+          "provider-analytics"
+        ]
+      },
+      {
+        "path": "/android-chrome-192.png",
+        "status": 200,
+        "sha256": "4f96ae5cd7fa5df4e013c886408b4f6446810a67f105a6b8a404e9f78127687e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/android-chrome-512.png",
+        "status": 200,
+        "sha256": "880f0a31fe971e63910edf9a78a92320f8d58a57decbf89798a67f967f237b3a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/apple-touch-icon.png",
+        "status": 200,
+        "sha256": "f8bd2a262cd3073fba1857b3e84518136e3c27ee8a7ccac634b1684239c1f71c",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/About-Ch9poIr_.js",
+        "status": 200,
+        "sha256": "f9a164071ce5a09df38881613dba62f389278618bb95d4af54cbfac74662508c",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Brand-ChiQNnb3.js",
+        "status": 200,
+        "sha256": "7ea9cff4419d59c0aa8bcd1ef5138a880e0ab52a932735502e2e96f5ee7ba8af",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Facts-C3szJqg5.js",
+        "status": 200,
+        "sha256": "add8d14c69ffe575ef07d8029efe69f49c1a5e3f2eb4fca6714641b8c5da9160",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Home-ChiQNnb3.js",
+        "status": 200,
+        "sha256": "7ea9cff4419d59c0aa8bcd1ef5138a880e0ab52a932735502e2e96f5ee7ba8af",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Privacy-CFZ3JpQu.js",
+        "status": 200,
+        "sha256": "5cca187632deba393d3e4e4aac1d65ba96838016d6742f7be0237720127e7b61",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Projects-CjkfFwj5.js",
+        "status": 200,
+        "sha256": "278b7994b5ff74873a0ae362bfe424de135d14c5fc46a14c2fc6fc587aff1871",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Rows-Ddmpefsg.js",
+        "status": 200,
+        "sha256": "af70c45a5566504ae4ec52028e2f8790378895f24e83e09f36dc181117f94397",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/SiteContent-C0O2q65g.js",
+        "status": 200,
+        "sha256": "e95892120fd012ff3f179a7f8f07886ca3d33b53adceb9e4a2e354cb1a70dbc0",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/Try-DTymKQuo.js",
+        "status": 200,
+        "sha256": "6169a9ec6a7bd2fa40afb33c44475b62eaf04813601d2fb79c60560a7b5a1b84",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/arrow-right-C8KLhuPL.js",
+        "status": 200,
+        "sha256": "6ce127a783fe360e50b1efbaf5a7ab1de1fac2a9317cf73cc4e42ee6d5fa7b30",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/cli-showcase-BZwjeOEz.js",
+        "status": 200,
+        "sha256": "658c6338c559ed7449d13eb1f55aaedf963f6c02a8361cee62d8e5a0b0fb1a71",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/harness-showcase-BZanKARL.js",
+        "status": 200,
+        "sha256": "b1e06e7888622351216f23a34bc4d16ec98900e27c72d406f798c9dafa38bcda",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/ibm-plex-mono-500-latin-BUGpzq7P.woff2",
+        "status": 200,
+        "sha256": "667adf52f273fa1b47d18653efe8d4bacbd17aa2b01e0ca942e87b82a4c7a35a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/ide-showcase-CUwqLTFx.js",
+        "status": 200,
+        "sha256": "8535907ef741db957a8e92eecd977c47ff5f9dbe560e92579e10686b55c800e6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/index-2-z1dF_F.css",
+        "status": 200,
+        "sha256": "6f4c7293e1c05e1b3c7aa28494aba6a52b1c71ddc8a01755eed2ddc6fe7c9e0d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/index-B0mtn5OJ.js",
+        "status": 200,
+        "sha256": "89e03c5219dbb7d1c311ae52cfa970fd85560a1a81e9aa015d8ab898ffbb4e80",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/manrope-latin-CsW_Wjiq.woff2",
+        "status": 200,
+        "sha256": "0c09cdbe541f25db163f8d0f060a0fb06e35a3a8b17b5b08fc92026ff2b3a1e4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/mark-ink-C06AyxtO.svg",
+        "status": 200,
+        "sha256": "f7a3109c38d9a77992722e3c39afdefb5a6672a7d44280c6ff6000f1e1f0109f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/mark-ink-C8upeePj.svg",
+        "status": 200,
+        "sha256": "0790f8633d46c080c733666059bc95d66e571f240e8e5f4f50e7b7f7f6833afa",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/mark-ink-DYGCCDIi.svg",
+        "status": 200,
+        "sha256": "65b928821af28ce0532349fdb5333d26f5af5330678e11bab76332111a25a6b6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/mark-paper-n812j_nG.svg",
+        "status": 200,
+        "sha256": "1959b7ae817f17646b037a43e6b8ac0028975268a436386a6be40debed59e945",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/mark-paper-qAIzj7Dt.svg",
+        "status": 200,
+        "sha256": "f9d4340261fa1144fb45820d95c25ea169af634b1a37b58dcb553eae358c1e12",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/playback-B52ted9p.js",
+        "status": 200,
+        "sha256": "82dadca76d85a278fc4ade03207c709478122904a7b4d285a75838380f97c84f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/symbol-ink-COdYs7W1.svg",
+        "status": 200,
+        "sha256": "6c74b9bf3fbf073ca9daef6f3d7f928e0a89c021079339409e32ae27d859593f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/symbol-paper-W_-hw6HS.svg",
+        "status": 200,
+        "sha256": "c98d9c3b503eb9645c16540da6aabb895c72870796458c8edc1323301d2466ab",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/assets/useShowcase-CCaOdFle.js",
+        "status": 200,
+        "sha256": "64a9cfbe0a435c49b7596f7de7f2069c4ed52f46cd2479d1488605fc7e48215b",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/brand/",
+        "status": 200,
+        "sha256": "f1772061a951bd1e63e0e3537bbc11b7c58b9b26b2f91e63b9995723d581e9e0",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-analytics",
+          "provider-browser-detection"
+        ]
+      },
+      {
+        "path": "/design-kit/favicon/android-chrome-192.png",
+        "status": 200,
+        "sha256": "4f96ae5cd7fa5df4e013c886408b4f6446810a67f105a6b8a404e9f78127687e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/android-chrome-512.png",
+        "status": 200,
+        "sha256": "880f0a31fe971e63910edf9a78a92320f8d58a57decbf89798a67f967f237b3a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/apple-touch-icon.png",
+        "status": 200,
+        "sha256": "f8bd2a262cd3073fba1857b3e84518136e3c27ee8a7ccac634b1684239c1f71c",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/favicon-16.png",
+        "status": 200,
+        "sha256": "2722ec243a943ad360915688eb023b69e21fb42def5ef53d477330f26499f677",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/favicon-32.png",
+        "status": 200,
+        "sha256": "502370a66d0555ca3b19ad955af20717013d8a86c598cc42af08b156adda14ff",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/favicon-48.png",
+        "status": 200,
+        "sha256": "048577821eb276fc9bd6b20ec2f99e97e2a8bb9dc7957c1c934e37545c838ba1",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/favicon.ico",
+        "status": 200,
+        "sha256": "3782b3f938c6f5081204013f13438dd11b14ec5da68dc7fe820036954bd37fa9",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/favicon.svg",
+        "status": 200,
+        "sha256": "95c661e27e2b16360be3ec26474e738e286d8380c6ec6154704ae46331c766f4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/favicon/site.webmanifest",
+        "status": 200,
+        "sha256": "f115cb00aa9df3dbb68ab78bce6bb38b8acb571099bc785b487211a9a93a5fa3",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/ejmlabs-ink.png",
+        "status": 200,
+        "sha256": "55691f13db0300f55af809b93a3b60480c31875de4cbfc6c8b35c7503fc2ab9d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/ejmlabs-ink.svg",
+        "status": 200,
+        "sha256": "516cd7b7fc4652fbdcff7a6e0b0828a06d4c8a24bb6a518ab50c682db09f7466",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/ejmlabs-paper.png",
+        "status": 200,
+        "sha256": "265a68a1cff3036b3f9a960957ed38902be7f70351fbacbefd8116d568bc3597",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/ejmlabs-paper.svg",
+        "status": 200,
+        "sha256": "4cc46b0bcbaf557f9b7407bc08078d0e98215d62b3ab7045e28ff09bc0bd2ec5",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/ejmlabs-primary.png",
+        "status": 200,
+        "sha256": "3a46bdd8abb7f3d1a13fceb4c2d8f2c5a0d55e87aa0c0494b1b06361e1ca5db2",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/ejmlabs-primary.svg",
+        "status": 200,
+        "sha256": "69af7b199c979f4ca68c692403f02bfca8a888fe389d8369a2adbe21200d52b1",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/symbol-ink.png",
+        "status": 200,
+        "sha256": "7418d2f8ac92b38799377ad836f51a6d5e59a2a9a768e17f6c9cbf10a7d25a0b",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/symbol-ink.svg",
+        "status": 200,
+        "sha256": "6c74b9bf3fbf073ca9daef6f3d7f928e0a89c021079339409e32ae27d859593f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/symbol-paper.png",
+        "status": 200,
+        "sha256": "1404a6e79df3cf760bbe41e479aac461fe4b189bb69f4695dcc6477dde9bb6e3",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/symbol-paper.svg",
+        "status": 200,
+        "sha256": "c98d9c3b503eb9645c16540da6aabb895c72870796458c8edc1323301d2466ab",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/symbol-sage.png",
+        "status": 200,
+        "sha256": "f5efe6ba795b9b4714550e81e490db87c8de1e8f73948f34b32cc79c0ccd99a5",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/logos/symbol-sage.svg",
+        "status": 200,
+        "sha256": "3584c64c4c4ecc2f04bfbea3ddf70bccdc5af2abc1123d46ea2ec73d9811831d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/android-chrome-192.png",
+        "status": 200,
+        "sha256": "7a597e3375a46d2e212fc63e3e513ee42ab5917ef1dec2a60656208a67d7101d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/android-chrome-512.png",
+        "status": 200,
+        "sha256": "770aaa4f87a818f8d935ca030ab0818cc107de86578b0c78e3498ff7dd485378",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/apple-touch-icon.png",
+        "status": 200,
+        "sha256": "c89bcc25b125d5d232287179e329856e90b1d1dc01410d60454b52bc42c85af2",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/editable/logo-ink.svg",
+        "status": 200,
+        "sha256": "866c68ccfb99b14fdbd088a2a1096e575c88fd42424bc0b9a05094448c769b0e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/editable/logo-paper.svg",
+        "status": 200,
+        "sha256": "3dd5a215fed73c8f3e1f1573e9d328f16d6131ca3d23730c18e351cd13e3da8f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/editable/logo-primary.svg",
+        "status": 200,
+        "sha256": "f18f75f9d530df5756854621656295b29a8701251530bdf1f8e355fc5bb3a01f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/favicon-16.png",
+        "status": 200,
+        "sha256": "884660d6d3e7f8d3b2d056ce91b6605373a81a26575c87cee861a3fdb7c87a45",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/favicon-24.png",
+        "status": 200,
+        "sha256": "4ae11f14c9427676c0ddc3ff461adffef26ed68076b3af8ae5fdb286150616b7",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/favicon-32.png",
+        "status": 200,
+        "sha256": "0349e609c4c4e466ec7f9f52dbeec878d775627a1e4e800b09f3bd528ffd1084",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/favicon-48.png",
+        "status": 200,
+        "sha256": "4401e46072e44bbb446f2462e223d1ec5d2562920dd96883f8fcc6b8f718cd83",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/favicon.ico",
+        "status": 200,
+        "sha256": "f9d0577a48737045736c08562975447088691890e7829e3f0d62f9bc6f5e1af0",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/favicon.svg",
+        "status": 200,
+        "sha256": "ffb9caed8204cdd98604cdd968b2c1cba7f0f4f9c494a3d5ce9ffc2cb41bdfdc",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/icon-forest.png",
+        "status": 200,
+        "sha256": "5dd6420d809c3a573569beec0c672f46bbb0e9f580e35e417a7a5a2e2a670eeb",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/icon-forest.svg",
+        "status": 200,
+        "sha256": "0f8760ba3b17c3ce4ee032bb91bd9e87e79fae2ab4419e0703c1a6aac584043f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/icon-sage.png",
+        "status": 200,
+        "sha256": "3e6ed871c69be14c9ca383e99dfe5b0b9bfeb23a20fb59adc8b3683cd51c66e9",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/icon-sage.svg",
+        "status": 200,
+        "sha256": "455396e3f1740ac64a1eba7cb243cd984997d4c173abdf99201faa1d4ca0ced0",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/logo-ink.png",
+        "status": 200,
+        "sha256": "4c660847fe4b597d06a6ec10e8b0811500d2bd7557b74d248a68f8c77e93a38a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/logo-ink.svg",
+        "status": 200,
+        "sha256": "26803f4c6ce9ece5b62bbb36126a78fb61776b895c3ff775ccc0275ed20af639",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/logo-paper.png",
+        "status": 200,
+        "sha256": "741c8620dce784aee41a1049a3334a933d27c9bf424e488d9418ca2065db0a73",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/logo-paper.svg",
+        "status": 200,
+        "sha256": "d0ab9baeca84456a1bdb175bdfca32ca601fb14c479f71c096d589b98eba39f7",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/logo-primary.png",
+        "status": 200,
+        "sha256": "86c774d9b8bf6a13f0b1e30306be4872c9c63d7dd7b0aaa216b08872c6371d24",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/logo-primary.svg",
+        "status": 200,
+        "sha256": "a00bdba71fda39f1c50d5950bf1994d2f2f2ed71a326ea7f29247d7192dad593",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/mark-ink.png",
+        "status": 200,
+        "sha256": "477f3c3229eca5a8d5031fc9a9dd61c73a3c98370fcc12501c226bb9e14dec46",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/mark-ink.svg",
+        "status": 200,
+        "sha256": "65b928821af28ce0532349fdb5333d26f5af5330678e11bab76332111a25a6b6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/mark-paper.png",
+        "status": 200,
+        "sha256": "fcdf582f8c763e00ee593777d6fc392cfc716d5a00dd0a85578356c8bc0b7e6a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/mark-paper.svg",
+        "status": 200,
+        "sha256": "1959b7ae817f17646b037a43e6b8ac0028975268a436386a6be40debed59e945",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/mark-sage.png",
+        "status": 200,
+        "sha256": "d7d8fb1d5c31ca07acc3ef6e42a7efff3824a0d9d780f9321a4e707c8eed8202",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/mark-sage.svg",
+        "status": 200,
+        "sha256": "2253bb1d80de325cd758530a405290cbebf93dd535aeb36dc9ffc6caf778747d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/site.webmanifest",
+        "status": 200,
+        "sha256": "81bc553b0e66cd1f7c43304b0b9643abaa6fcf2275f827dfb940bcc83b750b45",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/social-card.png",
+        "status": 200,
+        "sha256": "1c84d0a322de7c2af82039d94907a2df2cfdac9837832096754a1256a40c439e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/cli/social-card.svg",
+        "status": 200,
+        "sha256": "753f25c155f730d4968d2682df970e0e2634d1cef7a64eb38db8ba4934e45d6f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/family-dark.png",
+        "status": 200,
+        "sha256": "974a26aa2525faeca10c08429f70bcc25e4840ed6bf71ff2f6332965f5278564",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/family-dark.svg",
+        "status": 200,
+        "sha256": "356be63cf734b66a63e5bcdf41872feba4618ca727f83c9a15937de0c4b48897",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/family-light.png",
+        "status": 200,
+        "sha256": "3438098de98f2bad143a4cab98e8a5241933ee66760eee4bdaaaf99682153966",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/family-light.svg",
+        "status": 200,
+        "sha256": "c99fe75a78c2280fc128d7e7f2391e3291d67bd42fea9d1c1bfb7d0bd19c4d8f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/android-chrome-192.png",
+        "status": 200,
+        "sha256": "4c6592900921daa8256322977782a7791e3c7a4ca2aac88b77dcb97d53a92882",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/android-chrome-512.png",
+        "status": 200,
+        "sha256": "ed11773ecfa4cea91f43133de0e29bd6fd3ac0957cf7f79c7486eae9a9dffc15",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/apple-touch-icon.png",
+        "status": 200,
+        "sha256": "c7e60ca3ca6057d29c0b410d2e54a30f2214e20d423ebda9d81efd933ef7a4ca",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/editable/logo-ink.svg",
+        "status": 200,
+        "sha256": "0e9517ee04303c02fda641f5939de7bbcaa48b864ab51c2dc8c2dc16ca9c998d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/editable/logo-paper.svg",
+        "status": 200,
+        "sha256": "4967a1581cf987a063cb7f0e00c4a8ea3be9ca492f8c9f49ae691c6bc71b3aaa",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/editable/logo-primary.svg",
+        "status": 200,
+        "sha256": "fce66025006bb6f62f57791a3a733a1076a853bf5770651062c388f52c6bf556",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/favicon-16.png",
+        "status": 200,
+        "sha256": "b5def8c18e9620f4c4493ae86408526e315b27eec8be44ad4fe1fb8e63dce287",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/favicon-24.png",
+        "status": 200,
+        "sha256": "d1c7206adbd831789cee74e26c7149bd7a9c8be67c324b9d97ba9086000fab57",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/favicon-32.png",
+        "status": 200,
+        "sha256": "86f9caf08f1e19fc33a3d2396c97268140b0565c35b44f544494cb646ce86dbc",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/favicon-48.png",
+        "status": 200,
+        "sha256": "cc900108748b5403399e746fbe44b10198d23d013f2b9a61a7e107726585bf04",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/favicon.ico",
+        "status": 200,
+        "sha256": "2a7b9c15b6cc484c7601c4c994d77c24fd836b0f06f20c452ac572e2a89a6d06",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/favicon.svg",
+        "status": 200,
+        "sha256": "bdb5b95f7b32c8a06ed2454a4d5d9cb37371e3ad70665924d995d4c60461125a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/icon-forest.png",
+        "status": 200,
+        "sha256": "ee50b6dc3a4589d92a20e8d8d8e4e866a5ac484686a50aecb1c93ade89623483",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/icon-forest.svg",
+        "status": 200,
+        "sha256": "699aad5ad49d8595bf1a2489a9b7f83887c748d916de525691094dc783e241e0",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/icon-sage.png",
+        "status": 200,
+        "sha256": "3b47054965936daec68a5ceda854add33e5eb7dcc5d5e18af342a33635fd7548",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/icon-sage.svg",
+        "status": 200,
+        "sha256": "9ea1bd4d257a6b4aea565efda883cc8dd28f6987053835fc3d36f522468a1822",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/logo-ink.png",
+        "status": 200,
+        "sha256": "25282552412f213be0d374b0ad053d96b4ccc90ebd6d5c2279807acdf5a162d4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/logo-ink.svg",
+        "status": 200,
+        "sha256": "ea0d44d6aea7540a8b5542133a2e9c231d38709ba072b0ccaf96a33e39a4a1c9",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/logo-paper.png",
+        "status": 200,
+        "sha256": "5fc7154166618b09d86130b30c99839461a2a4cef26610ed22a816e2d1391a80",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/logo-paper.svg",
+        "status": 200,
+        "sha256": "57636df82462c906d7b9ac45a9fa5a5a179feed037ea59c65eb43287aa6bebe2",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/logo-primary.png",
+        "status": 200,
+        "sha256": "5bb69857cd923ea6f95393a7e92dd0342e1855543343f1b824a4e2d26086989e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/logo-primary.svg",
+        "status": 200,
+        "sha256": "04b8c565c0f23cbbdeb85cef6707555590175d5f7b6c03e74332245a30512bf2",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/mark-ink.png",
+        "status": 200,
+        "sha256": "2d8d44de02b8cb4b9870685ba424b52bfdbb7e2ad1f9efdb8d46d6e37f4103ad",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/mark-ink.svg",
+        "status": 200,
+        "sha256": "f7a3109c38d9a77992722e3c39afdefb5a6672a7d44280c6ff6000f1e1f0109f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/mark-paper.png",
+        "status": 200,
+        "sha256": "0fa8872f8938a034262dd2030e0168ef50e02ef9ef22b4f21344e9009baf0994",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/mark-paper.svg",
+        "status": 200,
+        "sha256": "f9d4340261fa1144fb45820d95c25ea169af634b1a37b58dcb553eae358c1e12",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/mark-sage.png",
+        "status": 200,
+        "sha256": "909d99d9f29a89cb4c101fb86f722b5fc08bc7c5b0f69ecc2c2079d3a125b218",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/mark-sage.svg",
+        "status": 200,
+        "sha256": "48b922e8916d8eb048b6fcf26d94df58a461197cb8bef007464d0faa79aa7519",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/site.webmanifest",
+        "status": 200,
+        "sha256": "c89b51f6b89f3c92eec7de23ca4cff0014ab1735ccc4a76aa6c41f7894228258",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/social-card.png",
+        "status": 200,
+        "sha256": "423714a99a3e675107b95129581a625b8c5ec451b8b866a6a9ddc60e6448db6e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/harness/social-card.svg",
+        "status": 200,
+        "sha256": "3265165a7fb051744ddd085edd535230f817f71911851fbf40ce1e89cabc23ed",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/android-chrome-192.png",
+        "status": 200,
+        "sha256": "5d49ad737dc2a2c73086a1d7ae79a75ccf0574dde8e8f39da12e3d03c27388ed",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/android-chrome-512.png",
+        "status": 200,
+        "sha256": "8804e08dd9f0524608560bfde14ddd994d721fbcba99aa5926730c4e51fb0d60",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/apple-touch-icon.png",
+        "status": 200,
+        "sha256": "0b0b655992e6ee8a7b24a78b8307b1abf993762d39f96655f9146ed4f144199a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/editable/logo-ink.svg",
+        "status": 200,
+        "sha256": "dee01c314ef22c22bc6635c07272fe08ec4c85df951f5cada813dfab5b177475",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/editable/logo-paper.svg",
+        "status": 200,
+        "sha256": "d1754a649b5a36a7615421da4a723ded252d61407d2322574cc76452d653eccf",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/editable/logo-primary.svg",
+        "status": 200,
+        "sha256": "807b72ff8ea0a1306165467b2f60954bbf8c6740a46c88561470bacea87402f0",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/favicon-16.png",
+        "status": 200,
+        "sha256": "54ff00498fd107ed8ead35976977a2722496d60fc6e79626ecbf8feac5d2cb7f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/favicon-24.png",
+        "status": 200,
+        "sha256": "3abfd67a03fadb77d17b6e001e975dae0b9813f31d8b55664461b345a538ad65",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/favicon-32.png",
+        "status": 200,
+        "sha256": "c0c9354c0ec9fa6e00cd997e912dc2b388d605be5ad7f81542532007ea589a1a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/favicon-48.png",
+        "status": 200,
+        "sha256": "0d473f6bc2ae866b90da1bd63559f1e84322b29b54df18bfedfea9c1b0ec022e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/favicon.ico",
+        "status": 200,
+        "sha256": "aab0242bee068592949310ebfa10c4190df01fea5778728f3a20a6d0fb743a8d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/favicon.svg",
+        "status": 200,
+        "sha256": "12dd2ee4c7e35cae762ed543534799f49fa8965a9e51c7f637e5d9a478bdc313",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/icon-forest.png",
+        "status": 200,
+        "sha256": "fc413cb0add61e01df677721953db7ef6ce0c73e34aa9d433b5c6791ce632410",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/icon-forest.svg",
+        "status": 200,
+        "sha256": "e1dca31afaf78873f28fb116823fe17a9376f480ea1d2823a579d27e3015085d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/icon-sage.png",
+        "status": 200,
+        "sha256": "ee8c52a6656852df9e0dabb7995bee6a334ec81313abf8c02951ff5cdbd68d8a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/icon-sage.svg",
+        "status": 200,
+        "sha256": "81c718855b27e186cd6843eae8a8399ceb03eccee61ddef1ce554d917fb41c93",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/logo-ink.png",
+        "status": 200,
+        "sha256": "8a1d0ba73d137b24573d86260e610811cfb8b8b2db4a8d3de227ad6de98d23a6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/logo-ink.svg",
+        "status": 200,
+        "sha256": "be6940a9eca8723f2ce9c062ede542322b2592f8241acc7412f0e1576d494bcf",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/logo-paper.png",
+        "status": 200,
+        "sha256": "0227a69ea2cfec1a889723297ef89ac440edf7cc8b009a4350740b06bf6101d4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/logo-paper.svg",
+        "status": 200,
+        "sha256": "f5b9460cfc224b0265b1439bb800ae82a6dc14aebd4799aa93255eb017cdec47",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/logo-primary.png",
+        "status": 200,
+        "sha256": "af3fbeb916b92f9dbd41c4c36bd1ecec36e9a5be07a19ca0364f6486d49b3304",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/logo-primary.svg",
+        "status": 200,
+        "sha256": "caa4a7a38ba590f848ef5d1a76163b4b08b90f4d9b82152f7d9c38cd7969f804",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/mark-ink.png",
+        "status": 200,
+        "sha256": "499419b7b63a8066549c2aac65ac00edd8c3d47cf63fb9ec09f35b513fe46c27",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/mark-ink.svg",
+        "status": 200,
+        "sha256": "0790f8633d46c080c733666059bc95d66e571f240e8e5f4f50e7b7f7f6833afa",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/mark-paper.png",
+        "status": 200,
+        "sha256": "ed5d50a5ad510e2d345a1d5ef825eea310de12b14e059d5858904ef76007502c",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/mark-paper.svg",
+        "status": 200,
+        "sha256": "106b78e394be66fcfccfdb9d778c3ffa491317f844ad6948117c9e4b773635b6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/mark-sage.png",
+        "status": 200,
+        "sha256": "8610181fa62644b6916f7ad9779edce086d739851a74192d0fd484dc360f85ca",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/mark-sage.svg",
+        "status": 200,
+        "sha256": "405537f5eefb6e9d3b80d14e2654b8dd99ab4b26f526899a924de16d0e5e6521",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/site.webmanifest",
+        "status": 200,
+        "sha256": "0e369b7e1c6bfa0b26115cb96cb0883c089f6912e85b1959514da313c51a335d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/social-card.png",
+        "status": 200,
+        "sha256": "72dc11c30d16dd5ef3afbe7bf12d8a09439d352c9cde28e8f2f6d9994c6e78ed",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/projects/ide/social-card.svg",
+        "status": 200,
+        "sha256": "1f400a5be44a256001d72d6101f3aa7cc1c948f9aa1d34f8f1c5e5cfb5aff568",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/avatar-forest.png",
+        "status": 200,
+        "sha256": "942cf9d56e5eb603b769e9f0140348a4b341c1b7947090d6ab9a67ff1b121044",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/avatar-forest.svg",
+        "status": 200,
+        "sha256": "a64f78bc5504a16b984b9b07e5931e8f67454acea4db3f0afaa85b929f3cb78d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/avatar-sage.png",
+        "status": 200,
+        "sha256": "02b05778b0f9c5a1f601f27f3ab4858de48bbe353ac09a6ba0addba9b75ba898",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/avatar-sage.svg",
+        "status": 200,
+        "sha256": "5191e060db330b179e004b9a3abe4f09d472944322b9bc470955ad25425546d6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/avatar.png",
+        "status": 200,
+        "sha256": "02b05778b0f9c5a1f601f27f3ab4858de48bbe353ac09a6ba0addba9b75ba898",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/avatar.svg",
+        "status": 200,
+        "sha256": "5191e060db330b179e004b9a3abe4f09d472944322b9bc470955ad25425546d6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/social-card-forest.png",
+        "status": 200,
+        "sha256": "4fbb0fd458bb727273b086ee722f65b5e4fe7698c9ddf836843829f036350c43",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/social-card-forest.svg",
+        "status": 200,
+        "sha256": "d16f51f22d14c1f7a0c299be03f85e0a63cbb32389cd53822107475ca7b58bb7",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/social-card-sage.png",
+        "status": 200,
+        "sha256": "a049eeff3edebc326f89f58c286d7a1bbf469ad42789e8df2056afe4e90dc024",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/social-card-sage.svg",
+        "status": 200,
+        "sha256": "e3e3b7422dffc4794416ac12910ab099f59f7972bccfdc71561c26bf8dc58c5d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/social-card.png",
+        "status": 200,
+        "sha256": "a049eeff3edebc326f89f58c286d7a1bbf469ad42789e8df2056afe4e90dc024",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/social-card.svg",
+        "status": 200,
+        "sha256": "e3e3b7422dffc4794416ac12910ab099f59f7972bccfdc71561c26bf8dc58c5d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/UPLOAD-avatar.png",
+        "status": 200,
+        "sha256": "ab03d3daeb485b3d336d7145fe42f39ca5e53e263b6a0a94f49a092df6aebb25",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/UPLOAD-forest-avatar.png",
+        "status": 200,
+        "sha256": "c362b7d2f734e7a25c6b0f282e9c94f24d864735cde1c723bdcea109570bb9d3",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/UPLOAD-forest-header.png",
+        "status": 200,
+        "sha256": "b05173194cb7d4940d664b16550f047912f2ca64fe9823548bc05064131bac9d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/UPLOAD-header.png",
+        "status": 200,
+        "sha256": "08c593e5dbf65b12f461adb1f5558e1a5c7abcc8d436e11de0d0b0085f286e5d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/forest-1024.png",
+        "status": 200,
+        "sha256": "ed9a2570a4124526b9af402f279a80404a34f511b5537b65e0b1e51033707b73",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/forest-1024.svg",
+        "status": 200,
+        "sha256": "6d78e8f7b2b83836b7d63486540f75d61cf66a4755d4464b8fdb81b168d0bb4e",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/forest-400.png",
+        "status": 200,
+        "sha256": "c362b7d2f734e7a25c6b0f282e9c94f24d864735cde1c723bdcea109570bb9d3",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/forest-400.svg",
+        "status": 200,
+        "sha256": "0e221adcb2fc917980165e568a498800bf5b3a054741cc43bf9b6d87e8448dee",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/paper-1024.png",
+        "status": 200,
+        "sha256": "3df1009c39b4ae18ad4b84cca416d98856fa437d201892e79bfb9cd0e0c55b3a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/paper-1024.svg",
+        "status": 200,
+        "sha256": "f902f1fce045e11c5292c6ee19ff040084d18f6f5c14b58b268bee9738948775",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/paper-400.png",
+        "status": 200,
+        "sha256": "9fe6ece5a6904ac595d6240186d187ae74dcb702444dbfb0834c16af7e8e2884",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/paper-400.svg",
+        "status": 200,
+        "sha256": "4a6ac885dd3a211931ad8cee1d45791442f5648ece5eaf79cb61fe30cf3b333d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/sage-1024.png",
+        "status": 200,
+        "sha256": "02b05778b0f9c5a1f601f27f3ab4858de48bbe353ac09a6ba0addba9b75ba898",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/sage-1024.svg",
+        "status": 200,
+        "sha256": "5191e060db330b179e004b9a3abe4f09d472944322b9bc470955ad25425546d6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/sage-400.png",
+        "status": 200,
+        "sha256": "ab03d3daeb485b3d336d7145fe42f39ca5e53e263b6a0a94f49a092df6aebb25",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/avatars/sage-400.svg",
+        "status": 200,
+        "sha256": "90fbd46edb534a820e1edd7f48fef9c8220ad60b6f1a89f502567af7127420d2",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/banners/forest-1500x500.png",
+        "status": 200,
+        "sha256": "b05173194cb7d4940d664b16550f047912f2ca64fe9823548bc05064131bac9d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/banners/forest-1500x500.svg",
+        "status": 200,
+        "sha256": "8c0ae56ce8b6b81234a4e7c7aaad84ef308e3011a4bfb877cb8140980b7fe68d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/banners/paper-1500x500.png",
+        "status": 200,
+        "sha256": "42014e119a121764ec24a55f60fa2f7d17e2c4c9e343ea342bb247b041d28a77",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/banners/paper-1500x500.svg",
+        "status": 200,
+        "sha256": "0ef5529362bfec04722a4c7b63edbc21b9d057c44c82d739bfd959eaf3d729c5",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/banners/sage-1500x500.png",
+        "status": 200,
+        "sha256": "08c593e5dbf65b12f461adb1f5558e1a5c7abcc8d436e11de0d0b0085f286e5d",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/banners/sage-1500x500.svg",
+        "status": 200,
+        "sha256": "725885ebb4931ebd224d74a9506c8fd1dfc8fab41eca6aaf14a7900e1ad6b50b",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/guides/banner-safe-area.png",
+        "status": 200,
+        "sha256": "443bcd72832c67af6836978e8540c6f2bf755fe624588b62ecea3edb313db514",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/guides/banner-safe-area.svg",
+        "status": 200,
+        "sha256": "5df2bc85877591f5067c7117a955705ad208010d4e70635a02f92a408ac67c90",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/project-template-1600x900.png",
+        "status": 200,
+        "sha256": "5c3fa94c6f9e3e3b43127737a92da221dce352a76948d4073a71da02d8f41f77",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/project-template-1600x900.svg",
+        "status": 200,
+        "sha256": "53ea3b1b4c997d411ce2ad5a759bde4fee00c5fb2ba1c09970c4a0b403a7bfd3",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/project-template-sage-1600x900.png",
+        "status": 200,
+        "sha256": "39ed810226beb96467a6f13fe0f4b2d0030bbae405238686e61d1b98f4034b84",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/project-template-sage-1600x900.svg",
+        "status": 200,
+        "sha256": "d877be1f330a4a186a491ca91766dcb686add928f9c5291f545610364b8d02be",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/signature-1600x900.png",
+        "status": 200,
+        "sha256": "dbfc5af24a5ae4b1cf49690aca730686a50811fdba79cd9ccb098fac4d2ec323",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/signature-1600x900.svg",
+        "status": 200,
+        "sha256": "16de0e6e170e383c335515bab08e026cf172fed93c43b33dbfd0cfb3d9e549c9",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/signature-sage-1600x900.png",
+        "status": 200,
+        "sha256": "ea02245616f7134965e108a3bbb485111f3e037e27eea75704bdc2650846316a",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/posts/signature-sage-1600x900.svg",
+        "status": 200,
+        "sha256": "764cb251f93c22d1671c2a1b3427af2989894420394c60af4c238819ecbb6894",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/previews/profile-desktop.png",
+        "status": 200,
+        "sha256": "c26957aae2aec4ba99f1f500d8bb62d6c1a82eb650f7f1b378fb2bcab675a703",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/previews/profile-mobile.png",
+        "status": 200,
+        "sha256": "a7daccbc1b0e822cea54c74e32645b4cd3baeb3ecaa0922bb49a8a5d2e2261b1",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/banner-forest.svg",
+        "status": 200,
+        "sha256": "71e0ab95f45c8d92f42d310b8581f71c6d63fbc3175a4c9a16c0749f5c8092f4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/banner-paper.svg",
+        "status": 200,
+        "sha256": "27624cd45e3ed458b35cbad0da3d93e3fe4beefa6f2b3e1f1b285043c870d218",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/banner-sage.svg",
+        "status": 200,
+        "sha256": "5e19ce9482d40625060ff99645cea796a5a667a74e11138eabf5831a6f77f8a4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/project-template-1600x900.svg",
+        "status": 200,
+        "sha256": "5da4762ecb3cbfa265cd95d9a17379ba581cdcca1d614e8a2e98724178be40bf",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/project-template-sage-1600x900.svg",
+        "status": 200,
+        "sha256": "ccfee8de72dd966cb231298c74a2e27ba51d72c45b25c09c66214ba77c937586",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/signature-1600x900.svg",
+        "status": 200,
+        "sha256": "6fd944be3ebaf9d28c4f04edfdf9539adb8de4ab7ea5a0e2d623a328e6d69bf3",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/editable/signature-sage-1600x900.svg",
+        "status": 200,
+        "sha256": "53dccdc019f13a50766e738d3269856ee03f7f9f52c71b224b50d5aa763aa9a6",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/logos/ejmlabs-ink.svg",
+        "status": 200,
+        "sha256": "516cd7b7fc4652fbdcff7a6e0b0828a06d4c8a24bb6a518ab50c682db09f7466",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/logos/ejmlabs-paper.svg",
+        "status": 200,
+        "sha256": "4cc46b0bcbaf557f9b7407bc08078d0e98215d62b3ab7045e28ff09bc0bd2ec5",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/logos/ejmlabs-primary.svg",
+        "status": 200,
+        "sha256": "69af7b199c979f4ca68c692403f02bfca8a888fe389d8369a2adbe21200d52b1",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/logos/symbol-ink.svg",
+        "status": 200,
+        "sha256": "6c74b9bf3fbf073ca9daef6f3d7f928e0a89c021079339409e32ae27d859593f",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/design-kit/social/x-kit/source/logos/symbol-paper.svg",
+        "status": 200,
+        "sha256": "c98d9c3b503eb9645c16540da6aabb895c72870796458c8edc1323301d2466ab",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/ejmlabs-design-kit.zip",
+        "status": 200,
+        "sha256": "6daa72b045603e3e86634d5481eed89daa56b162ee6eb56e936a6942168e60b3",
+        "matches_build": true,
+        "archive_members": 182,
+        "errors": []
+      },
+      {
+        "path": "/ejmlabs-swag-kit.zip",
+        "status": 200,
+        "sha256": "404784dc887c387a316934a2dd3d9f199542e1aa73a90324fd3a0673b0761f29",
+        "matches_build": true,
+        "archive_members": 19,
+        "errors": []
+      },
+      {
+        "path": "/favicon-16.png",
+        "status": 200,
+        "sha256": "2722ec243a943ad360915688eb023b69e21fb42def5ef53d477330f26499f677",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/favicon-32.png",
+        "status": 200,
+        "sha256": "502370a66d0555ca3b19ad955af20717013d8a86c598cc42af08b156adda14ff",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/favicon-48.png",
+        "status": 200,
+        "sha256": "048577821eb276fc9bd6b20ec2f99e97e2a8bb9dc7957c1c934e37545c838ba1",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/favicon.ico",
+        "status": 200,
+        "sha256": "3782b3f938c6f5081204013f13438dd11b14ec5da68dc7fe820036954bd37fa9",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/favicon.svg",
+        "status": 200,
+        "sha256": "95c661e27e2b16360be3ec26474e738e286d8380c6ec6154704ae46331c766f4",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "sha256": "8010f16a0a28c90b8eadfd81f2d6bc0f94199c6b8ff729514b30d9168a959464",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-analytics",
+          "provider-browser-detection"
+        ]
+      },
+      {
+        "path": "/privacy/",
+        "status": 200,
+        "sha256": "630a081943606a961938aa29b62ca36e28ed8e21da82c5a9894432e846a1c3bf",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-browser-detection",
+          "provider-analytics"
+        ]
+      },
+      {
+        "path": "/projects/",
+        "status": 200,
+        "sha256": "5f73d6471cc445c35d23f86657e4c164df5a22b66130891664317d32922b5816",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-analytics",
+          "provider-browser-detection"
+        ]
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "sha256": "96e63ede897f9f13707f6c6e4d5ea294ea08b117bdc5f6e202758e543ae0b8ab",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/site.webmanifest",
+        "status": 200,
+        "sha256": "3d638020742c5a19e19ca5654c6299efca7661d5677f3b794b115beee0c8b93b",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "sha256": "67df2357ab0881a0d32ccc32735c800f186c450b3640a1dc865aa0b85186a324",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/social-card.png",
+        "status": 200,
+        "sha256": "a049eeff3edebc326f89f58c286d7a1bbf469ad42789e8df2056afe4e90dc024",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/theme-boot.js",
+        "status": 200,
+        "sha256": "817f0d6a6b5bf05c7a767f6cd138674081bbb58c84a50386c540deead65dbe66",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": []
+      },
+      {
+        "path": "/try/",
+        "status": 200,
+        "sha256": "53f635e25f42d15c58a6735a4e826cb7baa13b225b59fde43e8c6ee124367e74",
+        "matches_build": true,
+        "archive_members": null,
+        "errors": [],
+        "raw_matches_build": false,
+        "provider_added_scripts": [
+          "provider-browser-detection",
+          "provider-analytics"
+        ]
+      }
+    ],
+    "negative_checks": [
+      {
+        "path": "/__ejmlabs_publication_missing__",
+        "status": 404,
+        "expected": 404,
+        "reference_matches": 0
+      },
+      {
+        "path": "/.env",
+        "status": 403,
+        "expected": 403,
+        "reference_matches": 0
+      }
+    ],
+    "alternate_url": {
+      "status": 404,
+      "site_served": false
+    },
+    "failures": [],
+    "html_comparison": "Remove only new Cloudflare analytics and browser-detection script blocks, then ignore whitespace immediately before the closing body tag. All other page bytes must match.",
+    "not_found_contract": "The authored /404 page returns 200; a genuinely missing path returns 404."
+  },
+  "provider": {
+    "worker": "ejmlabs",
+    "workers_dev_enabled": false,
+    "previews_enabled": false,
+    "domains": [
+      {
+        "hostname": "ejmlabs.com",
+        "service": "ejmlabs",
+        "environment": "production",
+        "enabled": true,
+        "previews_enabled": false
+      }
+    ]
+  },
+  "deployment": {
+    "id": "c2520ce0-e5db-455b-82b4-c55245ff10ad",
+    "created_on": "2026-10-21T02:23:17.258062Z",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "versions": [
+      {
+        "version_id": "d4af526b-2c43-477d-83ae-0aaafb812588",
+        "percentage": 100
+      }
+    ]
+  },
+  "previous_deployments": [
+    {
+      "id": "f1d94ea9-1a53-4fe4-a167-d0268b884086",
+      "created_on": "2026-10-19T01:58:53.767779Z",
+      "versions": [
+        {
+          "version_id": "d4587f56-7947-4d57-a5e7-d1f93a4fbadb",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "07e3f502-f3e2-450e-a982-45041889afc5",
+      "created_on": "2026-10-19T11:28:47.151473Z",
+      "versions": [
+        {
+          "version_id": "06004258-df03-4864-a9a9-ad5d5d5cd6a3",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "7b59fe5f-768f-422b-9035-4aa850696a93",
+      "created_on": "2026-10-19T11:57:23.576452Z",
+      "versions": [
+        {
+          "version_id": "6552e48f-ce09-4885-9b53-1831039dd1a6",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "5daef90f-7f4a-4ec5-a0b3-6b6d6a902f5b",
+      "created_on": "2026-10-19T14:47:54.244279Z",
+      "versions": [
+        {
+          "version_id": "a8cdd5e3-6a3b-4b2a-9637-a89e5e6b8a99",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "e86ac804-d7f3-4d01-ae38-11df729b248a",
+      "created_on": "2026-10-19T15:35:40.379539Z",
+      "versions": [
+        {
+          "version_id": "ba448630-7563-4b7a-ac0c-6ebe910053e3",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "4290a449-0b9b-41d6-8fc3-248983410bfe",
+      "created_on": "2026-10-19T17:08:02.520457Z",
+      "versions": [
+        {
+          "version_id": "4ceacd2f-6a64-469d-b223-f884621ac943",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "6eaa5e39-475a-4c25-a501-0062f46e6987",
+      "created_on": "2026-10-20T23:03:41.086288Z",
+      "versions": [
+        {
+          "version_id": "abc243d5-1834-4986-8f64-3b2f6039ece4",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "6bf13bf5-7eb8-4d09-ac6a-1716b4d4e38d",
+      "created_on": "2026-10-20T23:16:29.4364Z",
+      "versions": [
+        {
+          "version_id": "05fb5e9c-fea4-4702-a014-9c05e3000e3d",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "61dd022c-bb82-4994-947b-50ae46b85835",
+      "created_on": "2026-10-20T23:33:00.39238Z",
+      "versions": [
+        {
+          "version_id": "bb4570c6-a871-4c4b-9a44-ef6758dcdaf1",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "id": "cb6b01c3-e0ee-4f1d-b3bb-c85b067a6e02",
+      "created_on": "2026-10-21T01:58:36.39732Z",
+      "versions": [
+        {
+          "version_id": "2ecab826-078f-4da0-931d-894ca8e73ff7",
+          "percentage": 100
+        }
+      ]
+    }
+  ],
+  "source_links": [
+    {
+      "repository": "ejmlabs",
+      "anonymous_status": 200
+    },
+    {
+      "repository": "ejm-cli",
+      "anonymous_status": 200
+    },
+    {
+      "repository": "ejm-harness",
+      "anonymous_status": 200
+    },
+    {
+      "repository": "ejm-ide",
+      "anonymous_status": 200
+    },
+    {
+      "repository": "ejm-ui",
+      "anonymous_status": 200
+    }
+  ]
+}

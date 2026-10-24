@@ -1,5 +1,5 @@
 /* New web components. Load ../tokens/brand.css before this file. */
-.ejm-surface, .ejm-card {
+.ejm-surface {
   --ejm-component-ground: var(--ejm-paper);
   --ejm-component-contrast: var(--ejm-forest);
   --ejm-component-hover: var(--ejm-ink);
@@ -61,9 +61,6 @@
 .ejm-tag { display: inline-flex; align-items: center; padding: var(--ejm-space-1) var(--ejm-space-2); border-radius: var(--ejm-radius-small); color: var(--ejm-ink); background: var(--ejm-sage); font: var(--ejm-weight-heading) var(--ejm-caption-size) / var(--ejm-caption-leading) var(--ejm-font-sans); }
 .ejm-tag--quiet { color: var(--ejm-forest); background: var(--ejm-mist); }
 .ejm-tag--solid { color: var(--ejm-paper); background: var(--ejm-forest); }
-.ejm-card { box-sizing: border-box; display: grid; gap: var(--ejm-space-4); padding: var(--ejm-space-6); border: 1px solid var(--ejm-forest); border-radius: var(--ejm-radius-medium); color: var(--ejm-ink); background: var(--ejm-paper); }
-.ejm-card > .ejm-tag { justify-self: start; }
-.ejm-card__title { margin: 0; font: var(--ejm-weight-heading) var(--ejm-heading-size) / var(--ejm-heading-leading) var(--ejm-font-sans); letter-spacing: -0.02em; overflow-wrap: anywhere; }
 .ejm-prose { max-inline-size: 68ch; overflow-wrap: anywhere; }
 .ejm-prose :where(p, ul, ol, blockquote) { margin-block: 0 var(--ejm-space-4); }
 .ejm-prose :where(h2, h3) { margin-block: var(--ejm-space-8) var(--ejm-space-3); font-weight: var(--ejm-weight-heading); line-height: 1.25; }
@@ -82,6 +79,5 @@
   .ejm-section { padding-block: var(--ejm-space-24); }
 }
 @media (forced-colors: active) {
-  .ejm-tag, .ejm-card { border: 1px solid CanvasText; }
   .ejm-button:disabled { color: GrayText; border-color: GrayText; }
 }

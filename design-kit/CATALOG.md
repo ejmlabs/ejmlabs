@@ -1,5 +1,7 @@
 # Catalog
 
+Historical source and review record. See the [retained-source notice](README.md). File paths, commands, and asset availability below describe the earlier kit, not current production.
+
 Build by choosing. Every part of an ejmlabs experience has a name and a place in this kit, so there is nothing to invent. Find what you are building, then pick from the list it points to. If the part you need is missing, the kit is incomplete: add the part here, then use it.
 
 ## What are you building?
@@ -13,13 +15,15 @@ Build by choosing. Every part of an ejmlabs experience has a name and a place in
 | A desktop or web app | `ui/PRIMITIVES.md` | `ui/index.html` markup | `ui/index.html` |
 | A terminal app | `ui/TUI.md`, `ui/rust/ejm_tui.rs` | `ui/rust/ejm_theme.rs` | `ui/tui.html` |
 | An editor or terminal theme | `ui/monaco/`, `ui/terminal/` | The file for your tool | `ui/index.html` |
+| A project logo or app icon | [Project logo guide](projects/README.md) | `projects/cli/`, `projects/ide/`, `projects/harness/` | [Family preview](projects/index.html) |
 | A social post, slide or printed piece | `templates/`, `lockups/`, `social/` | The closest template | `index.html` |
 
 ## The parts
 
 | Part | What it is | Where it is defined |
 | --- | --- | --- |
-| Logo and symbol | Full logo, symbol, and clear space | `logos/`, rules in `README.md` |
+| Studio logo and symbol | Full logo, symbol, and clear space | `logos/`, rules in `README.md` |
+| Project logos | cli, ide, and harness marks, name lockups, and square icons | [`projects/`](projects/README.md), [family preview](projects/index.html) |
 | Color | Five brand colors and white | `tokens/brand.css`, `tokens/palette.json` |
 | App theme | Roles for surfaces, text, status, diff and syntax, dark and light | `ui/theme.json` (the only source) |
 | Type | Manrope for words, IBM Plex Mono for names and values | `tokens/brand.css` |

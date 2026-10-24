@@ -1,5 +1,7 @@
 # Application primitives
 
+Historical source and review record. See the [retained-source notice](../README.md). File paths, commands, and asset availability below describe the earlier kit, not current production.
+
 The named parts of every ejmlabs application interface. Build a screen by choosing from this list. If a need is not here, ask for a new primitive instead of inventing one. All classes live in `ui/app.css`, all read `--ejm-ui-*` roles, and `ui/index.html` shows every one in its states.
 
 ## Conventions
@@ -11,11 +13,12 @@ The named parts of every ejmlabs application interface. Build a screen by choosi
 - **Focus.** One 2 px primary ring with a 1 px offset, on everything interactive. Never remove it. Controls that hide a native input (checkbox, radio, switch, segmented control) move the ring onto the drawn box.
 - **Hover, active, focus** apply to every interactive primitive and are not repeated in the table. The States column lists the others.
 - **Color is never the only signal.** Errors carry a glyph and words, status carries a word, selected carries a tint plus an edge or a check.
-- **Series colors.** `data-hue="1"` to `"6"` on a chart element or tag sets its fill. Hues are never used for text.
+- **Series colors.** `data-hue="1"` to `"6"` on a chart element or tag sets its fill. Hues are never used for text. In a line chart the hue also sets the dash and the marker shape (below), so a series is never told apart by color alone.
 - **Motion.** 120 to 180 ms for interface changes. Ambient motion is only the running pulse (1.6 s), the spinner and the indeterminate progress bar. All of it stops under `prefers-reduced-motion`. Skeletons never shimmer.
 - **Overlays.** Menu, popover, dialog, tooltip and toast are the only things with a shadow, and it is very soft. They have no border. Render them inside the `.ejm-ui` root so the theme variables reach them.
 - **Responsive.** The shell stacks under 760 px. Tabs and toolbars scroll or wrap. Tables scroll inside their wrapper. Settings, stat tiles, charts, tool cards and panels adapt to their container, and a dialog becomes a bottom sheet in a container under 560 px.
 - **Missing values.** Show a dash, never zero. Label sample data as sample.
+- **States.** Every tile, list, table, chart and panel has three states besides its data: loading (bones in the final layout, a hidden status word), empty (one plain sentence, at most one action) and error (what failed, one retry). See *States by region* below. A zero or a blank area is never a state.
 - **Writing.** Sentence case, plain words, no em dashes. Buttons name the action ("Save provider"), not "OK".
 
 ## Catalog
@@ -79,9 +82,9 @@ The named parts of every ejmlabs application interface. Build a screen by choosi
 | `ejm-ui-status` | One object has a state, as a dot and a word | The state needs a tinted label: use badge | `data-state`: idle, running, ok, warn, error | The word carries the meaning. Running pulses. |
 | `ejm-ui-progress` (`--success`, `--warning`, `--error`, `--indeterminate`, `-progress__meta`, `-progress__track`, `-progress__bar`) | A task has a known length, or runs longer than 2 seconds | Under 2 seconds: use a spinner | determinate (`--value`), indeterminate, success, warning, error | `role="progressbar"` on the track, `aria-labelledby`, `aria-valuenow` with min and max. Omit `aria-valuenow` when indeterminate. Set `--value` from 0 to 100. |
 | `ejm-ui-spinner` (`--sm`, `--lg`) | A short wait with no length, inside a button or field | A region of known shape: use a skeleton | running | `role="status"` with `ejm-ui-sr` text, or `aria-hidden` when a visible label is next to it. |
-| `ejm-ui-skel` (`--text`, `--row`, `--block`, `--avatar`) | A region is loading and its final shape is known | Unknown shape, or under 300 ms | loading | Set `aria-busy="true"` on the container and `aria-hidden` on the bones. No shimmer. |
-| `ejm-ui-empty` (`-empty__icon`, `-empty__title`, `-empty__text`, `-empty__action`) | A list or pane has nothing yet | Data is loading or failed | empty | Title is a heading at the right level. One action, ideally focusable first. |
-| `ejm-ui-empty--error` (`-empty__detail`) | A whole pane failed to load | A single field error: use the field error | error | `role="alert"` when it replaces content after an action. Retry is a button. Keep the user's work. |
+| `ejm-ui-skel` (`--text`, `--row`, `--block`, `--avatar`, `--value`, `--chart`), `ejm-ui-skellist` | A region is loading and its final shape is known: `--value` stands in for a stat value, `--chart` for a plot, `ejm-ui-skellist` for a timeline or activity list | Unknown shape, or under 300 ms | loading | Set `aria-busy="true"` on the container and `aria-hidden` on the bones, and add one `ejm-ui-sr` word such as "Loading sessions". No shimmer, so reduced motion changes nothing. |
+| `ejm-ui-empty` (`-empty__icon`, `-empty__title`, `-empty__text`, `-empty__action`, `--flush`) | A list, table, chart or pane has nothing yet. Add `--flush` inside a panel body, a table cell (`ejm-ui-table__state`) or a frame, where it takes the container's tone | Data is loading or failed | empty | Title is a heading at the right level. One plain sentence and at most one action, ideally focusable first. Never a zero or a blank area. |
+| `ejm-ui-empty--error` (`-empty__detail`) | A whole pane, list, table or chart failed to load. Combine with `--flush` inside a panel | A single field error: use the field error | error | `role="alert"` when it replaces content after an action. One retry button, named for the action. Say what failed in the title and what to do in the sentence. Keep the user's work. |
 | `ejm-ui-toasts` (`--inline`), `ejm-ui-toast` (`-toast__body`, `-toast__title`, `-toast__actions`) | An action finished and needs no decision | The user must respond, or an error needs action: use a banner | enter animation, with action, dismissable | `role="status"`. Max 3 stacked. Pause the timer on hover and focus. Auto-dismiss after 6 seconds only if there is no action. Keep a way to review missed ones. |
 | `ejm-ui-count` (`--primary`, `--error`) | A number beside a label or icon | Words: use badge | muted, primary, error | Put the meaning in the label: "Problems, 99+". Cap at 99+. |
 
@@ -89,16 +92,17 @@ The named parts of every ejmlabs application interface. Build a screen by choosi
 
 | Class | Use it when | Do not use it when | States supported | Accessibility |
 | --- | --- | --- | --- | --- |
-| `ejm-ui-tablewrap`, `ejm-ui-table` (`--dense`, `-table__num`, `-table__check`, `-table__sort`) | Comparing records across attributes | Two attributes: use a list | sortable (`aria-sort`), selected row, disabled row, sticky header, loading (skeleton cells), empty | `th scope="col"`. `aria-sort` on the sorted header only, sort control is a `button` inside the `th`. Row selection needs `role="grid"` with `aria-selected`, or a checkbox column. Give the wrapper a set height for the sticky header and `tabindex="0"` when it scrolls. Numbers are mono, right aligned, tabular. |
+| `ejm-ui-tablewrap`, `ejm-ui-table` (`--dense`, `-table__num`, `-table__check`, `-table__sort`, `-table__state`) | Comparing records across attributes | Two attributes: use a list | sortable (`aria-sort`), selected row, disabled row, sticky header, loading (skeleton cells), empty and error (one `td` with `ejm-ui-table__state` and `colspan`, holding an `ejm-ui-empty--flush`) | `th scope="col"`. `aria-sort` on the sorted header only, sort control is a `button` inside the `th`. Row selection needs `role="grid"` with `aria-selected`, or a checkbox column. Give the wrapper a set height for the sticky header and `tabindex="0"` when it scrolls. Numbers are mono, right aligned, tabular. |
 | `ejm-ui-kv` (`--mono`, `-kv__row`) | Describing one object | Several objects: use a table | none | Native `dl`, `dt`, `dd` with a `div` per pair. |
-| `ejm-ui-stat` (`-stat__value`, `-stat__delta`, `-stat__note`) | One number summarizes a period | A series: use a chart | normal, empty (`data-empty`), tone (`data-tone`) | Delta text includes the sign and the period. A missing value is a dash with a note. Estimated values say so. |
+| `ejm-ui-stat` (`-stat__value`, `-stat__delta`, `-stat__note`, `-stat__row`) | One number summarizes a period | A series: use a chart | normal, empty (`data-empty`), tone (`data-tone`) | Delta text includes the sign and the period. A missing value is a dash with a note. Estimated values say so. |
 | `ejm-ui-tree` (`-tree__item`, `-tree__row`, `-tree__marker`, `-tree__label`, `-tree__meta`) | Content nests: files, symbols, setting groups | A flat list | selected, expanded, collapsed, disabled | `role="tree"`, `treeitem`, `role="group"`, `aria-expanded`, `aria-level`, `aria-selected`. Roving tabindex. Up and Down move, Right expands or enters, Left collapses or exits, Home and End jump, typing jumps. Set `--lvl` on each row. |
 | `ejm-ui-list` (`-list__head`) with `ejm-ui-row` | A flat set grouped by date, status or type | Columns of data: use a table | selected, disabled, sticky headers | Section headers are `role="presentation"` in a listbox, or real headings in a plain list. |
 | `ejm-ui-timeline` (`-timeline__item`, `-timeline__marker`, `-timeline__head`, `-timeline__title`, `-timeline__time`, `-timeline__body`) | Ordered events where the order matters | Unordered notifications | `data-state`: ok, error, warn, running, pending | `ol`. State is also written in words (badge or `ejm-ui-sr` text). Use `time` with a `datetime`. |
 | `ejm-ui-avatar` (`--sm`, `--lg`, `--model`, `--more`), `ejm-ui-avatar-stack` | Showing who or what acted | Decoration | hue (`data-hue`) | Initials are always shown. Give images `alt`. A stack has `role="group"` with a label listing the people. |
-| `ejm-ui-chart`, `ejm-ui-bars` (`-bars__col`, `-bars__plot`, `-bars__bar`, `-bars__label`) | A trend across categories | Exact values matter: add a table | hue | `role="img"` with an `aria-label` that states the values, or a nearby table. Bar height is `--v` from 0 to 100. |
+| `ejm-ui-chart` (`-chart__head`, `-chart__data`), `ejm-ui-bars` (`-bars__col`, `-bars__plot`, `-bars__bar`, `-bars__label`, `-bars__value`) | A trend across categories. Put the value in `ejm-ui-bars__value` inside each bar, so every value is text | Exact values across many series: use a table | hue | `role="img"` with an `aria-label` that states the values, or a nearby table. Bar height is `--v` from 0 to 100. |
+| `ejm-ui-lines` (`-lines__y`, `-lines__plot`, `-lines__grid`, `-lines__grid--base`, `-lines__area`, `-lines__line`, `-lines__mark`, `-lines__x`) | A value over an ordered axis where the shape matters: line, or line plus area. Pair it with `ejm-ui-legend--marks` and a table alternative | Parts of a whole: use a stack bar. One tiny trend beside a number: use a spark | hue 1 to 6. The hue sets the line color, dash and marker shape | The plot is `aria-hidden`; the wrapper is `role="img"` with an `aria-label` that lists every value. The legend names every series in text with its latest or total value. A `details` with class `ejm-ui-chart__data` (an `ejm-ui-accordion`) holds the same values as a table. |
 | `ejm-ui-hbar` (`-hbar__label`, `-hbar__track`, `-hbar__fill`, `-hbar__value`) | Ranked shares with names | Many series over time | hue | Label and value are text. Fill is `--v` from 0 to 100. |
-| `ejm-ui-stackbar` (`-stackbar__seg`), `ejm-ui-legend` (`--line`, `-legend__value`) | Parts of one whole, with a legend | More than 6 parts | hue | Segment weight is `--v`. The legend lists every segment with its value in text. The bar has `role="img"` and a label. |
+| `ejm-ui-stackbar` (`-stackbar__seg`), `ejm-ui-legend` (`--line`, `--marks`, `-legend__value`) | Parts of one whole, with a legend | More than 6 parts | hue | Segment weight is `--v`. The legend lists every segment with its value in text. The bar has `role="img"` and a label. |
 | `ejm-ui-spark` (`--wide`, `-spark__line`, `-spark__area`) | A tiny trend beside a number | A chart the user reads values from | hue | `aria-hidden` when the number beside it says the same thing. Otherwise `role="img"` with a label. |
 | `ejm-ui-log` (`--nowrap`, `-log__line`, `-log__time`, `-log__level`) | A stream of machine output | Prose | `data-level`: debug, info, warn, error, selected | `role="log"`, `tabindex="0"`, label. The level is written out. Search matches use `mark`. |
 
@@ -119,6 +123,44 @@ The named parts of every ejmlabs application interface. Build a screen by choosi
 | `ejm-ui-settings` (`-settings__section`, `-settings__label`, `-settings__title`, `-settings__desc`, `-settings__controls`, `-settings__row`) | A page of many preferences | Creating a record: use a form | normal, narrow (one column when its container is under 640 px) | One `section` per group, labelled by its title. Settings apply on change and say so. Setting rows pair a label with its control through `aria-labelledby`. |
 | `ejm-ui-anchor` (`--end`, `--above`), `ejm-ui-popover` (`-popover__title`, `-popover__foot`) | A small piece of content or one input hangs off a control | Two or more decisions: use a dialog | open | `role="dialog"` with a label, trigger has `aria-haspopup="dialog"` and `aria-expanded`. Focus moves in, Escape closes and returns focus, click outside closes. |
 | `ejm-ui-backdrop` (`--contained`), `ejm-ui-dialog` (`--wide`, `--danger`, `-dialog__head`, `-dialog__body`, `-dialog__foot`, `-dialog__icon`) | The user must decide before going on: confirm, short form, destructive approval | Information the user can ignore: use a banner or toast | confirm, form, destructive. Bottom sheet in a container under 560 px | `role="dialog"` or `alertdialog` for destructive, `aria-modal="true"`, `aria-labelledby`, `aria-describedby`. Focus moves in, is trapped, returns on close. Escape cancels. Focus Cancel first for destructive. The confirm button names the action. The page behind is inert. |
+
+### Dashboard
+
+| Class | Use it when | Do not use it when | States supported | Accessibility |
+| --- | --- | --- | --- | --- |
+| `ejm-ui-dash` (`-dash__head`, `-dash__tiles`, `-dash__grid`, `-dash__wide`) | A screen summarizes a period: a heading and period control, stat tiles, one main chart beside recent activity, and a table | A single metric or a settings page | loading, empty and error per block, reflows by container | The head has a real heading. Each block is a labelled `ejm-ui-panel` or `ejm-ui-stat`. The table wrapper is a labelled, focusable scroll region when it can scroll. |
+
+Layout: tiles are an auto-fit grid (160 px minimum, so two across on a phone and four on a laptop). The grid below is one column until the dashboard is 760 px wide, then the chart takes two thirds and the activity list one third, and `ejm-ui-dash__wide` (the table) spans both. The dashboard stops growing at 1600 px and centers.
+
+### Line chart markers and dashes
+
+The hue of a series sets its color, dash and marker, so the same series reads the same everywhere, including in the legend (`ejm-ui-legend--marks`). Limit a chart to four series.
+
+| `data-hue` | Dash | Marker |
+| --- | --- | --- |
+| 1 | solid | circle |
+| 2 | long dash | square |
+| 3 | dotted | diamond |
+| 4 | dash and dot | triangle up |
+| 5 | short dash | triangle down |
+| 6 | dash and two dots | cross |
+
+How to build one: the SVG plot uses a 0 to 100 grid with `preserveAspectRatio="none"` and `vector-effect: non-scaling-stroke`, so lines scale and stay crisp. For point `i` of `n` with value `v` and axis maximum `max`, use `x = 3 + i * 94 / (n - 1)` and `y = 100 - v / max * 100` in the path, and set `--x` and `--y` (0 to 100, `y` measured from the bottom as `v / max * 100`) on the HTML marker, tick and axis label spans. Text is HTML, so it never scales. Always label the sample data, and write the values in the `aria-label`, the legend and the table.
+
+### States by region
+
+Every region below has the same three states. Use the classes in the third column; do not draw a zero, an empty box or a blank area.
+
+| Region | Loading | Empty | Error |
+| --- | --- | --- | --- |
+| Stat tile | `ejm-ui-skel--text` and `ejm-ui-skel--value` in the tile, `aria-busy` | `ejm-ui-stat__value[data-empty]` with a dash and a note ("No sessions yet.") | the dash and a note ("Could not load this figure.") with one ghost button, "Try again" |
+| Table | `ejm-ui-skel--text` cells in the same columns, `aria-busy` on the wrapper | one `td.ejm-ui-table__state` row with `ejm-ui-empty--flush`, a sentence and one button | the same row with `ejm-ui-empty--error ejm-ui-empty--flush` and "Try again" |
+| List, timeline, activity | `ejm-ui-skellist` | `ejm-ui-empty--flush`, one sentence, one action | `ejm-ui-empty--error ejm-ui-empty--flush`, "Try again" |
+| Chart | `ejm-ui-skel--chart` in the panel body | `ejm-ui-empty--flush` ("No usage to chart yet") and one action | `ejm-ui-empty--error ejm-ui-empty--flush`, "Try again" |
+| Panel | the real head, body as above | the real head, an empty in the body | the real head, an error in the body |
+| Tree, log, palette | `ejm-ui-skel--row` rows | `ejm-ui-empty--flush` ("No folder open", "No log lines yet", "No commands match") with its one action if there is one | `ejm-ui-empty--error ejm-ui-empty--flush` |
+
+Loading keeps the panel head and the final layout, and adds one `ejm-ui-sr` word ("Loading sessions") for assistive technology. Skeletons never move, so reduced motion needs no special case.
 
 ## Composing screens
 
@@ -158,13 +200,11 @@ Each recipe is an ordered list of primitives, outside in. Follow the order; skip
 
 ### Dashboard
 
-1. `ejm-ui-heading` and a period `ejm-ui-seg`.
-2. A row of `ejm-ui-stat` tiles, each with a change and optionally `ejm-ui-spark`.
-3. `ejm-ui-chart` with `ejm-ui-bars` and `ejm-ui-legend`, beside `ejm-ui-hbar` rows or an `ejm-ui-stackbar`.
-4. `ejm-ui-tablewrap` with `ejm-ui-table`: sortable, numeric columns right aligned, `ejm-ui-pager` below.
-5. `ejm-ui-timeline` for recent activity.
-6. Every block has its states: `ejm-ui-skel--block` while loading, `ejm-ui-empty` when empty, `ejm-ui-empty--error` with retry. Missing values are dashes. Sample data is labelled with `ejm-ui-badge`.
-
+1. `ejm-ui-dash` holds everything. `ejm-ui-dash__head` has an `ejm-ui-heading`, a caption with the period and an `ejm-ui-badge` "sample data" when the figures are not real, and a period `ejm-ui-seg`.
+2. `ejm-ui-dash__tiles`: three or four `ejm-ui-stat`, each with a change that includes its sign and period, and optionally an `ejm-ui-spark` in `ejm-ui-stat__row`.
+3. `ejm-ui-dash__grid`: an `ejm-ui-panel` with the main chart (`ejm-ui-lines` or `ejm-ui-bars`, `ejm-ui-legend` with values, and the table alternative), beside an `ejm-ui-panel` with an `ejm-ui-timeline` of recent activity.
+4. An `ejm-ui-panel` with class `ejm-ui-dash__wide` holding an `ejm-ui-tablewrap` and `ejm-ui-table`: sortable, numeric columns right aligned.
+5. Every block has its states from *States by region*: loading bones, an empty with one action, an error with one retry. Missing values are dashes.
 ### Onboarding flow
 
 1. `ejm-ui-stepper` across the top, current step with `aria-current="step"`.

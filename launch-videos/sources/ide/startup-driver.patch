@@ -1,0 +1,60 @@
+--- a/src-tauri/src/lib.rs
++++ b/src-tauri/src/lib.rs
+@@ -305,9 +305,56 @@
+                 .first()
+                 .cloned()
+                 .expect("main window config");
+-            tauri::WebviewWindowBuilder::from_config(app, &config)?
++            let capture_root = std::env::var_os("EJM_IDE_CAPTURE_ROOT").map(std::path::PathBuf::from);
++            let capture_script = r#"
++                localStorage.setItem('ejm-ide.theme', 'dark');
++                localStorage.setItem('ejm-ide.fontSize', '16');
++                localStorage.setItem('ejm-ide.inlineEnabled', 'false');
++                localStorage.setItem('ejm-ide.agent.provider', 'capture-replay');
++                localStorage.setItem('ejm-ide.agent.selection.capture-replay', JSON.stringify({model:'capture-replay',effort:''}));
++            "#;
++            if let Some(root) = &capture_root {
++                let home = std::path::PathBuf::from(std::env::var_os("HOME").ok_or("Missing isolated HOME")?);
++                let config_dir = app.path().app_config_dir()?;
++                let data_dir = app.path().app_data_dir()?;
++                if !config_dir.starts_with(&home) || !data_dir.starts_with(&home) {
++                    return Err("Capture app paths escaped isolated HOME".into());
++                }
++                std::fs::create_dir_all(&config_dir)?;
++                let provider = serde_json::json!([{
++                    "id":"capture-replay", "name":"Local capture replay", "protocol":"openaiCompatible",
++                    "endpoint":"http://127.0.0.1:18787/v1/", "models":["capture-replay"],
++                    "reasoning":"none", "maxOutputTokens":4096, "apiKeyEnv":"EJM_IDE_CAPTURE_TOKEN"
++                }]);
++                std::fs::write(config_dir.join("providers.json"), serde_json::to_vec_pretty(&provider)?)?;
++                app.state::<workspace::WorkspaceState>().open_folder(&root.join("harbor"))?;
++            }
++            let window = tauri::WebviewWindowBuilder::from_config(app, &config)?
+                 .initialization_script(&script)
++                .initialization_script(if capture_root.is_some() { capture_script } else { "" })
++                .theme(Some(tauri::Theme::Dark))
++                .inner_size(1280.0, 820.0)
+                 .build()?;
++            if let Some(root) = capture_root {
++                // Disposable capture adapter. It evaluates only task-owned action files
++                // through Tauri's public test API. Product commands and UI stay unchanged.
++                tauri::async_runtime::spawn(async move {
++                    let mut last = String::new();
++                    for _ in 0..2400 {
++                        let action = root.join("action.js");
++                        if let Ok(js) = std::fs::read_to_string(&action) {
++                            if js != last {
++                                last = js.clone();
++                                let output = root.join("evidence/action-result.json");
++                                let _ = window.eval_with_callback(js, move |value| {
++                                    let _ = std::fs::write(&output, value);
++                                });
++                            }
++                        }
++                        tokio::time::sleep(std::time::Duration::from_millis(250)).await;
++                    }
++                });
++            }
+             Ok(())
+         })
+         .invoke_handler(tauri::generate_handler![

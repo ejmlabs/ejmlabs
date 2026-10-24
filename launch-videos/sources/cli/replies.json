@@ -1,0 +1,62 @@
+[
+  {
+    "tool_calls": [
+      {
+        "id": "test-before",
+        "name": "shell",
+        "arguments": {
+          "command": "./check",
+          "timeout_ms": 10000,
+          "heavy": true
+        }
+      }
+    ]
+  },
+  {
+    "content": "2 tests fail. Retries still run at the time limit and with a zero budget."
+  },
+  {
+    "tool_calls": [
+      {
+        "id": "read-retry",
+        "name": "read_file",
+        "arguments": {
+          "path": "src/retry.mjs"
+        }
+      }
+    ]
+  },
+  {
+    "tool_calls": [
+      {
+        "id": "fix-boundary",
+        "name": "patch_file",
+        "arguments": {
+          "path": "src/retry.mjs",
+          "old": "elapsedMs <= budgetMs",
+          "new": "elapsedMs < budgetMs",
+          "expected_hash": "87b03c6ee108301ffbda297e643f522df33a95140b1681f97628d1cba4a50129"
+        }
+      }
+    ]
+  },
+  {
+    "content": "Changed <= to <. A retry stops when the time budget is used."
+  },
+  {
+    "tool_calls": [
+      {
+        "id": "test-after",
+        "name": "shell",
+        "arguments": {
+          "command": "./check",
+          "timeout_ms": 10000,
+          "heavy": true
+        }
+      }
+    ]
+  },
+  {
+    "content": "5 tests pass. The retry budget now stops at the boundary."
+  }
+]

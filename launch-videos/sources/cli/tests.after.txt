@@ -1,0 +1,13 @@
+✔ retry while time remains (0.32825ms)
+✔ stop when time is used (0.050083ms)
+✔ stop after the deadline (0.041375ms)
+✔ stop at the attempt limit (0.039792ms)
+✔ zero budget means no retry (0.044958ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.158875

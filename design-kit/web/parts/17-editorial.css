@@ -1,0 +1,147 @@
+/* Editorial typography. See web/EDITORIAL.md for what each class is for.
+   Loads after 15-open and before 20-dark. It sets type only in Manrope and IBM Plex Mono, and reads only the brand
+   tokens and the band role variables (--ejm-ground, --ejm-fg, --ejm-muted, --ejm-hairline, --ejm-btn-*,
+   --ejm-component-*), so dark mode and every band follow. Confidence comes from scale contrast, tight tracking at
+   large sizes, balanced wrapping and tabular numerals, not from new fonts. */
+
+/* ---------- Wrapping and numerals: on by default, at zero specificity so any rule can still override ---------- */
+:where(.ejm-site h1, .ejm-site h2, .ejm-site h3, .ejm-site h4, .ejm-site blockquote) { text-wrap: balance; }
+:where(.ejm-site p, .ejm-site li, .ejm-site dd, .ejm-site figcaption) { text-wrap: pretty; }
+:where(.ejm-site time, .ejm-site table, .ejm-site .ejm-count, .ejm-site .ejm-stat__value, .ejm-site .ejm-numeral) { font-variant-numeric: tabular-nums; }
+.ejm-site .ejm-numeral { font-feature-settings: 'tnum' 1, 'lnum' 1; }
+
+/* ---------- Body text stays calm on very large screens ----------
+   The responsive part grows body text with the scale and reaches 22px at 3200px. Reading size stops at 20px;
+   whitespace and display type carry the extra room. */
+@media (min-width: 3200px) {
+  .ejm-site.ejm-site { --ejm-body-size: 20px; --ejm-body-leading: 1.65; }
+}
+
+/* ---------- Display tier: above the brand's 48px, fluid, tight ----------
+   Written as two classes (.ejm-display.ejm-display--xl) so it beats the hero and breakpoint sizes of ejm-display. */
+.ejm-site .ejm-display.ejm-display--xl {
+  max-inline-size: 16ch;
+  font-size: clamp(44px, 6vw + 20px, 120px); line-height: 1; letter-spacing: -0.05em;
+}
+.ejm-site .ejm-display.ejm-display--lg {
+  max-inline-size: 18ch;
+  font-size: clamp(36px, 3.6vw + 22px, 80px); line-height: 1.04; letter-spacing: -0.04em;
+}
+/* Inside a stack, display type gets room below it so the next label does not crowd the descenders. */
+.ejm-stack > .ejm-display--xl, .ejm-stack > .ejm-display--lg { margin-block-end: 0.25em; }
+/* Display type never breaks a word to fit; the base rule that lets long words break stays as a last resort only. */
+.ejm-site .ejm-display--xl, .ejm-site .ejm-display--lg { hyphens: none; }
+
+/* ---------- Meta: the mono voice for dates, versions and values ---------- */
+.ejm-site .ejm-meta {
+  font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.4 var(--ejm-font-mono);
+  letter-spacing: 0; color: var(--ejm-muted); font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Facts: labelled rows with a hairline between them ----------
+   .ejm-facts is its own container, so it stacks by its own width, not the screen's. */
+.ejm-site .ejm-facts { container: ejm-facts / inline-size; inline-size: 100%; margin: 0; padding: 0; }
+.ejm-site .ejm-facts__row {
+  display: grid; grid-template-columns: minmax(5.5rem, 9.5rem) minmax(0, 1fr); align-items: baseline;
+  gap: var(--ejm-space-1) var(--ejm-space-6); padding-block: var(--ejm-space-3);
+}
+.ejm-site .ejm-facts__row + .ejm-facts__row { border-block-start: 1px solid var(--ejm-hairline); }
+.ejm-site .ejm-facts dt {
+  margin: 0; min-inline-size: 0; overflow-wrap: anywhere;
+  font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.4 var(--ejm-font-mono); letter-spacing: 0; color: var(--ejm-muted);
+}
+.ejm-site .ejm-facts dd {
+  margin: 0; min-inline-size: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums;
+  font-weight: 500; font-size: var(--ejm-body-size); line-height: 1.45; color: var(--ejm-fg);
+}
+@container ejm-facts (max-width: 359.98px) {
+  .ejm-site .ejm-facts__row { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Feed: dated entries as rows, no cards ----------
+   Narrow: date and category on one line, then the title and the description. Wide: date, title and text, category.
+   The title link stretches over the whole row, so the whole entry is the target and the focus ring draws around it. */
+.ejm-site .ejm-feed { container: ejm-feed / inline-size; inline-size: 100%; margin: 0; padding: 0; list-style: none; }
+.ejm-site .ejm-feed__item {
+  position: relative; display: grid; align-items: baseline;
+  grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'date category' 'title title' 'text text';
+  gap: var(--ejm-space-2) var(--ejm-space-4); padding-block: var(--ejm-space-6);
+}
+.ejm-site .ejm-feed__item + .ejm-feed__item { border-block-start: 1px solid var(--ejm-hairline); }
+.ejm-site .ejm-feed__date {
+  grid-area: date; font: var(--ejm-weight-technical) var(--ejm-caption-size) / 1.4 var(--ejm-font-mono);
+  color: var(--ejm-muted); font-variant-numeric: tabular-nums;
+}
+.ejm-site .ejm-feed__category {
+  grid-area: category; justify-self: end; text-align: end;
+  font: var(--ejm-weight-heading) var(--ejm-caption-size) / 1.4 var(--ejm-font-sans); color: var(--ejm-muted);
+}
+.ejm-site .ejm-feed__title {
+  grid-area: title; margin: 0; max-inline-size: 28ch;
+  font: var(--ejm-weight-heading) clamp(20px, 0.7vw + 17px, calc(28px * var(--ejm-scale, 1))) / 1.25 var(--ejm-font-sans); letter-spacing: -0.02em;
+}
+.ejm-site .ejm-feed__text { grid-area: text; margin: 0; max-inline-size: 60ch; color: var(--ejm-muted); }
+.ejm-site .ejm-feed__link {
+  display: inline-flex; align-items: center; color: inherit; text-decoration: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--ejm-duration-fast, 150ms) var(--ejm-ease-standard, ease);
+}
+.ejm-site .ejm-feed__link::after { content: ''; position: absolute; inset: calc(-1 * var(--ejm-space-2)) calc(-1 * var(--ejm-space-3)); border-radius: var(--ejm-radius-medium); }
+.ejm-site .ejm-feed__item:hover .ejm-feed__link, .ejm-site .ejm-feed__link:focus-visible { text-decoration-color: currentColor; }
+.ejm-site .ejm-feed__link:focus-visible { outline: 0; }
+.ejm-site .ejm-feed__link:focus-visible::after { outline: 2px solid var(--ejm-btn-ring, currentColor); outline-offset: 0; }
+@container ejm-feed (min-width: 640px) {
+  .ejm-site .ejm-feed__item {
+    grid-template-columns: minmax(6.5rem, 9rem) minmax(0, 1fr) minmax(6rem, auto);
+    grid-template-areas: 'date title category' '. text .'; column-gap: var(--ejm-space-8);
+  }
+}
+
+/* ---------- Buttons and links: rest, hover, focus, pressed ----------
+   The button colors come from 11-balance (--ejm-btn-*). This part adds the pressed tone, a steadier focus ring,
+   the arrow and the touch size, written with higher specificity so those parts stay untouched. */
+.ejm-site .ejm-button:focus-visible { outline: 2px solid var(--ejm-btn-ring); outline-offset: 3px; }
+.ejm-site .ejm-button:active:not(:disabled) {
+  color: var(--ejm-btn-fg-hover); border-color: transparent;
+  background: color-mix(in srgb, var(--ejm-btn-bg-hover) 84%, var(--ejm-ink));
+}
+.ejm-site .ejm-button.ejm-button--secondary:active:not(:disabled) {
+  color: var(--ejm-fg); border-color: transparent; background: color-mix(in srgb, var(--ejm-fg) 22%, transparent);
+}
+.ejm-site .ejm-link:focus-visible { outline-offset: 3px; border-radius: var(--ejm-radius-small); }
+.ejm-site .ejm-link:active { color: var(--ejm-component-hover); text-decoration-thickness: 2px; }
+
+/* Arrow: a trailing arrow that moves a short distance on hover and focus. Internal destinations only; links that
+   leave the site keep the small external arrow from 12-external. */
+.ejm-site .ejm-button--arrow { gap: var(--ejm-space-2); }
+.ejm-site a.ejm-link--arrow {
+  display: inline-flex; align-items: center; gap: var(--ejm-space-2); font-weight: var(--ejm-weight-heading);
+  text-decoration-line: underline; text-decoration-color: transparent; text-underline-offset: 0.25em;
+}
+.ejm-site a.ejm-link--arrow:hover, .ejm-site a.ejm-link--arrow:focus-visible { text-decoration-color: currentColor; }
+.ejm-site :is(.ejm-button--arrow, a.ejm-link--arrow)::after {
+  content: ''; flex: none; inline-size: 1.1em; block-size: 1.1em; background-color: currentColor;
+  -webkit-mask: url('../icons/arrow-right.svg') center / contain no-repeat; mask: url('../icons/arrow-right.svg') center / contain no-repeat;
+}
+.ejm-site .ejm-button--arrow[rel~='external']::after { -webkit-mask-image: url('../icons/arrow-up-right.svg'); mask-image: url('../icons/arrow-up-right.svg'); }
+@media (prefers-reduced-motion: no-preference) {
+  .ejm-site :is(.ejm-button--arrow, a.ejm-link--arrow)::after { transition: transform var(--ejm-duration-base, 240ms) var(--ejm-ease-standard, ease); }
+  .ejm-site :is(.ejm-button--arrow, a.ejm-link--arrow):focus-visible::after { transform: translateX(4px); }
+  .ejm-site .ejm-button--arrow[rel~='external']:focus-visible::after { transform: translate(3px, -3px); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .ejm-site :is(.ejm-button--arrow, a.ejm-link--arrow):hover::after { transform: translateX(4px); }
+  .ejm-site .ejm-button--arrow[rel~='external']:hover::after { transform: translate(3px, -3px); }
+}
+
+/* Touch: every button and standalone link is at least 44px in both directions. Links inside a sentence keep the
+   line they are in. */
+@media (pointer: coarse) {
+  .ejm-site .ejm-button { min-block-size: 44px; min-inline-size: 44px; }
+  .ejm-site :is(a.ejm-link--arrow, .ejm-feed__link) { min-block-size: 44px; min-inline-size: 44px; }
+}
+
+@media (forced-colors: active) {
+  .ejm-site :is(.ejm-button--arrow, a.ejm-link--arrow)::after { forced-color-adjust: none; background-color: CanvasText; }
+  .ejm-site .ejm-feed__link:focus-visible::after { outline-color: Highlight; }
+}

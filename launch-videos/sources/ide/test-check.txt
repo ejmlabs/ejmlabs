@@ -1,0 +1,15 @@
+
+running 2 tests
+test money::tests::totals_include_quantity_and_discount ... ok
+test orders::tests::quote_includes_quantity_and_discount ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running unittests src/lib.rs (/private/tmp/ejm-ide-native-session-20261019/sample-target/debug/deps/harbor-e641f854585db1ba)
+   Doc-tests harbor

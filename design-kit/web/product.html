@@ -1,0 +1,334 @@
+<!-- Retained historical source. Asset paths and kit instructions describe an earlier snapshot. This file is not a standalone current gallery or a published product. See design-kit/README.md. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Product windows, ejmlabs</title>
+  <meta name="description" content="A hero that opens on the product: layered, simulated windows of ejm-cli, ejm-ide and ejm-harness with three levels of depth and a short staged entrance.">
+  <meta name="theme-color" content="#F6F5EF">
+  <!-- Loaded here, synchronously, so the saved theme is applied before the first paint. Keep it after the theme-color meta tag. -->
+  <script src="/design-kit/web/theme.js"></script>
+  <script src="/design-kit/web/motion.js"></script>
+  <script src="/design-kit/web/analytics.js" defer></script>
+  <link rel="canonical" href="https://ejmlabs.com/design-kit/web/product.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Product windows, ejmlabs">
+  <meta property="og:description" content="A hero that opens on the product: layered, simulated windows with depth and a short staged entrance.">
+  <meta property="og:url" content="https://ejmlabs.com/design-kit/web/product.html">
+  <meta property="og:image" content="https://ejmlabs.com/design-kit/social/social-card.png">
+  <link rel="icon" href="/design-kit/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/design-kit/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/design-kit/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/design-kit/favicon/site.webmanifest">
+  <link rel="preload" href="/design-kit/fonts/Manrope-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/design-kit/tokens/brand.css">
+  <link rel="stylesheet" href="/design-kit/components/brand-components.css">
+  <link rel="stylesheet" href="/design-kit/web/site.css">
+</head>
+<body class="ejm-site">
+  <a class="ejm-skip" href="#main">Skip to content</a>
+
+  <!-- Product hero: copy first, then the layered windows. The windows are decorative (aria-hidden); the label is real text. -->
+  <div class="ejm-hero ejm-product-hero">
+    <header class="ejm-header ejm-page">
+      <a class="ejm-header__logo" href="../index.html" aria-label="ejmlabs design kit"><span class="ejm-logo" role="img" aria-label="ejmlabs"></span></a>
+      <div class="ejm-header__tools">
+        <details class="ejm-menu">
+          <summary><span class="ejm-menu__label">Menu</span></summary>
+          <nav class="ejm-nav" aria-label="Main">
+            <a href="../index.html">Design kit</a>
+            <a href="patterns.html">Patterns</a>
+            <a href="demos.html">Demos</a>
+            <a href="product.html" aria-current="page">Product</a>
+          </nav>
+        </details>
+        <button class="ejm-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ejm-icon ejm-icon--moon" aria-hidden="true"></span><span class="ejm-sr">Dark mode</span></button>
+      </div>
+    </header>
+    <div class="ejm-hero__body ejm-page">
+      <div class="ejm-product-hero__copy ejm-enter">
+        <p class="ejm-eyebrow">product hero</p>
+        <h1 class="ejm-display">Open on the product. <span class="ejm-display__quiet">Then explain it.</span></h1>
+        <p class="ejm-lead">A terminal agent, an editor with Edi beside it, and the engine under both. These screens are simulated from the same scripts as the demos.</p>
+        <div class="ejm-cluster">
+          <a class="ejm-button" href="demos.html">Try the demos</a>
+          <a class="ejm-button ejm-button--secondary" href="#windows">See each window</a>
+        </div>
+      </div>
+      <figure class="ejm-product">
+        <div class="ejm-product__stage" aria-hidden="true">
+        <div class="ejm-product__window ejm-product__window--ide">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">ejm-ide</span><span class="ejm-product__meta">harbor</span></div>
+          <div class="ejm-product__body ejm-product__ide">
+            <div class="ejm-product__pane">
+              <div class="ejm-product__tabs"><span class="ejm-product__tab" data-selected="true">src/retry.rs</span></div>
+              <div class="ejm-product__code">
+              <span class="ejm-product__line"><span data-syn="kw">use</span> std::time::{<span data-syn="ty">Duration</span>, <span data-syn="ty">Instant</span>};</span>
+              <span class="ejm-product__line"></span>
+              <span class="ejm-product__line"><span data-syn="cm">/// Wait before the next attempt, doubling each time.</span></span>
+              <span class="ejm-product__line"><span data-syn="kw">pub</span> <span data-syn="kw">fn</span> <span data-syn="fn">retry_backoff</span>(attempt: <span data-syn="ty">u32</span>) -&gt; <span data-syn="ty">Duration</span> {</span>
+              <span class="ejm-product__line">    <span data-syn="ty">Duration</span>::<span data-syn="fn">from_millis</span>(100 &lt;&lt; attempt.<span data-syn="fn">min</span>(6))</span>
+              <span class="ejm-product__line">}</span>
+              <span class="ejm-product__line"></span>
+              <span class="ejm-product__line"><span data-syn="cm">/// True while the retry window is still open.</span></span>
+              <span class="ejm-product__line"><span data-syn="kw">pub</span> <span data-syn="kw">fn</span> <span data-syn="fn">window_open</span>(started: <span data-syn="ty">Instant</span>, budget: <span data-syn="ty">Duration</span>) -&gt; <span data-syn="ty">bool</span> {</span>
+              <span class="ejm-product__line" data-tone="mark">    <span data-syn="kw">let</span> now = <span data-syn="ty">Instant</span>::<span data-syn="fn">now</span>();</span>
+              <span class="ejm-product__line">    now.<span data-syn="fn">duration_since</span>(started) &lt; budget</span>
+              <span class="ejm-product__line">}</span>
+              </div>
+            </div>
+            <div class="ejm-product__pane">
+              <div class="ejm-product__tabs"><span class="ejm-product__tab" data-selected="true">Edi</span></div>
+              <div class="ejm-product__msg" data-from="you"><span class="ejm-product__who">You</span><p class="ejm-product__text">Fix the flaky retry test</p></div>
+              <div class="ejm-product__msg"><span class="ejm-product__who">Edi</span><p class="ejm-product__text">window_open reads the wall clock, so a slow machine can pass the 1 ms budget before the assertion runs.</p></div>
+              <div class="ejm-product__tool">
+                <div class="ejm-product__tool-head"><span>File write</span><span>src/retry.rs</span><span>proposed</span></div>
+                <div class="ejm-product__diff">
+                  <span class="ejm-product__line" data-tone="del">-pub fn window_open(started: Instant, budget: Duration) -&gt; bool {</span>
+                  <span class="ejm-product__line" data-tone="del">-    let now = Instant::now();</span>
+                  <span class="ejm-product__line" data-tone="add">+pub fn window_open(started: Instant, now: Instant, budget: Duration) -&gt; bool {</span>
+                  <span class="ejm-product__line">     now.duration_since(started) &lt; budget</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ejm-product__window ejm-product__window--cli">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">ejm-cli</span><span class="ejm-product__meta">~/code/harbor</span></div>
+          <div class="ejm-product__body ejm-product__term">
+            <span class="ejm-product__line" data-tone="dim">replay  ·  grants: read</span>
+            <span class="ejm-product__line" data-tone="accent">you</span>
+            <span class="ejm-product__line">Fix the flaky retry test</span>
+            <span class="ejm-product__line" data-tone="accent">ejm-cli</span>
+            <span class="ejm-product__line" data-wrap>I will read the retry module and find where it reads the clock.</span>
+            <span class="ejm-product__line">▸ read src/retry.rs</span>
+            <span class="ejm-product__line" data-tone="err">✗ write src/retry.rs blocked</span>
+            <span class="ejm-product__line" data-tone="warn" data-wrap>! write was blocked because write access is off.</span>
+            <span class="ejm-product__composer">Message</span>
+            <span class="ejm-product__line" data-tone="dim" data-wrap>Enter send  ·  Ctrl+C stop  ·  /help</span>
+          </div>
+        </div>
+        <div class="ejm-product__window ejm-product__window--harness">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">ejm-harness</span><span class="ejm-product__meta">sample</span></div>
+          <div class="ejm-product__body ejm-product__gov">
+            <p class="ejm-product__cap">Resource governor, default limits</p>
+            <ul class="ejm-product__stats">
+              <li class="ejm-product__stat"><b>8</b><span>model requests</span></li>
+              <li class="ejm-product__stat"><b>4</b><span>local jobs</span></li>
+              <li class="ejm-product__stat"><b>1</b><span>heavy job</span></li>
+            </ul>
+            <p class="ejm-product__cap">Event journal, sample</p>
+            <div>
+              <span class="ejm-product__line">session.queued    session-a1</span>
+              <span class="ejm-product__line" data-tone="err">worker.crashed    </span>
+              <span class="ejm-product__line">recovery.replay   session-a1</span>
+              <span class="ejm-product__line">session.resumed   session-a1</span>
+            </div>
+          </div>
+        </div>
+        </div>
+        <figcaption class="ejm-product__label">Simulated screen. ejm-cli, ejm-ide and ejm-harness, not a live demo.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="ejm-band ejm-band--mist" id="windows" aria-labelledby="windows-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">windows</p>
+            <h2 class="ejm-h2" id="windows-title">One window for each product.</h2>
+          </div>
+          <p class="ejm-head__text">Each window shows a real screen layout and words from the demo scenario. It names only commands, keys and states the product documents, and it shows no results or customers.</p>
+        </div>
+        <div class="ejm-cols ejm-cols--3">
+          <figure class="ejm-product">
+            <div class="ejm-product__stage" aria-hidden="true">
+        <div class="ejm-product__window ejm-product__window--cli">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">ejm-cli</span><span class="ejm-product__meta">~/code/harbor</span></div>
+          <div class="ejm-product__body ejm-product__term">
+            <span class="ejm-product__line" data-tone="dim">replay  ·  grants: read</span>
+            <span class="ejm-product__line" data-tone="accent">you</span>
+            <span class="ejm-product__line">Fix the flaky retry test</span>
+            <span class="ejm-product__line" data-tone="accent">ejm-cli</span>
+            <span class="ejm-product__line" data-wrap>I will read the retry module and find where it reads the clock.</span>
+            <span class="ejm-product__line">▸ read src/retry.rs</span>
+            <span class="ejm-product__line" data-tone="err">✗ write src/retry.rs blocked</span>
+            <span class="ejm-product__line" data-tone="warn" data-wrap>! write was blocked because write access is off.</span>
+            <span class="ejm-product__composer">Message</span>
+            <span class="ejm-product__line" data-tone="dim" data-wrap>Enter send  ·  Ctrl+C stop  ·  /help</span>
+          </div>
+        </div>
+            </div>
+            <figcaption class="ejm-product__label">Simulated screen. ejm-cli, drawn from the demo scenario.</figcaption>
+          </figure>
+          <figure class="ejm-product">
+            <div class="ejm-product__stage" aria-hidden="true">
+        <div class="ejm-product__window ejm-product__window--ide">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">ejm-ide</span><span class="ejm-product__meta">harbor</span></div>
+          <div class="ejm-product__body ejm-product__ide">
+            <div class="ejm-product__pane">
+              <div class="ejm-product__tabs"><span class="ejm-product__tab" data-selected="true">src/retry.rs</span></div>
+              <div class="ejm-product__code">
+              <span class="ejm-product__line"><span data-syn="kw">use</span> std::time::{<span data-syn="ty">Duration</span>, <span data-syn="ty">Instant</span>};</span>
+              <span class="ejm-product__line"></span>
+              <span class="ejm-product__line"><span data-syn="cm">/// Wait before the next attempt, doubling each time.</span></span>
+              <span class="ejm-product__line"><span data-syn="kw">pub</span> <span data-syn="kw">fn</span> <span data-syn="fn">retry_backoff</span>(attempt: <span data-syn="ty">u32</span>) -&gt; <span data-syn="ty">Duration</span> {</span>
+              <span class="ejm-product__line">    <span data-syn="ty">Duration</span>::<span data-syn="fn">from_millis</span>(100 &lt;&lt; attempt.<span data-syn="fn">min</span>(6))</span>
+              <span class="ejm-product__line">}</span>
+              <span class="ejm-product__line"></span>
+              <span class="ejm-product__line"><span data-syn="cm">/// True while the retry window is still open.</span></span>
+              <span class="ejm-product__line"><span data-syn="kw">pub</span> <span data-syn="kw">fn</span> <span data-syn="fn">window_open</span>(started: <span data-syn="ty">Instant</span>, budget: <span data-syn="ty">Duration</span>) -&gt; <span data-syn="ty">bool</span> {</span>
+              <span class="ejm-product__line" data-tone="mark">    <span data-syn="kw">let</span> now = <span data-syn="ty">Instant</span>::<span data-syn="fn">now</span>();</span>
+              <span class="ejm-product__line">    now.<span data-syn="fn">duration_since</span>(started) &lt; budget</span>
+              <span class="ejm-product__line">}</span>
+              </div>
+            </div>
+            <div class="ejm-product__pane">
+              <div class="ejm-product__tabs"><span class="ejm-product__tab" data-selected="true">Edi</span></div>
+              <div class="ejm-product__msg" data-from="you"><span class="ejm-product__who">You</span><p class="ejm-product__text">Fix the flaky retry test</p></div>
+              <div class="ejm-product__msg"><span class="ejm-product__who">Edi</span><p class="ejm-product__text">window_open reads the wall clock, so a slow machine can pass the 1 ms budget before the assertion runs.</p></div>
+              <div class="ejm-product__tool">
+                <div class="ejm-product__tool-head"><span>File write</span><span>src/retry.rs</span><span>proposed</span></div>
+                <div class="ejm-product__diff">
+                  <span class="ejm-product__line" data-tone="del">-pub fn window_open(started: Instant, budget: Duration) -&gt; bool {</span>
+                  <span class="ejm-product__line" data-tone="del">-    let now = Instant::now();</span>
+                  <span class="ejm-product__line" data-tone="add">+pub fn window_open(started: Instant, now: Instant, budget: Duration) -&gt; bool {</span>
+                  <span class="ejm-product__line">     now.duration_since(started) &lt; budget</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+            <figcaption class="ejm-product__label">Simulated screen. ejm-ide, drawn from the demo scenario.</figcaption>
+          </figure>
+          <figure class="ejm-product">
+            <div class="ejm-product__stage" aria-hidden="true">
+        <div class="ejm-product__window ejm-product__window--harness">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">ejm-harness</span><span class="ejm-product__meta">sample</span></div>
+          <div class="ejm-product__body ejm-product__gov">
+            <p class="ejm-product__cap">Resource governor, default limits</p>
+            <ul class="ejm-product__stats">
+              <li class="ejm-product__stat"><b>8</b><span>model requests</span></li>
+              <li class="ejm-product__stat"><b>4</b><span>local jobs</span></li>
+              <li class="ejm-product__stat"><b>1</b><span>heavy job</span></li>
+            </ul>
+            <p class="ejm-product__cap">Event journal, sample</p>
+            <div>
+              <span class="ejm-product__line">session.queued    session-a1</span>
+              <span class="ejm-product__line" data-tone="err">worker.crashed    </span>
+              <span class="ejm-product__line">recovery.replay   session-a1</span>
+              <span class="ejm-product__line">session.resumed   session-a1</span>
+            </div>
+          </div>
+        </div>
+            </div>
+            <figcaption class="ejm-product__label">Simulated screen. ejm-harness, with sample events.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="ejm-band" id="depth" aria-labelledby="depth-title">
+      <div class="ejm-page">
+        <div class="ejm-head">
+          <div class="ejm-head__title">
+            <p class="ejm-eyebrow">depth</p>
+            <h2 class="ejm-h2" id="depth-title">Three levels of elevation.</h2>
+          </div>
+          <p class="ejm-head__text">Rest, raised and float are the only shadows in the kit. Only product windows, menus and overlays use them. Cards, tags and panels stay flat.</p>
+        </div>
+        <div class="ejm-cols ejm-cols--3">
+          <figure class="ejm-product">
+            <div class="ejm-product__stage" aria-hidden="true">
+        <div data-elevation="rest" class="ejm-product__window ejm-product__window--harness">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">rest</span><span class="ejm-product__meta">ejm-harness</span></div>
+          <div class="ejm-product__body ejm-product__gov">
+            <p class="ejm-product__cap">Resource governor, default limits</p>
+            <ul class="ejm-product__stats">
+              <li class="ejm-product__stat"><b>8</b><span>model requests</span></li>
+              <li class="ejm-product__stat"><b>4</b><span>local jobs</span></li>
+              <li class="ejm-product__stat"><b>1</b><span>heavy job</span></li>
+            </ul>
+            <p class="ejm-product__cap">Event journal, sample</p>
+            <div>
+              <span class="ejm-product__line">session.queued    session-a1</span>
+              <span class="ejm-product__line" data-tone="err">worker.crashed    </span>
+              <span class="ejm-product__line">recovery.replay   session-a1</span>
+              <span class="ejm-product__line">session.resumed   session-a1</span>
+            </div>
+          </div>
+        </div>
+            </div>
+            <figcaption class="ejm-product__label">Simulated screen. Rest elevation.</figcaption>
+          </figure>
+          <figure class="ejm-product">
+            <div class="ejm-product__stage" aria-hidden="true">
+        <div data-elevation="raised" class="ejm-product__window ejm-product__window--harness">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">raised</span><span class="ejm-product__meta">ejm-harness</span></div>
+          <div class="ejm-product__body ejm-product__gov">
+            <p class="ejm-product__cap">Resource governor, default limits</p>
+            <ul class="ejm-product__stats">
+              <li class="ejm-product__stat"><b>8</b><span>model requests</span></li>
+              <li class="ejm-product__stat"><b>4</b><span>local jobs</span></li>
+              <li class="ejm-product__stat"><b>1</b><span>heavy job</span></li>
+            </ul>
+            <p class="ejm-product__cap">Event journal, sample</p>
+            <div>
+              <span class="ejm-product__line">session.queued    session-a1</span>
+              <span class="ejm-product__line" data-tone="err">worker.crashed    </span>
+              <span class="ejm-product__line">recovery.replay   session-a1</span>
+              <span class="ejm-product__line">session.resumed   session-a1</span>
+            </div>
+          </div>
+        </div>
+            </div>
+            <figcaption class="ejm-product__label">Simulated screen. Raised elevation.</figcaption>
+          </figure>
+          <figure class="ejm-product">
+            <div class="ejm-product__stage" aria-hidden="true">
+        <div data-elevation="float" class="ejm-product__window ejm-product__window--harness">
+          <div class="ejm-product__bar"><span class="ejm-product__dots"></span><span class="ejm-product__title">float</span><span class="ejm-product__meta">ejm-harness</span></div>
+          <div class="ejm-product__body ejm-product__gov">
+            <p class="ejm-product__cap">Resource governor, default limits</p>
+            <ul class="ejm-product__stats">
+              <li class="ejm-product__stat"><b>8</b><span>model requests</span></li>
+              <li class="ejm-product__stat"><b>4</b><span>local jobs</span></li>
+              <li class="ejm-product__stat"><b>1</b><span>heavy job</span></li>
+            </ul>
+            <p class="ejm-product__cap">Event journal, sample</p>
+            <div>
+              <span class="ejm-product__line">session.queued    session-a1</span>
+              <span class="ejm-product__line" data-tone="err">worker.crashed    </span>
+              <span class="ejm-product__line">recovery.replay   session-a1</span>
+              <span class="ejm-product__line">session.resumed   session-a1</span>
+            </div>
+          </div>
+        </div>
+            </div>
+            <figcaption class="ejm-product__label">Simulated screen. Float elevation.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ejm-band ejm-band--ink ejm-footer">
+    <div class="ejm-page">
+      <div class="ejm-footer__grid">
+        <div class="ejm-footer__brand">
+          <span class="ejm-logo ejm-logo--large" role="img" aria-label="ejmlabs"></span>
+          <p class="ejm-footer__signature">Small experiments. Useful things.</p>
+        </div>
+        <div class="ejm-footer__groups">
+          <div><h2>kit</h2><ul><li><a href="patterns.html">Patterns</a></li><li><a href="demos.html">Demos</a></li><li><a href="PRODUCT.md">Product catalog</a></li></ul></div>
+        </div>
+      </div>
+      <p class="ejm-footer__legal">&copy; 2026 ejmlabs.</p>
+    </div>
+  </footer>
+</body>
+</html>

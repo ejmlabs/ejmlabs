@@ -1,5 +1,7 @@
 # Terminal app guide
 
+Historical source and review record. See the [retained-source notice](../README.md). File paths, commands, and asset availability below describe the earlier kit, not current production.
+
 How every ejmlabs terminal app looks and behaves. It describes the `ejm-cli` screen, which is the reference, and applies to any ratatui or other TUI we build. Preview it in `index.html`.
 
 Colors come from `rust/ejm_theme.rs`, generated from `theme.json`. Copy that file into a Rust app rather than keeping a palette of your own. The widgets in this guide are implemented in `rust/ejm_tui.rs`, which sits on top of it. See all of them rendered in `tui.html`.
@@ -97,6 +99,27 @@ Box borders are rounded (`╭ ╮ ╰ ╯ │ ─`), or `+ - |` in ASCII. Count 
 | Scrolled up | `↑ N lines above latest · End to follow` in the status line. |
 | Failed request | Error block: what failed, then the next step. The session stays open. |
 | Grants on | Header grants line in warning, spelled out: `grants: write, shell`. |
+| Loading | `⠋ Loading sessions…` in bold accent, then a dim hint. Dotted rows in the final column widths for a table. With reduced motion the spinner is the static `●`. |
+| Empty | A title, one dim sentence, and one `[key] action` line when there is something to do. Never a zero or a blank area. |
+| Failed list, table or panel | `✗ What failed` in bold error, one plain sentence of what to do, and one `[key] action` line. |
+
+### Same states as the application kit
+
+The terminal and the application screens follow one set of states, one spacing rhythm and the same color roles. A screen in either place has the same parts in the same order.
+
+| Application kit | Terminal helper |
+| --- | --- |
+| `ejm-ui-stat` tile | `stat_line` |
+| `ejm-ui-hbar` row | `bar_line` |
+| `ejm-ui-table` row | `table_row` |
+| `ejm-ui-skel` bones | `loading_row`, `loading_state` |
+| `ejm-ui-empty` with one button | `empty_state_action` |
+| `ejm-ui-empty--error` with one button | `error_state_action` |
+| `ejm-ui-banner` | `banner` |
+| `ejm-ui-progress` | `progress_bar`, `progress_line` |
+| `ejm-ui-status` dot and word | `status_line`, `step_line` |
+
+Spacing language: a one-cell pad on both sides of every line; one blank line between regions; titles of states indented two cells, with their sentences flush under the pad; a glyph line hangs its text under the first word; columns are two spaces apart; every block that can be empty, loading or failed keeps the same height rhythm in each state. Under `NO_COLOR` the roles collapse to bold and plain, and each state is still named by a word (`Loading`, the title) or a glyph (`✗`, `x`).
 
 ## Keys
 
@@ -400,6 +423,32 @@ In the first model line the answer is empty and the dim hint shows; in the secon
 - **Helper:** `empty_state(&theme, title, &help, width)`.
 - **Plain:** the title stays bold.
 
+With an action. One sentence says what is missing, one line offers the way out. Use this whenever the user can do something about it:
+
+```
+
+   No sessions yet
+
+ Sessions you start are listed here.
+
+ [Enter] New session
+```
+
+At 30 columns:
+
+```
+
+   No sessions yet
+
+ Sessions you start are
+ listed here.
+
+ [Enter] New session
+```
+
+- **Action helper:** `empty_state_action(&theme, glyphs, title, &help, key, label, width)`, and `action_line(&theme, glyphs, key, label, width)` for the line alone. The key is bold accent, so it survives `NO_COLOR`. Offer at most one action. When there is none to offer, use `empty_state`.
+- **Never** show a zero, an empty box or a blank area instead of this.
+
 ### Error state
 
 ```
@@ -416,6 +465,104 @@ In the first model line the answer is empty and the dim hint shows; in the secon
 - **Width:** wraps at spaces.
 - **Helper:** `error_state(&theme, what, next, width)`. For an error with a glyph on its own line, use a banner.
 - **Plain:** bold from the error role; the words carry the meaning.
+
+With an action. The glyph and the words say what failed, the next sentence says what to do, and one line offers the retry. The text hangs under the first word:
+
+```
+
+   ✗ Could not load sessions
+     The service did not answer. Your work is safe.
+
+     [R] Try again
+```
+
+At 30 columns:
+
+```
+
+   ✗ Could not load sessions
+     The service did not
+     answer. Your work is
+     safe.
+
+     [R] Try again
+```
+
+Under `--plain` or `NO_COLOR` the `x` and the words carry it:
+
+```
+
+   x Could not load sessions
+     The service did not answer. Your work is safe.
+
+     [R] Try again
+```
+
+- **Action helper:** `error_state_action(&theme, glyphs, what, next, key, label, width)`. It starts with the fail glyph, so the state reads without color. Prefer it for any failed list, table or panel; `error_state` stays for a plain two-sentence error inside the transcript.
+
+### Loading state
+
+```
+
+   ⠸ Loading sessions…
+
+ Esc cancels. Nothing is lost if you wait.
+
+
+ session                   model                   tokens
+ ......                    ......                  ......
+ ......                    ......                  ......
+ ......                    ......                  ......
+```
+
+At 40 columns, with reduced motion (the static running glyph):
+
+```
+
+   ● Loading sessions…
+```
+
+Under `--plain` or `NO_COLOR`, ASCII glyph, bold only:
+
+```
+
+   * Loading sessions...
+```
+
+- **When:** a list, table, panel or screen is waiting for data. It keeps the final layout: the same rows and columns, so nothing jumps when the data arrives. Use a spinner and a sentence when the length is unknown, and the progress bar when it is known.
+- **Roles:** the spinner and `Loading <what>…` bold accent; the hint dim; the dotted rows dim.
+- **Width:** the title is cut with an ellipsis, the hint wraps at spaces. Spacing is the same as the empty state, a blank line above and below the title. Dotted rows use the column widths of the table they stand in for.
+- **Helper:** `loading_state(&theme, glyphs, what, hint, spinner, width)`, `loading_row(&theme, &[(width, Align)])`. Pass `spinner_frame(glyphs, elapsed_ms, reduced_motion)` as `spinner`.
+- **Plain:** the word "Loading" is always there, the dots are ASCII, and the spinner is the static `*` with reduced motion, `NO_COLOR` or `--plain`.
+
+### Stat and bar lines
+
+```
+ Sessions            128       +12 vs last week
+ Tokens              2.3M      +41% vs last week
+ Cost                $11.97    estimated, not billed
+ Failed tool calls   -         No data yet
+
+ deepseek-chat       [=================================================]   128
+ deepseek-reasoner   [===============>---------------------------------]    41
+ local-qwen          [=======>-----------------------------------------]    19
+ provider-b-large    [==>----------------------------------------------]     6
+```
+
+At 40 columns:
+
+```
+ Sessions    128     +12 vs last week
+ Tokens      2.3M    +41% vs last week
+ deepseek-…  [=================]   128
+ local-qwen  [==>--------------]    19
+```
+
+- **When:** a summary number (stat) or a ranked share (bar) on a dashboard screen. They are the terminal form of the application kit's stat tile and horizontal bar. Figures here are sample data.
+- **Roles:** stat label dim, value bold, change success, error or dim by `Tone`; bar label plain, bar accent, value bold.
+- **Width:** label and value columns are fixed and padded; the line is cut with an ellipsis. The bar fills the spare width and is always ASCII (`=`, `>`, `-`), exactly as the progress bar. The change carries its sign in the text ("+12", "-2"), and the bar always has its number beside it, so neither depends on color.
+- **Helper:** `stat_line(&theme, glyphs, label, value, delta, Tone, label_width, value_width, width)`, `bar_line(&theme, glyphs, label, label_width, fraction, value, value_width, width)`. An empty `value` shows a dim dash, never zero; put the reason in `delta`.
+- **Plain:** no change beyond the roles: bold stays bold, the signs and numbers are text.
 
 ### Too small
 
@@ -480,13 +627,70 @@ Each recipe is the widgets for one kind of screen, top to bottom. Heights are in
 6. Key hints, 1 line: Enter accept, Esc cancel.
 7. In `--plain` mode or when stdin is not a terminal, skip the screen: read flags and print plain lines.
 
+### Dashboard screen
+
+1. Header line: the name in bold accent, then the period and "sample data" in dim, separated by `·`.
+2. Stat lines, three or four, with the changes in one column.
+3. A dim section label, then bar lines for the ranked shares.
+4. A table with a dim header row, numbers right aligned.
+5. One step line while a refresh runs.
+6. Key hints, 1 line: refresh first, then navigation, then quit.
+7. Every block has its states: loading with `loading_state` or `loading_row`, empty with `empty_state_action`, failed with `error_state_action`.
+
+```
+ Usage  ·  last 7 days  ·  sample data
+
+ Sessions            128       +12 vs last week
+ Tokens              2.3M      +41% vs last week
+ Cost                $11.97    estimated, not billed
+
+ Sessions by model
+ deepseek-chat       [=================================================]   128
+ deepseek-reasoner   [===============>---------------------------------]    41
+ local-qwen          [=======>-----------------------------------------]    19
+
+ session                         model                   tokens  state
+ Fix the flaky retry test        deepseek-chat          418,200  done
+ Add pagination to the API       deepseek-reasoner      866,200  running
+ Rotate provider keys            provider-b-large        48,900  failed
+
+ ⠸ Refreshing usage
+
+ R refresh · Tab next table · Esc quit
+```
+
+Under `NO_COLOR` and `--plain`:
+
+```
+ Usage  -  last 7 days  -  sample data
+
+ Sessions            128       +12 vs last week
+ Tokens              2.3M      +41% vs last week
+ Cost                $11.97    estimated, not billed
+
+ Sessions by model
+ deepseek-chat       [=================================================]   128
+ deepseek-reasoner   [===============>---------------------------------]    41
+ local-qwen          [=======>-----------------------------------------]    19
+
+ session                         model                   tokens  state
+ Fix the flaky retry test        deepseek-chat          418,200  done
+ Add pagination to the API       deepseek-reasoner      866,200  running
+ Rotate provider keys            provider-b-large        48,900  failed
+
+ * Refreshing usage
+
+ R refresh - Tab next table - Esc quit
+```
+
 ## Testing a TUI
 
-Run through this list before shipping a screen. `rust/ejm_tui.rs` has unit tests for the width and fallback rules; the rest you check by eye.
+Run through this list before shipping a screen. `rust/ejm_tui.rs` has unit tests for the width, fallback and state rules (run them with `cargo test` in a crate that includes the module, see below); the rest you check by eye.
 
 - [ ] **80 by 24.** Nothing wraps unexpectedly, nothing is cut that should not be, every region is where the screen anatomy says.
 - [ ] **20 by 8.** The smallest supported size shows the app. At 19 by 8 or 20 by 7 only the too-small text shows.
 - [ ] **`NO_COLOR=1`.** No color anywhere. Warnings, errors and the selected row are still clear from bold, glyphs and reversed video.
+- [ ] **States.** Every list, table and panel shows loading, empty and failed. Each has a sentence, at most one `[key] action`, and no zero or blank area. Under `NO_COLOR` each is still named by a word or a glyph.
 - [ ] **Light and dark.** Run in a light terminal and a dark one, with `COLORFGBG` set and with `--appearance`. Every role is readable on both.
 - [ ] **16 colors.** Unset `COLORTERM` and check the named-color fallback.
 - [ ] **Non-UTF-8 locale.** `LC_ALL=C` shows only ASCII: no box drawing, no `›`, `●`, `✓`, `⠋`, or `…`. `--plain` does the same.
@@ -510,6 +714,24 @@ let theme = Theme::from_env(args.no_color, Appearance::Auto);
 let glyphs = glyphs_from_env(args.plain);
 let hints_line = hints(&theme, glyphs, &[("Enter", "send"), ("Ctrl+C", "stop/quit")], area.width as usize);
 ```
+
+To run the helper tests, make a throwaway crate with the two files as modules and run `cargo test`:
+
+```toml
+# Cargo.toml
+[dependencies]
+ratatui = { version = "0.30", default-features = false, features = ["crossterm_0_29", "layout-cache"] }
+crossterm = "0.29"
+unicode-width = "0.2"
+```
+
+```rust
+// src/lib.rs
+pub mod ejm_theme;
+pub mod ejm_tui;
+```
+
+The tests cover color selection, glyph fallback, wrapping, every state helper, and one test that renders every state under `NO_COLOR` in Unicode and ASCII and checks that no color is set and the state is named by a word or glyph.
 
 Strip terminal control sequences from any text that came from the network, a tool or a file before you hand it to a helper. `ejm-cli` does this with `vte` in `safe_text`.
 

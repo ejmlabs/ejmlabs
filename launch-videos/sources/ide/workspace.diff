@@ -1,0 +1,27 @@
+diff --git a/src/orders.rs b/src/orders.rs
+index 34a2c3d..6aaa25a 100644
+--- a/src/orders.rs
++++ b/src/orders.rs
+@@ -20,3 +20,22 @@ pub fn settle_order(order: &Order, store: &impl Store) -> Result<Receipt, Error>
+ pub fn quote_order(order: &Order) -> Money {
+     calculate_total(&order.items)
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use crate::money::LineItem;
++
++    #[test]
++    fn quote_includes_quantity_and_discount() {
++        let order = Order {
++            key: "quote-1".into(),
++            items: vec![LineItem {
++                unit_price: 1200,
++                quantity: 2,
++                discount_percent: 10,
++            }],
++        };
++        assert_eq!(quote_order(&order), 2160);
++    }
++}

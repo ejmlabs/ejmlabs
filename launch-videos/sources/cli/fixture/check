@@ -1,0 +1,3 @@
+#!/bin/bash
+set -o pipefail
+node --test --test-reporter=tap | sed -nE '/^not ok /p; /^# (tests|pass|fail) /p'
