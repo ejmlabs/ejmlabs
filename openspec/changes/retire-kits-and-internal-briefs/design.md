@@ -451,6 +451,42 @@ lockfile install and focused checks. These local results close tasks 3.6 and
 3.7; tasks 4.1 through 4.3 remain open. No fresh hosted CI, AI review, browser
 check, Cloudflare dry run, release or deployment ran for this slice.
 
+## Remaining local motif and template copies
+
+Land this source-only slice on protected main
+`40fc285`, after the Studio rebuild (#17) and shared UI adoption (#18-#24).
+Remove exactly the measured 51 slice B paths: 39 motifs and 12 templates
+totaling 2,223,201 source bytes. They match the public owner and supply no
+build output; `site/scripts/build.mjs` resolves every motif and template from
+`@ejm/tokens/assets/*`. Keep runtime, generators, resolver, caller/source pins,
+versions, licenses and static review context exact. Retained kit references in
+`design-kit/web/`, `design-kit/index.html` and kit guides are working-kit
+material outside the site build and stay unedited. Studio owns this cleanup
+and output assembly; `ejm-ui` owns the public token assets.
+
+Use the pinned UI source `a5551a056b04bc0c3472afc443621a552747613c` from
+`.github/ui-source.json`. Build before and after deletion and require all
+output paths, bytes and modes to be identical. Run the consistency entry, site
+tests, typecheck, build and budget; add no deletion-only test. Do not edit
+rendered historical kit guides. Reverting this slice restores only the source
+copies and current guidance; output stays exact.
+
+Local checks do not establish hosted review, browser rendering or deployment.
+The new head needs fresh human admission, both complete AI reviews and every
+protected gate. Keep tasks 4.1 through 4.3 open, with full owner site adoption
+and live kit retirement still pending. Do not sync or archive the unfinished
+change.
+
+### Local remaining-copy verification
+
+The exact 51 deleted files match the pinned public-owner Git blobs. Before and
+after builds both emit 184 files and 9,454,596 bytes with identical file bytes
+and modes; the two public ZIPs hold identical entries, bytes and modes and
+differ only in entry timestamps, which every build sets. The consistency
+entry, 23 site tests, typecheck, build and budget pass under Node 24.22.1.
+These local results close tasks 3.8 and 3.9 only. No hosted CI, AI review,
+browser check, Cloudflare dry run, release or deployment ran for this slice.
+
 ## Earlier Verification
 
 The docs phase checked 17 distinct local link targets, strict OpenSpec, and

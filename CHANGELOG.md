@@ -40,7 +40,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 - Inert root X rendered assets and bundled font copies, with their notices, plus retired swag artwork, mockups, and handoff docs.
 - Remaining copied X rendered assets and bundled font copies, with their notices.
 - 64 duplicate local asset and font files, totaling 1,916,019 source bytes, replaced by their exact public owner exports.
-- 41 duplicate local dots, echo, flow, orbit and ripple motif files, totaling 3,264,491 source bytes. The other 39 motif and 12 template copies remain for a later bounded deletion.
+- 41 duplicate local dots, echo, flow, orbit and ripple motif files, totaling 3,264,491 source bytes.
+- The final 39 motif and 12 template copies, totaling 2,223,201 source bytes. The existing public owner exports supply them; build output paths, bytes and modes remain identical for this deletion.
 
 ## [0.1.0] - 2026-10-18
 
