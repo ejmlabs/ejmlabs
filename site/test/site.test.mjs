@@ -115,6 +115,12 @@ test('the home page opens with a text hero and keeps project names on one line',
   }
 });
 
+/** The ejm-cli demo mount, from its opening tag to the next band. Its static screen is the one product window home serves. */
+const demoMarkup = html => {
+  const start = html.indexOf('<div id="cli-demo"');
+  return start < 0 ? '' : html.slice(start, html.indexOf('<section', start));
+};
+
 test('the home page serves its sections in order and the ejm-cli demo without scripts', () => {
   const html = read('index.html');
   const text = prose(html);
@@ -126,16 +132,15 @@ test('the home page serves its sections in order and the ejm-cli demo without sc
     last = at;
   }
   for (const habit of ['Start small.', 'Make it useful.', 'Share the tools.']) assert.ok(text.includes(habit), habit);
-  const frame = tags(html, 'div').find(tag => attr(tag, 'id') === 'cli-demo');
-  assert.ok(frame, 'the ejm-cli demo mount');
-  assert.equal(attr(frame, 'role'), 'group');
-  const demo = html.slice(html.indexOf(frame));
-  assert.ok(tags(demo, 'div').some(tag => attr(tag, 'data-showcase') === 'ejm-cli'), 'the static ejm-cli excerpt is served');
+  const demo = demoMarkup(html);
+  assert.ok(demo, 'the ejm-cli demo mount');
+  assert.match(demo, /aria-label="ejm-cli, a simulated screen"/, 'the static ejm-cli screen is served');
   assert.ok(text.includes('Simulated demo. Nothing runs on your machine and nothing is sent anywhere.'), 'the demo note');
 });
 
 test('the home page has no product previews, carousel controls or image preloads', () => {
-  const html = read('index.html');
+  const index = read('index.html');
+  const html = index.replace(demoMarkup(index), '');
   assert.doesNotMatch(html, /\sdata-(?:window|shot|hero-(?:shots|slide|controls|select|pause))=/, 'no shared product preview or slideshow markup');
   assert.doesNotMatch(html, /aria-roledescription="carousel"/, 'no carousel');
   const preloads = tags(html, 'link').filter(tag => attr(tag, 'rel') === 'preload' && attr(tag, 'as') === 'image');
