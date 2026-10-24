@@ -4,13 +4,25 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Adopt shared brand-name fitting so project names stay on one line.
+
+- Add ejm-ui to Studio project discovery with gallery, documentation and source links.
+
 ### Added
+
+- Public project, About, Brand and Privacy pages with approved marks, clear contribution links and passive product examples.
+- Curated brand and swag downloads with the original rights and font notices.
 
 - Shared repository standards, explicit human admission, protected merge gates, two-pass Codex review, and a draft source release pipeline.
 - Pinned public UI source metadata for trusted shared preparation, retaining all runtime assets and fonts until fresh installed-pipeline verification and owner adoption.
 - Exact static UI install manifests, full lockfile, and owner license for initial dependency review before the installed source pin can supply its archive.
 
 ### Changed
+
+- Propose the accepted shared UI source pin with complete hash-bound review context; site redesign adoption follows protected pin acceptance.
+- Build Studio with public ejm-ui components, tokens, prerendering, motion and site policy.
+- Keep copy brief, remove the home slideshow and retain useful no-script content.
+- Resolve public brand downloads from owner exports instead of restoring duplicate brand asset trees.
 
 - Correct Studio source guidance and record shared `ejm-ui` ownership and the remaining live kit migration.
 - Check generated site output for working links, retained assets and notices, response headers, and absent retired resources.
