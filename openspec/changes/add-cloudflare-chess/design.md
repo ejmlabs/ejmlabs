@@ -8,18 +8,11 @@ The local studio UI-migration checkout consumes public `@ejm/*` packages through
 
 The owner's latest account request on 2026-10-20 requires username/password signup for each player, superseding guest admission for new casual games. Existing guest seats and records remain recoverable without competitive credit. The logo, match replays, automatic tournaments, and unattended ordinary operation remain in scope, superseding the earlier owner-review commitment. The default formats remain 5+3 blitz and 10+5 rapid. Optional review tools do not establish production readiness.
 
-### Planning baseline prerequisite
+### Planning baseline and studio discovery
 
-The four modification targets below exist in the accepted local studio migration, introduced at `3917ca01886280c93795c84126084c32a4415aad` and retained at local main `ef549ada7d4ecb3440d5859a4752812418465fc4`. The dated 2026-10-20 publication record names studio source `caa4ec7f23fb80792e7a4afdb5fc4f8a28a86cea` and shared UI `69cbd4f83e816e613d54a09bf012fd8f2b61bf49`. That record is separate from current GitHub source and is not a fresh provider read. Reviewed GitHub main `c92a4a0df2944e6ac6c22498ad4d132f0518d569` contains only `.gitkeep` under `openspec/specs/` and lacks these targets:
+Merge-base `openspec/specs/` contains only `.gitkeep`. OpenSpec archive refuses `MODIFIED` or `RENAMED` deltas when the target spec is absent. This change therefore adds only new product requirements: `chess-play`, `chess-competition`, `chess-fair-play`, product-owned guide ownership under `documentation-discovery`, and chess-host access/protection under `public-web-access`.
 
-| Spec | Modified requirement |
-| --- | --- |
-| `ejmlabs-site` | `Home page` |
-| `documentation-discovery` | `Direct guide links` |
-| `public-web-access` | `Worldwide public access` |
-| `public-web-access` | `Public production entry points retain edge protection` |
-
-The separate reviewed change `reconcile-chess-planning-baseline` supplies three minimal baseline additions for the absent remote paths. Each addition contains only the complete prerequisite blocks from local main. The four chess MODIFIED blocks retain the existing scenarios and add the chess behavior; their current wording needs no forced edit after comparison. Do not replace the richer local main specs or import unrelated migration code. Prove the actual merge with the installed OpenSpec CLI in a disposable root before spec sync or archive. Product runtime verification continues independently of this source-history repair. Studio discovery remains gated on verified chess and guide destinations. Strict format validation alone does not prove mergeability or remote runtime adoption.
+Studio project rows, Play action, and guide links are not planned here. They live in `link-ejm-chess` as `ADDED` requirements on the same capability names, without inventing pre-chess home-page, guide-catalog, or multi-host baselines. Do not restore `MODIFIED` studio blocks or a `reconcile-chess-planning-baseline` dependency for this change. Product runtime verification continues independently. Studio discovery remains gated on verified chess and guide destinations.
 
 ## Goals / Non-Goals
 
@@ -44,7 +37,7 @@ The separate reviewed change `reconcile-chess-planning-baseline` supplies three 
 | --- | --- |
 | `ejm-chess` | Owns the game Worker, assets, Durable Objects, auth composition, ratings, fair play, admin, and product guides. Consumes declared public dependencies. |
 | `ejm-ui` | Extends `@ejm/site/projects` with chess identity and an unreleased-project discovery gate. Owns existing public build/header options, any verified policy extensions, shared controls, shell, tokens, and prerendering. |
-| `ejmlabs` | Adds honest studio discovery, product-guide links, and the canonical chess host to the public security operations contract after verified publication. |
+| `ejmlabs` | Studio discovery and guide links after verified publication are planned in `link-ejm-chess`. Chess-host protection stays with `ejm-chess`. |
 
 The direction is chess/studio into `@ejm/tokens`, deep `@ejm/ui` exports, `@ejm/site`, and `@ejm/ssg`. Chess does not use or change the agent harness. Read each owner's instructions and establish scoped work before editing there. Use OpenSpec where the owner already has a root; otherwise work normally and do not initialize it without a user request. The inspected `ejm-ui` checkout has no OpenSpec root. Preserve the ongoing site migration and unrelated files.
 
@@ -793,7 +786,7 @@ Qualification candidates are 10,000 entrants, 5,000 concurrent games, registrati
 
 ## Migration Plan
 
-1. Review this planning change, then enter apply only after a new implementation request. Establish owner checkouts, instructions, and scoped work through each owner's existing workflow; do not initialize OpenSpec without a user request. Reconcile the baseline specs before affected studio implementation or sync/archive. No repository or resource is created by this document.
+1. Review this planning change, then enter apply only after a new implementation request. Establish owner checkouts, instructions, and scoped work through each owner's existing workflow; do not initialize OpenSpec without a user request. Keep studio discovery work on `link-ejm-chess`; do not reintroduce `MODIFIED` studio baselines here. No repository or resource is created by this document.
 2. Add and check the upstream chess registry/discovery contracts, verify existing public header options, and extend them only for a proven gap before consumer adoption. Keep unreleased chess out of existing cross-site discovery while building the product/docs locally.
 3. Implement and test active-game recovery, auth, atomic competition/outboxes, projections, corrections, private review, and the resolved adjudication policy. Run bundle, service, load, accessibility, and failure checks.
 4. Before resource creation, obtain the deployment/spending scope, verify Workers Paid and Email beta eligibility, onboard the sender domain, and measure/approve the analysis budget. Prepare scoped secrets, additive D1 migrations, DO migrations, backups, retention and recovery runbooks. Do not place credentials in artifacts.

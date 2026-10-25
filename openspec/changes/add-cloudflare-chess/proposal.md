@@ -22,7 +22,7 @@ Create `chess.ejmlabs.com`: a small, dependable online chess game where people w
 - Use ejm-ui throughout every chess route, including the board surface, clocks, prose, fields, radio choices, disclosures, tables, notices, loading states, and actions. Add missing reusable contracts in the shared owner before consumer adoption; product components compose public exports and retain domain behavior without custom visual primitives. Reuse public `@ejm/*` contracts, including the shared Select for product form choices. Add upstream chess identity and an unreleased-project discovery gate; use existing public header/build options and extend them only for verified policy gaps. Retain product-specific game behavior in chess. Existing cross-site menus must not expose chess before verified publication.
 - Use compact, consistent page spacing for application routes. Stack descriptions beneath page titles, group fields and actions by purpose, keep links within sentences inline, and let loading tables honor the selected density. Preserve shared component appearances, useful form and table widths, and the centered board.
 - Make compact application layouts a supported shared ejm-ui contract. Extend existing Page and SectionHead options, publish named spacing aliases and a complete gallery example, add browser geometry checks in both themes at phone and desktop widths, migrate chess, and integrate only these shared changes into the main local ejm-ui checkout. Preserve marketing defaults and unrelated work; local integration does not publish or deploy a package.
-- Publish product help, rules, fair play, privacy, and operations guidance with the product. Add studio discovery links only after their destinations are live and verified.
+- Publish product help, rules, fair play, privacy, and operations guidance with the product. Studio discovery links after verified publication are planned in the separate `link-ejm-chess` change.
 - Operate chess within the owner's $100 monthly Cloudflare budget, authorized on 2026-10-20. The owner approved a $20 timeout-proof share on 2026-10-21 UTC, replacing the proposed $10 share without raising the total or admission limits. Include complete billing increments without assuming shared included usage is available. Add conservative enforced workload limits, separate stops for new games, email, and optional server analysis, and billing alerts. Preserve active games, accepted results, and recovery work when admission stops. Provider alerts are delayed account-wide notices, not a hard invoice cap.
 
 ## Capabilities
@@ -32,24 +32,22 @@ Create `chess.ejmlabs.com`: a small, dependable online chess game where people w
 - `chess-play`: Live chess, casual invitations, board interaction, authoritative clocks and adjudication, reconnects, and completed game records.
 - `chess-competition`: Account eligibility, ranked matchmaking, ratings, settlement, and global leaderboards.
 - `chess-fair-play`: Preventive controls, private engine evidence, review, appeals, rating repair, and bounded analysis operations.
+- `documentation-discovery`: Chess owns its player, developer, fair play, privacy, and operations guides and build checks.
+- `public-web-access`: Chess host worldwide public access and protected production entry points for `chess.ejmlabs.com`.
 
 ### Modified Capabilities
 
-- `ejmlabs-site`: Discover the chess product and use an accurate Play action without treating it as a coding tool or a simulated showcase.
-- `documentation-discovery`: Link to chess-owned player and developer guides after publication.
-- `public-web-access`: Extend public access and protected canonical-host requirements to `chess.ejmlabs.com`.
+None. Merge-base `openspec/specs/` has no `ejmlabs-site`, `documentation-discovery`, or `public-web-access` baselines, so this change does not use `MODIFIED` deltas. Studio project rows, Play action, and guide links are planned as `ADDED` requirements in `link-ejm-chess`.
 
 ## Impact
 
 | Owner | Planned responsibility and public contracts |
 | --- | --- |
-| New `ejm-chess` product | Game Worker and assets, game and competition Durable Objects, D1 auth and read models, background analysis, private bounded timeout proofs, product guides. Consume published package exports through declared dependencies. |
+| New `ejm-chess` product | Game Worker and assets, game and competition Durable Objects, D1 auth and read models, background analysis, private bounded timeout proofs, product guides, and chess-host edge protection. Consume published package exports through declared dependencies. |
 | `ejm-ui` | `@ejm/site/projects` chess identity and discovery gating, existing public head/header policy options and any verified extensions, tokens, controls, and shell contracts. No chess rules or account state in shared UI. |
-| `ejmlabs` | Studio discovery/content, affected public docs links, and chess-host security operations. Preserve current site migration and unrelated dirty files. |
+| `ejmlabs` | Studio discovery/content via `link-ejm-chess` after verified publication. Preserve current site migration and unrelated dirty files. |
 
-Dependency direction is chess and studio into public UI packages. Chess does not depend on the agent harness. This repo-local change is the planning home; it does not grant write access to a sibling product or to `ejm-ui`. Apply must establish the owner checkouts and scoped work before edits there, using OpenSpec where an owner already has a root and working normally otherwise.
-
-The three modified capability deltas extend four requirements present in the accepted local studio migration. GitHub main `c92a4a0df2944e6ac6c22498ad4d132f0518d569` still lacks those specification paths. The separate reviewed change `reconcile-chess-planning-baseline` records only the four prerequisite blocks for those absent remote paths and proves actual OpenSpec mergeability; it preserves the richer local specs and imports no migration code. Product verification proceeds independently. Studio discovery waits for verified product and guide destinations, and spec sync or archive waits for the baseline proof. Strict change validation alone does not prove mergeability.
+Dependency direction is chess and studio into public UI packages. Chess does not depend on the agent harness. This repo-local change is the product planning home; it does not grant write access to a sibling product or to `ejm-ui`. Apply must establish the owner checkouts and scoped work before edits there, using OpenSpec where an owner already has a root and working normally otherwise.
 
 Cloudflare services proposed: Workers Static Assets, Workers, SQLite-backed Durable Objects, D1, Queues, Turnstile, Email Service, a capped Stockfish Container pool, and a separate private capped CHA-Solver Container pool. Email Sending is in public beta; paid-plan access, domain onboarding, delivery, container cost, and regional latency are deployment gates. At the initial proposal, no resources had been provisioned and no live behavior had been verified. The dated 2026-10-21 UTC product evidence now records a protected canonical-host canary, the existing Workers Paid subscription, sender onboarding, saved budget alerts and a tested stop webhook, and account verification/password recovery for one approved recipient. Public new work remains stopped. Complete recovery, deployed proof and analysis costs, capacity, regional qualification, and public ranked launch remain open. See `implementation-scope.md` for the publication boundary and evidence limits.
 

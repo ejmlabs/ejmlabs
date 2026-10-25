@@ -1,21 +1,8 @@
 # Spec Delta
 
-## MODIFIED Requirements
+## Purpose
 
-### Requirement: Direct guide links
-
-The studio site SHALL offer a user guide and a developer guide for ejm-cli, ejm-harness, and ejm-ide. Each link SHALL open the corresponding guide on that project's domain. Once chess and its guides are published and checked, the studio SHALL also link to the chess player guide and developer guide on `chess.ejmlabs.com`.
-
-#### Scenario: Find a project guide
-
-- **WHEN** a visitor opens the studio documentation section
-- **THEN** each published project has named user or player and developer guide links
-- **AND** the links use the project's canonical domain
-
-#### Scenario: Find chess rules and contribution guidance
-
-- **WHEN** chess has been released and its guide destinations have been verified
-- **THEN** the studio documentation section links to the chess player guide and developer guide without replacing the existing six product guide links
+Keeps chess product guides with the chess owner. Studio links to those guides after publication are planned in `link-ejm-chess`.
 
 ## ADDED Requirements
 

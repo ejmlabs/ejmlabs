@@ -10,7 +10,7 @@ recipient addresses, and raw provider evidence are not part of this PR.
 | --- | --- |
 | `ejm-chess` | Product Worker and assets, authoritative games and competition, accounts, bounded private jobs, operational controls, and player/developer guides. |
 | `ejm-ui` | Shared tokens, chess identity assets, reusable components and layout contracts, gallery fixtures, and capture tooling through public `@ejm/*` exports. |
-| `ejmlabs` | Planning, studio content and discovery, product-guide links, and chess-host security operations. |
+| `ejmlabs` | Product planning home in this change; studio discovery/content via `link-ejm-chess`. Chess-host security operations stay with `ejm-chess`. |
 
 Implementation uses isolated owner checkouts and preserves unrelated work.
 Chess and studio consume public UI contracts through declared dependencies.
@@ -71,6 +71,6 @@ proofs, competitive integration, provider costs and mail, operational recovery
 and automated privacy controls, capacity and regions, protected integration,
 public ranked launch, studio publication, and large-event qualification.
 
-Use the owning workflows and checks before release. The planning-baseline
-reconciliation remains separate reviewed work. Do not sync or archive this
-change while required tasks or baseline mergeability gates remain incomplete.
+Use the owning workflows and checks before release. Do not sync or archive this
+change while required product tasks remain incomplete. Studio discovery archive
+belongs to `link-ejm-chess`.
