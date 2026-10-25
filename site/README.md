@@ -6,8 +6,8 @@ The ejmlabs site: a Vite and React site on the ejm-ui design system, prerendered
 
 | Route | Page |
 | --- | --- |
-| `/` | Home: open source projects, approved project marks and links to each project site. Served as static HTML. |
-| `/projects/` | CLI, IDE, harness and UI with existing marks, source and guide links. Agent projects link to recorded sessions; UI links to its component gallery. |
+| `/` | Home: a text hero, how we work, open source projects with approved project marks and links to each project site, example sessions and ways to contribute. Served as static HTML without hydration. |
+| `/projects/` | CLI, IDE, harness, UI and calm with their marks, source and guide links. Agent projects link to recorded sessions; UI links to its component gallery; calm links to a seeded scene and its README. |
 | `/try/` | CLI, IDE and harness completing useful work in autoplay example sessions, with Pause or Resume and Restart. Meaningful static views remain available without scripts. |
 | `/about/` | What guides the work, room for projects beyond AI and developer tools, and quiet Company details naming `ejmlabs, llc`. |
 | `/brand/` | Approved logo previews, file and variant guidance, palette, clear space, rights, and brand and swag downloads. |
@@ -36,9 +36,10 @@ The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local
 - `src/shell.tsx` is the frame: the approved mark beside the name in one home link, header with the theme toggle last, footer, analytics.
 - `src/pages/` has the routes. `src/stages/HomeContent.tsx` and `src/stages/BrandContent.tsx` hold static home and asset-guide content, rendered through the public `Static` boundary from `@ejm/ssg`. Native links and downloads remain available without page JavaScript.
 - `src/pages/Try.tsx` consumes `LazyCliPreview`, `LazyIdePreview` and `LazyHarnessPreview` from the public per-product `@ejm/demos/islands/*-preview` entries. Shared code owns their geometry, static fallback, playback, controls and lifecycle.
-- `src/stages/HomeContent.tsx` places approved project marks beside the Current projects names through the shared `Row` title slot. Ink marks remain legible on Sage in both page themes; each row keeps one accessible project link.
+- `src/stages/HomeContent.tsx` places approved project marks beside the Current projects names through the shared `Row` title slot. Ink marks remain legible on Sage in both page themes; each row keeps one accessible project link. Shared `Brand` keeps row names on one line; footer project labels use a non-breaking hyphen (U+2011) because footer links take plain text.
+- `src/assets/projects/` holds byte copies of the ui and calm marks, which the pinned `@ejm/tokens` does not export yet. Its `README.md` records source, commit, checksums and rights; replace the copies with `@ejm/tokens/assets/projects/<id>/` imports once ejm-ui publishes them. They are not part of the public downloads.
 - `src/pages/Projects.tsx` uses the shared `Brand` component in the `SectionHead` title slot. Mist and Paper switch between approved Ink and Paper assets with the page theme; Sage keeps Ink in both themes. `Brand` reserves each image's proportions and leaves the heading to supply its accessible name. The header and home project rows use the same component.
-- `src/content.ts` has the project facts, taken from each project's README, and reviewed source availability. Repository URLs still come from the shared project registry.
+- `src/content.ts` has the project facts, taken from each project's README, and reviewed source availability, plus each project's secondary action and contribution link (calm has no contribution guide, so none is shown). Repository URLs come from the shared project registry; ui and calm are not in it yet and are defined there locally.
 - `src/head.ts` selects ejmlabs defaults from `@ejm/site/head`, which imports the font list directly and keeps the component barrel out of the first load.
 - `public/` has `robots.txt` and `sitemap.xml`.
 - `scripts/build.mjs` runs `ejm-ssg build`, resolves approved image/icon assets from public token exports, then builds both public ZIPs from named file allowlists. Internal notes, comparisons, generators, HTML and nested archives stay out of `dist/design-kit/`.
@@ -83,15 +84,23 @@ npm test             # reads the built HTML of every route
 node ../../ejm-ui/scripts/perf.mjs dist
 ```
 
-`npm test` builds when `dist/` is missing. The home checks keep the project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
+`npm test` builds when `dist/` is missing. The home checks keep the sections in order, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
 
 ## Home and example sessions
 
-Home opens with the current projects, their approved marks and direct links. It uses the shared page heading and row recipes, with no separate introductory hero. It has no product preview slideshow, carousel controls or image preloads. Current projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
+Home sections, in order:
+
+1. Hero: "Open source. Room to explore." with the shared text `Hero` and its ripple art.
+2. "How we work.": start small, make it useful, share the tools.
+3. "Current projects.": approved marks and direct links.
+4. "See it in action.": a link to the example sessions.
+5. "Help improve a project."
+
+`src/pages/Home.tsx` serves every section from `src/stages/HomeContent.tsx` through one `Static` boundary, so the page does not hydrate. It uses the shared hero, section heading and row recipes. It has no product preview slideshow, carousel controls or image preloads. Current projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
 
 Try shows each product's native layout with sample code and recorded local output. CLI follows a code fix through tests and a diff. The IDE example shows Edi reading, searching and making reviewed edits. Those edits and tool updates are authored; its added tests were not run. The visible note states that limit. Harness shows tool admission and retained history in its real terminal presentation. The browser makes no model or tool calls. Shared fixtures and their provenance live in `ejm-ui/packages/demos`, rather than this site. Its IDE styles come from the separate `@ejm/demos/ide-preview.css` import, so CLI and harness consumers do not have to ship them.
 
-All three project repositories and the shared UI repository are public. Source builds still require the documented sibling checkout and compatible revisions. Project pages link to source, contribution guides and source-build instructions. Keep unpublished installer and package limits beside setup choices. CLI, IDE and harness offer recorded browser examples; these do not prove a native installation or model run. UI links to its live component gallery and docs. Its software and docs are MIT licensed; brand assets retain their own rights. Recheck anonymous repository access during release preparation and update the project facts, home, project actions and footer together. Build, check and publish affected pages before claiming that live content has changed.
+The cli, ide, harness, ui and calm repositories are public. Source builds still require the documented sibling checkout and compatible revisions. Project pages link to source, contribution guides and source-build instructions. Keep unpublished installer and package limits beside setup choices. CLI, IDE and harness offer recorded browser examples; these do not prove a native installation or model run. UI links to its live component gallery and docs. Its software and docs are MIT licensed; brand assets retain their own rights. calm links to a seeded scene and its README; it has no docs site or contribution guide yet. Recheck anonymous repository access during release preparation and update the project facts, home, project actions and footer together. Build, check and publish affected pages before claiming that live content has changed.
 
 All three examples use the same shared responsive frame and preserve its dimensions as playback loads. The public lazy entries preserve static server content, load playback near the viewport and start when visible, without prior input. Native product actions are passive. Only Pause or Resume and Restart control playback, outside the product viewport. The IDE keeps its full native workspace in a horizontal scroll region on narrow screens. Named workspace, code and message regions also support keyboard scrolling. A run finishes on its useful final state without looping. Offscreen and background tabs pause progression, a manual pause remains in effect, reduced motion shows a completed state, and restart cancels the prior run. Loading does not move focus into the product. The shared `Static` boundary serves the home content and keeps its internal links routed through the shared client.
 

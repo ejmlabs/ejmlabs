@@ -10,6 +10,14 @@ export const UI_PROJECT = {
   repo: 'https://github.com/ejmlabs/ejm-ui',
 } as const;
 
+// calm is not in the shared project registry yet.
+export const CALM_PROJECT = {
+  name: 'ejm-calm',
+  url: 'https://calm.ejmlabs.com/',
+  host: 'calm.ejmlabs.com',
+  repo: 'https://github.com/ejmlabs/ejm-calm',
+} as const;
+
 export const projects = [
   {
     id: 'cli',
@@ -35,6 +43,8 @@ export const projects = [
       ['User guide', `${PROJECTS.cli.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.cli.url}docs/developer-guide/`],
     ],
+    secondary: ['Watch a session', '/try/#cli'],
+    contribute: `${PROJECTS.cli.repo}/blob/main/CONTRIBUTING.md`,
   },
   {
     id: 'ide',
@@ -60,6 +70,8 @@ export const projects = [
       ['User guide', `${PROJECTS.ide.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.ide.url}docs/developer-guide/`],
     ],
+    secondary: ['Watch a session', '/try/#ide'],
+    contribute: `${PROJECTS.ide.repo}/blob/main/CONTRIBUTING.md`,
   },
   {
     id: 'harness',
@@ -85,6 +97,8 @@ export const projects = [
       ['User guide', `${PROJECTS.harness.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.harness.url}docs/developer-guide/`],
     ],
+    secondary: ['Watch a session', '/try/#harness'],
+    contribute: `${PROJECTS.harness.repo}/blob/main/CONTRIBUTING.md`,
   },
   {
     id: 'ui',
@@ -106,5 +120,30 @@ export const projects = [
       ['Getting started', `${UI_PROJECT.url}docs/`],
       ['Components', `${UI_PROJECT.url}docs/components/`],
     ],
+    secondary: ['Browse components', `${UI_PROJECT.url}components/`],
+    contribute: `${UI_PROJECT.repo}/blob/main/CONTRIBUTING.md`,
+  },
+  {
+    id: 'calm',
+    ...CALM_PROJECT,
+    kind: 'TypeScript / web scene',
+    summary: 'A generated ocean scene with a whale, to watch or explore.',
+    row: 'A generated ocean with a whale, ships and coastlines, and a new sea for each seed.',
+    facts: [
+      ['license', 'MIT for software. Brand assets retain their own rights.'],
+      ['written in', 'TypeScript and three.js (WebGL 2), with simplex noise, built with Vite'],
+      ['get started', 'Early development, version 0.1.0. Open it in a browser with WebGL 2, including on phones. No accounts, tracking or analytics.'],
+    ],
+    does: [
+      ['One seed, one sea', 'Each seed rebuilds the same time of day, whale behavior, ships, coasts and mountains.'],
+      ['Look around', 'Drag to look around. The camera eases back to a slow drift.'],
+      ['Quiet by default', 'Sound is optional and off by default. Reduced motion is respected.'],
+    ],
+    // No docs site or contribution guide yet: the README is the guide.
+    docs: [
+      ['README', `${CALM_PROJECT.repo}#readme`],
+    ],
+    secondary: ['Try seed 42', `${CALM_PROJECT.url}?seed=42`],
+    contribute: null,
   },
 ] as const;
