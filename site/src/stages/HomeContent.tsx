@@ -61,7 +61,7 @@ export default function HomeContent() {
     </Band>
     <Band id="projects" tone="sage" aria-labelledby="projects-title">
       <SectionHead title="Current projects." id="projects-title">
-        <p>A terminal agent, a desktop editor, the engine they share, the design system behind these sites, and calm, a generated ocean scene to watch. The code for all five is open source under the MIT license.</p>
+        <p>A terminal agent, a desktop editor, the engine they share, the design system behind these sites, and ejm-calm, a generated ocean scene to watch. The code for all five is open source under the MIT license.</p>
       </SectionHead>
       <SectionBody>
         <Rows aria-label="Projects">

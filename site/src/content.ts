@@ -12,7 +12,7 @@ export const UI_PROJECT = {
 
 // calm is not in the shared project registry yet.
 export const CALM_PROJECT = {
-  name: 'calm',
+  name: 'ejm-calm',
   url: 'https://calm.ejmlabs.com/',
   host: 'calm.ejmlabs.com',
   repo: 'https://github.com/ejmlabs/ejm-calm',

@@ -112,7 +112,7 @@ test('the home page opens with a text hero and keeps project names on one line',
   const html = read('index.html');
   assert.match(html, /<h1\b[^>]*>Open source\. Room to explore\.<\/h1>/);
   assert.ok(tags(html, 'a').some(a => attr(a, 'href') === '#projects'), 'the hero links to the projects');
-  for (const name of ['ejm-ui', 'calm']) assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
+  for (const name of ['ejm-ui', 'ejm-calm']) assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
   for (const name of ['ejm-cli', 'ejm-ide', 'ejm-harness']) {
     assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
     assert.ok(html.includes(name.replace('-', '‑')), `${name}: footer label uses a non-breaking hyphen`);
