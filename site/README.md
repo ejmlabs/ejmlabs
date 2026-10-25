@@ -42,7 +42,7 @@ The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local
 - `src/head.ts` selects ejmlabs defaults from `@ejm/site/head`, which imports the font list directly and keeps the component barrel out of the first load.
 - `public/` has `robots.txt` and `sitemap.xml`.
 - `scripts/build.mjs` runs `ejm-ssg build`, resolves approved image/icon assets from public token exports, then builds both public ZIPs from named file allowlists. Internal notes, comparisons, generators, HTML and nested archives stay out of `dist/design-kit/`.
-- Studio favicon downloads and retained public URLs read the public `@ejm/tokens/assets/favicon/*` exports, the same source used by the site's browser icons. The retained working kit is not a second source for active assets.
+- Studio favicon downloads and retained public URLs read the public `@ejm/tokens/assets/favicon/*` exports, the same source used by the site's browser icons. The retained working kit is not a second source for active assets. Local motif and template copies are removed; ZIP assembly resolves those families from the owner exports only.
 - `brand-kit/` holds the public usage guides and rights summary. The Brand page reads palette values from the public `@ejm/tokens/assets/brand/palette.json` export. The build includes the existing root `LICENSE` unchanged and the original font notices. Swag contains the eight SVG masters and manifest unchanged, plus three previews labelled as concepts. Working playbooks and image prompts are not downloads.
 - `dist/` and `.ejm-ssg/` are generated. Never edit them.
 - `wrangler.jsonc` configures Workers static assets (`./dist`, with the 404 page), the apex domain, and a separate preview environment.

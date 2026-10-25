@@ -461,8 +461,9 @@ build output; `site/scripts/build.mjs` resolves every motif and template from
 `@ejm/tokens/assets/*`. Keep runtime, generators, resolver, caller/source pins,
 versions, licenses and static review context exact. Retained kit references in
 `design-kit/web/`, `design-kit/index.html` and kit guides are working-kit
-material outside the site build and stay unedited. Studio owns this cleanup
-and output assembly; `ejm-ui` owns the public token assets.
+material outside the site build and stay unedited. Update current root and
+site guides with the changelog for the completed source deletion. Studio owns
+this cleanup and output assembly; `ejm-ui` owns the public token assets.
 
 Use the pinned UI source `a5551a056b04bc0c3472afc443621a552747613c` from
 `.github/ui-source.json`. Build before and after deletion and require all
