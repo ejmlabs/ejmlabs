@@ -1,8 +1,9 @@
-// Switch to @ejm/tokens/assets/projects/ui/mark-ink.svg once ejm-ui ships that file.
-import uiMark from '../assets/ui-mark-ink.svg?url';
 import cliMark from '@ejm/tokens/assets/projects/cli/mark-ink.svg?url';
 import ideMark from '@ejm/tokens/assets/projects/ide/mark-ink.svg?url';
 import harnessMark from '@ejm/tokens/assets/projects/harness/mark-ink.svg?url';
+// Local copies until @ejm/tokens publishes them (see src/assets/projects/README.md).
+import uiMark from '../assets/projects/ui/mark-ink.svg?url';
+import calmMark from '../assets/projects/calm/mark-ink.svg?url';
 import ripple from '@ejm/ui/art/inline/divider-ripple.svg?raw';
 import { Band } from '@ejm/ui/layout/Band';
 import { Button } from '@ejm/ui/components/ui/button';
@@ -13,7 +14,7 @@ import { Brand } from '@ejm/ui/shell/Brand';
 import { Actions, SectionBody } from '@ejm/ui/layout/SiteContent';
 import { GITHUB, projects } from '../content';
 
-const projectMarks = { cli: cliMark, ide: ideMark, harness: harnessMark, ui: uiMark };
+const projectMarks = { cli: cliMark, ide: ideMark, harness: harnessMark, ui: uiMark, calm: calmMark };
 
 // Home row copy. Project facts stay in content.ts; these lines only introduce each project.
 const homeRows = {
@@ -21,6 +22,7 @@ const homeRows = {
   ide: 'A desktop editor with code navigation, Git tools, and an agent beside the code you are reading.',
   harness: 'An open source Rust engine for coding agents, with shared session limits and a durable event journal.',
   ui: 'Build with shared components, themes and layouts.',
+  calm: 'A procedurally generated ocean where a whale travels past ships and landscapes, with a new sea for each seed.',
 };
 
 const habits = [
@@ -59,7 +61,7 @@ export default function HomeContent() {
     </Band>
     <Band id="projects" tone="sage" aria-labelledby="projects-title">
       <SectionHead title="Current projects." id="projects-title">
-        <p>A terminal agent, a desktop editor, the engine they share, and the design system behind these sites. All four are open source under the MIT license, with public code and documentation.</p>
+        <p>A terminal agent, a desktop editor, the engine they share, the design system behind these sites, and calm, a generated ocean scene to watch. The code for all five is open source under the MIT license.</p>
       </SectionHead>
       <SectionBody>
         <Rows aria-label="Projects">
