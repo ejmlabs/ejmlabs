@@ -140,16 +140,40 @@ test('the home page calls ejmlabs a lab and has no ejm-cli demo section', () => 
   assert.ok(!prose(html).includes('Try ejm-cli in your browser.'), 'no ejm-cli demo title');
 });
 
-test('the EJM UI project row uses the ejm-ui grid-e mark', () => {
+/** The home Projects rows as {href, mark}; a mark is the served SVG file's bytes or the decoded inlined SVG text. */
+const homeProjectMarks = () => {
   const html = read('index.html');
   const start = html.indexOf('id="projects"');
-  const row = html.slice(start, html.indexOf('<section', start));
-  const marks = tags(row, 'img').map(tag => attr(tag, 'src'));
-  assert.ok(!marks.some(src => /symbol-ink/.test(src)), 'the company symbol is not a project mark');
-  const sha = src => src.startsWith('/') ? createHash('sha256').update(readFileSync(join(dist, src))).digest('hex') : '';
-  const uiRow = row.slice(0, row.indexOf('ejm-ui</span>'));
-  const uiMark = attr(tags(uiRow, 'img').at(-1) ?? '', 'src') ?? '';
-  assert.equal(sha(uiMark), '08ff7f3099ba18d9e1dc2a1e309fa3d444d996bbb7832b7d401aa91caaa8b049', 'the ui row shows the grid-e mark, served unchanged');
+  const section = html.slice(start, html.indexOf('<section', start));
+  return [...section.matchAll(/<li\b[\s\S]*?<\/li>/g)].map(([row]) => {
+    const href = attr(tags(row, 'a')[0] ?? '', 'href') ?? '';
+    const src = attr(tags(row, 'img')[0] ?? '', 'src') ?? '';
+    const inline = 'data:image/svg+xml,';
+    const mark = src.startsWith(inline) ? Buffer.from(decodeURIComponent(src.slice(inline.length)).replace(/&#x27;/g, "'").replace(/&amp;/g, '&')) : readFileSync(join(dist, src));
+    return { href, src, mark };
+  });
+};
+const pathData = svg => [...svg.matchAll(/\sd=["']([^"']+)["']/g)].map(m => m[1]);
+
+test('the EJM UI project row uses the ejm-ui grid-e mark', () => {
+  const rows = homeProjectMarks();
+  assert.ok(!rows.some(row => /symbol-ink/.test(row.src)), 'the company symbol is not a project mark');
+  const ui = rows.find(row => row.href === 'https://ui.ejmlabs.com/');
+  assert.ok(ui, 'the ui row exists');
+  assert.equal(createHash('sha256').update(ui.mark).digest('hex'), '08ff7f3099ba18d9e1dc2a1e309fa3d444d996bbb7832b7d401aa91caaa8b049', 'the ui row shows the grid-e mark, served unchanged');
+});
+
+test('the calm project row draws the approved fluke mark', () => {
+  const calm = homeProjectMarks().find(row => row.href === 'https://calm.ejmlabs.com/');
+  assert.ok(calm, 'the calm row exists');
+  const source = readFileSync(join(site, 'src', 'assets', 'projects', 'calm', 'mark-ink.svg'), 'utf8');
+  assert.deepEqual(pathData(calm.mark.toString('utf8')), pathData(source), 'the built mark has the approved paths');
+});
+
+test('home project marks are plain artwork', () => {
+  for (const { href, mark } of homeProjectMarks()) {
+    assert.doesNotMatch(mark.toString('utf8'), /<script|\son\w+=|foreignObject|href=|url\(/i, `${href} mark has no active content`);
+  }
 });
 
 test('every project mark on home and projects is built', () => {
