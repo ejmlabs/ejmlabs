@@ -61,15 +61,16 @@ public product source delivery, live guide publication, or a public launch.
 
 ## Task status and remaining gates
 
-The approved source snapshot records **54 of 64 tasks complete**. This PR
+The approved source snapshot records **54 of 70 tasks complete**. This PR
 preserves every task checkbox. Completed local work and dated provider evidence
 do not complete an unchecked integration or launch gate.
 
-The ten remaining tasks are 3.6, 3.8, 4.5, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3,
-and 10.4. They cover two-player board/accessibility acceptance, bounded timeout
-proofs, competitive integration, provider costs and mail, operational recovery
-and automated privacy controls, capacity and regions, protected integration,
-public ranked launch, studio publication, and large-event qualification.
+The sixteen remaining tasks are 3.6, 3.8, 4.5, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3,
+10.4, and 18.1 through 18.6. They cover two-player board/accessibility
+acceptance, bounded timeout proofs, competitive integration, provider costs and
+mail, operational recovery and automated privacy controls, capacity and regions,
+protected integration, public ranked launch, studio publication follow-through,
+large-event qualification, and the once-only isolated native capacity harness.
 
 Use the owning workflows and checks before release. Do not sync or archive this
 change while required product tasks remain incomplete. Studio discovery archive

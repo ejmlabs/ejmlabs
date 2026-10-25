@@ -10,9 +10,9 @@ The owner's latest account request on 2026-10-20 requires username/password sign
 
 ### Planning baseline and studio discovery
 
-Merge-base `openspec/specs/` contains only `.gitkeep`. OpenSpec archive refuses `MODIFIED` or `RENAMED` deltas when the target spec is absent. This change therefore adds only new product requirements: `chess-play`, `chess-competition`, `chess-fair-play`, product-owned guide ownership under `documentation-discovery`, and chess-host access/protection under `public-web-access`.
+Merge-base `openspec/specs/` contains only `.gitkeep`. OpenSpec archive refuses `MODIFIED` or `RENAMED` deltas when the target spec is absent. This change adds only product capabilities: `chess-play`, `chess-competition`, and `chess-fair-play`. Chess-host worldwide access, edge protection, and product guide ownership live under `chess-play`, not under studio capability names.
 
-Studio project rows, Play action, and guide links are not planned here. They live in `link-ejm-chess` as `ADDED` requirements on the same capability names, without inventing pre-chess home-page, guide-catalog, or multi-host baselines. Do not restore `MODIFIED` studio blocks or a `reconcile-chess-planning-baseline` dependency for this change. Product runtime verification continues independently. Studio discovery remains gated on verified chess and guide destinations.
+Studio project rows, Play action, and guide links stay in `link-ejm-chess` (`ejmlabs-site`, `documentation-discovery`, `public-web-access`). Do not add chess-host or product-guide deltas under those studio capabilities, and do not restore `MODIFIED` studio blocks. Product runtime verification continues independently. Studio discovery remains gated on verified chess and guide destinations.
 
 ## Goals / Non-Goals
 

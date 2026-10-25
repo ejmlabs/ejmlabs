@@ -134,6 +134,58 @@ The game, its authoritative services, stored player data, and background analysi
 - **WHEN** the product is prepared for release
 - **THEN** its deployment record identifies its Cloudflare resources and verified canonical routes without claiming worldwide latency from a single-network check
 
+### Requirement: Chess host worldwide public access
+
+The public host `chess.ejmlabs.com` SHALL NOT block or challenge requests solely because of their source country.
+
+#### Scenario: Ordinary visitor outside the United States
+
+- **WHEN** a visitor outside the United States requests a public chess page without triggering a threat control
+- **THEN** the chess host serves it without a country restriction or private-service sign-in
+
+#### Scenario: Chess game connection
+
+- **WHEN** an authorized player outside the United States connects to their game without triggering an abuse control
+- **THEN** the chess host accepts the authorized connection without a country-only block or challenge
+
+### Requirement: Chess production entry points retain edge protection
+
+The chess public production site SHALL serve traffic through its protected custom domain. Unnecessary production workers.dev addresses and version URLs SHALL be disabled. Deployment configuration SHALL preserve these limits. Intentional chess previews SHALL have a separate, verified access policy before publication.
+
+#### Scenario: Alternate production URL
+
+- **WHEN** an anonymous client requests an unwanted alternate production Worker hostname for chess
+- **THEN** that hostname does not serve the production chess application
+
+#### Scenario: Production redeployment
+
+- **WHEN** the chess site is redeployed from its checked-in configuration
+- **THEN** it does not reopen a production workers.dev address or version URL
+
+#### Scenario: Intentional preview
+
+- **WHEN** a chess preview is published outside the production zone's protection
+- **THEN** its access policy is enforced and verified independently of the production WAF
+
+#### Scenario: Chess account and game routes
+
+- **WHEN** the checked chess build is published
+- **THEN** canonical sign-in, live game connections, and public leaderboard reads work under explicit host protection without a blanket WAF or authentication bypass
+
+### Requirement: Chess owns its guides
+
+The chess product SHALL own its player, developer, fair play, privacy, and operations documentation and build checks. Player guidance SHALL cover time controls, online adjudication, reconnects, ranked eligibility, ratings, reporting, and appeals. Developer guidance SHALL cover setup, public APIs, deployment, data recovery, and measured service limits.
+
+#### Scenario: Player opens fair play guidance
+
+- **WHEN** a player follows the chess guide's fair play link
+- **THEN** the published policy explains permitted play, reports, review, appeals, retained data, and detection limits without exposing private detection thresholds or credentials
+
+#### Scenario: Contributor prepares a release
+
+- **WHEN** chess behavior or configuration changes
+- **THEN** its guides, examples, navigation, API reference, and relevant recovery steps are updated and checked with the owning product build before publication is claimed
+
 ### Requirement: Human multiplayer and casual invitations
 
 Players SHALL be able to play another person through ranked matchmaking or a casual invitation. All new games and new invitation seats SHALL require explicit username/password accounts. Existing guest sessions SHALL retain access to their already owned games and records without competitive credit. Invitations SHALL grant only an unoccupied seat and SHALL NOT grant another player's identity or control. Friendly invitations SHALL be unrated.

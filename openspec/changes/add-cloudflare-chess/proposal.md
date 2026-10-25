@@ -29,15 +29,13 @@ Create `chess.ejmlabs.com`: a small, dependable online chess game where people w
 
 ### New Capabilities
 
-- `chess-play`: Live chess, casual invitations, board interaction, authoritative clocks and adjudication, reconnects, and completed game records.
+- `chess-play`: Live chess, casual invitations, board interaction, authoritative clocks and adjudication, reconnects, completed game records, product-owned guides, and chess-host public access/edge protection.
 - `chess-competition`: Account eligibility, ranked matchmaking, ratings, settlement, and global leaderboards.
 - `chess-fair-play`: Preventive controls, private engine evidence, review, appeals, rating repair, and bounded analysis operations.
-- `documentation-discovery`: Chess owns its player, developer, fair play, privacy, and operations guides and build checks.
-- `public-web-access`: Chess host worldwide public access and protected production entry points for `chess.ejmlabs.com`.
 
 ### Modified Capabilities
 
-None. Merge-base `openspec/specs/` has no `ejmlabs-site`, `documentation-discovery`, or `public-web-access` baselines, so this change does not use `MODIFIED` deltas. Studio project rows, Play action, and guide links are planned as `ADDED` requirements in `link-ejm-chess`.
+None. Studio project rows, Play action, and guide links stay in `link-ejm-chess` under `ejmlabs-site`, `documentation-discovery`, and `public-web-access`. This change does not add deltas under those studio capabilities.
 
 ## Impact
 
