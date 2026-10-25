@@ -457,8 +457,8 @@ Land this source-only slice on protected main
 `40fc285`, after the Studio rebuild (#17) and shared UI adoption (#18-#24).
 Remove exactly the measured 51 slice B paths: 39 motifs and 12 templates
 totaling 2,223,201 source bytes. They match the public owner and supply no
-build output; `site/scripts/build.mjs` resolves every motif and template from
-`@ejm/tokens/assets/*`. Keep runtime, generators, resolver, caller/source pins,
+build output; `site/scripts/build.mjs` resolves its named motif and template
+allowlist from `@ejm/tokens/assets/*`. Keep runtime, generators, resolver, caller/source pins,
 versions, licenses and static review context exact. Retained kit references in
 `design-kit/web/`, `design-kit/index.html` and kit guides are working-kit
 material outside the site build and stay unedited. Update current root and

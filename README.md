@@ -43,7 +43,7 @@ npm --prefix site run budget
 
 The check entry installs the exact site lock with lifecycle scripts off, then checks types. The build checks shared design ownership, prerenders routes, applies shared headers and enforces transfer budgets. Tests check generated content, links, playback fallbacks and curated downloads.
 
-Pages consume public @ejm exports. ejm-ui owns tokens, themes, visual components, motion, native profiles, site policy, prerendering and demos. Studio owns content, route composition, project discovery and download assembly. Public brand files resolve through @ejm/tokens/assets exports; Studio retains the swag masters and previews. The final local motif and template copies are removed; public downloads take those families from the same owner exports. Retained design-kit references are not active UI primitives and are not copied into the site as a playbook.
+Pages consume public @ejm exports. ejm-ui owns tokens, themes, visual components, motion, native profiles, site policy, prerendering and demos. Studio owns content, route composition, project discovery and download assembly. Public brand files resolve through @ejm/tokens/assets exports; Studio retains the swag masters and previews. The final local motif and template copies are removed; public ZIP allowlists keep resolving their named motif and template files from the same owner exports. Retained design-kit references are not active UI primitives and are not copied into the site as a playbook.
 
 Use OpenSpec for feature and bugfix work. Keep the source pin and build lock together. Trusted CI reads the UI pin from protected main, so adoption of a new pin precedes a site PR that depends on it. Keep the installed human admission and approval rules in [Contributing](CONTRIBUTING.md).
 
