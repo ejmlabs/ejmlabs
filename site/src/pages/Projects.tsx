@@ -101,7 +101,7 @@ export default function Projects() {
                   </a>
                 </Button>
                 <Button variant="link" asChild>
-                  {/^\/(?!\/)/.test(p.secondary[1]) ? (
+                  {p.secondary[1].startsWith('/') && !p.secondary[1].startsWith('//') ? (
                     <a href={p.secondary[1]}>{p.secondary[0]}</a>
                   ) : (
                     <ExternalLink href={p.secondary[1]}>{p.secondary[0]}</ExternalLink>
