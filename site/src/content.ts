@@ -127,8 +127,8 @@ export const projects = [
     id: 'calm',
     ...CALM_PROJECT,
     kind: 'TypeScript / web scene',
-    summary: 'A calm, procedurally generated scene of a whale traveling the ocean.',
-    row: 'A whale travels a seeded sea past ships and landscapes.',
+    summary: 'A generated ocean scene with a whale, to watch or explore.',
+    row: 'A generated ocean with a whale, ships and coastlines, and a new sea for each seed.',
     facts: [
       ['license', 'MIT for software. Brand assets retain their own rights.'],
       ['written in', 'TypeScript and three.js (WebGL 2), with simplex noise, built with Vite'],

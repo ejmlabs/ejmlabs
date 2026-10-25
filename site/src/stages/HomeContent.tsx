@@ -22,7 +22,7 @@ const homeRows = {
   ide: 'A desktop editor with code navigation, Git tools, and an agent beside the code you are reading.',
   harness: 'An open source Rust engine for coding agents, with shared session limits and a durable event journal.',
   ui: 'Build with shared components, themes and layouts.',
-  calm: 'A procedurally generated ocean where a whale travels past ships and landscapes, with a new sea for each seed.',
+  calm: 'A generated ocean with a whale, ships and coastlines, and a new sea for each seed.',
 };
 
 const habits = [
