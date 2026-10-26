@@ -11,7 +11,7 @@ Only the packages listed in the release plan SHALL be published to a public regi
 
 #### Scenario: Publish set
 - **WHEN** the first ui release is prepared
-- **THEN** the publish set is the six consumer packages and every other workspace package keeps `private: true`
+- **THEN** the publish set is the listed packages (`tokens`, `core`, `ui`, and `ssg` if included) and every other workspace package keeps `private: true`
 
 #### Scenario: Pin check
 - **WHEN** a package depends on another published package
@@ -40,7 +40,7 @@ The site SHALL show an install line for ejm-ui only after the registry confirms 
 
 #### Scenario: Packages exist
 - **WHEN** the registry lists the published packages at the version
-- **THEN** the page shows `npm install @ejm/ui @ejm/tokens react react-dom` with the Node requirement
+- **THEN** the page shows `npm install @ejm/ui @ejm/tokens react react-dom tailwindcss` with the Node requirement and a link to the bundler setup
 
 #### Scenario: Packages do not exist
 - **WHEN** any package in the line is missing from the registry

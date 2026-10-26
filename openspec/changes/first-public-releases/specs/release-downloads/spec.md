@@ -46,16 +46,49 @@ For each offered product and platform the page SHALL show one install command or
 - **WHEN** the visitor's operating system or CPU has no listed artifact
 - **THEN** the script exits without downloading and says which platforms are available
 
+### Requirement: Targets are gated by the repositories' own evidence
+A product and platform SHALL be offered only after its smoke check passes **and** the evidence its repository lists as still owed for that platform is recorded as passed, or the owner approves shipping with each open item named as a known limit in the release notes and on the page. Linux builds SHALL state their runtime baseline.
+
+#### Scenario: Owed evidence is open
+- **WHEN** a repository's remaining-evidence list has an open item for a platform
+- **THEN** that platform is not offered, unless the release notes and page name the item as a known limit with the owner's approval
+
+#### Scenario: Linux build
+- **WHEN** a Linux artifact is offered
+- **THEN** the page and notes state the required system libraries and the minimum distribution
+
 ### Requirement: Honest signing and notarization statements
-The site and release notes SHALL describe a build as code-signed or notarized only after a signing or notarization run for that exact release is recorded in the repository. Until then every offered native build SHALL be labelled unsigned and not notarized, with steps to verify the checksum and open it. A checksum or build-provenance manifest SHALL NOT be described as a signature or proof of identity.
+The site and release notes SHALL describe a build as signed or notarized only after a signing or notarization run for that exact release is recorded in the repository. Until then every offered native build SHALL be labelled as not signed with a developer certificate and not notarized, and a macOS app SHALL come with the System Settings, Privacy and Security, Open Anyway steps.
 
 #### Scenario: A build is unsigned
 - **WHEN** a native artifact has no recorded signing or notarization
-- **THEN** its listing says it is not code-signed or notarized and that the system may warn before opening it
+- **THEN** its listing says it is not signed with a developer certificate or notarized and that the system may warn before opening it
+
+### Requirement: Checksums are not signatures
+A checksum or build-provenance manifest SHALL NOT be described as a signature or proof of identity, and the page SHALL say what the checksum does and does not protect.
 
 #### Scenario: Checksum wording
 - **WHEN** the page explains the checksum
 - **THEN** it says the checksum confirms the file matches what was published and does not prove who built it
+- **AND** it says a compromise of ejmlabs.com would not be caught by the checksum
+
+### Requirement: Installer integrity and build separation
+The install script SHALL be generated from the release manifest with its version, URLs and digests embedded, SHALL run its body only after the whole file has been received, SHALL fetch only over HTTPS, and SHALL fail closed when no SHA-256 tool exists.
+
+#### Scenario: Truncated script
+- **WHEN** the script is cut off in transit
+- **THEN** nothing is installed
+
+### Requirement: Build and attach are separate
+Release builds SHALL run project code only in jobs without write access or secrets. A separate job that runs no project code SHALL verify every digest before attaching files to a draft release, and builds SHALL pass smoke checks before the version tag is created.
+
+#### Scenario: Build job tries to write
+- **WHEN** a build or smoke job runs
+- **THEN** it holds read-only repository access and no secrets
+
+#### Scenario: Digest differs at attach time
+- **WHEN** an artifact's digest differs from the build job's record
+- **THEN** the attach job fails and the draft release gets no files
 
 ### Requirement: Download page security and privacy
 The download page SHALL be a static page served under the site's existing content security policy, SHALL add no inline script or third-party origin, and SHALL collect no data of its own. It SHALL state that the file host keeps its own request logs.

@@ -7,7 +7,7 @@ Gives people a short way to send feedback and bug reports with minimal personal 
 ## ADDED Requirements
 
 ### Requirement: A visible feedback route
-The download page and each product's section SHALL link to "Report a bug" and "Send feedback" for that product. Each link SHALL open the product's issue form, with the product version and platform prefilled only where the form has fields for them. A separate link SHALL open the product's private vulnerability report form.
+The download page and each product's section SHALL link to "Report a bug" and "Send feedback" for that product. Each link SHALL open the product's issue form, with the product version and platform prefilled into an existing field by query parameter only when the page knows them. A separate link SHALL open the product's private vulnerability report form.
 
 #### Scenario: Report a bug
 - **WHEN** a visitor selects "Report a bug" for a product
@@ -30,7 +30,7 @@ Any feedback route SHALL NOT store an IP address, user agent or email address by
 - **THEN** it is not required and its purpose is stated next to it
 
 ### Requirement: Abuse controls before any hosted form
-The site SHALL NOT host a feedback form that stores reports until it has server-verified bot protection, a per-client rate limit, a request size cap, a global off switch, a retention limit of at most 90 days, a private destination, and a documented review routine. The content security policy SHALL be widened only for those controls and only for the form's page.
+The site SHALL NOT host a feedback form that stores reports until it has server-verified bot protection, a per-client rate limit, a request size cap, a global off switch, a retention limit of at most 90 days, any stored client key being a keyed hash with a short lifetime, a private destination, and a documented review routine. The content security policy SHALL be widened only for those controls and only for the form's page.
 
 #### Scenario: No hosted form
 - **WHEN** feedback goes through issue links only
