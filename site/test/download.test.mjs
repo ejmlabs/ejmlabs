@@ -64,8 +64,9 @@ test('platforms without a file say so and offer no link', () => {
   const downloads = tags(page(), 'a').map(a => attr(a, 'href') ?? '').filter(h => h.includes('/releases/download/'));
   assert.deepEqual(downloads.toSorted(), artifacts.map(a => a.url).toSorted(), 'the page links exactly the listed files');
   if (!artifacts.some(a => a.product === 'ide')) {
-    const ide = page().match(/<tr\b[^>]*>(?:(?!<\/tr>)[\s\S])*ejm-ide[\s\S]*?<\/tr>/)?.[0] ?? '';
-    assert.ok(ide && !/<a\b/.test(ide), 'the IDE row has no link');
+    const start = page().indexOf('>ejm-ide</h3>');
+    const ide = page().slice(start, page().indexOf('</dl>', start));
+    assert.ok(start > 0 && !/<a\b/.test(ide), 'the IDE group has no link');
   }
 });
 

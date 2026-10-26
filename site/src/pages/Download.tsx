@@ -1,11 +1,10 @@
 import { Band } from '@ejm/ui/layout/Band';
 import { Button } from '@ejm/ui/components/ui/button';
-import { CodeBlockFrame } from '@ejm/ui/docs/CodeBlockFrame';
-import { DocTable } from '@ejm/ui/docs/DocTable';
 import { ExternalLink } from '@ejm/ui/shell/ExternalLink';
 import { Fact, Facts } from '@ejm/ui/layout/Facts';
 import { SectionHead } from '@ejm/ui/layout/SectionHead';
-import { Actions, ContentHeading, FileDetail, InlineCode, InlineLink, Note, ReadingColumn, SectionBody } from '@ejm/ui/layout/SiteContent';
+import { Actions, ContentGroup, ContentHeading, FileDetail, InlineCode, InlineLink, Note, ReadingColumn, SectionBody } from '@ejm/ui/layout/SiteContent';
+import { CopyLine } from '../CopyLine';
 import { UI_PROJECT } from '../content';
 import { PROJECTS } from '@ejm/site/projects';
 import { artifactFor, installLine, reportLinks, UI_PACKAGES_PUBLISHED, versionOf, type Product, type Target } from '../releases';
@@ -69,11 +68,18 @@ export default function Download() {
       <Band tone="paper" aria-labelledby="available-title">
         <SectionHead title="What is available." id="available-title" />
         <SectionBody>
-          <DocTable
-            caption="Builds by product and platform"
-            heads={['Product', ...TARGETS.map(([, label]) => label)]}
-            rows={PRODUCTS.map(({ product, name }) => [name, ...TARGETS.map(([target]) => <Cell key={target} product={product} target={target} />)])}
-          />
+          {PRODUCTS.map(({ product, name }) => (
+            <ContentGroup key={product}>
+              <ContentHeading as="h3">{name}</ContentHeading>
+              <Facts>
+                {TARGETS.map(([target, label]) => (
+                  <Fact key={target} label={label}>
+                    <Cell product={product} target={target} />
+                  </Fact>
+                ))}
+              </Facts>
+            </ContentGroup>
+          ))}
           <Note>
             Linux builds need <InlineCode>libdbus-1</InlineCode>, and stored sign-in needs a running Secret Service. If a program will not start, the
             system's own message names what is missing. Each release's notes state the oldest Linux distribution it was built for.
@@ -102,7 +108,7 @@ export default function Download() {
           <ReadingColumn>
             {installable.length === 0 && <p>The install lines appear here when a release is published.</p>}
             {installable.map(product => (
-              <CodeBlockFrame key={product} lang="sh" label={product === 'cli' ? 'ejm-cli' : 'ejm-harness worker'} code={installLine(product)} />
+              <CopyLine key={product} label={product === 'cli' ? 'ejm-cli' : 'ejm-harness worker'} command={installLine(product)} />
             ))}
             <Note>
               To read the script first, download <ExternalLink href="https://ejmlabs.com/install.sh">install.sh</ExternalLink>, then run{' '}
