@@ -53,8 +53,9 @@ const reportProducts = [
 
 export default function Download() {
   const installable = (['cli', 'worker'] as const).filter(p => versionOf(p));
-  const anyMac = artifacts.some(a => a.target.startsWith('darwin-'));
-  const allNotarized = artifacts.length > 0 && artifacts.every(a => a.notarized === true);
+  const unsigned = artifacts.filter(a => a.notarized !== true);
+  const anyMac = unsigned.some(a => a.target.startsWith('darwin-'));
+  const anyNotarized = unsigned.length < artifacts.length;
   return (
     <>
       <Band tone="sage" aria-labelledby="download-title">
@@ -131,11 +132,11 @@ export default function Download() {
               A matching digest confirms that you received the file we published. It does not prove who built it. The digests and the install
               script come from this site and the files come from GitHub, so a swapped file is caught, but a change to this site would not be.
             </p>
-            {!allNotarized && (
+            {(artifacts.length === 0 || unsigned.length > 0) && (
               <>
                 <ContentHeading as="h3">Unsigned builds</ContentHeading>
                 <p>
-                  These builds are not signed with a developer certificate and are not notarized. Your system may warn before opening them.
+                  {anyNotarized ? 'Builds not marked notarized' : 'These builds'} are not signed with a developer certificate and are not notarized. Your system may warn before opening them.
                   {anyMac && ' On macOS, try to open the file, then choose Open Anyway in System Settings, Privacy and Security, and confirm.'}
                 </p>
               </>

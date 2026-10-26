@@ -33,6 +33,7 @@ export function validateReleases(manifest) {
     const expected = `https://github.com/ejmlabs/${REPOSITORIES[a.product]}/releases/download/v${a.version}/${a.filename}`;
     if (a.url !== expected) throw new Error(`${at}: url must be ${expected}`);
     if (a.notarized !== undefined && typeof a.notarized !== 'boolean') throw new Error(`${at}: notarized must be true or false`);
+    if (a.notarized === true && !a.target.startsWith('darwin-')) throw new Error(`${at}: only a macOS file can be notarized`);
     const key = `${a.product}/${a.target}`;
     if (seen.has(key)) throw new Error(`${at}: duplicate ${key}`);
     seen.add(key);

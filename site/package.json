@@ -7,7 +7,7 @@
     "build": "node scripts/build.mjs",
     "budget": "ejm-ssg budget",
     "typecheck": "tsc -p tsconfig.json --pretty false",
-    "test": "node --test",
+    "test": "node scripts/build.mjs && node --test",
     "preview": "python3 -m http.server 4827 --directory dist --bind 127.0.0.1"
   },
   "version": "0.1.0",

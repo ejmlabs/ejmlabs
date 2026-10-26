@@ -1,4 +1,4 @@
-import test, { before } from 'node:test';
+import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -6,7 +6,7 @@ import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Reads the built site, never runs its scripts. `npm run build` first; the test builds when dist/ is missing.
+// Reads the built site, never runs its scripts. `npm test` builds once first.
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(site, 'dist');
 const read = file => readFileSync(join(dist, file), 'utf8');
@@ -14,10 +14,6 @@ const read = file => readFileSync(join(dist, file), 'utf8');
 const ROUTES = ['/', '/projects/', '/download/', '/try/', '/about/', '/brand/', '/privacy/'];
 const file = route => (route === '/404' ? '404.html' : join(route, 'index.html'));
 const PAGES = [...ROUTES, '/404'];
-
-before(() => {
-  if (!existsSync(join(dist, 'index.html'))) execFileSync('node', [join(site, 'scripts', 'build.mjs')], { cwd: site, stdio: 'inherit' });
-});
 
 const body = html => html.slice(html.indexOf('<body'));
 /** Visible prose: no scripts, styles, tags or inline SVG, entities decoded for the few the server writes. */

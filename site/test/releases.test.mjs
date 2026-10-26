@@ -72,7 +72,9 @@ test('every URL is a versioned release asset on the owning repository', () => {
 test('publishedAt must be a date string and notarized a boolean', () => {
   rejects([{ ...good, publishedAt: 0 }], /publishedAt/);
   rejects([{ ...good, notarized: 'yes' }], /notarized/);
-  assert.equal(validateReleases(list({ ...good, notarized: true })).length, 1);
+  rejects([{ ...good, notarized: true }], /only a macOS file/);
+  const mac = { ...good, target: 'darwin-aarch64', notarized: true };
+  assert.equal(validateReleases(list(mac)).length, 1);
 });
 
 test('an unknown product or target is rejected', () => {

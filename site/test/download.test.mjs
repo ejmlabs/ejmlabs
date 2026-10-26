@@ -1,4 +1,4 @@
-import test, { before } from 'node:test';
+import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -11,11 +11,6 @@ import { renderInstallScript } from '../scripts/install-sh.mjs';
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(site, 'dist');
 const read = file => readFileSync(join(dist, file), 'utf8');
-
-// Always build, so the checks never read a build older than public/releases.json.
-before(() => {
-  execFileSync('node', [join(site, 'scripts', 'build.mjs')], { cwd: site, stdio: 'inherit' });
-});
 
 const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map(m => m[0]);
 const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
@@ -83,9 +78,9 @@ test('install lines appear only for products with a file', () => {
 
 test('the page states the unsigned note, what a checksum shows and who logs the download', () => {
   const text = prose(page());
-  const allNotarized = artifacts.length > 0 && artifacts.every(a => a.notarized === true);
-  assert.equal(/not signed with a developer certificate and are not notarized/.test(text), !allNotarized);
-  assert.equal(/Open Anyway/.test(text), !allNotarized && artifacts.some(a => a.target.startsWith('darwin-')), 'Open Anyway steps only for a listed macOS file');
+  const unsigned = artifacts.filter(a => a.notarized !== true);
+  assert.equal(/not signed with a developer certificate and are not notarized/.test(text), artifacts.length === 0 || unsigned.length > 0);
+  assert.equal(/Open Anyway/.test(text), unsigned.some(a => a.target.startsWith('darwin-')), 'Open Anyway steps only for a listed macOS file that is not notarized');
   assert.match(text, /glibc 2\.39 or newer/);
   assert.match(text, /libdbus-1/);
   assert.match(text, /does not prove who built it/);
@@ -98,6 +93,7 @@ test('signing, notarization and trust words appear only in the statements that d
   const allowed = [
     'not signed with a developer certificate and are not notarized',
     'Waiting for notarization',
+    'Builds not marked notarized',
   ];
   let rest = text;
   for (const phrase of allowed) rest = rest.replaceAll(phrase, ' ');
