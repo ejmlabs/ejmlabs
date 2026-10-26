@@ -11,7 +11,7 @@ const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(site, 'dist');
 const read = file => readFileSync(join(dist, file), 'utf8');
 
-const ROUTES = ['/', '/projects/', '/try/', '/about/', '/brand/', '/privacy/'];
+const ROUTES = ['/', '/projects/', '/download/', '/try/', '/about/', '/brand/', '/privacy/'];
 const file = route => (route === '/404' ? '404.html' : join(route, 'index.html'));
 const PAGES = [...ROUTES, '/404'];
 
