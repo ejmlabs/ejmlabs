@@ -20,11 +20,12 @@ Do not start any task until this change is approved and a new request asks to ap
 ## 3. Binary builds and smoke checks, per repository
 
 - [ ] 3.1 [GH] `ejm-cli`: add build and smoke jobs (native macOS Apple silicon and Linux x86_64 runners) with `contents: read` and no secrets, building `--release --locked` at the harness revision in `.github/harness-revision`, archiving the binary with `LICENSE` and notices, and recording every file's SHA-256. Fix the Linux runner or the stated minimum distribution first (Decision 2). Verify the job has no write permission and no secret.
-- [ ] 3.2 [GH] `dotgithub`: add the shared attach workflow (Decision 9): `contents: write`, no project checkout, recomputes and compares every digest, attaches files and `SHA256SUMS` to the draft release, optional attestations. Verify it fails on a changed digest. Order build and smoke before Draft release creates the tag.
+- [ ] 3.2 [GH] `dotgithub`: add the shared attach workflow (Decision 9): `contents: write`, no project checkout, recomputes and compares every digest, attaches files and `SHA256SUMS` to the draft release, optional attestations. Verify it fails on a changed digest and on a wrong-SHA artifact (a build whose `head_sha` differs from the tagged commit, or from a workflow or trigger other than the named build on `workflow_dispatch` or a push on main). Order build and smoke before Draft release creates the tag, on the same main SHA.
 - [ ] 3.2a [GH] `ejm-harness`: same build jobs for `ejm-harness-worker`. Verify the TypeScript and Python SDKs find it through `EJM_HARNESS_WORKER_PATH`.
 - [ ] 3.3 [GH] `ejm-ide`: only if Decision 8 releases it: build the macOS Apple silicon `.dmg` with the official Tauri action against the matching harness checkout, with notarization if option b. Verify every check in `docs/distribution.md`: editing, terminal cleanup, local language tooling, extensions, provider login and a model request.
 - [ ] 3.4 [GH] Run a smoke check on each built artifact on a clean runner. Verify `ejm-cli --version`, `ejm-cli --replay run "Hello"`, the worker's handshake, and IDE launch. Verify the evidence lists in `native-process-support.md` and `host-auth-verification.md` for each Linux and macOS target are recorded as passed or approved as known limits. Drop any target that fails.
-- [ ] 3.5 [GH] `ejm-ui`: add a publish workflow that runs the packed-consumer proof, then packs the published set. Verify the tarballs hold no reserved brand artwork unless 1.4 approved it, and that the packed-consumer proof still passes with `site` and `demos` private.
+- [ ] 3.5 [GH] `ejm-ui`: add a publish workflow that runs the packed-consumer proof, then packs the published set. Exclude brand artwork through the `files` list or `.npmignore` in `@ejm/tokens`. Add a packed-consumer proof for the published set alone. Verify the tarballs hold no reserved brand artwork unless 1.4 approved it, and the proof passes with `site` and `demos` private.
+- [ ] 3.6 [GH] `dotgithub`: one change amending the shared `RELEASING.md` per the chosen Decision 8 option, then the normal sync PR into each repository; `ejm-ide/docs/distribution.md` is amended in its own repository. Verify the synced copies are byte-identical.
 
 ## 4. Site: download page, installer and manifest
 
@@ -40,11 +41,11 @@ Do not start any task until this change is approved and a new request asks to ap
 ## 5. Release and publish
 
 - [ ] 5.1 [OWNER] Merge each release PR through protected main. Copy the full main SHA.
-- [ ] 5.2 [OWNER][GH] Run **Draft release** per repository for `<V>`; attach built files and `SHA256SUMS`. Verify checksums against 3.4 before review.
+- [ ] 5.2 [OWNER][GH] Run **Draft release** per repository for `<V>`; attach built files and `SHA256SUMS`. Build and smoke ran on that same main SHA. Verify checksums against 3.4 before review.
 - [ ] 5.3 [OWNER] Review each draft, then publish. Never move a tag or replace an asset.
 - [ ] 5.4 [GH] Fill `releases.json` from the published assets; open the site PR; verify `install.sh` against the real published files on a clean macOS and Linux machine.
 - [ ] 5.5 [OWNER] Deploy the site from main at a named SHA after a fresh security PASS on that exact tree.
-- [ ] 5.6 [OWNER] Publish npm and PyPI packages with provenance after the proof and the clean-machine install pass. Verify `npm view` and `pip download` before enabling their install lines on the page.
+- [ ] 5.6 [OWNER] Publish npm and PyPI packages with provenance, only through npm trusted publishing and PyPI Trusted Publishers with a build job and a separate publish job that runs no project code, after the owner confirms the names, the proof and the clean-machine install pass. Verify `npm view` and `pip download` before enabling their install lines on the page.
 
 ## 6. If the owner chooses the Worker form or R2 (not in the recommended path)
 

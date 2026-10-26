@@ -22,7 +22,7 @@ A package SHALL be published only after the packed-consumer proof passes against
 
 #### Scenario: Proof before publish
 - **WHEN** a maintainer starts publication
-- **THEN** the packed-consumer proof has passed on the same commit
+- **THEN** a packed-consumer proof of the publish set alone has passed on the same commit
 
 #### Scenario: Scope not owned
 - **WHEN** the registry scope is not confirmed owned

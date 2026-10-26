@@ -86,6 +86,10 @@ Release builds SHALL run project code only in jobs without write access or secre
 - **WHEN** a build or smoke job runs
 - **THEN** it holds read-only repository access and no secrets
 
+#### Scenario: Artifact is for another commit
+- **WHEN** an artifact comes from a different workflow, trigger or commit than the one being tagged
+- **THEN** the attach job fails and the draft release gets no files
+
 #### Scenario: Digest differs at attach time
 - **WHEN** an artifact's digest differs from the build job's record
 - **THEN** the attach job fails and the draft release gets no files
