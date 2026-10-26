@@ -21,6 +21,7 @@ import { Button } from '@ejm/ui/components/ui/button';
 import { ExternalLink } from '@ejm/ui/shell/ExternalLink';
 import { Disclosure } from '@ejm/ui/components/ui/disclosure';
 import { projects } from '../content';
+import { reportLinks, versionOfProject } from '../releases';
 
 const tones = ['mist', 'sage', 'paper'] as const; // the opening band is Sage, so the list alternates Mist, Sage, Paper
 const projectMarks = {
@@ -120,6 +121,19 @@ export default function Projects() {
                   <Button variant="link" asChild>
                     <ExternalLink href={p.repo}>Source on GitHub</ExternalLink>
                   </Button>
+                  {p.id !== 'calm' && (
+                    <>
+                      <Button variant="link" asChild>
+                        <ExternalLink href={reportLinks(p.repo, versionOfProject(p.id)).bug}>Report a bug</ExternalLink>
+                      </Button>
+                      <Button variant="link" asChild>
+                        <ExternalLink href={reportLinks(p.repo).feedback}>Send feedback</ExternalLink>
+                      </Button>
+                      <Button variant="link" asChild>
+                        <ExternalLink href={reportLinks(p.repo).security}>Report a vulnerability privately</ExternalLink>
+                      </Button>
+                    </>
+                  )}
                   {p.contribute && (
                     <Button variant="link" asChild>
                       <ExternalLink href={p.contribute}>Contribute</ExternalLink>

@@ -26,12 +26,13 @@ cleanup() {
 
 sha256_of() {
   if command -v sha256sum >/dev/null 2>&1; then
-    sha256sum "$1" | cut -d ' ' -f 1
+    sum=$(sha256sum "$1") || return 1
   elif command -v shasum >/dev/null 2>&1; then
-    shasum -a 256 "$1" | cut -d ' ' -f 1
+    sum=$(shasum -a 256 "$1") || return 1
   else
     return 1
   fi
+  printf '%s\n' "${sum%% *}"
 }
 
 main() {
@@ -121,7 +122,10 @@ main() {
     return 1
   fi
 
-  mkdir -p "$dest" || { fail "could not create $dest."; return 1; }
+  if ! (umask 022 && mkdir -p "$dest"); then
+    fail "could not create $dest."
+    return 1
+  fi
   staged="$dest/.$bin.new.$$"
   if ! { cp "$found" "$staged" && chmod 0755 "$staged" && mv -f "$staged" "$dest/$bin"; }; then
     fail "could not install into $dest."
@@ -130,7 +134,9 @@ main() {
   staged=
 
   say "Installed $bin $version to $dest/$bin."
-  say "This build is not signed with a developer certificate and is not notarized."
+  if [ "$notarized" != 1 ]; then
+    say "This build is not signed with a developer certificate and is not notarized."
+  fi
   case ":${PATH:-}:" in
     *":$dest:"*) ;;
     *) say "$dest is not on your PATH. Add it with: export PATH=\"\$HOME/.local/bin:\$PATH\"" ;;

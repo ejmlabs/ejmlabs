@@ -12,8 +12,9 @@ const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(site, 'dist');
 const read = file => readFileSync(join(dist, file), 'utf8');
 
+// Always build, so the checks never read a build older than public/releases.json.
 before(() => {
-  if (!existsSync(join(dist, 'index.html'))) execFileSync('node', [join(site, 'scripts', 'build.mjs')], { cwd: site, stdio: 'inherit' });
+  execFileSync('node', [join(site, 'scripts', 'build.mjs')], { cwd: site, stdio: 'inherit' });
 });
 
 const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map(m => m[0]);
@@ -59,7 +60,7 @@ test('platforms without a file say so and offer no link', () => {
   const text = prose(page());
   const has = (product, target) => artifacts.some(a => a.product === product && a.target === target);
   assert.match(text, /Not yet available/);
-  if (!has('cli', 'linux-x86_64') && !has('worker', 'linux-x86_64')) assert.match(text, /Available after the release is published/);
+  assert.doesNotMatch(text, /Available after the release is published/);
   if (!has('cli', 'darwin-aarch64') && !has('worker', 'darwin-aarch64')) assert.match(text, /Waiting for notarization/);
   const downloads = tags(page(), 'a').map(a => attr(a, 'href') ?? '').filter(h => h.includes('/releases/download/'));
   assert.deepEqual(downloads.toSorted(), artifacts.map(a => a.url).toSorted(), 'the page links exactly the listed files');
@@ -82,7 +83,11 @@ test('install lines appear only for products with a file', () => {
 
 test('the page states the unsigned note, what a checksum shows and who logs the download', () => {
   const text = prose(page());
-  assert.match(text, /not signed with a developer certificate and are not notarized/);
+  const allNotarized = artifacts.length > 0 && artifacts.every(a => a.notarized === true);
+  assert.equal(/not signed with a developer certificate and are not notarized/.test(text), !allNotarized);
+  assert.equal(/Open Anyway/.test(text), !allNotarized && artifacts.some(a => a.target.startsWith('darwin-')), 'Open Anyway steps only for a listed macOS file');
+  assert.match(text, /glibc 2\.39 or newer/);
+  assert.match(text, /libdbus-1/);
   assert.match(text, /does not prove who built it/);
   assert.match(text, /a change to this site would not be/);
   assert.match(text, /GitHub, which keeps its own request logs/);
@@ -104,6 +109,21 @@ test('signing, notarization and trust words appear only in the statements that d
 test('report links go to the product forms and carry only the template and the evidence field', () => {
   const html = page();
   const repos = ['ejm-cli', 'ejm-harness', 'ejm-ide', 'ejm-ui'];
+  assertReportLinks(html, repos);
+  assert.match(prose(html), /Do not post security details in public/);
+});
+
+test('each project section carries the report links', () => {
+  const html = read('projects/index.html');
+  for (const id of ['cli', 'ide', 'harness', 'ui']) {
+    const band = html.match(new RegExp(`<section\\b[^>]*\\sid="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
+    assertReportLinks(band, [{ cli: 'ejm-cli', ide: 'ejm-ide', harness: 'ejm-harness', ui: 'ejm-ui' }[id]]);
+  }
+  const calm = html.match(/<section\b[^>]*\sid="calm"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.doesNotMatch(calm, /issues\/new/);
+});
+
+function assertReportLinks(html, repos) {
   const links = tags(html, 'a').map(a => attr(a, 'href') ?? '').filter(h => /\/(?:issues\/new|security\/advisories\/new)/.test(h));
   assert.equal(links.length, repos.length * 3);
   for (const repo of repos) {
@@ -124,8 +144,7 @@ test('report links go to the product forms and carry only the template and the e
   }
   const security = tags(html, 'a').map(a => attr(a, 'href') ?? '').filter(h => h.endsWith('/security/advisories/new'));
   assert.equal(security.length, repos.length);
-  assert.match(prose(html), /Do not post security details in public/);
-});
+}
 
 test('a bug link carries the version only for a product with a file', () => {
   const links = tags(page(), 'a').map(a => (attr(a, 'href') ?? '').replaceAll('&amp;', '&')).filter(h => h.includes('template=bug.yml'));

@@ -81,6 +81,20 @@ test('a listed target installs, checks the digest and prints the unsigned note',
   assert.deepEqual(readdirSync(r.tmp), [], 'the temporary directory is removed');
 });
 
+test('a notarized target does not get the unsigned line', () => {
+  writeFileSync(script, renderInstallScript([{ ...artifact, notarized: true }]));
+  const r = run(['cli']);
+  writeFileSync(script, renderInstallScript([artifact]));
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /Installed ejm-cli/);
+  assert.doesNotMatch(r.stdout, /not signed/);
+});
+
+test('the install directory is created readable', () => {
+  const r = run(['cli']);
+  assert.equal(statSync(join(r.home, '.local', 'bin')).mode & 0o777, 0o755);
+});
+
 test('no PATH hint when the install directory is already on PATH', () => {
   const home = mkdtempSync(join(work, 'path-'));
   const r = run(['cli'], { env: { HOME: home, PATH: `${join(home, '.local', 'bin')}:${bin}:${process.env.PATH}` } });

@@ -13,6 +13,8 @@ export interface Artifact {
   url: string;
   bytes: number;
   sha256: string;
+  /** True only after a notarization run for this file is recorded. */
+  notarized?: boolean;
 }
 
 export const artifacts: readonly Artifact[] = manifest.artifacts as readonly Artifact[];

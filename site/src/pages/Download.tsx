@@ -7,7 +7,7 @@ import { Actions, ContentGroup, ContentHeading, FileDetail, InlineCode, InlineLi
 import { CopyLine } from '../CopyLine';
 import { UI_PROJECT } from '../content';
 import { PROJECTS } from '@ejm/site/projects';
-import { artifactFor, installLine, reportLinks, UI_PACKAGES_PUBLISHED, versionOf, type Product, type Target } from '../releases';
+import { artifactFor, artifacts, installLine, reportLinks, UI_PACKAGES_PUBLISHED, versionOf, type Product, type Target } from '../releases';
 
 const TARGETS: readonly [Target, string][] = [
   ['linux-x86_64', 'Linux x86_64'],
@@ -22,12 +22,9 @@ const PRODUCTS: readonly { product: Product; name: string; project: 'cli' | 'har
   { product: 'ide', name: 'ejm-ide', project: 'ide' },
 ];
 
-/** What a platform with no file says. Linux command-line builds are planned; macOS waits for notarization; nothing else is promised. */
+/** What a platform with no file says. macOS command-line builds wait for notarization; nothing else is promised. */
 function waiting(product: Product, target: Target) {
-  if (product === 'ide') return 'Not yet available';
-  if (target === 'linux-x86_64') return 'Available after the release is published';
-  if (target === 'darwin-aarch64') return 'Waiting for notarization';
-  return 'Not yet available';
+  return product !== 'ide' && target === 'darwin-aarch64' ? 'Waiting for notarization' : 'Not yet available';
 }
 
 const megabytes = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
@@ -56,7 +53,8 @@ const reportProducts = [
 
 export default function Download() {
   const installable = (['cli', 'worker'] as const).filter(p => versionOf(p));
-  const anyFile = PRODUCTS.some(({ product }) => versionOf(product));
+  const anyMac = artifacts.some(a => a.target.startsWith('darwin-'));
+  const allNotarized = artifacts.length > 0 && artifacts.every(a => a.notarized === true);
   return (
     <>
       <Band tone="sage" aria-labelledby="download-title">
@@ -81,8 +79,8 @@ export default function Download() {
             </ContentGroup>
           ))}
           <Note>
-            Linux builds need <InlineCode>libdbus-1</InlineCode>, and stored sign-in needs a running Secret Service. If a program will not start, the
-            system's own message names what is missing. Each release's notes state the oldest Linux distribution it was built for.
+            Linux x86_64 builds need glibc 2.39 or newer, for example Ubuntu 24.04 or Debian 13. ejm-cli also needs <InlineCode>libdbus-1</InlineCode>,
+            and its stored sign-in needs a running Secret Service. If a program will not start, the system's own message names what is missing.
           </Note>
         </SectionBody>
         <SectionBody>
@@ -133,11 +131,15 @@ export default function Download() {
               A matching digest confirms that you received the file we published. It does not prove who built it. The digests and the install
               script come from this site and the files come from GitHub, so a swapped file is caught, but a change to this site would not be.
             </p>
-            <ContentHeading as="h3">Unsigned builds</ContentHeading>
-            <p>
-              These builds are not signed with a developer certificate and are not notarized. Your system may warn before opening them.
-              {anyFile && ' On macOS, try to open the file, then choose Open Anyway in System Settings, Privacy and Security, and confirm.'}
-            </p>
+            {!allNotarized && (
+              <>
+                <ContentHeading as="h3">Unsigned builds</ContentHeading>
+                <p>
+                  These builds are not signed with a developer certificate and are not notarized. Your system may warn before opening them.
+                  {anyMac && ' On macOS, try to open the file, then choose Open Anyway in System Settings, Privacy and Security, and confirm.'}
+                </p>
+              </>
+            )}
             <ContentHeading as="h3">Who sees the download</ContentHeading>
             <p>
               Files come from GitHub, which keeps its own request logs. This site counts visits as described on the{' '}

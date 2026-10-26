@@ -69,6 +69,12 @@ test('every URL is a versioned release asset on the owning repository', () => {
   rejects([{ ...worker, url: `https://github.com/ejmlabs/ejm-harness/archive/v0.1.1/${asset}` }], /url must be/);
 });
 
+test('publishedAt must be a date string and notarized a boolean', () => {
+  rejects([{ ...good, publishedAt: 0 }], /publishedAt/);
+  rejects([{ ...good, notarized: 'yes' }], /notarized/);
+  assert.equal(validateReleases(list({ ...good, notarized: true })).length, 1);
+});
+
 test('an unknown product or target is rejected', () => {
   rejects([{ ...good, product: 'ui' }], /unknown product/);
   rejects([{ ...good, target: 'linux-aarch64' }], /unknown target/);

@@ -7,7 +7,7 @@ Gives people a short way to send feedback and bug reports with no data held by t
 ## ADDED Requirements
 
 ### Requirement: Report links per product
-The download page SHALL link, for each product, to its bug form, its feedback form and its private security report form in the product's repository. Version and platform SHALL be passed only in the `evidence` query value, and only when the page knows them.
+The download page and each project's section (except ejm-calm, which has no forms) SHALL link, for each product, to its bug form, its feedback form and its private security report form in the product's repository. Version and platform SHALL be passed only in the `evidence` query value, and only when the page knows them.
 
 #### Scenario: Report a bug
 - **WHEN** a visitor selects "Report a bug" for a product

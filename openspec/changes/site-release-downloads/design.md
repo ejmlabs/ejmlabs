@@ -22,13 +22,14 @@ Captain's choices applied: version 0.1.0 (0.1.1 for ejm-harness and ejm-ide); fi
       "filename": "ejm-cli-0.1.0-linux-x86_64.tar.gz",
       "url": "https://github.com/ejmlabs/ejm-cli/releases/download/v0.1.0/ejm-cli-0.1.0-linux-x86_64.tar.gz",
       "bytes": 1234,
-      "sha256": "<64 hex>"
+      "sha256": "<64 hex>",
+      "notarized": false
     }
   ]
 }
 ```
 
-Products are `cli`, `worker` and `ide`; targets are `darwin-aarch64`, `darwin-x86_64`, `linux-x86_64`, `windows-x86_64`. Field names follow the IDE distribution manifest, so a later move to R2 is a hosting change. An empty list is valid. A product's version is the single version of its artifacts (a mixed version is rejected), which is the "version mismatch" case: the version in the URL tag and in the filename must equal `version`.
+Products are `cli`, `worker` and `ide`; targets are `darwin-aarch64`, `darwin-x86_64`, `linux-x86_64`, `windows-x86_64`. Field names follow the IDE distribution manifest, so a later move to R2 is a hosting change. An empty list is valid. `notarized` is optional and true only after a notarization run for that file is recorded; the installer prints its unsigned line, and the page its unsigned note and macOS Open Anyway steps, only for files not recorded as notarized (the steps only when a macOS file is listed). A product's version is the single version of its artifacts (a mixed version is rejected), which is the "version mismatch" case: the version in the URL tag and in the filename must equal `version`.
 
 ### 2. Validation lives in one module
 
@@ -40,7 +41,9 @@ Products are `cli`, `worker` and `ide`; targets are `darwin-aarch64`, `darwin-x8
 
 ### 4. Download page from the same list
 
-`Download.tsx` is a prerendered route reading the validated list through a build-time module. Rows are products, columns are platforms. A cell is a link with size and short hash when an artifact exists, "waiting for notarization" for macOS while the manifest has no macOS entry, and "Not yet available" otherwise, with no link or date. The ejm-ui row shows its `npm install` line only when a constant in `src/releases.ts` is set after `npm view` confirms the packages; it starts false. Install lines use a small `CopyLine` component (shared `CommandLines`, `Button` and the `@ejm/core` copy state) whose Copy button appears when the page hydrates, so no script is added. The docs `CodeBlockFrame` and `DocTable` are not used: the site's style profile does not include the docs styles, and the matrix is a `Facts` list per product. The page has no form and no inline script, and its links to GitHub are navigation. The shared 95 KB JavaScript budget was already at 95.0 KB on `/projects/`; the header link and the page need a 97 KB limit, set in `defineSite`.
+`Download.tsx` is a prerendered route reading the validated list through a build-time module. Rows are products, columns are platforms. A cell is a link with size and short hash when an artifact exists, "Waiting for notarization" for macOS Apple silicon command-line builds while the manifest has no macOS entry, and "Not yet available" otherwise (including Linux until it is listed), with no link or date. The ejm-ui row shows its `npm install` line only when a constant in `src/releases.ts` is set after `npm view` confirms the packages; it starts false. Install lines use a small `CopyLine` component (shared `CommandLines`, `Button` and the `@ejm/core` copy state) whose Copy button appears when the page hydrates, so no script is added. The docs `CodeBlockFrame` and `DocTable` are not used: the site's style profile does not include the docs styles, and the matrix is a `Facts` list per product. The page has no form and no inline script, and its links to GitHub are navigation. The shared 95 KB JavaScript budget was already at 95.0 KB on `/projects/`; the header link and the page need a 97 KB limit, set in `defineSite`.
+
+The page states the Linux baseline: glibc 2.39 or newer (for example Ubuntu 24.04 or Debian 13), `libdbus-1` for ejm-cli and a Secret Service for its stored sign-in. Update it if a release is built on an older image.
 
 ### 5. Product text
 

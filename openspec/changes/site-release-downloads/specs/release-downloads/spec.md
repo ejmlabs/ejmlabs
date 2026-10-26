@@ -51,11 +51,16 @@ The script SHALL run its body only after the whole file is received, fetch only 
 - **THEN** nothing is installed and the exit status is non-zero
 
 ### Requirement: Honest statements
-The site SHALL describe a build as signed or notarized only after a signing run for that release is recorded. Until then it SHALL say builds are not signed with a developer certificate and not notarized, and that a checksum confirms a file matches what was published and does not prove who built it.
+The site SHALL describe a build as signed or notarized only after a signing run for that release is recorded. Until then (for each file the manifest does not record as notarized) it SHALL say builds are not signed with a developer certificate and not notarized, and that a checksum confirms a file matches what was published and does not prove who built it.
 
 #### Scenario: Unsigned build
-- **WHEN** an artifact is listed
-- **THEN** the page says it is not signed with a developer certificate or notarized
+- **WHEN** an artifact is listed and not recorded as notarized
+- **THEN** the page and install script say it is not signed with a developer certificate or notarized
+- **AND** the macOS Open Anyway steps appear only when a macOS file is listed
+
+#### Scenario: Linux baseline
+- **WHEN** the page lists Linux builds
+- **THEN** it states the minimum glibc and the required libraries
 
 ### Requirement: Static page without new origins
 The download page SHALL be static, SHALL add no inline script, form or origin, SHALL collect no data of its own, and SHALL say the file host keeps its own request logs.

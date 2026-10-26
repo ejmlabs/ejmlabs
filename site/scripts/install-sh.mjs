@@ -13,7 +13,7 @@ export function renderInstallScript(artifacts) {
   const listed = artifacts.filter(a => Object.hasOwn(BINARIES, a.product));
   const cases = listed.map(a => [
     `    ${a.product}/${a.target})`,
-    `      bin='${BINARIES[a.product]}'; version='${a.version}'; file='${a.filename}'`,
+    `      bin='${BINARIES[a.product]}'; version='${a.version}'; file='${a.filename}'; notarized=${a.notarized === true ? 1 : 0}`,
     `      url='${a.url}'`,
     `      sha256='${a.sha256}'`,
     '      ;;',

@@ -28,10 +28,11 @@ export function validateReleases(manifest) {
     if (!a.filename.includes(a.version)) throw new Error(`${at}: filename must name version ${a.version}`);
     if (typeof a.sha256 !== 'string' || !SHA256.test(a.sha256)) throw new Error(`${at}: sha256 must be 64 lowercase hex digits`);
     if (!Number.isSafeInteger(a.bytes) || a.bytes <= 0) throw new Error(`${at}: bytes must be a positive integer`);
-    if (Number.isNaN(Date.parse(a.publishedAt))) throw new Error(`${at}: publishedAt must be a date`);
+    if (typeof a.publishedAt !== 'string' || Number.isNaN(Date.parse(a.publishedAt))) throw new Error(`${at}: publishedAt must be a date`);
     if (typeof a.url !== 'string' || !a.url.startsWith('https://')) throw new Error(`${at}: url must be HTTPS`);
     const expected = `https://github.com/ejmlabs/${REPOSITORIES[a.product]}/releases/download/v${a.version}/${a.filename}`;
     if (a.url !== expected) throw new Error(`${at}: url must be ${expected}`);
+    if (a.notarized !== undefined && typeof a.notarized !== 'boolean') throw new Error(`${at}: notarized must be true or false`);
     const key = `${a.product}/${a.target}`;
     if (seen.has(key)) throw new Error(`${at}: duplicate ${key}`);
     seen.add(key);

@@ -20,4 +20,4 @@
 
 ## 5. Local proof
 
-- [ ] 5.1 Fill a local preview manifest from local Linux artifacts, run `install.sh --dry-run` and a real install into a scratch home against a local file server, and record the result. Keep the committed `releases.json` empty.
+- [x] 5.1 Fill a local preview manifest from local Linux artifacts, run `install.sh --dry-run` and a real install into a scratch home against a local file server, and record the result. Keep the committed `releases.json` empty.
