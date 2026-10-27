@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ejm-ssg dev",
     "build": "node scripts/build.mjs",
-    "budget": "ejm-ssg budget",
+    "perf": "node scripts/perf.mjs",
     "typecheck": "tsc -p tsconfig.json --pretty false",
     "test": "node scripts/build.mjs && node --test",
     "preview": "python3 -m http.server 4827 --directory dist --bind 127.0.0.1"

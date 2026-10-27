@@ -75,7 +75,7 @@ or compatibility gaps. A local build does not publish either repository.
 
 - Build pages from public `@ejm/ui` components with deep imports (`@ejm/ui/layout/Band`). ejm-ui owns type, spacing, branding, themes, motion, controls, and composition. Supply content, route data, and accessible state. Use `SectionBody`, `Columns`, `Actions`, notes, asset previews and links from `@ejm/ui/layout/SiteContent`; extend the shared owner when a pattern is missing.
 - `ejmSite` checks authored site source during builds and development. Local CSS rules or imports, inline styles, style elements, visual `className` values, and unsupported visual overrides fail with a source location. Only the public shared CSS imports, the content-scan exclusion, and the literal `Static className="contents"` structure are allowed. Header and footer take structured identity; headings take a semantic purpose. Hero motion has one shared policy and respects reduced motion. Keep browser examples in `@ejm/demos/ShowcaseFrame`.
-- Budgets per route are JavaScript 95, CSS 14 and HTML 30 KiB gzip, with fonts limited to 70 KiB of raw WOFF2. The gate counts scripts linked by the initial HTML and excludes dynamic imports. A breach fails the build. Never raise a budget: lazy load or trim. After React, the router and the shell, a route has about 8 KiB of initial JavaScript left.
+- Page weight has no byte cap. Load time is the bar: `npm run perf` fails when first contentful paint on `/`, `/download/` or `/projects/` is a second or more slower than `perf-baseline.json`. Use well-maintained packages instead of hand-rolled code, and lazy load what a route does not need first.
 - The copy welcomes people to run, study, change, and contribute to projects. Keep personal team-size framing, invented adoption or sales claims, and em dashes out of the text. Current projects do not limit the direction of future work.
 - Standalone page actions use the shared button treatment, including text links, to retain 44 px touch targets. Inline prose links use the shared inline link.
 - One `h1` per route, the skip link first, the theme toggle last in the header, external links marked `rel="external"`.
@@ -84,9 +84,9 @@ or compatibility gaps. A local build does not publish either repository.
 
 ```sh
 npm run typecheck
-npm run build        # also checks the budgets
+npm run build
 npm test             # reads the built HTML of every route
-node ../../ejm-ui/scripts/perf.mjs dist
+npm run perf         # first contentful paint against perf-baseline.json; needs Chrome
 ```
 
 `npm test` builds when `dist/` is missing. The home checks keep the sections in order, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
