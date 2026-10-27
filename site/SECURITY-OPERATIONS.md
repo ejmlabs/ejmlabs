@@ -91,7 +91,7 @@ concurrent changes. From this repository's root, run the existing site checks:
 npm --prefix site run typecheck
 npm --prefix site run build
 npm --prefix site test
-npm --prefix site run budget
+npm --prefix site run perf
 ```
 
 From `site/`, validate each configured environment without publishing:
