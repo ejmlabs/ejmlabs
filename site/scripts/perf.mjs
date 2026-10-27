@@ -1,8 +1,8 @@
 // Measure first contentful paint for the main routes from the built site, on Lighthouse's default
-// mobile 4G throttle, and fail when a route is a second or more slower than the recorded baseline.
+// slow-4G mobile throttle (150 ms RTT, 1.6 Mbit/s, 4x CPU slowdown), and fail when a route is a second or more slower than the recorded baseline.
 // `npm run perf` checks; `npm run perf -- --update` records a new baseline.
 import { execFileSync, spawn } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,12 +12,31 @@ const routes = ['/', '/download/', '/projects/'];
 const runs = 3;
 const limitMs = 1000;
 const port = 4829;
+const dist = join(site, 'dist');
+const waitForServer = async () => {
+  for (let i = 0; i < 100; i++) {
+    if (server.exitCode !== null) throw new Error(`Static server exited (is port ${port} already in use?)`);
+    try {
+      await fetch(`http://127.0.0.1:${port}/`);
+      return;
+    } catch {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+  throw new Error(`Static server did not start on port ${port}`);
+};
 const median = values => values.toSorted((a, b) => a - b)[Math.floor(values.length / 2)];
 
-const server = spawn('python3', ['-m', 'http.server', String(port), '--directory', join(site, 'dist'), '--bind', '127.0.0.1'], { stdio: 'ignore' });
+if (!existsSync(dist)) {
+  console.error('site/dist is missing. Run `npm --prefix site run build` first.');
+  process.exit(1);
+}
+
+// `serve` compresses responses like the CDN does, so the numbers describe what visitors receive.
+const server = spawn(join(site, 'node_modules', '.bin', 'serve'), [dist, '--listen', `tcp://127.0.0.1:${port}`, '--no-clipboard'], { stdio: ['ignore', 'ignore', 'inherit'] });
 const measured = {};
 try {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await waitForServer();
   for (const route of routes) {
     const samples = [];
     for (let i = 0; i < runs; i++) {
@@ -43,6 +62,7 @@ if (process.argv.includes('--update')) {
 const baseline = JSON.parse(readFileSync(baselineFile, 'utf8'));
 let failed = false;
 for (const route of routes) {
+  if (typeof baseline[route] !== 'number') throw new Error(`No baseline for ${route}. Run \`npm --prefix site run perf -- --update\`.`);
   const delta = measured[route] - baseline[route];
   const slow = delta >= limitMs;
   failed ||= slow;

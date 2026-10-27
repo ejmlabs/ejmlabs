@@ -7,7 +7,7 @@ The site build fails when a route's gzip JavaScript, CSS, HTML or font bytes pas
 ## What Changes
 
 - Remove the `budget` script and the `budget` limits in `site/src/site.tsx` that raised the JavaScript limit. Remove the byte-budget wording from the README and `site/README.md`, and from the notes of earlier changes.
-- Add `npm --prefix site run perf`: it serves the built site and measures first contentful paint for `/`, `/download/` and `/projects/` with Lighthouse on its default mobile 4G throttle, median of three runs. It fails when a route is one second or more slower than the baseline in `site/perf-baseline.json`.
+- Add `npm --prefix site run perf`: it serves the built site and measures first contentful paint for `/`, `/download/` and `/projects/` with Lighthouse on its slow-4G mobile throttle, served with compression, median of three runs. It fails when a route is one second or more slower than the baseline in `site/perf-baseline.json`.
 - Add `lighthouse` as a development dependency. It is maintained by the Chrome team and needs a local Chrome.
 - No byte, file-count or dependency-count cap remains in this repository's tests, checks, specs or review criteria.
 

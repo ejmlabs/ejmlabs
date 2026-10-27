@@ -289,7 +289,6 @@ test('the theme script is an external file and the favicon set and manifest are 
     assert.ok(existsSync(join(dist, f)), f);
   }
   const boot = read('theme-boot.js');
-  assert.ok(boot.length < 1024);
   assert.match(boot, /ejm-theme/);
 });
 
