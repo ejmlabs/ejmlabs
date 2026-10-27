@@ -7,7 +7,7 @@
 
 ## 2. Measure load time
 
-- [x] 2.1 Add `lighthouse` and `site/scripts/perf.mjs` with the `perf` script.
+- [x] 2.1 Add `lighthouse`, `serve` (with a `compression` override for its audited memory-leak advisory, dropped once `serve` depends on compression 1.8.2 or newer) and `site/scripts/perf.mjs` with the `perf` script.
 - [x] 2.2 Record `site/perf-baseline.json` and document the command in `README.md`.
 
 ## 3. Verify

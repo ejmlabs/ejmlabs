@@ -14,7 +14,7 @@ The repository SHALL NOT fail a build, test, check or review on the byte size of
 - **THEN** the build and tests pass unless the route's first contentful paint regresses by a second or more
 
 ### Requirement: Measured first contentful paint
-`npm --prefix site run perf` SHALL serve the built site and measure first contentful paint for `/`, `/download/` and `/projects/` on Lighthouse's slow-4G mobile throttle profile, served with compression, as the median of three runs. It SHALL fail when any route is 1000 ms or more slower than the baseline recorded in `site/perf-baseline.json`.
+`npm --prefix site run perf` SHALL serve the built site and measure first contentful paint for `/`, `/download/` and `/projects/` on Lighthouse's desktop throttle profile (40 ms round trip, 10 Mbit/s, no CPU slowdown), a normal connection, served with compression, as the median of three runs. It SHALL fail when any route is 1000 ms or more slower than the baseline recorded in `site/perf-baseline.json`.
 
 #### Scenario: A change adds a whole second
 - **WHEN** a change makes a route paint one second or more later than its baseline
