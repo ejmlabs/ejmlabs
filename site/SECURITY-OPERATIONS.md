@@ -199,6 +199,30 @@ registry origin and keep its storage private. The CLI owns its relay adapter;
 verify the configured HTTPS origin, origin-bound credentials, disabled alternate
 URLs, and admission policy through that repository's workflow.
 
+## Downloads and report links
+
+The apex serves `/download/`, `/install.sh` and `/releases.json` as static
+files built from `site/public/releases.json`. The release files themselves are
+GitHub release assets on each product's repository, so this site stores no
+installer and runs no Worker or bucket for them. Only a reviewed change to
+`releases.json`, deployed from main, changes what the page offers.
+
+Data statement for the download and report links: the site keeps nothing of
+its own beyond the existing visit counts. `install.sh` sends no telemetry and
+contacts only GitHub. GitHub keeps its own request logs for file downloads.
+The report links open each product's GitHub issue forms and private security
+report form; the site reads nothing from the visitor, holds no report and adds
+no endpoint, store or content security policy source. The only value a link may
+carry is the released version in the form's `evidence` field.
+
+The checksum and the script share this origin. A change to this site could
+alter both, so treat a deployment as the control: deploy only from main at a
+named revision after a fresh security pass, and keep owner sign-in protected by
+MFA with no long-lived deploy credential in CI. After an authorized release
+deployment, check that `/install.sh` and `/releases.json` match the reviewed
+build, that each listed URL is a versioned release asset of its repository, and
+that the page offers only files that exist.
+
 ## Audit, alerts, and incident response
 
 Review a bounded audit window around project administration, token, deployment,

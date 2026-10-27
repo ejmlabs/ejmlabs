@@ -12,9 +12,10 @@ import type { ReactNode } from 'react';
 
 const here = PROJECTS.ejmlabs;
 
-// The header carries the four pages people look for; the footer lists all of them.
+// The header carries the five pages people look for; the footer lists all of them.
 const nav = [
   { label: 'Projects', href: '/projects/' },
+  { label: 'Download', href: '/download/' },
   { label: 'Watch', href: '/try/' },
   { label: 'About', href: '/about/' },
   { label: 'Brand', href: '/brand/' },

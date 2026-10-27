@@ -11,7 +11,12 @@ The ejmlabs site: a Vite and React site on the ejm-ui design system, prerendered
 | `/try/` | CLI, IDE and harness completing useful work in autoplay example sessions, with Pause or Resume and Restart. Meaningful static views remain available without scripts. |
 | `/about/` | What guides the work, room for projects beyond AI and developer tools, and quiet Company details naming `ejmlabs, llc`. |
 | `/brand/` | Approved logo previews, file and variant guidance, palette, clear space, rights, and brand and swag downloads. |
-| `/privacy/` | What analytics measures and what is stored. |
+| `/download/` | Builds by product and platform from `public/releases.json`, one-line install, how to check a download, the unsigned note and report links. Offers no file until a release is listed. |
+| `/privacy/` | What analytics measures and what is stored, and what the download and report links touch. |
+
+## Releases
+
+`public/releases.json` is the only list of released files: product, version, target, GitHub release-asset URL, size and SHA-256 for each. It is empty until a release is published. `scripts/releases.mjs` validates it (HTTPS, a digest, no duplicate target, one version per product, a versioned asset URL on the repository that owns the product), and the build stops on a bad list. The build writes `dist/install.sh` from the same list (`scripts/install.template.sh`, shellchecked and covered by fixtures in `test/install.test.mjs`), and the Download page and each project's "get started" text read it too. To list a release, add its artifacts to the file in a reviewed change; do not replace a listed file, publish a new version instead.
 
 ## Local preview
 

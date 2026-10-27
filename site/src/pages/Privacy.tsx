@@ -1,4 +1,4 @@
-import { SectionBody } from '@ejm/ui/layout/SiteContent';
+import { InlineCode, SectionBody } from '@ejm/ui/layout/SiteContent';
 import { Band } from '@ejm/ui/layout/Band';
 import { Fact, Facts } from '@ejm/ui/layout/Facts';
 import { SectionHead } from '@ejm/ui/layout/SectionHead';
@@ -40,9 +40,23 @@ export default function Privacy() {
               The sessions play locally in your browser with sample code and
               recorded output. Playback is not saved between visits.
             </Fact>
+            <Fact label="downloads">
+              The download page, <InlineCode>install.sh</InlineCode> and{' '}
+              <InlineCode>releases.json</InlineCode> are static files. The
+              files they point to are served by GitHub, which keeps its own
+              request logs under its own policy. The install script sends
+              nothing to ejmlabs.com and contacts only GitHub.
+            </Fact>
+            <Fact label="reports">
+              The report links open the project's GitHub issues or private
+              security report form. This site reads nothing from you to build
+              them, holds no report and keeps no copy. GitHub's terms apply to
+              what you send there.
+            </Fact>
             <Fact label="third parties">
               Cloudflare hosts the site and runs the analytics. No other third
-              party loads on a page.
+              party loads on a page. Links to GitHub are ordinary links and
+              load nothing until you follow one.
             </Fact>
             <Fact label="accounts">The site has no accounts or sign-in.</Fact>
           </Facts>

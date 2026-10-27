@@ -1,4 +1,5 @@
 import { PROJECTS } from '@ejm/site/projects';
+import { versionOfProject } from './releases';
 
 // What the pages say about the projects. The facts come from each project's README; status is stated as the README states it.
 export const GITHUB = PROJECTS.ejmlabs.repo;
@@ -18,6 +19,12 @@ export const CALM_PROJECT = {
   repo: 'https://github.com/ejmlabs/ejm-calm',
 } as const;
 
+/** "Get started" text: the install pointer once a product has a release, the source text until then. */
+const getStarted = (id: string, fromSource: string) => {
+  const version = versionOfProject(id);
+  return version ? `Version ${version} is an early release. Install it from the download page, or build from source.` : fromSource;
+};
+
 export const projects = [
   {
     id: 'cli',
@@ -31,7 +38,7 @@ export const projects = [
     facts: [
       ['license', 'MIT'],
       ['written in', 'Rust, with Ratatui and Tokio'],
-      ['get started', 'Build from source. Installers and package-manager releases are not available yet.'],
+      ['get started', getStarted('cli', 'Build from source. Installers and package-manager releases are not available yet.')],
       ['platforms', 'macOS, Windows and Linux. See the user guide for platform support and limits.'],
     ],
     does: [
@@ -58,7 +65,7 @@ export const projects = [
     facts: [
       ['license', 'MIT'],
       ['written in', 'React, Monaco, Tauri and Rust'],
-      ['get started', 'Early development, version 0.1.0. Build from source. Signed installers are not available yet.'],
+      ['get started', getStarted('ide', 'Early development, version 0.1.0. Build from source. Signed installers are not available yet.')],
       ['platforms', 'macOS, Windows x64 and Linux x64. Native support is still being tested.'],
     ],
     does: [
@@ -85,7 +92,7 @@ export const projects = [
     facts: [
       ['license', 'MIT'],
       ['written in', 'Rust, with TypeScript and Python SDKs'],
-      ['get started', 'Version 0.1.0 is available from public source. Registry packages are not available yet.'],
+      ['get started', getStarted('harness', 'Version 0.1.0 is available from public source. Registry packages are not available yet.')],
       ['model access', 'Configure an HTTP or trusted package provider. Model requests may incur provider charges.'],
     ],
     does: [

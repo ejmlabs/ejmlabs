@@ -10,6 +10,8 @@ const base = siteDefaults(description);
 export default defineSite({
   ...base,
   head: { ...base.head, title: 'ejmlabs | Open source projects and experiments' },
+  // The shared 95 KB gzip limit sat at 95.0 KB on /projects/ before the Download page and its header link; 97 leaves room for them.
+  budget: { js: 97 },
   App,
   routes: [
     { path: '/', load: () => import('./pages/Home') },
@@ -17,6 +19,11 @@ export default defineSite({
       path: '/projects/',
       load: () => import('./pages/Projects'),
       head: { title: 'Projects', description: 'Explore the current open source projects: ejm-cli, ejm-ide, ejm-harness, ejm-ui and ejm-calm. Find source code, setup guides, and ways to contribute.' },
+    },
+    {
+      path: '/download/',
+      load: () => import('./pages/Download'),
+      head: { title: 'Download', description: 'Early releases of the lab tools, with install lines, file checksums and links to report a problem.' },
     },
     {
       path: '/try/',
