@@ -106,7 +106,6 @@ test('the home page links every project site as external without scripts', () =>
 
 test('the home page opens with a text hero and keeps project names on one line', () => {
   const html = read('index.html');
-  assert.match(html, /<h1\b[^>]*>Open source\. Room to explore\.<\/h1>/);
   assert.ok(tags(html, 'a').some(a => attr(a, 'href') === '#projects'), 'the hero links to the projects');
   for (const name of ['ejm-ui', 'ejm-calm']) assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
   for (const name of ['ejm-cli', 'ejm-ide', 'ejm-harness']) {
@@ -115,17 +114,35 @@ test('the home page opens with a text hero and keeps project names on one line',
   }
 });
 
-test('the home page serves its sections in order', () => {
+test('the home page keeps its navigable sections in order', () => {
   const html = read('index.html');
-  const text = prose(html);
-  const titles = ['Open source. Room to explore.', 'How we work.', 'Current projects.', 'See it in action.', 'Help improve a project.'];
+  const sections = ['approach-title', 'projects-title', 'products-title', 'try-title', 'open-title'];
   let last = -1;
-  for (const title of titles) {
-    const at = text.indexOf(title);
-    assert.ok(at > last, `${title}: present and in order`);
+  for (const id of sections) {
+    const at = html.indexOf(`id="${id}"`);
+    assert.ok(at > last, `${id}: present and in order`);
     last = at;
   }
-  for (const habit of ['Start small.', 'Make it useful.', 'Share the tools.']) assert.ok(text.includes(habit), habit);
+});
+
+test('the home page keeps the commercial product apart from the open source projects', () => {
+  const html = read('index.html');
+  const start = html.indexOf('id="projects"');
+  assert.ok(!html.slice(start, html.indexOf('<section', start)).includes('meetgerry.ai'), 'Gerry is not an open source row');
+  const gerry = tags(html, 'a').find(t => attr(t, 'href') === 'https://meetgerry.ai/');
+  assert.ok(gerry, 'a link to meetgerry.ai');
+  assert.match(attr(gerry, 'rel'), /external/);
+  const text = prose(html);
+  assert.match(text, /not released yet/, 'Gerry is described as unreleased');
+  assert.match(text, /Gerry is proprietary/, 'the footer does not call Gerry MIT licensed');
+});
+
+test('the IDE platform fact distinguishes the documented target from unsupported platforms', () => {
+  const html = read('projects/index.html');
+  const band = html.match(/<section\b[^>]*\sid="ide"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const text = prose('<body>' + band);
+  assert.match(text, /macOS on Apple Silicon is the current target/);
+  assert.match(text, /Windows and Linux are not yet supported/);
 });
 
 test('the home page calls ejmlabs a lab and has no ejm-cli demo section', () => {

@@ -14,7 +14,7 @@ import { SectionHead } from '@ejm/ui/layout/SectionHead';
 const principles = [
   [
     'Start with the source.',
-    'Read the code and try a change. Guides and contribution notes live with each project.',
+    'Read the code of an open source project and try a change. Guides and contribution notes live with each project.',
   ],
   [
     'Build something useful.',
@@ -33,12 +33,13 @@ export default function About() {
         <SectionHead
           as="h1"
           purpose="page"
-          title="A home for open source projects."
+          title="A home for open source projects and commercial products."
           id="about-title"
         >
           <p>
-            Tools and experiments you can use, study and build on. What comes
-            next is open too, from coding tools to ideas beyond AI.
+            Open source tools and experiments you can use, study and build on,
+            and commercial products for business. What comes next can be either,
+            from coding tools to ideas beyond AI.
           </p>
         </SectionHead>
       </Band>

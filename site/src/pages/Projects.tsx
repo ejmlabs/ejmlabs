@@ -20,7 +20,8 @@ import { SectionHead } from '@ejm/ui/layout/SectionHead';
 import { Button } from '@ejm/ui/components/ui/button';
 import { ExternalLink } from '@ejm/ui/shell/ExternalLink';
 import { Disclosure } from '@ejm/ui/components/ui/disclosure';
-import { projects } from '../content';
+import { InlineLink } from '@ejm/ui/layout/InlineLink';
+import { GERRY_PROJECT, projects } from '../content';
 import { reportLinks, versionOfProject } from '../releases';
 
 const tones = ['mist', 'sage', 'paper'] as const; // the opening band is Sage, so the list alternates Mist, Sage, Paper
@@ -42,7 +43,10 @@ export default function Projects() {
           title="Explore the projects."
           id="projects-title"
         >
-          <p>Open source projects to use, study and improve.</p>
+          <p>
+            Open source projects to use, study and improve. Gerry, our
+            commercial product, has <InlineLink href={GERRY_PROJECT.url} external>its own site</InlineLink>.
+          </p>
         </SectionHead>
       </Band>
 
