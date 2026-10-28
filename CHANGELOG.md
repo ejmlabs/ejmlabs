@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Add a Download page, a generated `install.sh` and a release manifest, with report links per product and a download and report data statement. The manifest is empty until a release is published.
+
 - Adopt shared brand-name fitting so project names stay on one line.
 
 - Add ejm-ui to Studio project discovery with gallery, documentation and source links.

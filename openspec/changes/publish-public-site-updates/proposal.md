@@ -21,7 +21,7 @@ has not reached the hosted UI revision.
 - Commit the Studio, product and native presentation changes with their docs.
 - Exclude retained dependency snapshots from IDE test discovery while keeping
   all product tests and immutable source bytes intact.
-- Use the existing protected review rules, build and transfer budgets, and
+- Use the existing protected review rules, build, and
   configured Cloudflare targets. Record rollback and deployed source identities.
 - Resolve missing targets and backend prerequisites before any first launch of
   the gallery or registry. The owner selected ui.ejmlabs.com and registry.ejmlabs.com.

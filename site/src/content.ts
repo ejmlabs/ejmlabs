@@ -1,4 +1,5 @@
 import { PROJECTS } from '@ejm/site/projects';
+import { versionOfProject } from './releases';
 
 // What the pages say about the projects. The facts come from each project's README; status is stated as the README states it.
 export const GITHUB = PROJECTS.ejmlabs.repo;
@@ -9,6 +10,20 @@ export const UI_PROJECT = {
   host: 'ui.ejmlabs.com',
   repo: 'https://github.com/ejmlabs/ejm-ui',
 } as const;
+
+// calm is not in the shared project registry yet.
+export const CALM_PROJECT = {
+  name: 'ejm-calm',
+  url: 'https://calm.ejmlabs.com/',
+  host: 'calm.ejmlabs.com',
+  repo: 'https://github.com/ejmlabs/ejm-calm',
+} as const;
+
+/** "Get started" text: the install pointer once a product has a release, the source text until then. */
+const getStarted = (id: string, fromSource: string) => {
+  const version = versionOfProject(id);
+  return version ? `Version ${version} is an early release. Install it from the download page, or build from source.` : fromSource;
+};
 
 export const projects = [
   {
@@ -23,7 +38,7 @@ export const projects = [
     facts: [
       ['license', 'MIT'],
       ['written in', 'Rust, with Ratatui and Tokio'],
-      ['get started', 'Build from source. Installers and package-manager releases are not available yet.'],
+      ['get started', getStarted('cli', 'Build from source. Installers and package-manager releases are not available yet.')],
       ['platforms', 'macOS, Windows and Linux. See the user guide for platform support and limits.'],
     ],
     does: [
@@ -35,6 +50,8 @@ export const projects = [
       ['User guide', `${PROJECTS.cli.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.cli.url}docs/developer-guide/`],
     ],
+    secondary: ['Watch a session', '/try/#cli'],
+    contribute: `${PROJECTS.cli.repo}/blob/main/CONTRIBUTING.md`,
   },
   {
     id: 'ide',
@@ -48,7 +65,7 @@ export const projects = [
     facts: [
       ['license', 'MIT'],
       ['written in', 'React, Monaco, Tauri and Rust'],
-      ['get started', 'Early development, version 0.1.0. Build from source. Signed installers are not available yet.'],
+      ['get started', getStarted('ide', 'Early development, version 0.1.0. Build from source. Signed installers are not available yet.')],
       ['platforms', 'macOS, Windows x64 and Linux x64. Native support is still being tested.'],
     ],
     does: [
@@ -60,6 +77,8 @@ export const projects = [
       ['User guide', `${PROJECTS.ide.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.ide.url}docs/developer-guide/`],
     ],
+    secondary: ['Watch a session', '/try/#ide'],
+    contribute: `${PROJECTS.ide.repo}/blob/main/CONTRIBUTING.md`,
   },
   {
     id: 'harness',
@@ -73,7 +92,7 @@ export const projects = [
     facts: [
       ['license', 'MIT'],
       ['written in', 'Rust, with TypeScript and Python SDKs'],
-      ['get started', 'Version 0.1.0 is available from public source. Registry packages are not available yet.'],
+      ['get started', getStarted('harness', 'Version 0.1.0 is available from public source. Registry packages are not available yet.')],
       ['model access', 'Configure an HTTP or trusted package provider. Model requests may incur provider charges.'],
     ],
     does: [
@@ -85,6 +104,8 @@ export const projects = [
       ['User guide', `${PROJECTS.harness.url}docs/user-guide/`],
       ['Developer guide', `${PROJECTS.harness.url}docs/developer-guide/`],
     ],
+    secondary: ['Watch a session', '/try/#harness'],
+    contribute: `${PROJECTS.harness.repo}/blob/main/CONTRIBUTING.md`,
   },
   {
     id: 'ui',
@@ -106,5 +127,30 @@ export const projects = [
       ['Getting started', `${UI_PROJECT.url}docs/`],
       ['Components', `${UI_PROJECT.url}docs/components/`],
     ],
+    secondary: ['Browse components', `${UI_PROJECT.url}components/`],
+    contribute: `${UI_PROJECT.repo}/blob/main/CONTRIBUTING.md`,
+  },
+  {
+    id: 'calm',
+    ...CALM_PROJECT,
+    kind: 'TypeScript / web scene',
+    summary: 'A generated ocean scene with a whale, to watch or explore.',
+    row: 'A generated ocean with a whale, ships and coastlines, and a new sea for each seed.',
+    facts: [
+      ['license', 'MIT for software. Brand assets retain their own rights.'],
+      ['written in', 'TypeScript and three.js (WebGL 2), with simplex noise, built with Vite'],
+      ['get started', 'Early development, version 0.1.0. Open it in a browser with WebGL 2, including on phones. No accounts, tracking or analytics.'],
+    ],
+    does: [
+      ['One seed, one sea', 'Each seed rebuilds the same time of day, whale behavior, ships, coasts and mountains.'],
+      ['Look around', 'Drag to look around. The camera eases back to a slow drift.'],
+      ['Quiet by default', 'Sound is optional and off by default. Reduced motion is respected.'],
+    ],
+    // No docs site or contribution guide yet: the README is the guide.
+    docs: [
+      ['README', `${CALM_PROJECT.repo}#readme`],
+    ],
+    secondary: ['Try seed 42', `${CALM_PROJECT.url}?seed=42`],
+    contribute: null,
   },
 ] as const;
