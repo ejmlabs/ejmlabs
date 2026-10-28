@@ -1,5 +1,3 @@
-import uiInk from '@ejm/tokens/assets/logos/symbol-ink.svg?no-inline';
-import uiPaper from '@ejm/tokens/assets/logos/symbol-paper.svg?no-inline';
 import {
   Actions,
   Columns,
@@ -10,6 +8,10 @@ import cliPaper from '@ejm/tokens/assets/projects/cli/mark-paper.svg?no-inline';
 import ideInk from '@ejm/tokens/assets/projects/ide/mark-ink.svg?no-inline';
 import harnessInk from '@ejm/tokens/assets/projects/harness/mark-ink.svg?no-inline';
 import harnessPaper from '@ejm/tokens/assets/projects/harness/mark-paper.svg?no-inline';
+// Local copies until @ejm/tokens publishes them (see src/assets/projects/README.md).
+import uiInk from '../assets/projects/ui/mark-ink.svg?no-inline';
+import uiPaper from '../assets/projects/ui/mark-paper.svg?no-inline';
+import calmInk from '../assets/projects/calm/mark-ink.svg?no-inline';
 import { Band } from '@ejm/ui/layout/Band';
 import { Brand } from '@ejm/ui/shell/Brand';
 import { Fact, Facts } from '@ejm/ui/layout/Facts';
@@ -19,6 +21,7 @@ import { Button } from '@ejm/ui/components/ui/button';
 import { ExternalLink } from '@ejm/ui/shell/ExternalLink';
 import { Disclosure } from '@ejm/ui/components/ui/disclosure';
 import { projects } from '../content';
+import { reportLinks, versionOfProject } from '../releases';
 
 const tones = ['mist', 'sage', 'paper'] as const; // the opening band is Sage, so the list alternates Mist, Sage, Paper
 const projectMarks = {
@@ -26,6 +29,7 @@ const projectMarks = {
   ide: { light: ideInk, dark: ideInk }, // Sage keeps its light scheme in either page theme.
   harness: { light: harnessInk, dark: harnessPaper },
   ui: { light: uiInk, dark: uiPaper },
+  calm: { light: calmInk, dark: calmInk }, // Keep Ink while this band is Sage; revisit if the order changes.
 };
 
 export default function Projects() {
@@ -98,10 +102,10 @@ export default function Projects() {
                   </a>
                 </Button>
                 <Button variant="link" asChild>
-                  {p.id === 'ui' ? (
-                    <ExternalLink href={`${p.url}components/`}>Browse components</ExternalLink>
+                  {p.secondary[1].startsWith('/') && !p.secondary[1].startsWith('//') ? (
+                    <a href={p.secondary[1]}>{p.secondary[0]}</a>
                   ) : (
-                    <a href={`/try/#${p.id}`}>Watch a session</a>
+                    <ExternalLink href={p.secondary[1]}>{p.secondary[0]}</ExternalLink>
                   )}
                 </Button>
               </Actions>
@@ -117,9 +121,24 @@ export default function Projects() {
                   <Button variant="link" asChild>
                     <ExternalLink href={p.repo}>Source on GitHub</ExternalLink>
                   </Button>
-                  <Button variant="link" asChild>
-                    <ExternalLink href={`${p.repo}/blob/main/CONTRIBUTING.md`}>Contribute</ExternalLink>
-                  </Button>
+                  {p.id !== 'calm' && (
+                    <>
+                      <Button variant="link" asChild>
+                        <ExternalLink href={reportLinks(p.repo, versionOfProject(p.id)).bug}>Report a bug</ExternalLink>
+                      </Button>
+                      <Button variant="link" asChild>
+                        <ExternalLink href={reportLinks(p.repo).feedback}>Send feedback</ExternalLink>
+                      </Button>
+                      <Button variant="link" asChild>
+                        <ExternalLink href={reportLinks(p.repo).security}>Report a vulnerability privately</ExternalLink>
+                      </Button>
+                    </>
+                  )}
+                  {p.contribute && (
+                    <Button variant="link" asChild>
+                      <ExternalLink href={p.contribute}>Contribute</ExternalLink>
+                    </Button>
+                  )}
                 </Actions>
               </Disclosure>
             </SectionBody>

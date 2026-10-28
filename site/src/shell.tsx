@@ -1,4 +1,4 @@
-import { UI_PROJECT } from './content';
+import { CALM_PROJECT, UI_PROJECT } from './content';
 import { Link, usePath } from '@ejm/ssg';
 import { Analytics } from '@ejm/site/analytics';
 import { otherSites, PROJECTS, sourceLinks } from '@ejm/site/projects';
@@ -12,13 +12,17 @@ import type { ReactNode } from 'react';
 
 const here = PROJECTS.ejmlabs;
 
-// The header carries the four pages people look for; the footer lists all of them.
+// The header carries the five pages people look for; the footer lists all of them.
 const nav = [
   { label: 'Projects', href: '/projects/' },
+  { label: 'Download', href: '/download/' },
   { label: 'Watch', href: '/try/' },
   { label: 'About', href: '/about/' },
   { label: 'Brand', href: '/brand/' },
 ];
+
+// Footer links take plain text labels, so project names use a non-breaking hyphen (U+2011) to stay on one line.
+const unbroken = (link: NavItem) => ({ ...link, label: link.label.replaceAll('-', '‑') });
 
 const footerPages = [
   { label: 'Home', href: '/' },
@@ -34,7 +38,7 @@ const footer: FooterProps = {
   },
   columns: [
     { heading: 'Pages', links: footerPages },
-    { heading: 'Projects', links: [...otherSites('ejmlabs'), { label: UI_PROJECT.name, href: UI_PROJECT.url, external: true }] },
+    { heading: 'Projects', links: [...otherSites('ejmlabs'), ...[UI_PROJECT, CALM_PROJECT].map(p => ({ label: p.name, href: p.url, external: true }))].map(unbroken) },
     { heading: 'Source', links: sourceLinks('ejmlabs') },
   ],
   privacy: (

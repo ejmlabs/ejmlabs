@@ -1,9 +1,11 @@
 // Build the site, retain approved asset URLs, and assemble public downloads.
 import { execFileSync } from 'node:child_process';
-import { cpSync, mkdirSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderInstallScript } from './install-sh.mjs';
+import { readReleases } from './releases.mjs';
 
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const root = join(site, '..');
@@ -44,7 +46,10 @@ const copy = (source, target) => {
   cpSync(source, target);
 };
 
+// A bad release list stops the build before anything is written.
+const releases = readReleases();
 execFileSync(join(site, 'node_modules', '.bin', 'ejm-ssg'), ['build'], { cwd: site, stdio: 'inherit' });
+writeFileSync(join(dist, 'install.sh'), renderInstallScript(releases));
 
 // Preserve approved direct asset URLs, including social exports, without publishing internal notes,
 // comparison sheets, generators, HTML or nested archives from the working design kit.

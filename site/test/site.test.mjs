@@ -1,22 +1,19 @@
-import test, { before } from 'node:test';
+import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Reads the built site, never runs its scripts. `npm run build` first; the test builds when dist/ is missing.
+// Reads the built site, never runs its scripts. `npm test` builds once first.
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(site, 'dist');
 const read = file => readFileSync(join(dist, file), 'utf8');
 
-const ROUTES = ['/', '/projects/', '/try/', '/about/', '/brand/', '/privacy/'];
+const ROUTES = ['/', '/projects/', '/download/', '/try/', '/about/', '/brand/', '/privacy/'];
 const file = route => (route === '/404' ? '404.html' : join(route, 'index.html'));
 const PAGES = [...ROUTES, '/404'];
-
-before(() => {
-  if (!existsSync(join(dist, 'index.html'))) execFileSync('node', [join(site, 'scripts', 'build.mjs')], { cwd: site, stdio: 'inherit' });
-});
 
 const body = html => html.slice(html.indexOf('<body'));
 /** Visible prose: no scripts, styles, tags or inline SVG, entities decoded for the few the server writes. */
@@ -96,13 +93,114 @@ test('every same-site link in every page resolves to a file in dist', () => {
   }
 });
 
-test('the home page links the three project sites as external without scripts', () => {
+const PROJECT_HOSTS = ['cli', 'ide', 'harness', 'ui', 'calm'];
+
+test('the home page links every project site as external without scripts', () => {
   const html = read('index.html');
-  for (const host of ['cli', 'ide', 'harness']) {
+  for (const host of PROJECT_HOSTS) {
     const a = tags(html, 'a').find(t => attr(t, 'href') === `https://${host}.ejmlabs.com/`);
     assert.ok(a, `a link to ${host}.ejmlabs.com`);
     assert.match(attr(a, 'rel'), /external/);
   }
+});
+
+test('the home page opens with a text hero and keeps project names on one line', () => {
+  const html = read('index.html');
+  assert.match(html, /<h1\b[^>]*>Open source\. Room to explore\.<\/h1>/);
+  assert.ok(tags(html, 'a').some(a => attr(a, 'href') === '#projects'), 'the hero links to the projects');
+  for (const name of ['ejm-ui', 'ejm-calm']) assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
+  for (const name of ['ejm-cli', 'ejm-ide', 'ejm-harness']) {
+    assert.match(html, new RegExp(`<span class="whitespace-nowrap">${name}</span>`), `${name}: row title stays on one line`);
+    assert.ok(html.includes(name.replace('-', '‑')), `${name}: footer label uses a non-breaking hyphen`);
+  }
+});
+
+test('the home page serves its sections in order', () => {
+  const html = read('index.html');
+  const text = prose(html);
+  const titles = ['Open source. Room to explore.', 'How we work.', 'Current projects.', 'See it in action.', 'Help improve a project.'];
+  let last = -1;
+  for (const title of titles) {
+    const at = text.indexOf(title);
+    assert.ok(at > last, `${title}: present and in order`);
+    last = at;
+  }
+  for (const habit of ['Start small.', 'Make it useful.', 'Share the tools.']) assert.ok(text.includes(habit), habit);
+});
+
+test('the home page calls ejmlabs a lab and has no ejm-cli demo section', () => {
+  const html = read('index.html');
+  assert.doesNotMatch(html, /studio/i, 'no studio wording');
+  assert.doesNotMatch(html, /\sid="(?:try|cli-demo|cli-demo-title|studio)"/, 'no try, ejm-cli demo or studio section');
+  assert.doesNotMatch(html, /data-demo="cli"/, 'no ejm-cli demo mount');
+  assert.ok(!prose(html).includes('Try ejm-cli in your browser.'), 'no ejm-cli demo title');
+});
+
+/** The home Projects rows as {href, mark}; a mark is the served SVG file's bytes or the decoded inlined SVG text. */
+const homeProjectMarks = () => {
+  const html = read('index.html');
+  const start = html.indexOf('id="projects"');
+  const section = html.slice(start, html.indexOf('<section', start));
+  return [...section.matchAll(/<li\b[\s\S]*?<\/li>/g)].map(([row]) => {
+    const href = attr(tags(row, 'a')[0] ?? '', 'href') ?? '';
+    const src = attr(tags(row, 'img')[0] ?? '', 'src') ?? '';
+    const inline = 'data:image/svg+xml,';
+    const mark = src.startsWith(inline) ? Buffer.from(decodeURIComponent(src.slice(inline.length)).replace(/&#x27;/g, "'").replace(/&amp;/g, '&')) : readFileSync(join(dist, src));
+    return { href, src, mark };
+  });
+};
+const pathData = svg => [...svg.matchAll(/\sd=["']([^"']+)["']/g)].map(m => m[1]);
+
+test('the EJM UI project row uses the ejm-ui grid-e mark', () => {
+  const rows = homeProjectMarks();
+  assert.ok(!rows.some(row => /symbol-ink/.test(row.src)), 'the company symbol is not a project mark');
+  const ui = rows.find(row => row.href === 'https://ui.ejmlabs.com/');
+  assert.ok(ui, 'the ui row exists');
+  assert.equal(createHash('sha256').update(ui.mark).digest('hex'), '08ff7f3099ba18d9e1dc2a1e309fa3d444d996bbb7832b7d401aa91caaa8b049', 'the ui row shows the grid-e mark, served unchanged');
+});
+
+test('the calm project row draws the approved fluke mark', () => {
+  const calm = homeProjectMarks().find(row => row.href === 'https://calm.ejmlabs.com/');
+  assert.ok(calm, 'the calm row exists');
+  const source = readFileSync(join(site, 'src', 'assets', 'projects', 'calm', 'mark-ink.svg'), 'utf8');
+  assert.deepEqual(pathData(calm.mark.toString('utf8')), pathData(source), 'the built mark has the approved paths');
+});
+
+test('home project marks are plain artwork', () => {
+  for (const { href, mark } of homeProjectMarks()) {
+    assert.doesNotMatch(mark.toString('utf8'), /<script|\son\w+=|foreignObject|href=|url\(/i, `${href} mark has no active content`);
+  }
+});
+
+test('every project mark on home and projects is built', () => {
+  // Project marks live in <main>; the header and footer carry the lab symbol. Small marks may be inlined as data URIs.
+  const main = html => html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+  const built = src => src.startsWith('data:image/svg+xml,') || (src.startsWith('/') && existsSync(join(dist, src)));
+  const home = tags(main(read('index.html')), 'img');
+  assert.equal(home.length, PROJECT_HOSTS.length, 'one mark per home row');
+  const projects = read('projects/index.html');
+  const marks = [...home];
+  for (const id of PROJECT_HOSTS) {
+    const band = projects.match(new RegExp(`<section\\b[^>]*\\sid="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
+    const imgs = tags(band, 'img');
+    assert.ok(imgs.length >= 1, `${id} has a mark`);
+    marks.push(...imgs);
+  }
+  for (const mark of marks) {
+    const src = attr(mark, 'src') ?? '';
+    assert.ok(built(src), `${src.slice(0, 60)} is built`);
+    assert.doesNotMatch(src, /symbol-(?:ink|paper)/, 'no project uses the lab symbol');
+  }
+});
+
+test('calm links only to pages that exist', () => {
+  const html = read('projects/index.html');
+  const band = html.match(/<section\b[^>]*\sid="calm"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const hrefs = tags(band, 'a').map(t => attr(t, 'href') ?? '');
+  assert.ok(hrefs.includes('https://github.com/ejmlabs/ejm-calm'), 'source link');
+  assert.ok(!hrefs.some(h => /CONTRIBUTING/i.test(h)), 'no contribution guide link');
+  assert.ok(!hrefs.some(h => h.startsWith('/try/')), 'no session link');
+  assert.ok(hrefs.every(h => !h.startsWith('https://calm.ejmlabs.com/docs')), 'no docs site link');
 });
 
 test('the home page has no product previews, carousel controls or image preloads', () => {
@@ -191,7 +289,6 @@ test('the theme script is an external file and the favicon set and manifest are 
     assert.ok(existsSync(join(dist, f)), f);
   }
   const boot = read('theme-boot.js');
-  assert.ok(boot.length < 1024);
   assert.match(boot, /ejm-theme/);
 });
 

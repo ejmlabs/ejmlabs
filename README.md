@@ -38,10 +38,10 @@ Browse projects, watch recorded examples, read About, or download approved brand
 node scripts/check.mjs
 npm --prefix site test
 npm --prefix site run build
-npm --prefix site run budget
+npm --prefix site run perf
 ```
 
-The check entry installs the exact site lock with lifecycle scripts off, then checks types. The build checks shared design ownership, prerenders routes, applies shared headers and enforces transfer budgets. Tests check generated content, links, playback fallbacks and curated downloads.
+The check entry installs the exact site lock with lifecycle scripts off, then checks types. The build checks shared design ownership, prerenders routes and applies shared headers. Tests check generated content, links, playback fallbacks and curated downloads. `perf` serves the built site, measures first contentful paint for `/`, `/download/` and `/projects/` on Lighthouse's desktop throttle (40 ms RTT, 10 Mbit/s, no CPU slowdown) with compression on, as the CDN serves (median of three runs, Chrome required) and fails when a route is a second or more slower than `site/perf-baseline.json`. Run `npm --prefix site run perf -- --update` to record a new baseline. There is no size cap on bytes or dependencies; use well-maintained packages and watch load time.
 
 Pages consume public @ejm exports. ejm-ui owns tokens, themes, visual components, motion, native profiles, site policy, prerendering and demos. Studio owns content, route composition, project discovery and download assembly. Public brand files resolve through @ejm/tokens/assets exports; Studio retains the swag masters and previews. Retained design-kit references are not active UI primitives and are not copied into the site as a playbook.
 
