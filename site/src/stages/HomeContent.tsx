@@ -12,7 +12,7 @@ import { Row, Rows } from '@ejm/ui/layout/Rows';
 import { SectionHead } from '@ejm/ui/layout/SectionHead';
 import { Brand } from '@ejm/ui/shell/Brand';
 import { Actions, SectionBody } from '@ejm/ui/layout/SiteContent';
-import { GITHUB, projects } from '../content';
+import { GERRY_PROJECT, GITHUB, projects } from '../content';
 
 const projectMarks = { cli: cliMark, ide: ideMark, harness: harnessMark, ui: uiMark, calm: calmMark };
 
@@ -28,20 +28,20 @@ const homeRows = {
 const habits = [
   ['Start small.', 'Each experiment answers one question, so it can be built, tried and judged quickly.'],
   ['Make it useful.', 'A project is finished when someone can use it, not when it is clever.'],
-  ['Share the tools.', 'What we build for ourselves, we release as open source so others can build on it.'],
+  ['Share the tools.', 'Tools we build for ourselves are released as open source. Products for business are commercial, with their own licenses.'],
 ] as const;
 
 function HomeHero() {
   return <Hero
     art={ripple}
     drawOn
-    title="Open source. Room to explore."
+    title="Open source tools. Products for business."
     actions={<>
       <Button asChild arrow><a href="#projects">Explore the projects</a></Button>
       <Button asChild variant="link"><a href={GITHUB} rel="external noopener">Browse the source</a></Button>
     </>}
   >
-    <p>ejmlabs is a home for open source projects and experiments. Explore the code, try something out, or help improve it.</p>
+    <p>ejmlabs builds open source projects and commercial products. Explore the code, try something out, or help improve it.</p>
   </Hero>;
 }
 
@@ -60,7 +60,7 @@ export default function HomeContent() {
       </SectionBody>
     </Band>
     <Band id="projects" tone="sage" aria-labelledby="projects-title">
-      <SectionHead title="Current projects." id="projects-title">
+      <SectionHead title="Open source projects." id="projects-title">
         <p>A terminal agent, a desktop editor, the engine they share, the design system behind these sites, and ejm-calm, a generated ocean scene to watch. The code for all five is open source under the MIT license.</p>
       </SectionHead>
       <SectionBody>
@@ -77,6 +77,22 @@ export default function HomeContent() {
       </SectionBody>
       <SectionBody>
         <Actions><Button variant="link" asChild><a href="/projects/">Read about the projects</a></Button></Actions>
+      </SectionBody>
+    </Band>
+    <Band id="products" tone="mist" aria-labelledby="products-title">
+      <SectionHead title="Commercial products." id="products-title">
+        <p>Not everything we build is open source. Our commercial products have their own licenses and terms.</p>
+      </SectionHead>
+      <SectionBody>
+        <Rows aria-label="Products">
+          <Row
+            title={GERRY_PROJECT.name}
+            href={GERRY_PROJECT.url}
+            external
+            description="A workspace that grows with your business, with an AI teammate built in. It is not released yet, and its own site has the waitlist."
+            meta="Commercial / coming soon"
+          />
+        </Rows>
       </SectionBody>
     </Band>
     <Band tone="paper" aria-labelledby="try-title">

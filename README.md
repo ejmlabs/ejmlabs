@@ -2,7 +2,7 @@
 
 ## Overview
 
-Open source projects, experiments and brand resources at [ejmlabs.com](https://ejmlabs.com/).
+Open source projects, commercial products, experiments and brand resources at [ejmlabs.com](https://ejmlabs.com/).
 
 ## Status
 

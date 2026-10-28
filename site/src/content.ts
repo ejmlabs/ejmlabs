@@ -19,6 +19,13 @@ export const CALM_PROJECT = {
   repo: 'https://github.com/ejmlabs/ejm-calm',
 } as const;
 
+// Gerry is the commercial product. It is proprietary, so it has no repository or guides here, and its own site is a waitlist.
+export const GERRY_PROJECT = {
+  name: 'Gerry',
+  url: 'https://meetgerry.ai/',
+  host: 'meetgerry.ai',
+} as const;
+
 /** "Get started" text: the install pointer once a product has a release, the source text until then. */
 const getStarted = (id: string, fromSource: string) => {
   const version = versionOfProject(id);
@@ -66,7 +73,7 @@ export const projects = [
       ['license', 'MIT'],
       ['written in', 'React, Monaco, Tauri and Rust'],
       ['get started', getStarted('ide', 'Early development, version 0.1.0. Build from source. Signed installers are not available yet.')],
-      ['platforms', 'macOS, Windows x64 and Linux x64. Native support is still being tested.'],
+      ['platforms', 'macOS on Apple Silicon is the current target. Windows and Linux are not yet supported.'],
     ],
     does: [
       ['Edi, beside the editor', 'Follow the agent through file reads, automatic write reviews and diffs, all in the conversation.'],

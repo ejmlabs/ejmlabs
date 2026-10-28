@@ -4,12 +4,12 @@ import NotFound from './pages/NotFound';
 import { App } from './shell';
 import './styles.css';
 
-const description = 'Open source projects and experiments. Explore the code, try the tools, and contribute ideas, examples, documentation, or fixes.';
+const description = 'Open source projects, experiments and commercial products. Explore the code, try the tools, and contribute ideas, examples, documentation, or fixes.';
 const base = siteDefaults(description);
 
 export default defineSite({
   ...base,
-  head: { ...base.head, title: 'ejmlabs | Open source projects and experiments' },
+  head: { ...base.head, title: 'ejmlabs | Open source projects and commercial products' },
   // The pinned ejm-ssg build still runs its size gate. Lift every limit until a pin that drops it; load time is measured by `npm run perf`.
   budget: { js: Infinity, css: Infinity, fonts: Infinity, html: Infinity },
   App,
@@ -33,7 +33,7 @@ export default defineSite({
     {
       path: '/about/',
       load: () => import('./pages/About'),
-      head: { title: 'About', description: 'A home for open source projects and experiments, with room for ideas beyond AI and developer tools.' },
+      head: { title: 'About', description: 'A home for open source projects, experiments and commercial products, with room for ideas beyond AI and developer tools.' },
     },
     {
       path: '/brand/',

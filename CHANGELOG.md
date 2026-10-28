@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Describe ejmlabs as open source projects and commercial products, and list Gerry apart from the open source projects on Home, with its proprietary license in the footer.
+
 - Add a Download page, a generated `install.sh` and a release manifest, with report links per product and a download and report data statement. The manifest is empty until a release is published.
 
 - Adopt shared brand-name fitting so project names stay on one line.

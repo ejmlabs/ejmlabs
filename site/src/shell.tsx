@@ -1,4 +1,4 @@
-import { CALM_PROJECT, UI_PROJECT } from './content';
+import { CALM_PROJECT, GERRY_PROJECT, UI_PROJECT } from './content';
 import { Link, usePath } from '@ejm/ssg';
 import { Analytics } from '@ejm/site/analytics';
 import { otherSites, PROJECTS, sourceLinks } from '@ejm/site/projects';
@@ -34,11 +34,11 @@ const footer: FooterProps = {
   identity: {
     name: here.name,
     artwork: { src: markInk, darkSrc: markPaper, width: 31, height: 28 },
-    description: 'Open source projects. Room to explore.',
+    description: 'Open source and commercial projects. Room to explore.',
   },
   columns: [
     { heading: 'Pages', links: footerPages },
-    { heading: 'Projects', links: [...otherSites('ejmlabs'), ...[UI_PROJECT, CALM_PROJECT].map(p => ({ label: p.name, href: p.url, external: true }))].map(unbroken) },
+    { heading: 'Projects', links: [...otherSites('ejmlabs'), ...[UI_PROJECT, CALM_PROJECT, GERRY_PROJECT].map(p => ({ label: p.name, href: p.url, external: true }))].map(unbroken) },
     { heading: 'Source', links: sourceLinks('ejmlabs') },
   ],
   privacy: (
@@ -49,7 +49,7 @@ const footer: FooterProps = {
       <InlineLink href="/privacy/">Privacy</InlineLink>
     </>
   ),
-  legal: `© 2026 ${here.name}. Project software and docs are MIT licensed. Brand assets retain their own rights.`,
+  legal: `© 2026 ${here.name}. Open source project software and docs are MIT licensed. Gerry is proprietary. Brand assets retain their own rights.`,
 };
 
 const isHere = (path: string, href: string) =>
