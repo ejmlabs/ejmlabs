@@ -128,13 +128,13 @@ test('the home page keeps its navigable sections in order', () => {
 test('the home page keeps the commercial product apart from the open source projects', () => {
   const html = read('index.html');
   const start = html.indexOf('id="projects"');
-  assert.ok(!html.slice(start, html.indexOf('<section', start)).includes('meetgerry.ai'), 'Gerry is not an open source row');
+  assert.ok(!html.slice(start, html.indexOf('<section', start)).includes('meetgerry.ai'), 'gerry is not an open source row');
   const gerry = tags(html, 'a').find(t => attr(t, 'href') === 'https://meetgerry.ai/');
   assert.ok(gerry, 'a link to meetgerry.ai');
   assert.match(attr(gerry, 'rel'), /external/);
   const text = prose(html);
-  assert.match(text, /not released yet/, 'Gerry is described as unreleased');
-  assert.match(text, /Gerry is proprietary/, 'the footer does not call Gerry MIT licensed');
+  assert.match(text, /not released yet/, 'gerry is described as unreleased');
+  assert.match(text, /gerry is proprietary/, 'the footer does not call gerry MIT licensed');
 });
 
 test('the IDE platform fact distinguishes the documented target from unsupported platforms', () => {

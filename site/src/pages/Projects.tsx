@@ -44,7 +44,7 @@ export default function Projects() {
           id="projects-title"
         >
           <p>
-            Open source projects to use, study and improve. Gerry, our
+            Open source projects to use, study and improve. gerry, our
             commercial product, has <InlineLink href={GERRY_PROJECT.url} external>its own site</InlineLink>.
           </p>
         </SectionHead>
