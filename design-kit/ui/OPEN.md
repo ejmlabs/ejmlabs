@@ -1,6 +1,6 @@
 # Open visual language
 
-The application kit is open, soft and calm. Panels are told apart by tone and space, not by a box around everything. This page is the rulebook that `ui/app.css`, `ui/index.html` and `ui/tui.html` are built to. Apps stay compact, but compact is not boxy.
+The application kit is open, soft and calm. Panels are told apart by tone and space, not by a box around everything. This page is the rulebook that `ui/app.css` and `ui/index.html` are built to. Apps stay compact, but compact is not boxy.
 
 ## Principles
 
@@ -10,7 +10,7 @@ The application kit is open, soft and calm. Panels are told apart by tone and sp
 4. **Quieter labels.** Labels, panel titles, table headers, menu section labels and list section heads are 12 px sentence case in the muted role. Plex Mono is for values, paths, names, ids and code only.
 5. **Selected is tone plus a marker.** A selected row, tab, tree item or activity item is a `tint-1` tone with a 2 px primary marker on the leading edge. A selected chip, segment, page or toggle is a filled `tint-2` pill. Hover is one tone step. Focus is always the visible 2 px ring (`focus` role) with a 1 px offset.
 6. **Fluid and responsive.** Mobile first, 320 px to 5120 px, no horizontal page scroll. The shell stacks: the sidebar sits above the main area (and the aside below it). Tabs scroll sideways. Tables scroll inside their own container. Dialogs become bottom sheets in a container under 560 px. Toolbars wrap, forms are one column, and a settings section stacks its label above its controls. Primitives that must adapt to where they are placed use container queries (`container-type: inline-size`): settings, stat tiles, charts, tool cards, panels and the dialog backdrop. On touch screens (`pointer: coarse`) every control is at least 44 px high.
-7. **Open documentation.** `ui/index.html` and `ui/tui.html` are documents: a calm intro, a compact sticky pill index (a scrolling chip row on a phone), then one section per group with a title, one sentence and the primitives on open ground. Class names and notes sit behind a quiet disclosure. Sample data is labelled. Wide screens get a comfortable maximum width and multi-column compositions.
+7. **Open documentation.** `ui/index.html` is a document: a calm intro, a compact sticky pill index (a scrolling chip row on a phone), then one section per group with a title, one sentence and the primitives on open ground. Class names and notes sit behind a quiet disclosure. Sample data is labelled. Wide screens get a comfortable maximum width and multi-column compositions.
 
 ## Derived tones
 
