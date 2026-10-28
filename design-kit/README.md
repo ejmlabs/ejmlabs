@@ -10,7 +10,7 @@ Version 1.2.0 adds the rules that make every product look the same. The site kit
 
 ## Retirement status
 
-As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are retired. The Studio build excludes their paths and does not generate replacement archives. Both X kit copies and the swag files are removed. The active kit still supports this site until Studio adopts the public `ejm-ui` exports. `REVIEW.md` preserves the original provenance and historical checks. No deployment or new browser verification is claimed here.
+On 19 October 2026, the previous kit ZIP downloads, X kit pages, and swag gallery were retired. This is a historical record: the current Studio build uses public `ejm-ui` exports and assembles curated brand and swag ZIPs as described in [the Studio guide](../site/README.md). This working kit remains a reference rather than the source of active UI primitives. `REVIEW.md` preserves provenance and historical checks; a local build does not establish deployment.
 
 ## Start here
 
@@ -27,7 +27,7 @@ As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are 
 - Choose one motif family from `motifs/` for a cover or backdrop. Read `MOTIFS.md` before combining it with copy.
 - Use `lockups/` for a ready-made logo and signature composition, and `templates/` for project posts, the studio signature or a short thought, and imagery.
 - Building a website? Copy `web/starter.html` and follow `SITES.md`. Load `web/site.css` after `components/brand-components.css` and write no CSS of your own.
-- Building an app? Load `ui/theme.css` and `ui/app.css` and follow `UI.md`. Terminal apps follow `ui/TUI.md` and copy `ui/rust/ejm_theme.rs`. Open `ui/index.html` to see everything in both themes.
+- Building an app? Load `ui/theme.css` and `ui/app.css` and follow `UI.md`. Terminal apps follow `ui/TUI.md` and draw with the `ejm-tui` crate from ejm-ui. Open `ui/index.html` to see everything in both themes.
 - Open `components/index.html` for reusable web parts and `icons/sheet.svg` for the fourteen interface icons.
 
 ## Contents
@@ -48,7 +48,7 @@ As of 19 October 2026, kit ZIP downloads, X kit pages, and the swag gallery are 
 | `CATALOG.md` | The map of every part and how to choose between them. |
 | `web/` | `site.css` page shell, heroes, sections and docs layout; `PATTERNS.md` catalog; `patterns.html` live specimen; `starter.html`, the page to copy for a new site. |
 | `UI.md` | Application kit: roles, setup, layout, states, motion and accessibility. |
-| `ui/` | `theme.json` (the one source of color), generated `theme.css`, Rust module, Monaco themes and terminal schemes, plus `app.css` primitives, `PRIMITIVES.md` catalog, `TUI.md` guide, `rust/ejm_tui.rs` terminal helpers, and the specimens `index.html` and `tui.html`. |
+| `ui/` | `theme.json` (the one source of color), generated `theme.css`, Rust module, Monaco themes and terminal schemes, plus `app.css` primitives, `PRIMITIVES.md` catalog, the `TUI.md` summary that points to the `ejm-tui` crate in ejm-ui, and the specimen `index.html`. |
 | `social/` | Sage edition first: `social-card.*` and `avatar.*` are the Sage defaults (Ink symbol on Sage); `social-card-sage.*`, `social-card-forest.*`, `avatar-sage.*` and `avatar-forest.*` are the named variants. |
 | `lockups/`, `templates/` | Sage signature lockup (`signature-sage.*`) and Sage project template (`project-sage.*`) join the Forest and Paper ones. |
 | `scripts/check-site.mjs`, `scripts/check-kit.mjs` | The shared checkers. `check-site.mjs <page.html>` verifies a page uses the kit properly; `check-kit.mjs` verifies the kit agrees with itself. |

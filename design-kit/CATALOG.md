@@ -11,7 +11,7 @@ Build by choosing. Every part of an ejmlabs experience has a name and a place in
 | A product demo on a site (every product site needs one) | `web/DEMOS.md` | the markup in `web/DEMOS.md` | `web/demos.html` |
 | Dark mode, motion, screen sizes, analytics (every site) | `web/THEME.md`, `web/MOTION.md`, `web/RESPONSIVE.md`, `web/ANALYTICS.md` | `web/starter.html` | `web/theme.html`, `web/motion.html`, `web/responsive.html` |
 | A desktop or web app | `ui/PRIMITIVES.md` | `ui/index.html` markup | `ui/index.html` |
-| A terminal app | `ui/TUI.md`, `ui/rust/ejm_tui.rs` | `ui/rust/ejm_theme.rs` | `ui/tui.html` |
+| A terminal app | `ui/TUI.md`, then the `ejm-tui` crate in ejm-ui | `ui/rust/ejm_theme.rs` | `cargo run --example showcase` in `ejm-ui/crates/ejm-tui` |
 | An editor or terminal theme | `ui/monaco/`, `ui/terminal/` | The file for your tool | `ui/index.html` |
 | A social post, slide or printed piece | `templates/`, `lockups/`, `social/` | The closest template | `index.html` |
 
@@ -34,7 +34,7 @@ Build by choosing. Every part of an ejmlabs experience has a name and a place in
 | Product demos | Simulated, interactive ejm-cli, ejm-ide and ejm-harness | `web/demo.js`, `web/demos/`, `web/DEMOS.md` |
 | Analytics | Cloudflare Web Analytics on every site, cookieless | `web/analytics.js`, `web/ANALYTICS.md` |
 | App primitives | Forms, feedback, data, navigation, overlays | `ui/app.css`, `ui/PRIMITIVES.md` |
-| Terminal widgets | Screens, status, hints, lists, tables, progress | `ui/rust/ejm_tui.rs`, `ui/TUI.md` |
+| Terminal components | Messages, tool calls, Markdown, menus, rows, tables, status, hints | The `ejm-tui` crate and `packages/core/contract.json` in ejm-ui, summarized in `ui/TUI.md` |
 | Templates | Project post, short thought, image frame | `templates/` |
 
 ## Rules for choosing
@@ -44,7 +44,7 @@ Build by choosing. Every part of an ejmlabs experience has a name and a place in
 3. **One hero, one motif family per surface.** Choose a motif for mood from the table in `MOTIFS.md`, and never combine families.
 4. **Use the part as designed.** Do not restyle it, and do not add CSS to a page or an app. Each part carries its own states, spacing and accessibility.
 5. **Name what exists, nothing more.** Copy describes real products. Never invent customers, numbers or launches.
-6. **If nothing fits, extend the kit.** Add the part to `web/site.css`, `ui/app.css`, `ui/rust/ejm_tui.rs` or `ui/theme.json`, document it in the matching catalog, and rebuild. Then use it.
+6. **If nothing fits, extend the kit.** Add the part to `web/site.css`, `ui/app.css` or `ui/theme.json`, document it in the matching catalog, and rebuild. Then use it. Terminal components are added to the contract and the `ejm-tui` crate in ejm-ui instead.
 
 ## Keeping the kit complete
 
