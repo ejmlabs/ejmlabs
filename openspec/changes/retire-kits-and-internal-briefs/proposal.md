@@ -32,6 +32,10 @@ confusion and upkeep while the shared UI owner migration remains open.
   Only the emitted raw checker script changes to reflect that removed check;
   the other 237 output files remain exact. Keep the remaining 51 motif/template
   copies for the next bounded source deletion.
+- Remove those last 39 motif and 12 template copies in that next slice, totaling
+  2,223,201 source bytes. The public families already supply output, so preserve
+  the resolver, generators and every emitted file byte for byte with its
+  existing mode. Update current guides without editing rendered references.
 - Keep the remaining owner adoption, live legacy kit retirement, and browser
   verification open. Each later slice still needs normal human admission,
   both complete AI reviews, and every protected check.

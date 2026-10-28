@@ -123,3 +123,13 @@ the other 51 local motif/template copies until the next source deletion.
 - **THEN** current guides name the one emitted developer-script byte change
 - **AND** they distinguish those results from fresh hosted and browser checks
 - **AND** the remaining live kit adoption and retirement tasks stay open
+
+#### Scenario: The remaining local asset copies are removed
+
+- **WHEN** the next bounded slice deletes exactly 39 remaining motif and 12
+  template copies after the complete public families already supply output
+- **THEN** each deleted source matches its pinned public-owner inventory,
+  Git blob, bytes and mode
+- **AND** all generated paths, bytes and modes remain identical
+- **AND** runtime, resolver, generators, notices, workflow sources and pins stay
+  unchanged while current guides record the completed source deletion
