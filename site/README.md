@@ -51,7 +51,7 @@ The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local
 - Studio favicon downloads and retained public URLs read the public `@ejm/tokens/assets/favicon/*` exports, the same source used by the site's browser icons. The retained working kit is not a second source for active assets. Local motif and template copies are removed; ZIP assembly keeps resolving its named motif and template allowlist from the owner exports only.
 - `brand-kit/` holds the public usage guides and rights summary. The Brand page reads palette values from the public `@ejm/tokens/assets/brand/palette.json` export. The build includes the existing root `LICENSE` unchanged and the original font notices. Swag contains the eight SVG masters and manifest unchanged, plus three previews labelled as concepts. Working playbooks and image prompts are not downloads.
 - `dist/` and `.ejm-ssg/` are generated. Never edit them.
-- `wrangler.jsonc` configures Workers static assets (`./dist`, with the 404 page), the apex domain, and a separate preview environment.
+- `wrangler.jsonc` configures Workers static assets (`./dist`, with the 404 page), the apex domain, a separate preview environment, and a staging environment.
 
 ## Package boundaries
 
@@ -120,7 +120,7 @@ The dry run below checks the Worker bundle locally and does not publish it:
 npx wrangler deploy --config wrangler.jsonc --dry-run
 ```
 
-An actual deploy needs the owner's explicit approval.
+Merges to main deploy through CI, and production waits for the owner's approval. See [Cloudflare hosting](#cloudflare-hosting).
 
 ## Keep docs current after each change
 
@@ -132,6 +132,14 @@ Product guides live in each project's repository and are linked from `/projects/
 
 The canonical address is [ejmlabs.com](https://ejmlabs.com/). The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the apex zone is active. Cloudflare serves `dist/`, which holds the site, `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`.
 
-Publishing follows protected source review and the owner's approval. Use the existing custom-domain mapping and record the new Worker version. After a deploy, check every route, the two downloads and the response headers over HTTPS.
+A push to main runs `.github/workflows/deploy.yml`, the canonical caller of the shared `ejmlabs/.github` workflow `deploy-site.yml`:
+
+1. A build job, with `contents: read` and no secrets, builds the site from that main commit, with ejm-ui checked out at the pin in `.github/ui-source.json`.
+2. A staging job then runs `wrangler deploy --env staging` automatically. Staging is the Worker `ejmlabs-staging` at `staging.ejmlabs.com`; it is publicly reachable and serves the latest main.
+3. A production job deploys the same built files with the top-level config to the existing custom-domain mapping, but only after the required reviewer (@everettmorgan) approves the run in the GitHub `production` environment.
+
+Deploy jobs run Wrangler 4.151.3, pinned in the shared repository, not this site's dependencies. The Cloudflare token is the `CLOUDFLARE_API_TOKEN` secret of the `staging` and `production` GitHub environments. Approving the production job is the owner's deploy authorization; a manual `wrangler deploy` from a workstation is no longer the procedure. Local `--dry-run` checks are still fine. A newer merge cancels an older production deploy that is still waiting.
+
+After each merge, check every route, the two downloads and the response headers over HTTPS on staging. After approval, repeat the checks on ejmlabs.com and record the new Worker version. To roll back, redeploy an earlier Worker version in Cloudflare, or approve an earlier run's production job while it is still available.
 
 See [Cloudflare security operations](SECURITY-OPERATIONS.md) for canonical hosts, preview access, credentials, verification, and recovery.

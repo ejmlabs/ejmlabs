@@ -81,6 +81,9 @@ until its own Access policy is enforced and verified. Before publishing a
 preview, verify anonymous denial and authorized access at its actual hostname.
 Production zone rules do not establish preview protection.
 
+The staging environment, `ejmlabs-staging` at `staging.ejmlabs.com`, is public
+and serves the latest main; protect it with Cloudflare Access if it must not be.
+
 ## Deployment and verification
 
 Review the exact source revision, build output, target account, environment,
@@ -99,14 +102,31 @@ From `site/`, validate each configured environment without publishing:
 ```sh
 WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-production-dry-run.log npx wrangler deploy --config wrangler.jsonc --env "" --dry-run
 WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-preview-dry-run.log npx wrangler deploy --config wrangler.jsonc --env preview --dry-run
+WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-staging-dry-run.log npx wrangler deploy --config wrangler.jsonc --env staging --dry-run
 ```
 
 A dry run validates configuration and packaging. It does not prove deployment
-permission or live behavior. Publishing needs explicit owner authorization
-and an interactive terminal with a TTY for Wrangler's DNS replacement prompt.
-Follow the [release policy](../RELEASING.md).
+permission or live behavior. Follow the [release policy](../RELEASING.md).
 
-After authorized publication:
+Deploys always come from a main commit. A push to main runs
+`.github/workflows/deploy.yml`, the canonical caller of the shared
+`ejmlabs/.github` workflow `deploy-site.yml`. Its build job has
+`contents: read` and no secrets, and builds the site with ejm-ui checked out at
+the pin in `.github/ui-source.json`. A staging job then runs
+`wrangler deploy --env staging` automatically. A production job deploys the
+same built files with the top-level config, but only after the required
+reviewer (@everettmorgan) approves the run in the GitHub `production`
+environment. That approval is the explicit owner authorization; a manual
+`wrangler deploy` from a workstation is no longer the procedure. Custom domains
+are already attached, so no Wrangler DNS prompt or TTY applies. A newer merge
+cancels an older production deploy that is still waiting.
+
+Deploy jobs run Wrangler 4.151.3, pinned in the shared repository rather than
+this site's dependencies. The Cloudflare token is the `CLOUDFLARE_API_TOKEN`
+secret of the `staging` and `production` GitHub environments. It lives only
+there and reaches only the deploy jobs.
+
+Run these checks on staging after each merge, and on production after approval:
 
 1. Read back alternate-URL flags, custom domains, and intended route mappings.
 2. Check the four canonical homepages, representative guides, affected links,
@@ -216,12 +236,14 @@ no endpoint, store or content security policy source. The only value a link may
 carry is the released version in the form's `evidence` field.
 
 The checksum and the script share this origin. A change to this site could
-alter both, so treat a deployment as the control: deploy only from main at a
-named revision after a fresh security pass, and keep owner sign-in protected by
-MFA with no long-lived deploy credential in CI. After an authorized release
-deployment, check that `/install.sh` and `/releases.json` match the reviewed
-build, that each listed URL is a versioned release asset of its repository, and
-that the page offers only files that exist.
+alter both, so treat a deployment as the control: every deploy comes from a
+main commit, and production waits for the owner to approve that run in the
+GitHub `production` environment after a fresh security pass. Keep owner sign-in
+protected by MFA. The deploy token lives only in the `staging` and `production`
+GitHub environment secrets and reaches only the deploy jobs. After an approved
+release deployment, check that `/install.sh` and `/releases.json` match the
+reviewed build, that each listed URL is a versioned release asset of its
+repository, and that the page offers only files that exist.
 
 ## Audit, alerts, and incident response
 
@@ -257,5 +279,6 @@ then repeat the relevant check. Keep managed WAF, private Access, private
 storage, and disabled unnecessary alternate URLs intact. Do not restore broad
 tokens, add a global allow rule, or expose storage to recover a service. Use an
 independently issued scoped operator credential when recovery requires it.
-For a bad site release, restore the last verified build on its canonical host
-through the normal authorized release process.
+For a bad site release, redeploy an earlier verified Worker version in
+Cloudflare, or approve an earlier run's production job while it is still
+available.
