@@ -1,19 +1,19 @@
 ---
 name: studio-deploy
-description: Use when you deploy, dry-run, roll back or verify ejmlabs.com: building the merge commit against the pinned ejm-ui in a scratch directory, wrangler deploy from site/, live checks behind Cloudflare bot protection, and comparing live headers with dist/_headers.
+description: Use when you deploy, dry-run, roll back or verify ejmlabs.com, including building the merge commit against the pinned ejm-ui in a scratch directory, wrangler deploy from site/, live checks behind Cloudflare bot protection, and comparing live headers with dist/_headers.
 ---
 
 # Deploying ejmlabs.com
 
 What is live must be a reviewed main commit, built from clean clones against the pinned ejm-ui,
-deployed at the owner's request, and seen working in a headed browser. This adds the
+deployed from the merge commit, and seen working in a headed browser. This adds the
 ejmlabs.com specifics to `ejmlabs-cloudflare`; read it and its build, deploy and verify
 references first.
 
 ## Before you deploy
 
-- A production deploy needs the owner's explicit request for this deploy. A merged PR is not
-  one. Without it, stop after the merge and report that the site is not deployed.
+- Deploy as soon as the PR merges, without asking again (finish through ship). Stop and report
+  only when a check fails, Wrangler is not logged in, or Wrangler asks to replace a DNS record.
 - Deploy only a merge commit on main whose PR passed `/ready` and `/approve`. Read it with
   `gh pr view N --json mergeCommit --jq .mergeCommit.oid`.
 - `install.sh`, `releases.json` and the checksums share this origin, so the deploy is the

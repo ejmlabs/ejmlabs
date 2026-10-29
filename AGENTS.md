@@ -54,7 +54,7 @@ there. A rule below or a repository skill may add to them, never relax them.
 - Never edit generated output: `site/dist/`, `site/.ejm-ssg/`, and the head tags, theme script,
   icons, manifest and `_headers` that `@ejm/site` writes during the build.
 - `site/public/releases.json` is the only list of released files. Never replace a listed file.
-- Production deploys of ejmlabs.com need the owner's explicit request each time (studio-deploy).
+- Production deploys of ejmlabs.com run from the merge commit once the PR lands, through studio-deploy, without asking again.
 - Keep `site/README.md`, `CHANGELOG.md` and the affected public pages current in the same
   change. A `VERSION` change follows [RELEASING.md](RELEASING.md).
 
@@ -116,5 +116,5 @@ when the work crosses them.
 The change works for a visitor at phone and desktop widths in light and dark; the gate's Quality
 commands passed (or the report says CI runs them after `/ready`); `perf` ran for anything that
 adds to a first load; `site/README.md` and the skills match the change; it merged through
-`/ready` and `/approve`, was deployed only on the owner's request and checked live per
+`/ready` and `/approve`, was deployed from the merge commit and checked live per
 studio-deploy; and the report separates what ran from what did not.

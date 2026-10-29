@@ -1,6 +1,6 @@
 ---
 name: studio-site
-description: Use before you change ejmlabs.com in the ejmlabs studio: pages, routes, copy, the project directory in content.ts, project marks, releases.json, install.sh, the brand or swag ZIPs, site/brand-kit or design-kit files, site tests, or perf-baseline.json.
+description: Use before you change ejmlabs.com in the ejmlabs studio, including pages, routes, copy, the project directory in content.ts, project marks, releases.json, install.sh, the brand or swag ZIPs, site/brand-kit or design-kit files, site tests, or perf-baseline.json.
 ---
 
 # Changing ejmlabs.com
