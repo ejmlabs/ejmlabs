@@ -92,7 +92,7 @@ export default function HomeContent() {
             title={<Brand src={gerryInk} darkSrc={gerryPaper} width={32} height={32} name={GERRY_PROJECT.name} placement="project" />}
             href={GERRY_PROJECT.url}
             external
-            description="A workspace that grows with your business, with an AI teammate built in. It is not released yet, and its own site has the waitlist."
+            description="Your team's workspace, with gerry built in: one place for engineering, support, sales, operations, finance and leadership. It is not released yet, and its own site has the waitlist for early access."
             meta="Commercial / coming soon"
           />
         </Rows>

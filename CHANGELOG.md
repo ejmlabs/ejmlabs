@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Describe gerry with the copy on its own site, meetgerry.ai.
+
 - Add gerry's mark to its home row, drawn in the ejmlabs ribbon style with Ink and Paper versions.
 
 - Write gerry in lowercase, like the other project names.
