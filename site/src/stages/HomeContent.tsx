@@ -4,6 +4,8 @@ import harnessMark from '@ejm/tokens/assets/projects/harness/mark-ink.svg?url';
 // Local copies until @ejm/tokens publishes them (see src/assets/projects/README.md).
 import uiMark from '../assets/projects/ui/mark-ink.svg?url';
 import calmMark from '../assets/projects/calm/mark-ink.svg?url';
+import gerryInk from '../assets/projects/gerry/mark-ink.svg?url';
+import gerryPaper from '../assets/projects/gerry/mark-paper.svg?url';
 import ripple from '@ejm/ui/art/inline/divider-ripple.svg?raw';
 import { Band } from '@ejm/ui/layout/Band';
 import { Button } from '@ejm/ui/components/ui/button';
@@ -85,8 +87,9 @@ export default function HomeContent() {
       </SectionHead>
       <SectionBody>
         <Rows aria-label="Products">
+          {/* Mist follows the page theme, unlike Sage, so gerry's mark switches to Paper in dark mode. */}
           <Row
-            title={GERRY_PROJECT.name}
+            title={<Brand src={gerryInk} darkSrc={gerryPaper} width={32} height={32} name={GERRY_PROJECT.name} placement="project" />}
             href={GERRY_PROJECT.url}
             external
             description="A workspace that grows with your business, with an AI teammate built in. It is not released yet, and its own site has the waitlist."

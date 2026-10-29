@@ -135,6 +135,10 @@ test('the home page keeps the commercial product apart from the open source proj
   const text = prose(html);
   assert.match(text, /not released yet/, 'gerry is described as unreleased');
   assert.match(text, /gerry is proprietary/, 'the footer does not call gerry MIT licensed');
+  const at = html.indexOf('id="products"');
+  const marks = tags(html.slice(at, html.indexOf('</section>', at)), 'img').map(img => attr(img, 'src'));
+  assert.equal(marks.length, 2, 'gerry shows its Ink and Paper marks');
+  for (const src of marks) assert.doesNotMatch(src, /symbol-(?:ink|paper)/, 'gerry uses its own mark, not the lab symbol');
 });
 
 test('the IDE platform fact distinguishes the documented target from unsupported platforms', () => {
@@ -194,7 +198,8 @@ test('every project mark on home and projects is built', () => {
   const main = html => html.slice(html.indexOf('<main'), html.indexOf('</main>'));
   const built = src => src.startsWith('data:image/svg+xml,') || (src.startsWith('/') && existsSync(join(dist, src)));
   const home = tags(main(read('index.html')), 'img');
-  assert.equal(home.length, PROJECT_HOSTS.length, 'one mark per home row');
+  // gerry's row is on Mist, which follows the page theme, so it carries an Ink and a Paper mark.
+  assert.equal(home.length, PROJECT_HOSTS.length + 2, 'one mark per open source row, two for gerry');
   const projects = read('projects/index.html');
   const marks = [...home];
   for (const id of PROJECT_HOSTS) {
