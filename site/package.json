@@ -39,7 +39,8 @@
     "serve": "^14.2.6",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.0",
-    "vite": "^8.3.4"
+    "vite": "^8.3.4",
+    "wrangler": "4.151.3"
   },
   "overrides": {
     "compression": "^1.8.2"
