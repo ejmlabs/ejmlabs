@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Add gerry's mark to its home row, drawn in the ejmlabs ribbon style with Ink and Paper versions.
+
 - Write gerry in lowercase, like the other project names.
 
 - Describe ejmlabs as open source projects and commercial products, and list Gerry apart from the open source projects on Home, with its proprietary license in the footer.
