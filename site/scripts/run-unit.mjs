@@ -11,7 +11,7 @@ function run(args) {
 }
 
 const buildStatus = run(['scripts/build.mjs']);
-process.exitCode = buildStatus || run(report ? [
+process.exitCode = buildStatus || run([...(report ? [
   '--test', '--test-reporter=spec', '--test-reporter-destination=stdout',
   '--test-reporter=junit', `--test-reporter-destination=${report}`,
-] : ['--test']);
+] : ['--test']), ...process.argv.slice(2)]);
