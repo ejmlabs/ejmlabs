@@ -117,7 +117,7 @@ The header and route transitions share the existing 320ms motion tokens. Explici
 The dry run below checks the Worker bundle locally and does not publish it:
 
 ```sh
-wrangler deploy --config wrangler.jsonc --dry-run
+npx wrangler deploy --config wrangler.jsonc --dry-run
 ```
 
 Merges to main deploy through CI, and production waits for the owner's approval. See [Cloudflare hosting](#cloudflare-hosting).
