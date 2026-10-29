@@ -19,9 +19,9 @@ export const CALM_PROJECT = {
   repo: 'https://github.com/ejmlabs/ejm-calm',
 } as const;
 
-// Gerry is the commercial product. It is proprietary, so it has no repository or guides here, and its own site is a waitlist.
+// gerry is the commercial product. It is proprietary, so it has no repository or guides here, and its own site is a waitlist.
 export const GERRY_PROJECT = {
-  name: 'Gerry',
+  name: 'gerry',
   url: 'https://meetgerry.ai/',
   host: 'meetgerry.ai',
 } as const;

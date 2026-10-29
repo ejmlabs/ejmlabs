@@ -49,7 +49,7 @@ const footer: FooterProps = {
       <InlineLink href="/privacy/">Privacy</InlineLink>
     </>
   ),
-  legal: `© 2026 ${here.name}. Open source project software and docs are MIT licensed. Gerry is proprietary. Brand assets retain their own rights.`,
+  legal: `© 2026 ${here.name}. Open source project software and docs are MIT licensed. gerry is proprietary. Brand assets retain their own rights.`,
 };
 
 const isHere = (path: string, href: string) =>
