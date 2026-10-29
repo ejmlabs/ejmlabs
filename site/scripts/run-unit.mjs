@@ -1,8 +1,6 @@
 import { spawnSync } from 'node:child_process';
-import { isAbsolute } from 'node:path';
 
 const report = process.env.EJM_TEST_REPORT;
-if (report && !isAbsolute(report)) throw new Error('EJM_TEST_REPORT must be an absolute path');
 
 function run(args) {
   const result = spawnSync(process.execPath, args, { stdio: 'inherit' });

@@ -91,7 +91,7 @@ npm run perf         # first contentful paint against perf-baseline.json; needs 
 
 `npm test` builds `dist/` before running the tests. The home checks keep the sections in order, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
 
-Set `EJM_TEST_REPORT` to an absolute file path to also write the test results as JUnit XML. The console output and exit status still report the original test run.
+Set `EJM_TEST_REPORT` to a file path to also write the test results as JUnit XML. The console output and exit status still report the original test run.
 
 ## Home and example sessions
 
