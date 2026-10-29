@@ -318,7 +318,7 @@ test('the sitemap lists every route and the Worker config serves dist with a 404
   const sitemap = read('sitemap.xml');
   for (const r of ROUTES) assert.ok(sitemap.includes(`<loc>https://ejmlabs.com${r}</loc>`), r);
   const wrangler = JSON.parse(readFileSync(join(site, 'wrangler.jsonc'), 'utf8'));
-  for (const assets of [wrangler.assets, wrangler.env.preview.assets]) {
+  for (const assets of [wrangler.assets, wrangler.env.preview.assets, wrangler.env.staging.assets]) {
     assert.equal(assets.directory, './dist');
     assert.equal(assets.not_found_handling, '404-page');
   }
