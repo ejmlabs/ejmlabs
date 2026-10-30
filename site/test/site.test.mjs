@@ -172,12 +172,12 @@ const homeProjectMarks = () => {
 };
 const pathData = svg => [...svg.matchAll(/\sd=["']([^"']+)["']/g)].map(m => m[1]);
 
-test('the EJM UI project row uses the ejm-ui grid-e mark', () => {
+test('the EJM UI project row uses the ejm-ui u-and-block mark', () => {
   const rows = homeProjectMarks();
   assert.ok(!rows.some(row => /symbol-ink/.test(row.src)), 'the company symbol is not a project mark');
   const ui = rows.find(row => row.href === 'https://ui.ejmlabs.com/');
   assert.ok(ui, 'the ui row exists');
-  assert.equal(createHash('sha256').update(ui.mark).digest('hex'), '08ff7f3099ba18d9e1dc2a1e309fa3d444d996bbb7832b7d401aa91caaa8b049', 'the ui row shows the grid-e mark, served unchanged');
+  assert.equal(createHash('sha256').update(ui.mark).digest('hex'), '664018cba612f3b41320ee3e15a9f08b4d98fcea5a494a367b6a5acca0f30475', 'the ui row shows the u-and-block mark, served unchanged');
 });
 
 test('the calm project row draws the approved fluke mark', () => {
