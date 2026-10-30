@@ -120,7 +120,7 @@ The dry run below checks the Worker bundle locally and does not publish it:
 npx wrangler deploy --config wrangler.jsonc --dry-run
 ```
 
-An actual deploy needs the owner's explicit approval.
+An actual deploy runs from the merge commit on main, as the studio-deploy skill describes.
 
 ## Keep docs current after each change
 
@@ -132,6 +132,6 @@ Product guides live in each project's repository and are linked from `/projects/
 
 The canonical address is [ejmlabs.com](https://ejmlabs.com/). The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the apex zone is active. Cloudflare serves `dist/`, which holds the site, `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`.
 
-Publishing follows protected source review and the owner's approval. Use the existing custom-domain mapping and record the new Worker version. After a deploy, check every route, the two downloads and the response headers over HTTPS.
+Publishing follows protected source review and a merge to main. Use the existing custom-domain mapping and record the new Worker version. After a deploy, check every route, the two downloads and the response headers over HTTPS.
 
 See [Cloudflare security operations](SECURITY-OPERATIONS.md) for canonical hosts, preview access, credentials, verification, and recovery.

@@ -102,8 +102,9 @@ WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-prev
 ```
 
 A dry run validates configuration and packaging. It does not prove deployment
-permission or live behavior. Publishing needs explicit owner authorization
-and an interactive terminal with a TTY for Wrangler's DNS replacement prompt.
+permission or live behavior. Publishing deploys an approved merge commit under
+the owner's Wrangler login; Wrangler's DNS replacement prompt needs an
+interactive terminal with a TTY.
 Follow the [release policy](../RELEASING.md).
 
 After authorized publication:
