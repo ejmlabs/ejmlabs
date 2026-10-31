@@ -42,8 +42,8 @@ The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local
 - `src/pages/` has the routes. `src/stages/HomeContent.tsx` and `src/stages/BrandContent.tsx` hold static home and asset-guide content, rendered through the public `Static` boundary from `@ejm/ssg`. Native links and downloads remain available without page JavaScript.
 - `src/pages/Try.tsx` consumes `LazyCliPreview`, `LazyIdePreview` and `LazyHarnessPreview` from the public per-product `@ejm/demos/islands/*-preview` entries. Shared code owns their geometry, static fallback, playback, controls and lifecycle.
 - `src/stages/HomeContent.tsx` places approved project marks beside the Current projects names through the shared `Row` title slot. Ink marks remain legible on Sage in both page themes; each row keeps one accessible project link. Shared `Brand` keeps row names on one line; footer project labels use a non-breaking hyphen (U+2011) because footer links take plain text.
-- `src/assets/projects/` holds byte copies of the ui and calm marks, which the pinned `@ejm/tokens` does not export yet, and gerry's Ink and Paper marks, which were drawn here. Its `README.md` records source, commit, checksums and rights; replace the copies with `@ejm/tokens/assets/projects/<id>/` imports once ejm-ui publishes them. They are not part of the public downloads.
-- `src/pages/Projects.tsx` uses the shared `Brand` component in the `SectionHead` title slot. Mist and Paper switch between approved Ink and Paper assets with the page theme; Sage keeps Ink in both themes. `Brand` reserves each image's proportions and leaves the heading to supply its accessible name. The header and home project rows use the same component.
+- `src/assets/projects/` holds byte copies of the calm marks, which the pinned `@ejm/tokens` does not export yet, and gerry's Ink and Paper marks, which were drawn here and are not byte copies of the `@ejm/tokens` gerry files. Its `README.md` records source, commit, checksums and rights; replace the calm copies with `@ejm/tokens/assets/projects/calm/` imports once ejm-ui publishes them. The ui marks come from `@ejm/tokens`. These copies are not part of the public downloads.
+- `src/pages/Projects.tsx` uses the shared `Brand` component in the `Section` title slot. Every project section alternates Mist and Paper, so each mark switches between its approved Ink and Paper assets with the page theme. `Brand` reserves each image's proportions and leaves the heading to supply its accessible name. The header and home project rows use the same component.
 - `src/content.ts` has the project facts (and the gerry link), taken from each project's README, and reviewed source availability, plus each project's secondary action and contribution link (calm has no contribution guide, so none is shown). Repository URLs come from the shared project registry; ui and calm are not in it yet and are defined there locally.
 - `src/head.ts` selects ejmlabs defaults from `@ejm/site/head`, which imports the font list directly and keeps the component barrel out of the first load.
 - `public/` has `robots.txt` and `sitemap.xml`.
@@ -73,12 +73,12 @@ or compatibility gaps. A local build does not publish either repository.
 
 ## Rules this site keeps
 
-- Build pages from public `@ejm/ui` components with deep imports (`@ejm/ui/layout/Band`). ejm-ui owns type, spacing, branding, themes, motion, controls, and composition. Supply content, route data, and accessible state. Use `SectionBody`, `Columns`, `Actions`, notes, asset previews and links from `@ejm/ui/layout/SiteContent`; extend the shared owner when a pattern is missing.
+- Build pages from public `@ejm/ui` components with deep imports (`@ejm/ui/layout/Section`). Open each page with `Hero` and build every part after it with `Section`, which derives the heading level, the ground (Mist and Paper alternate; `emphasis` gives Sage, at most once a page), the heading id and the spacing. Pass an `id` only to give a link an anchor. ejm-ui owns type, spacing, branding, themes, motion, controls, and composition. Supply content, route data, and accessible state. Use `Columns`, `Actions`, notes, asset previews and links from `@ejm/ui/layout/SiteContent`; extend the shared owner when a pattern is missing.
 - `ejmSite` checks authored site source during builds and development. Local CSS rules or imports, inline styles, style elements, visual `className` values, and unsupported visual overrides fail with a source location. Only the public shared CSS imports, the content-scan exclusion, and the literal `Static className="contents"` structure are allowed. Header and footer take structured identity; headings take a semantic purpose. Hero motion has one shared policy and respects reduced motion. Keep browser examples in `@ejm/demos/ShowcaseFrame`.
 - Page weight has no byte cap. Load time is the bar: `npm run perf` fails when first contentful paint on `/`, `/download/` or `/projects/` is a second or more slower than `perf-baseline.json`. Use well-maintained packages instead of hand-rolled code, and lazy load what a route does not need first.
 - The copy welcomes people to run, study, change, and contribute to the open source projects. gerry is commercial and proprietary, and written in lowercase like the other project names: say only what its own site says, label it not released, link to its site, and keep it out of the open source rows, license lines and source links. Keep personal team-size framing, invented adoption or sales claims, and em dashes out of the text. Current projects do not limit the direction of future work.
 - Standalone page actions use the shared button treatment, including text links, to retain 44 px touch targets. Inline prose links use the shared inline link.
-- One `h1` per route, the skip link first, the theme toggle last in the header, external links marked `rel="external"`.
+- One `h1` per route, the skip link first, the theme toggle last in the header, external links marked `rel="external"`. The ejm-ui build fails a page that breaks the h1, heading order, skip link, `main#main` or external link rule, so `npm run build` is the check for those.
 
 ## Checks
 
@@ -89,7 +89,7 @@ npm test             # reads the built HTML of every route
 npm run perf         # first contentful paint against perf-baseline.json; needs Chrome
 ```
 
-`npm test` builds when `dist/` is missing. The home checks keep the sections in order, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. The public `@ejm/ui/styles-site.css` profile owns the shared component sources. The site imports public demo styles and declares no private package source scans or local visual rules.
+`npm test` builds when `dist/` is missing. The home checks keep the sections in order, the text hero, one-line project names and project links available without scripts and prevent project previews, carousel controls and image preloads from returning. `src/styles.css` imports the one `@ejm/ui/styles.css` stylesheet and the public demo styles, and declares no private package source scans or local visual rules. `vite.config.ts` is `ejmlabs({ project: 'ejmlabs' })` and `tsconfig.json` extends `@ejm/ui/tsconfig.json`; the site adds no Tailwind or React plugin, `resolve.dedupe`, `paths` or build options.
 
 ## Home and example sessions
 
@@ -98,11 +98,11 @@ Home sections, in order:
 1. Hero: "Open source tools. Products for business." with the shared text `Hero` and its ripple art.
 2. "How we work.": start small, make it useful, share the tools.
 3. "Open source projects.": approved marks and direct links.
-4. "Commercial products.": gerry, with its mark and a link to its own site. The band is Mist, so the mark switches from Ink to Paper in dark mode.
+4. "Commercial products.": gerry, with its mark and a link to its own site. The section follows the page theme, so the mark switches from Ink to Paper in dark mode.
 5. "See it in action.": a link to the example sessions.
 6. "Help improve a project."
 
-`src/pages/Home.tsx` serves every section from `src/stages/HomeContent.tsx` through one `Static` boundary, so the page does not hydrate. It uses the shared hero, section heading and row recipes. It has no product preview slideshow, carousel controls or image preloads. Open source projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
+`src/pages/Home.tsx` serves every section from `src/stages/HomeContent.tsx` through one `Static` boundary, so the page does not hydrate. It uses the shared `Hero`, `Section` and row recipes, with "Open source projects." as the page's one `emphasis` section. It has no product preview slideshow, carousel controls or image preloads. Open source projects shows approved Ink marks on the shared Sage surface, whose light scheme stays the same in both page themes. Product screenshots belong on the product sites.
 
 Try shows each product's native layout with sample code and recorded local output. CLI follows a code fix through tests and a diff. The IDE example shows Edi reading, searching and making reviewed edits. Those edits and tool updates are authored; its added tests were not run. The visible note states that limit. Harness shows tool admission and retained history in its real terminal presentation. The browser makes no model or tool calls. Shared fixtures and their provenance live in `ejm-ui/packages/demos`, rather than this site. Its IDE styles come from the separate `@ejm/demos/ide-preview.css` import, so CLI and harness consumers do not have to ship them.
 
