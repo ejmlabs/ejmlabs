@@ -133,22 +133,11 @@ Product guides live in each project's repository and are linked from `/projects/
 
 The canonical address is [ejmlabs.com](https://ejmlabs.com/). The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the apex zone is active. Cloudflare serves `dist/`, which holds the site, `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`.
 
-A push to main runs `.github/workflows/deploy.yml`, the canonical caller of the shared `ejmlabs/.github` workflow `deploy-site.yml`. Keep it identical to the shared template apart from the pin; the repository standards check enforces that.
+A push to main deploys staging, then production; [CI deploys](../.agents/skills/ejmlabs-cloudflare/references/ci-deploys.md) describes the pipeline, what it refuses and the owner setup. For this site:
 
-1. A build job, with `contents: read` and no secrets, builds the site from that main commit with ejm-ui checked out at the pin in `.github/ui-source.json`. It runs `npm --prefix ../ejm-ui ci --ignore-scripts`, `npm --prefix site ci --ignore-scripts` and `npm --prefix site run build`, then uploads `site/wrangler.jsonc` and `site/dist`.
-2. A staging job runs `wrangler deploy --env staging`. Staging is the Worker `ejmlabs-staging` at `staging.ejmlabs.com`; it is publicly reachable and serves the latest main.
-3. When staging succeeds, a production job deploys the same built files with the top-level config to the existing custom-domain mapping. Nobody approves a production job. The human decision is the merge, which needs the gate's approval and the required checks.
+- Production is the Worker `ejmlabs` at `ejmlabs.com`. Staging is the Worker `ejmlabs-staging` at `staging.ejmlabs.com`. `wrangler.jsonc` configures both, staging under `env.staging`.
+- The CI build checks out ejm-ui at the pin in `.github/ui-source.json`, runs `npm --prefix ../ejm-ui ci --ignore-scripts`, `npm --prefix site ci --ignore-scripts` and `npm --prefix site run build`, then uploads `site/wrangler.jsonc` and `site/dist`.
 
-Deploy jobs run Wrangler 4.153.0, pinned in the shared repository (`deploy/package.json`), not this site's dependencies. The deploy refuses a build whose `site/wrangler.jsonc` differs from the reviewed commit, so change that file in source, never in a build step. The Cloudflare token is the `CLOUDFLARE_API_TOKEN` secret of the `staging` and `production` GitHub environments. A manual `wrangler deploy` from a workstation is no longer the procedure; the local `--dry-run` checks above are still fine.
-
-After each merge, check every route, the two downloads and the response headers over HTTPS on staging, then on ejmlabs.com once the production job finishes, and record the new Worker version. To roll back, redeploy an earlier Worker version in Cloudflare, or revert on main.
+After each merge, check every route, the two downloads and the response headers over HTTPS on staging, then on ejmlabs.com once the production job finishes, and record the new Worker version. The [studio-deploy](../.agents/skills/studio-deploy/SKILL.md) skill holds the checks and the rollback.
 
 See [Cloudflare security operations](SECURITY-OPERATIONS.md) for canonical hosts, preview access, credentials, verification, and recovery.
-
-### Before the first deploy
-
-The shared deploy fails closed unless the owner has set up the repository:
-
-- The `staging` and `production` GitHub environments exist, each with a custom deployment branch policy that allows exactly one branch, `main`. `python3 scripts/set_deploy_token.py` in `ejmlabs/.github` creates them and stores the token below, for every site repository at once, and can run before `deploy.yml` lands. Until then, a deploy run stops at its protection step.
-- Both environments hold the `CLOUDFLARE_API_TOKEN` secret, a token that can deploy Workers and custom domains on the ejmlabs Cloudflare account.
-- If a DNS record for `staging.ejmlabs.com` already exists outside Wrangler, Wrangler prompts in CI and nobody can answer. Remove or adopt that record first.
