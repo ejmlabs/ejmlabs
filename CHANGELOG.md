@@ -4,7 +4,7 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
-- Move the shared ejmlabs/.github pins to 9f7421b, resync the shared agent files, and link the shared CI deploy reference from the deploy docs instead of restating the pipeline.
+- Move the shared ejmlabs/.github pins to ba109a5, resync the shared agent files, and link the shared CI deploy reference from the deploy docs instead of restating the pipeline.
 
 - Deploy ejmlabs.com when a change merges to main: build without credentials, deploy staging at staging.ejmlabs.com, then production, using the shared deploy workflow. The owner must first create the `staging` and `production` GitHub environments and add the Cloudflare token to each.
 
