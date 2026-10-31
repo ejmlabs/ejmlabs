@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Move the shared ejmlabs/.github pins to a44b257 and resync the shared CI deploy reference, which now has agents confirm the live Worker version before a production approval.
+
 - Move the shared ejmlabs/.github pins to ba109a5, resync the shared agent files, and link the shared CI deploy reference from the deploy docs instead of restating the pipeline.
 
 - Move the site onto the ejm-ui systemic kit at `64b42af` (ejm-ui PR 59; the pin moves again to its merge commit). The build setup is now `ejmlabs({ project: 'ejmlabs' })`, one `@ejm/ui/styles.css` import and a tsconfig that extends `@ejm/ui/tsconfig.json`; the site's own Tailwind, React and `resolve.dedupe` settings, `paths`, `vite-env.d.ts` and `budget` option are gone. Pages open with `Hero` and build each part with `Section`, so section grounds alternate Mist and Paper. Sage remains on one section per page: Home projects, About how we work, Brand kits and Download reports. The footer lists each project once, the ui marks come from `@ejm/tokens`, and page text is unchanged.
