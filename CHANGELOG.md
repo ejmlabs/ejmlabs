@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Deploy ejmlabs.com when a change merges to main: build without credentials, deploy staging at staging.ejmlabs.com, then production, using the shared deploy workflow. The owner must first create the `staging` and `production` GitHub environments and add the Cloudflare token to each.
+
 - Show ejm-ui's new u-and-block mark in its project rows and band.
 
 - Describe gerry with the copy on its own site, meetgerry.ai.
@@ -58,7 +60,7 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 ### Security
 
 - Move wrangler to 4.153.0, the first release whose miniflare pins undici 7.30.1, for GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472, GHSA-xjj6-f33q-929c, GHSA-4w7w-5xrc-9h26, GHSA-2m5v-pch6-74hx, GHSA-qrxm-fqhp-jwvm, GHSA-9fm3-97px-rjf6 and GHSA-55wc-3pg8-jfw6. This is site tooling only; the deployed Worker and site output do not include undici.
-- Run the pinned wrangler (`npx --no-install wrangler` from `site/`) in the deploy, rollback and dry-run instructions, so a deploy uses the locked dependency tree instead of a global or freshly downloaded wrangler.
+- Run the pinned wrangler (`npx --no-install wrangler` from `site/`) in the local dry-run and rollback commands, so they use the locked dependency tree instead of a global or freshly downloaded wrangler. CI deploys already use the wrangler pinned in ejmlabs/.github.
 - Keep minimatch 3.1.5, which serve and serve-handler use only in the local perf script. It does not contain the code GHSA-g3hv-75wg-m249 describes, and serve-handler pins it exactly, so no compatible fix exists.
 
 ## [0.1.0] - 2026-10-18
