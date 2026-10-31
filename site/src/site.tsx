@@ -10,8 +10,6 @@ const base = siteDefaults(description);
 export default defineSite({
   ...base,
   head: { ...base.head, title: 'ejmlabs | Open source projects and commercial products' },
-  // The pinned ejm-ssg build still runs its size gate. Lift every limit until a pin that drops it; load time is measured by `npm run perf`.
-  budget: { js: Infinity, css: Infinity, fonts: Infinity, html: Infinity },
   App,
   routes: [
     { path: '/', load: () => import('./pages/Home') },
