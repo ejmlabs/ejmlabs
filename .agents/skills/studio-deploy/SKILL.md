@@ -14,8 +14,8 @@ references first.
 
 - Deploy as soon as the PR merges, without asking again (finish through ship). Stop and report
   only when a check fails, Wrangler is not logged in, or Wrangler asks to replace a DNS record.
-- Deploy only a merge commit on main whose PR passed `/ready` and `/approve`. Read it with
-  `gh pr view N --json mergeCommit --jq .mergeCommit.oid`.
+- Deploy only a merge commit on main whose PR the gate admitted and approved, with every
+  required check green. Read it with `gh pr view N --json mergeCommit --jq .mergeCommit.oid`.
 - `install.sh`, `releases.json` and the checksums share this origin, so the deploy is the
   control: deploy a named main revision after a fresh `ejmlabs-security` pass on what changed.
 - Worker `ejmlabs`, config `site/wrangler.jsonc`, custom domain `ejmlabs.com`. The `preview`
