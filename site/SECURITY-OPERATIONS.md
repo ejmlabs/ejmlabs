@@ -97,8 +97,8 @@ npm --prefix site run perf
 From `site/`, validate each configured environment without publishing:
 
 ```sh
-WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-production-dry-run.log npx wrangler deploy --config wrangler.jsonc --env "" --dry-run
-WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-preview-dry-run.log npx wrangler deploy --config wrangler.jsonc --env preview --dry-run
+WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-production-dry-run.log npx --no-install wrangler deploy --config wrangler.jsonc --env "" --dry-run
+WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=/private/tmp/ejmlabs-security-preview-dry-run.log npx --no-install wrangler deploy --config wrangler.jsonc --env preview --dry-run
 ```
 
 A dry run validates configuration and packaging. It does not prove deployment

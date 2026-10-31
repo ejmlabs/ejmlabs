@@ -21,8 +21,10 @@ references first.
 - Worker `ejmlabs`, config `site/wrangler.jsonc`, custom domain `ejmlabs.com`. The `preview`
   environment (`ejmlabs-preview`) stays undeployed until its Access policy is enforced and
   verified at its real hostname (`site/SECURITY-OPERATIONS.md`).
-- wrangler is not pinned in `site/package.json` yet. Use wrangler 4 from PATH and record
-  `wrangler --version` in the report.
+- `site/package.json` pins wrangler, and `npm ci` installs it with its locked dependency tree.
+  Run it from `site/` as `npx --no-install wrangler`, never a global wrangler or a bare
+  `npx wrangler` (which downloads the latest release when `node_modules` is missing), and
+  record `npx --no-install wrangler --version` in the report.
 
 ## Build in a scratch directory
 
@@ -57,9 +59,9 @@ From `site/` in the scratch clone:
 
 ```sh
 export WRANGLER_SEND_METRICS=false
-wrangler deployments list --config wrangler.jsonc       # record the live version id
-wrangler deploy --config wrangler.jsonc --env "" --dry-run
-wrangler deploy --config wrangler.jsonc --env ""
+npx --no-install wrangler deployments list --config wrangler.jsonc   # record the live version id
+npx --no-install wrangler deploy --config wrangler.jsonc --env "" --dry-run
+npx --no-install wrangler deploy --config wrangler.jsonc --env ""
 ```
 
 Record the `Current Version ID` wrangler prints. If wrangler is not logged in, or asks to
@@ -86,9 +88,9 @@ browser: the user's Chrome through the browser extension, or a devtools driver s
 
 ## Roll back and report
 
-- Roll back with `wrangler rollback VERSION_ID --config wrangler.jsonc --message "..."` to the
-  last verified version, under the same owner request. Then land a revert on main through the
-  gate and deploy it, so main matches live.
+- Roll back to the last verified version, under the same owner request, with
+  `npx --no-install wrangler rollback VERSION_ID --config wrangler.jsonc --message "..."`.
+  Then land a revert on main through the gate and deploy it, so main matches live.
 - Report the merge SHA, the ejm-ui pin, the wrangler version, the previous and new version ids,
   each check and its result, and what you saw live and in which browser. Name what you did not
   check. Remove the scratch directory when the live check is done.
