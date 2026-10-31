@@ -11,6 +11,9 @@ updates:
     groups:
       compatible-updates:
         update-types: [minor, patch]
+    ignore:
+      # The ejmlabs/.github caller pins move only by hand, in one pull request with the release.yml pin and the community files.
+      - dependency-name: "ejmlabs/.github"
   - package-ecosystem: "npm"
     directory: "/site"
     schedule:

@@ -90,7 +90,7 @@ there. A rule below or a repository skill may add to them, never relax them.
 ## Commands
 
 ```sh
-# The gate's Quality step. CI runs it after /ready; ../ejm-ui must be at the pin.
+# The gate's Quality step. CI runs it once the PR is admitted; ../ejm-ui must be at the pin.
 node scripts/check.mjs && npm --prefix site test && npm --prefix site run build
 
 # Focused (setup of a clean ../ejm-ui is in studio-site)
@@ -133,7 +133,7 @@ when the work crosses them.
 ## Done means
 
 The change works for a visitor at phone and desktop widths in light and dark; the gate's Quality
-commands passed (or the report says CI runs them after `/ready`); `perf` ran for anything that
-adds to a first load; `site/README.md` and the skills match the change; it merged through
-`/ready` and `/approve`, was deployed from the merge commit and checked live per
-studio-deploy; and the report separates what ran from what did not.
+commands passed (or the report says CI runs them once the PR is admitted); `perf` ran for
+anything that adds to a first load; `site/README.md` and the skills match the change; it was
+admitted and approved through the gate and merged, was deployed from the merge commit and
+checked live per studio-deploy; and the report separates what ran from what did not.
