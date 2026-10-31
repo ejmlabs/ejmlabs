@@ -26,7 +26,7 @@ requires it to match the template except for the pin.
    Worker `ejmlabs`, custom domain `ejmlabs.com`. Nobody approves a production job. The human
    decision is the merge: `gate:approve` and the required checks.
 
-The deploy jobs run Wrangler 4.151.3, pinned in `ejmlabs/.github` (`deploy/package.json`), not
+The deploy jobs run Wrangler 4.153.0, pinned in `ejmlabs/.github` (`deploy/package.json`), not
 the version in `site/package.json`. They refuse a build whose `site/wrangler.jsonc` differs from
 the reviewed commit, so change that file in source, never in a build step. The `preview`
 environment (`ejmlabs-preview`) is never deployed until its Access policy is enforced and
@@ -41,10 +41,9 @@ The deploy fails closed until the owner has done this. An agent never configures
 creates or pastes a token.
 
 - Create the `staging` and `production` GitHub environments, each with a custom deployment
-  branch policy that allows exactly one branch, `main`. Running
-  `python3 scripts/configure_repositories.py` in `ejmlabs/.github` (`--repository ejmlabs` limits
-  it to this repository) creates them once `deploy.yml` is on main, and `--check` reads them
-  back. Until then the first run after `deploy.yml` lands fails at the protection step.
+  branch policy that allows exactly one branch, `main`.
+  `python3 scripts/set_deploy_token.py` in `ejmlabs/.github` creates them and stores the token
+  below, for every site repository at once. Until then a deploy run fails at the protection step.
 - Add the `CLOUDFLARE_API_TOKEN` secret to each environment: a token that can deploy Workers and
   custom domains on the ejmlabs Cloudflare account.
 - If a DNS record for `staging.ejmlabs.com` already exists outside Wrangler, Wrangler prompts and

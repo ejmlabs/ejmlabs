@@ -139,7 +139,7 @@ A push to main runs `.github/workflows/deploy.yml`, the canonical caller of the 
 2. A staging job runs `wrangler deploy --env staging`. Staging is the Worker `ejmlabs-staging` at `staging.ejmlabs.com`; it is publicly reachable and serves the latest main.
 3. When staging succeeds, a production job deploys the same built files with the top-level config to the existing custom-domain mapping. Nobody approves a production job. The human decision is the merge, which needs the gate's approval and the required checks.
 
-Deploy jobs run Wrangler 4.151.3, pinned in the shared repository (`deploy/package.json`), not this site's dependencies. The deploy refuses a build whose `site/wrangler.jsonc` differs from the reviewed commit, so change that file in source, never in a build step. The Cloudflare token is the `CLOUDFLARE_API_TOKEN` secret of the `staging` and `production` GitHub environments. A manual `wrangler deploy` from a workstation is no longer the procedure; the local `--dry-run` checks above are still fine.
+Deploy jobs run Wrangler 4.153.0, pinned in the shared repository (`deploy/package.json`), not this site's dependencies. The deploy refuses a build whose `site/wrangler.jsonc` differs from the reviewed commit, so change that file in source, never in a build step. The Cloudflare token is the `CLOUDFLARE_API_TOKEN` secret of the `staging` and `production` GitHub environments. A manual `wrangler deploy` from a workstation is no longer the procedure; the local `--dry-run` checks above are still fine.
 
 After each merge, check every route, the two downloads and the response headers over HTTPS on staging, then on ejmlabs.com once the production job finishes, and record the new Worker version. To roll back, redeploy an earlier Worker version in Cloudflare, or revert on main.
 
@@ -149,6 +149,6 @@ See [Cloudflare security operations](SECURITY-OPERATIONS.md) for canonical hosts
 
 The shared deploy fails closed unless the owner has set up the repository:
 
-- The `staging` and `production` GitHub environments exist, each with a custom deployment branch policy that allows exactly one branch, `main`. Running `python3 scripts/configure_repositories.py` in `ejmlabs/.github` creates them once `deploy.yml` is on main (`--repository ejmlabs` limits it to this repository, and `--check` reads them back). Until then, the first run after `deploy.yml` lands stops at its protection step.
+- The `staging` and `production` GitHub environments exist, each with a custom deployment branch policy that allows exactly one branch, `main`. `python3 scripts/set_deploy_token.py` in `ejmlabs/.github` creates them and stores the token below, for every site repository at once, and can run before `deploy.yml` lands. Until then, a deploy run stops at its protection step.
 - Both environments hold the `CLOUDFLARE_API_TOKEN` secret, a token that can deploy Workers and custom domains on the ejmlabs Cloudflare account.
 - If a DNS record for `staging.ejmlabs.com` already exists outside Wrangler, Wrangler prompts in CI and nobody can answer. Remove or adopt that record first.

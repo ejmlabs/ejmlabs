@@ -122,7 +122,7 @@ already attached. Wrangler creates the staging one on its first deploy and
 prompts only if a DNS record for `staging.ejmlabs.com` already exists outside
 Wrangler; CI cannot answer that prompt.
 
-Deploy jobs run Wrangler 4.151.3, pinned in the shared repository rather than
+Deploy jobs run Wrangler 4.153.0, pinned in the shared repository rather than
 this site's dependencies. They refuse a build whose `wrangler.jsonc` differs
 from the reviewed commit. The Cloudflare token is the `CLOUDFLARE_API_TOKEN`
 secret of the `staging` and `production` GitHub environments. Each environment
