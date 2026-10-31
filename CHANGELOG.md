@@ -57,6 +57,12 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 - 41 duplicate local dots, echo, flow, orbit and ripple motif files, totaling 3,264,491 source bytes.
 - The final 39 motif and 12 template copies, totaling 2,223,201 source bytes. The existing public owner exports supply them; build output paths, bytes and modes remain identical for this deletion.
 
+### Security
+
+- Move wrangler to 4.153.0, the first release whose miniflare pins undici 7.30.1, for GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472, GHSA-xjj6-f33q-929c, GHSA-4w7w-5xrc-9h26, GHSA-2m5v-pch6-74hx, GHSA-qrxm-fqhp-jwvm, GHSA-9fm3-97px-rjf6 and GHSA-55wc-3pg8-jfw6. This is site tooling only; the deployed Worker and site output do not include undici.
+- Run the pinned wrangler (`npx --no-install wrangler` from `site/`) in the local dry-run and rollback commands, so they use the locked dependency tree instead of a global or freshly downloaded wrangler. CI deploys already use the wrangler pinned in ejmlabs/.github.
+- Keep minimatch 3.1.5, which serve and serve-handler use only in the local perf script. It does not contain the code GHSA-g3hv-75wg-m249 describes, and serve-handler pins it exactly, so no compatible fix exists.
+
 ## [0.1.0] - 2026-10-18
 
 - Initial development baseline. This entry documents source version metadata; it does not assert a published release or production readiness.

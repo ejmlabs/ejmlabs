@@ -70,8 +70,8 @@ npm test                    # builds dist, then checks every built route
 npm run perf                # first contentful paint against perf-baseline.json; needs Chrome
 find dist -type f | sort    # read the list before you merge
 export WRANGLER_SEND_METRICS=false
-npx wrangler deploy --config wrangler.jsonc --env "" --dry-run
-npx wrangler deploy --config wrangler.jsonc --env staging --dry-run
+npx --no-install wrangler deploy --config wrangler.jsonc --env "" --dry-run
+npx --no-install wrangler deploy --config wrangler.jsonc --env staging --dry-run
 ```
 
 Expect the pages, hashed assets, `_headers`, the theme script, icons and manifest, the
@@ -121,8 +121,9 @@ once the production job finishes.
 ## Roll back and report
 
 - Redeploy an earlier Worker version in Cloudflare: the dashboard's Deployments tab, or
-  `wrangler rollback VERSION_ID --config site/wrangler.jsonc --message "..."` with the owner's
-  login. A bad staging deploy has its own Worker, `ejmlabs-staging`, so add `--env staging`.
+  `npx --no-install wrangler rollback VERSION_ID --config site/wrangler.jsonc --message "..."`
+  with the owner's login, after `npm --prefix site ci --ignore-scripts` so it runs the pinned
+  wrangler. A bad staging deploy has its own Worker, `ejmlabs-staging`, so add `--env staging`.
   Pick the last verified version.
 - Or land a revert on main through the gate. The revert deploys through the same path. After a
   Cloudflare rollback, land that revert too. Until it deploys, main and live differ; say so in
