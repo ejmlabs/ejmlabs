@@ -1,4 +1,4 @@
-@import "@ejm/ui/styles-site.css" source(none);
+@import "@ejm/ui/styles.css";
 @import "@ejm/demos/cli.css";
 @import "@ejm/demos/ide-preview.css";
 @import "@ejm/demos/harness.css";

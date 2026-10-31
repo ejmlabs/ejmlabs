@@ -12,6 +12,8 @@ const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(site, 'dist');
 const read = file => readFileSync(join(dist, file), 'utf8');
 
+/** A Section names itself by its heading: the `<section>` whose aria-labelledby is the heading id a page sets for an anchor. */
+const sectionOf = (html, id) => html.match(new RegExp(`<section\\b[^>]*\\saria-labelledby="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
 const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map(m => m[0]);
 const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
 const prose = html =>
@@ -112,10 +114,10 @@ test('report links go to the product forms and carry only the template and the e
 test('each project section carries the report links', () => {
   const html = read('projects/index.html');
   for (const id of ['cli', 'ide', 'harness', 'ui']) {
-    const band = html.match(new RegExp(`<section\\b[^>]*\\sid="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
+    const band = sectionOf(html, id);
     assertReportLinks(band, [{ cli: 'ejm-cli', ide: 'ejm-ide', harness: 'ejm-harness', ui: 'ejm-ui' }[id]]);
   }
-  const calm = html.match(/<section\b[^>]*\sid="calm"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const calm = sectionOf(html, 'calm');
   assert.doesNotMatch(calm, /issues\/new/);
 });
 

@@ -25,17 +25,15 @@ const prose = html =>
     .replace(/\s+/g, ' ');
 const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map(m => m[0]);
 const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
+/** A Section names itself by its heading: the `<section>` whose aria-labelledby is the heading id (a page sets the id only to give an anchor). */
+const sectionOf = (html, id) => html.match(new RegExp(`<section\\b[^>]*\\saria-labelledby="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
+const headingId = (html, title) => html.match(new RegExp(`<h[2-6]\\b[^>]*\\sid="([^"]+)"[^>]*>${title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</h`))?.[1] ?? '';
 
 for (const route of PAGES) {
   test(`${route}: structure, head and links`, () => {
     const html = read(file(route));
 
-    // One h1, and a skip link before anything else in the body.
-    assert.equal(tags(html, 'h1').length, 1, 'exactly one h1');
-    const first = tags(body(html), 'a')[0] ?? '';
-    assert.equal(attr(first, 'href'), '#main', 'the skip link comes first');
-    assert.match(first, /skip-link/);
-    assert.match(html, /<main id="main"/);
+    // The build (ejm-site pages check) enforces one h1, the skip link first and main#main, so they are not repeated here.
 
     // Head: a title, a description, and for real routes a canonical URL.
     assert.match(html, /<title>[^<]+<\/title>/);
@@ -65,7 +63,7 @@ for (const route of PAGES) {
     }
     assert.ok(!/<style\b/.test(html), 'no style element');
 
-    // Links to another site are marked external. Same-site links are plain paths.
+    // Links to another site are marked external. The build allows an absolute link to this site's own origin without it; this check does not.
     for (const a of tags(body(html), 'a')) {
       const href = attr(a, 'href') ?? '';
       if (/^https?:/.test(href)) assert.match(attr(a, 'rel') ?? '', /\bexternal\b/, `${href} is marked external`);
@@ -116,13 +114,14 @@ test('the home page opens with a text hero and keeps project names on one line',
 
 test('the home page keeps its navigable sections in order', () => {
   const html = read('index.html');
-  const sections = ['approach-title', 'projects-title', 'products-title', 'try-title', 'open-title'];
+  const sections = ['How we work.', 'Open source projects.', 'Commercial products.', 'See it in action.', 'Help improve a project.'];
   let last = -1;
-  for (const id of sections) {
-    const at = html.indexOf(`id="${id}"`);
-    assert.ok(at > last, `${id}: present and in order`);
+  for (const title of sections) {
+    const at = html.indexOf(`>${title}</h2>`);
+    assert.ok(at > last, `${title}: present and in order`);
     last = at;
   }
+  assert.ok(sectionOf(html, 'projects').includes('Open source projects.'), 'the hero link target names the projects section');
 });
 
 test('the home page keeps the commercial product apart from the open source projects', () => {
@@ -135,15 +134,14 @@ test('the home page keeps the commercial product apart from the open source proj
   const text = prose(html);
   assert.match(text, /not released yet/, 'gerry is described as unreleased');
   assert.match(text, /gerry is proprietary/, 'the footer does not call gerry MIT licensed');
-  const at = html.indexOf('id="products"');
-  const marks = tags(html.slice(at, html.indexOf('</section>', at)), 'img').map(img => attr(img, 'src'));
+  const marks = tags(sectionOf(html, headingId(html, 'Commercial products.')), 'img').map(img => attr(img, 'src'));
   assert.equal(marks.length, 2, 'gerry shows its Ink and Paper marks');
   for (const src of marks) assert.doesNotMatch(src, /symbol-(?:ink|paper)/, 'gerry uses its own mark, not the lab symbol');
 });
 
 test('the IDE platform fact distinguishes the documented target from unsupported platforms', () => {
   const html = read('projects/index.html');
-  const band = html.match(/<section\b[^>]*\sid="ide"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const band = sectionOf(html, 'ide');
   const text = prose('<body>' + band);
   assert.match(text, /macOS on Apple Silicon is the current target/);
   assert.match(text, /Windows and Linux are not yet supported/);
@@ -203,8 +201,7 @@ test('every project mark on home and projects is built', () => {
   const projects = read('projects/index.html');
   const marks = [...home];
   for (const id of PROJECT_HOSTS) {
-    const band = projects.match(new RegExp(`<section\\b[^>]*\\sid="${id}"[\\s\\S]*?</section>`))?.[0] ?? '';
-    const imgs = tags(band, 'img');
+    const imgs = tags(sectionOf(projects, id), 'img');
     assert.ok(imgs.length >= 1, `${id} has a mark`);
     marks.push(...imgs);
   }
@@ -217,7 +214,7 @@ test('every project mark on home and projects is built', () => {
 
 test('calm links only to pages that exist', () => {
   const html = read('projects/index.html');
-  const band = html.match(/<section\b[^>]*\sid="calm"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const band = sectionOf(html, 'calm');
   const hrefs = tags(band, 'a').map(t => attr(t, 'href') ?? '');
   assert.ok(hrefs.includes('https://github.com/ejmlabs/ejm-calm'), 'source link');
   assert.ok(!hrefs.some(h => /CONTRIBUTING/i.test(h)), 'no contribution guide link');
