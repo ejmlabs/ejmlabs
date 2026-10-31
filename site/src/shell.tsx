@@ -1,4 +1,3 @@
-import { CALM_PROJECT, GERRY_PROJECT, UI_PROJECT } from './content';
 import { Link, usePath } from '@ejm/ssg';
 import { Analytics } from '@ejm/site/analytics';
 import { otherSites, PROJECTS, sourceLinks } from '@ejm/site/projects';
@@ -38,7 +37,7 @@ const footer: FooterProps = {
   },
   columns: [
     { heading: 'Pages', links: footerPages },
-    { heading: 'Projects', links: [...otherSites('ejmlabs'), ...[UI_PROJECT, CALM_PROJECT, GERRY_PROJECT].map(p => ({ label: p.name, href: p.url, external: true }))].map(unbroken) },
+    { heading: 'Projects', links: otherSites('ejmlabs').map(unbroken) },
     { heading: 'Source', links: sourceLinks('ejmlabs') },
   ],
   privacy: (

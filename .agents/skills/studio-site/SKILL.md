@@ -33,9 +33,11 @@ node scripts/check.mjs   # installs the site lock without scripts, then typechec
 
 ## Pages and design
 
-- Compose pages from public `@ejm/ui` deep imports (`@ejm/ui/layout/Band`) and the
-  `@ejm/ui/layout/SiteContent` pieces (`SectionBody`, `Columns`, `Actions`, notes, asset
-  previews, links). When a pattern is missing, add it to ejm-ui and adopt the new pin.
+- Compose pages from public `@ejm/ui` deep imports: `Hero` opens a page and `Section`
+  (`@ejm/ui/layout/Section`) builds each part, with the `@ejm/ui/layout/SiteContent` pieces
+  (`Columns`, `Actions`, notes, asset previews, links). `Section` derives the heading level,
+  the ground and the spacing; use `emphasis` at most once a page and an `id` only for an
+  anchor. When a pattern is missing, add it to ejm-ui and adopt the new pin.
 - The `ejmSite` build plugin fails on local CSS rules or imports, inline styles, style
   elements, visual `className` values and unsupported overrides. The only exceptions are the
   public shared CSS imports, the content-scan exclusion and `Static className="contents"`.
