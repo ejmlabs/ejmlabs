@@ -51,7 +51,7 @@ The `@ejm/*` packages are linked with `file:../../ejm-ui/packages/*`, so a local
 - Studio favicon downloads and retained public URLs read the public `@ejm/tokens/assets/favicon/*` exports, the same source used by the site's browser icons. The retained working kit is not a second source for active assets. Local motif and template copies are removed; ZIP assembly keeps resolving its named motif and template allowlist from the owner exports only.
 - `brand-kit/` holds the public usage guides and rights summary. The Brand page reads palette values from the public `@ejm/tokens/assets/brand/palette.json` export. The build includes the existing root `LICENSE` unchanged and the original font notices. Swag contains the eight SVG masters and manifest unchanged, plus three previews labelled as concepts. Working playbooks and image prompts are not downloads.
 - `dist/` and `.ejm-ssg/` are generated. Never edit them.
-- `wrangler.jsonc` configures Workers static assets (`./dist`, with the 404 page), the apex domain, and a separate preview environment.
+- `wrangler.jsonc` configures Workers static assets (`./dist`, with the 404 page), the apex domain, a separate preview environment, and a staging environment.
 
 ## Package boundaries
 
@@ -114,13 +114,14 @@ Try places one disclosure beside each playback. The Harness terminal formats val
 
 The header and route transitions share the existing 320ms motion tokens. Explicit theme switches crossfade when the browser supports View Transitions; reduced motion and unsupported browsers switch immediately. Shared content remains visible at first paint.
 
-The dry run below checks the Worker bundle locally and does not publish it:
+The dry runs below check the Worker bundle locally and do not publish it:
 
 ```sh
 npx wrangler deploy --config wrangler.jsonc --dry-run
+npx wrangler deploy --config wrangler.jsonc --env staging --dry-run
 ```
 
-An actual deploy runs from the merge commit on main, as the studio-deploy skill describes.
+Merges to main deploy through CI. See [Cloudflare hosting](#cloudflare-hosting) and the studio-deploy skill.
 
 ## Keep docs current after each change
 
@@ -132,6 +133,22 @@ Product guides live in each project's repository and are linked from `/projects/
 
 The canonical address is [ejmlabs.com](https://ejmlabs.com/). The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the apex zone is active. Cloudflare serves `dist/`, which holds the site, `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`.
 
-Publishing follows protected source review and a merge to main. Use the existing custom-domain mapping and record the new Worker version. After a deploy, check every route, the two downloads and the response headers over HTTPS.
+A push to main runs `.github/workflows/deploy.yml`, the canonical caller of the shared `ejmlabs/.github` workflow `deploy-site.yml`. Keep it identical to the shared template apart from the pin; the repository standards check enforces that.
+
+1. A build job, with `contents: read` and no secrets, builds the site from that main commit with ejm-ui checked out at the pin in `.github/ui-source.json`. It runs `npm --prefix ../ejm-ui ci --ignore-scripts`, `npm --prefix site ci --ignore-scripts` and `npm --prefix site run build`, then uploads `site/wrangler.jsonc` and `site/dist`.
+2. A staging job runs `wrangler deploy --env staging`. Staging is the Worker `ejmlabs-staging` at `staging.ejmlabs.com`; it is publicly reachable and serves the latest main.
+3. When staging succeeds, a production job deploys the same built files with the top-level config to the existing custom-domain mapping. Nobody approves a production job. The human decision is the merge, which needs the gate's approval and the required checks.
+
+Deploy jobs run Wrangler 4.151.3, pinned in the shared repository (`deploy/package.json`), not this site's dependencies. The deploy refuses a build whose `site/wrangler.jsonc` differs from the reviewed commit, so change that file in source, never in a build step. The Cloudflare token is the `CLOUDFLARE_API_TOKEN` secret of the `staging` and `production` GitHub environments. A manual `wrangler deploy` from a workstation is no longer the procedure; the local `--dry-run` checks above are still fine.
+
+After each merge, check every route, the two downloads and the response headers over HTTPS on staging, then on ejmlabs.com once the production job finishes, and record the new Worker version. To roll back, redeploy an earlier Worker version in Cloudflare, or revert on main.
 
 See [Cloudflare security operations](SECURITY-OPERATIONS.md) for canonical hosts, preview access, credentials, verification, and recovery.
+
+### Before the first deploy
+
+The shared deploy fails closed unless the owner has set up the repository:
+
+- The `staging` and `production` GitHub environments exist, each with a custom deployment branch policy that allows exactly one branch, `main`. Running `python3 scripts/configure_repositories.py` in `ejmlabs/.github` creates them once `deploy.yml` is on main (`--repository ejmlabs` limits it to this repository, and `--check` reads them back). Until then, the first run after `deploy.yml` lands stops at its protection step.
+- Both environments hold the `CLOUDFLARE_API_TOKEN` secret, a token that can deploy Workers and custom domains on the ejmlabs Cloudflare account.
+- If a DNS record for `staging.ejmlabs.com` already exists outside Wrangler, Wrangler prompts in CI and nobody can answer. Remove or adopt that record first.

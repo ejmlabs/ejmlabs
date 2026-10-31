@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Deploy ejmlabs.com when a change merges to main: build without credentials, deploy staging at staging.ejmlabs.com, then production, using the shared deploy workflow. The owner must first create the `staging` and `production` GitHub environments and add the Cloudflare token to each.
+
 - Show ejm-ui's new u-and-block mark in its project rows and band.
 
 - Describe gerry with the copy on its own site, meetgerry.ai.

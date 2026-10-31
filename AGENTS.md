@@ -68,7 +68,7 @@ there. A rule below or a repository skill may add to them, never relax them.
 - Never edit generated output: `site/dist/`, `site/.ejm-ssg/`, and the head tags, theme script,
   icons, manifest and `_headers` that `@ejm/site` writes during the build.
 - `site/public/releases.json` is the only list of released files. Never replace a listed file.
-- Production deploys of ejmlabs.com run from the merge commit once the PR lands, through studio-deploy, without asking again.
+- A merge to main deploys ejmlabs.com: `.github/workflows/deploy.yml` builds the merge commit, deploys staging, then production, with no approval click. Check each deploy live through studio-deploy; never run `wrangler deploy` by hand.
 - Keep `site/README.md`, `CHANGELOG.md` and the affected public pages current in the same
   change. A `VERSION` change follows [RELEASING.md](RELEASING.md).
 
