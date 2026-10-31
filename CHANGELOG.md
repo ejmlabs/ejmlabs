@@ -57,7 +57,9 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ### Security
 
-- Override the site tooling's transitive undici to 7.30.1 (wrangler stays at 4.151.3, as in ejm-harness/registry) for GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472, GHSA-xjj6-f33q-929c, GHSA-4w7w-5xrc-9h26, GHSA-2m5v-pch6-74hx, GHSA-qrxm-fqhp-jwvm, GHSA-9fm3-97px-rjf6 and GHSA-55wc-3pg8-jfw6. Drop the override once the wrangler pin ships undici 7.30.1 or later (wrangler 4.153.0 and up). The deployed Worker and site output do not include undici.
+- Move wrangler to 4.153.0, the first release whose miniflare pins undici 7.30.1, for GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472, GHSA-xjj6-f33q-929c, GHSA-4w7w-5xrc-9h26, GHSA-2m5v-pch6-74hx, GHSA-qrxm-fqhp-jwvm, GHSA-9fm3-97px-rjf6 and GHSA-55wc-3pg8-jfw6. This is site tooling only; the deployed Worker and site output do not include undici.
+- Run the pinned wrangler (`npx --no-install wrangler` from `site/`) in the deploy, rollback and dry-run instructions, so a deploy uses the locked dependency tree instead of a global or freshly downloaded wrangler.
+- Keep minimatch 3.1.5, which serve and serve-handler use only in the local perf script. It does not contain the code GHSA-g3hv-75wg-m249 describes, and serve-handler pins it exactly, so no compatible fix exists.
 
 ## [0.1.0] - 2026-10-18
 
