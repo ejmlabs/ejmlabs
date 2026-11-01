@@ -88,7 +88,6 @@ there. A rule below or a repository skill may add to them, never relax them.
 | `site/test/` | `node:test` checks over the built `dist` |
 | `site/brand-kit/` | Public brand and swag guides and rights, copied into the ZIPs |
 | `design-kit/` | Retained working kit and swag masters; not a source of active UI |
-| `review/`, `.github/review-context/` | Inert source snapshots kept for pin reviews; the build never reads them |
 
 ## Commands
 

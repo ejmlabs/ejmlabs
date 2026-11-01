@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Remove the retired review inputs under `review/dependency-sources/` and `.github/review-context/` (411 files, 4,202,271 bytes), and their row in the `AGENTS.md` map. They were static source snapshots for an AI pin review that the shared gate no longer runs, and the build never read them. Two of them were `package-lock.json` snapshots, which dependency alerts would flag although nothing installs them. The built site is unchanged.
+
 - Move the shared ejmlabs/.github pins to 340178d and resync the design and TypeScript skills, which now describe the systemic ejm-ui kit.
 
 - Say in the studio-deploy live checks that staging challenges the machine routes too (`install.sh`, `releases.json`, the ZIPs and `sitemap.xml`), so staging is checked in a headed browser or by comparing its hashed assets with `dist`.
