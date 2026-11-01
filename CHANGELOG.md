@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Move the shared ejmlabs/.github pins to 90287bb and resync the Cloudflare skill and CI deploy reference. Production deploys now wait for a maintainer to approve them, and deploy only main's newest commit; the deploy docs say so.
+
 - Remove the retired review inputs under `review/dependency-sources/` and `.github/review-context/` (411 files, 4,202,271 bytes), and their row in the `AGENTS.md` map. They were static source snapshots for an AI pin review that the shared gate no longer runs, and the build never read them. Two of them were `package-lock.json` snapshots, which dependency alerts would flag although nothing installs them. The built site is unchanged.
 
 - Move the shared ejmlabs/.github pins to 340178d and resync the design and TypeScript skills, which now describe the systemic ejm-ui kit.
