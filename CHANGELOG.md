@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Move the shared ejmlabs/.github pins to a44b257 and resync the shared CI deploy reference, which now has agents confirm the live Worker version before a production approval.
+
 - Drop the wrappers around the Try page's demo frames. ejm-ui's `ShowcaseFrame` now fills its column inside a `Section` body, so each frame is a direct child again; widths are unchanged.
 
 - Move the ejm-ui pin to `4dde792` (ejm-ui PRs 66 to 68). `ShowcaseFrame` now fills its column inside a `Section` body, which lets the Try page drop its wrappers next, and the header, link and demo fixes apply. No page changes in this step.
