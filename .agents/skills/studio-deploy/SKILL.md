@@ -7,7 +7,8 @@ description: Use when you check, follow, roll back or verify a deploy of ejmlabs
 
 What is live must be a reviewed main commit, built from clean clones against the pinned ejm-ui,
 and seen working in a headed browser. CI deploys it: a push to main deploys staging, then
-production. How the pipeline runs, what it refuses, how it fails and the owner setup are in
+production once a maintainer approves it. How the pipeline runs, what it refuses, how it fails
+and the owner setup are in
 [ci-deploys.md](../ejmlabs-cloudflare/references/ci-deploys.md). This adds the ejmlabs.com
 specifics to `ejmlabs-cloudflare`; read it, that reference and its verify reference first.
 

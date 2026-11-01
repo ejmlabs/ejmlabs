@@ -133,7 +133,7 @@ Product guides live in each project's repository and are linked from `/projects/
 
 The canonical address is [ejmlabs.com](https://ejmlabs.com/). The verified Cloudflare account is `478a0db3a110d8503c16abbc1db27af4`; the apex zone is active. Cloudflare serves `dist/`, which holds the site, `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`.
 
-A push to main deploys staging, then production; [CI deploys](../.agents/skills/ejmlabs-cloudflare/references/ci-deploys.md) describes the pipeline, what it refuses and the owner setup. For this site:
+A push to main deploys staging, then production once a maintainer approves it; [CI deploys](../.agents/skills/ejmlabs-cloudflare/references/ci-deploys.md) describes the pipeline, what it refuses and the owner setup. For this site:
 
 - Production is the Worker `ejmlabs` at `ejmlabs.com`. Staging is the Worker `ejmlabs-staging` at `staging.ejmlabs.com`. `wrangler.jsonc` configures both, staging under `env.staging`.
 - The CI build checks out ejm-ui at the pin in `.github/ui-source.json`, runs `npm --prefix ../ejm-ui ci --ignore-scripts`, `npm --prefix site ci --ignore-scripts` and `npm --prefix site run build`, then uploads `site/wrangler.jsonc` and `site/dist`.
