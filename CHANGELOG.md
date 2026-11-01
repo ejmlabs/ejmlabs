@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Move the shared ejmlabs/.github pins to 340178d and resync the design and TypeScript skills, which now describe the systemic ejm-ui kit.
+
 - Say in the studio-deploy live checks that staging challenges the machine routes too (`install.sh`, `releases.json`, the ZIPs and `sitemap.xml`), so staging is checked in a headed browser or by comparing its hashed assets with `dist`.
 
 - Move the shared ejmlabs/.github pins to a44b257 and resync the shared CI deploy reference, which now has agents confirm the live Worker version before a production approval.
