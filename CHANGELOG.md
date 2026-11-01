@@ -4,6 +4,8 @@ Changes follow [Semantic Versioning](https://semver.org/). Each repository is ve
 
 ## [Unreleased]
 
+- Move the shared ejmlabs/.github pins to 340178d and resync the design and TypeScript skills, which now describe the systemic ejm-ui kit.
+
 - Move the shared ejmlabs/.github pins to a44b257 and resync the shared CI deploy reference, which now has agents confirm the live Worker version before a production approval.
 
 - Drop the wrappers around the Try page's demo frames. ejm-ui's `ShowcaseFrame` now fills its column inside a `Section` body, so each frame is a direct child again; widths are unchanged.
