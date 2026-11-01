@@ -9,4 +9,5 @@ jobs:
       contents: read
       actions: read
     uses: ejmlabs/.github/.github/workflows/deploy-site.yml@90287bb91b735a9d29706e604c8142917ab7ffd6
-    secrets: inherit
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
