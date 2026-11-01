@@ -72,9 +72,15 @@ once the production job finishes.
 - Each changed route shows the new copy (read it), at 375 px and desktop, light and dark, with an
   empty console. Links on changed pages go where they should.
 - A missing route returns the 404 page with status 404.
-- Machine routes are not challenged. `/ejmlabs-design-kit.zip` and `/ejmlabs-swag-kit.zip`
-  return 200 to `curl -sSI`, and `curl -sS https://ejmlabs.com/install.sh | cmp - dist/install.sh`
-  passes, as does the same check for `/releases.json`.
+- On `ejmlabs.com`, machine routes are not challenged. `/ejmlabs-design-kit.zip` and
+  `/ejmlabs-swag-kit.zip` return 200 to `curl -sSI`, and
+  `curl -sS https://ejmlabs.com/install.sh | cmp - dist/install.sh` passes, as does the same
+  check for `/releases.json`.
+- On `staging.ejmlabs.com`, the machine routes are challenged too: `install.sh`,
+  `releases.json`, both ZIPs and `sitemap.xml` answer curl with the 403 page. `robots.txt` and the
+  hashed `/assets/*` files are not challenged. Check staging's pages and machine routes in the
+  headed browser. To check from a terminal that staging serves the build, request a few
+  `dist/assets/*` names from staging and compare their bytes with `dist`.
 - Live headers match `dist/_headers` for each changed path. In the headed page, after the
   challenge, run
   `Object.fromEntries((await fetch(location.pathname, { cache: 'no-store' })).headers)`. Each
